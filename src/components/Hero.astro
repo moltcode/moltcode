@@ -145,9 +145,27 @@
           <!-- Right - Agent selector -->
           <div class="w-80 p-6 hidden xl:block">
             <div class="text-center mb-8">
-              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[#e79f74]/20 to-[#ad623d]/20 border border-[#e79f74]/20 flex items-center justify-center">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e79f74" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-              </div>
+              <svg width="64" height="64" viewBox="0 0 64 64" class="mx-auto mb-4 rounded-2xl">
+                <defs>
+                  <linearGradient id="heroBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#27272a"/>
+                    <stop offset="100%" stop-color="#3f3f46"/>
+                  </linearGradient>
+                  <linearGradient id="heroCopperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#b45309"/>
+                    <stop offset="50%" stop-color="#d97706"/>
+                    <stop offset="100%" stop-color="#92400e"/>
+                  </linearGradient>
+                  <linearGradient id="heroBronzeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#d97706"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#heroBgGrad)"/>
+                <rect x="12" y="30" width="16" height="24" rx="4" fill="url(#heroCopperGrad)"/>
+                <rect x="34" y="20" width="16" height="34" rx="4" fill="url(#heroCopperGrad)" opacity="0.7"/>
+                <rect x="24" y="10" width="16" height="28" rx="4" fill="url(#heroBronzeGrad)"/>
+              </svg>
               <h3 class="text-lg font-semibold text-[#f4e9df] mb-1">Start a new chat</h3>
             </div>
 

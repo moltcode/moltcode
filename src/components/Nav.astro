@@ -6,12 +6,27 @@
     <div class="flex items-center justify-between">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-[#e79f74] to-[#ad623d] flex items-center justify-center shadow-lg group-hover:shadow-[0_0_20px_rgba(231,159,116,0.4)] transition-shadow">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="4 17 10 11 4 5"></polyline>
-            <line x1="12" y1="19" x2="20" y2="19"></line>
-          </svg>
-        </div>
+        <svg width="36" height="36" viewBox="0 0 64 64" class="rounded-lg shadow-lg group-hover:shadow-[0_0_20px_rgba(231,159,116,0.4)] transition-shadow">
+          <defs>
+            <linearGradient id="navBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#27272a"/>
+              <stop offset="100%" stop-color="#3f3f46"/>
+            </linearGradient>
+            <linearGradient id="navCopperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#b45309"/>
+              <stop offset="50%" stop-color="#d97706"/>
+              <stop offset="100%" stop-color="#92400e"/>
+            </linearGradient>
+            <linearGradient id="navBronzeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f59e0b"/>
+              <stop offset="100%" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#navBgGrad)"/>
+          <rect x="12" y="30" width="16" height="24" rx="4" fill="url(#navCopperGrad)"/>
+          <rect x="34" y="20" width="16" height="34" rx="4" fill="url(#navCopperGrad)" opacity="0.7"/>
+          <rect x="24" y="10" width="16" height="28" rx="4" fill="url(#navBronzeGrad)"/>
+        </svg>
         <span class="text-xl font-semibold text-[#f4e9df]">Molt Code</span>
       </a>
 
