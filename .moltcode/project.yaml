@@ -1,0 +1,21 @@
+name: moltcode-website
+description: Marketing website for moltcode.com
+
+processes:
+  dev:
+    name: Dev Server
+    command: npm run dev
+    description: Astro development server with hot reload
+    auto_start: false
+
+  build:
+    name: Build
+    command: npm run build
+    description: Build static site to dist/
+    auto_start: false
+
+  preview:
+    name: Preview
+    command: npm run preview
+    description: Preview production build locally
+    auto_start: false
