@@ -1,76 +1,143 @@
 ---
 const features = [
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`,
     title: "Full Visibility",
-    description: "See exactly what AI agents are doing. Every tool call, every file edit, every decision — transparent and observable in real-time."
+    description: "See exactly what AI agents are doing. Every tool call, every file edit, every decision."
   },
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
     title: "Better UI for AI",
-    description: "Purpose-built interface for AI workflows. Not a chat bolted onto an editor — a workspace designed from the ground up for agent collaboration."
+    description: "Purpose-built interface for AI workflows, not a chat bolted onto an editor."
   },
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>`,
     title: "CLI-Independent Agents",
-    description: "Agents run as managed subprocesses, not CLI wrappers. Clean separation, better control, and no terminal gymnastics required."
+    description: "Agents run as managed subprocesses. Clean separation, better control."
   },
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`,
     title: "Easy Tool Configuration",
-    description: "Configure MCP servers, permissions, and agent tools without touching config files. Point, click, done."
+    description: "Configure MCP servers, permissions, and agent tools without touching config files."
   },
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h.01"/><path d="M12 8h.01"/><path d="M17 8h.01"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h.01"/><path d="M12 8h.01"/><path d="M17 8h.01"/></svg>`,
     title: "Multi-Chat, Multi-Project",
-    description: "Multiple conversations, multiple projects, all in one app. Switch contexts instantly without losing your place."
+    description: "Multiple conversations, multiple projects, all in one app."
   },
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
     title: "Low Memory, Run & Kill",
-    description: "Agents spin up when needed, terminate when done. No idle processes eating RAM. Efficient by design."
+    description: "Agents spin up when needed, terminate when done. No idle processes eating RAM."
   },
   {
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
     title: "Better Process Management",
-    description: "Define, start, stop, and monitor processes from a dashboard or CLI. Tail logs, grep output, manage your dev environment."
+    description: "Define, start, stop, and monitor processes. Tail logs, grep output."
   }
 ];
 ---
 
 <section id="features" class="py-24 px-6">
-  <div class="max-w-6xl mx-auto">
+  <div class="max-w-4xl mx-auto">
     <!-- Section header -->
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-[#f4e9df] mb-4">
-        Built with
-        <span class="gradient-text">clear goals</span>
+    <div class="mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-[#f4e9df] mb-3">
+        Built with clear goals
       </h2>
-      <p class="text-xl text-[#f4e9df]/60 max-w-2xl mx-auto">
+      <p class="text-lg text-[#f4e9df]/50">
         What we're optimizing for.
       </p>
     </div>
 
-    <!-- Features grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {features.map((feature) => (
-        <div class="card-hover bg-[#1a1512]/50 rounded-2xl p-6 backdrop-blur-sm">
-          <div class="feature-icon w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-[#e79f74]" set:html={feature.icon}></div>
-          <h3 class="text-xl font-semibold text-[#f4e9df] mb-2">{feature.title}</h3>
-          <p class="text-[#f4e9df]/60 leading-relaxed">{feature.description}</p>
+    <!-- Features list -->
+    <div class="features-list">
+      {features.map((feature, index) => (
+        <div class="feature-row">
+          <div class="feature-number">{String(index + 1).padStart(2, '0')}</div>
+          <div class="feature-icon" set:html={feature.icon}></div>
+          <div class="feature-content">
+            <h3 class="feature-title">{feature.title}</h3>
+            <p class="feature-desc">{feature.description}</p>
+          </div>
         </div>
       ))}
     </div>
 
     <!-- Highlighted callout -->
-    <div class="mt-12 max-w-3xl mx-auto">
-      <div class="bg-gradient-to-r from-[#e79f74]/10 via-[#d97706]/10 to-[#e79f74]/10 rounded-2xl p-6 border border-[#e79f74]/30 text-center">
-        <p class="text-lg text-[#f4e9df]">
-          <span class="text-[#e79f74] font-semibold">Both you and the agents</span> have access to all these features.
-          <br class="hidden sm:block" />
-          <span class="text-[#f4e9df]/70">Same tools, same visibility, same control.</span>
-        </p>
-      </div>
+    <div class="mt-12 py-6 border-t border-b border-[#e79f74]/20">
+      <p class="text-center">
+        <span class="text-[#e79f74] font-medium">Both you and the agents</span>
+        <span class="text-[#f4e9df]/70"> have access to all these features.</span>
+      </p>
     </div>
   </div>
 </section>
+
+<style>
+  .features-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-row {
+    display: grid;
+    grid-template-columns: 2.5rem 2.5rem 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(244, 233, 223, 0.06);
+    transition: background 0.2s ease;
+  }
+
+  .feature-row:first-child {
+    border-top: 1px solid rgba(244, 233, 223, 0.06);
+  }
+
+  .feature-row:hover {
+    background: rgba(231, 159, 116, 0.03);
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .feature-number {
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: rgba(244, 233, 223, 0.25);
+    padding-top: 0.125rem;
+  }
+
+  .feature-icon {
+    color: #e79f74;
+    padding-top: 0.125rem;
+  }
+
+  .feature-content {
+    min-width: 0;
+  }
+
+  .feature-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-bottom: 0.25rem;
+  }
+
+  .feature-desc {
+    font-size: 0.9375rem;
+    color: rgba(244, 233, 223, 0.5);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    .feature-row {
+      grid-template-columns: 2rem 1fr;
+      gap: 0.75rem;
+    }
+
+    .feature-number {
+      display: none;
+    }
+  }
+</style>
