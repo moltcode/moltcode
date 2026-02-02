@@ -29,6 +29,11 @@ const features = [
     icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
     title: "Low Memory, Run & Kill",
     description: "Agents spin up when needed, terminate when done. No idle processes eating RAM. Efficient by design."
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
+    title: "Better Process Management",
+    description: "Define, start, stop, and monitor processes from a dashboard or CLI. Tail logs, grep output, manage your dev environment."
   }
 ];
 ---
@@ -55,6 +60,17 @@ const features = [
           <p class="text-[#f4e9df]/60 leading-relaxed">{feature.description}</p>
         </div>
       ))}
+    </div>
+
+    <!-- Highlighted callout -->
+    <div class="mt-12 max-w-3xl mx-auto">
+      <div class="bg-gradient-to-r from-[#e79f74]/10 via-[#d97706]/10 to-[#e79f74]/10 rounded-2xl p-6 border border-[#e79f74]/30 text-center">
+        <p class="text-lg text-[#f4e9df]">
+          <span class="text-[#e79f74] font-semibold">Both you and the agents</span> have access to all these features.
+          <br class="hidden sm:block" />
+          <span class="text-[#f4e9df]/70">Same tools, same visibility, same control.</span>
+        </p>
+      </div>
     </div>
   </div>
 </section>
