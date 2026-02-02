@@ -1,0 +1,60 @@
+---
+const features = [
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2Z"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 12 2.1 9.1"/><path d="m12 12 6.3 6.3"/></svg>`,
+    title: "Multi-Agent Orchestration",
+    description: "Switch between Claude, Codex, OpenCode, and Gemini in a unified interface. Each agent runs as a subprocess with seamless normalization."
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
+    title: "Full IDE Experience",
+    description: "File explorer, terminals, Git integration, code review, and issue tracking. Everything you need in one cohesive workspace."
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>`,
+    title: "Bring Your Own Keys",
+    description: "Use your existing API budget directly. No middleman markup, no subscription fatigue. Your keys, your usage, your control."
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>`,
+    title: "Self-Hosted & Private",
+    description: "Run on your own infrastructure. Your code never leaves your machines. Complete data sovereignty and privacy."
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+    title: "Real-Time Streaming",
+    description: "Watch agents think and work in real-time. Stream tool calls, edits, and reasoning as they happen with WebSocket-powered updates."
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h10"/></svg>`,
+    title: "Built-In Issue Tracking",
+    description: "Hierarchical issues with sub-tasks and comments. Plan work, track progress, and let agents help resolve bugs directly."
+  }
+];
+---
+
+<section id="features" class="py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-[#f4e9df] mb-4">
+        Everything you need,
+        <span class="gradient-text">nothing you don't</span>
+      </h2>
+      <p class="text-xl text-[#f4e9df]/60 max-w-2xl mx-auto">
+        A complete development environment designed for the AI-assisted coding era.
+      </p>
+    </div>
+
+    <!-- Features grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map((feature) => (
+        <div class="card-hover bg-[#1a1512]/50 rounded-2xl p-6 backdrop-blur-sm">
+          <div class="feature-icon w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-[#e79f74]" set:html={feature.icon}></div>
+          <h3 class="text-xl font-semibold text-[#f4e9df] mb-2">{feature.title}</h3>
+          <p class="text-[#f4e9df]/60 leading-relaxed">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
