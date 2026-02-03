@@ -1,0 +1,111 @@
+---
+---
+
+<section class="py-20 px-6 border-b border-white/5">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-[#f4e9df] mb-4">
+        Terminal-based AI workflows don't scale
+      </h2>
+      <p class="text-lg text-[#f4e9df]/50">
+        If you're working on multiple projects, you've hit these walls.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="pain-point">
+        <div class="pain-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="pain-title">Context switching nightmare</h3>
+          <p class="pain-desc">Which terminal has which project? Which agent is waiting for input? You're constantly hunting.</p>
+        </div>
+      </div>
+
+      <div class="pain-point">
+        <div class="pain-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="pain-title">Agents waiting in the background</h3>
+          <p class="pain-desc">An agent needs your approval but you forgot about it. Tasks stall because you can't see what's pending.</p>
+        </div>
+      </div>
+
+      <div class="pain-point">
+        <div class="pain-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="pain-title">Copy-paste hell</h3>
+          <p class="pain-desc">Terminal selection is a trap. Scrollback disappears. You can't easily grab code snippets or errors.</p>
+        </div>
+      </div>
+
+      <div class="pain-point">
+        <div class="pain-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="pain-title">Lost track of what happened where</h3>
+          <p class="pain-desc">Was that bugfix in project A or B? Terminals don't give you history you can actually search.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-[#f4e9df]/40 mt-10 text-sm">
+      Molt Code solves this with a proper workspace—not another terminal wrapper.
+    </p>
+  </div>
+</section>
+
+<style>
+  .pain-point {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: rgba(244, 233, 223, 0.02);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(244, 233, 223, 0.05);
+  }
+
+  .pain-icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 0.5rem;
+    color: #f87171;
+  }
+
+  .pain-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-bottom: 0.25rem;
+  }
+
+  .pain-desc {
+    font-size: 0.875rem;
+    color: rgba(244, 233, 223, 0.5);
+    line-height: 1.5;
+  }
+</style>
