@@ -1,0 +1,508 @@
+{
+  "$schema": "https://moltcode.dev/registry/lsp-servers.schema.json",
+  "version": "1.0.0",
+  "updated_at": "2025-02-03T00:00:00Z",
+  "servers": [
+    {
+      "id": "gopls",
+      "name": "gopls",
+      "label": "Go",
+      "description": "Official Go language server developed by the Go team",
+      "homepage": "https://pkg.go.dev/golang.org/x/tools/gopls",
+      "command": "gopls",
+      "args": ["serve"],
+      "languages": ["go"],
+      "file_patterns": ["*.go", "go.mod", "go.sum", "go.work"],
+      "root_markers": ["go.mod", "go.work"],
+      "install": {
+        "go": "go install golang.org/x/tools/gopls@latest",
+        "brew": "brew install gopls"
+      },
+      "settings": {}
+    },
+    {
+      "id": "typescript-language-server",
+      "name": "typescript-language-server",
+      "label": "TypeScript / JavaScript",
+      "description": "TypeScript & JavaScript language server using the TypeScript compiler",
+      "homepage": "https://github.com/typescript-language-server/typescript-language-server",
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "languages": ["typescript", "javascript", "typescriptreact", "javascriptreact"],
+      "file_patterns": ["*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs"],
+      "root_markers": ["tsconfig.json", "jsconfig.json", "package.json"],
+      "install": {
+        "npm": "npm install -g typescript-language-server typescript"
+      },
+      "settings": {}
+    },
+    {
+      "id": "vtsls",
+      "name": "vtsls",
+      "label": "TypeScript (vtsls)",
+      "description": "LSP wrapper around TypeScript extension bundled with VSCode",
+      "homepage": "https://github.com/yioneko/vtsls",
+      "command": "vtsls",
+      "args": ["--stdio"],
+      "languages": ["typescript", "javascript", "typescriptreact", "javascriptreact"],
+      "file_patterns": ["*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs"],
+      "root_markers": ["tsconfig.json", "jsconfig.json", "package.json"],
+      "install": {
+        "npm": "npm install -g @vtsls/language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "pyright",
+      "name": "pyright",
+      "label": "Python (Pyright)",
+      "description": "Static type checker and language server for Python",
+      "homepage": "https://github.com/microsoft/pyright",
+      "command": "pyright-langserver",
+      "args": ["--stdio"],
+      "languages": ["python"],
+      "file_patterns": ["*.py", "*.pyi", "*.pyw"],
+      "root_markers": ["pyproject.toml", "setup.py", "requirements.txt", "pyrightconfig.json"],
+      "install": {
+        "npm": "npm install -g pyright",
+        "pip": "pip install pyright"
+      },
+      "settings": {}
+    },
+    {
+      "id": "pylsp",
+      "name": "python-lsp-server",
+      "label": "Python (pylsp)",
+      "description": "Python LSP Server with plugin support (rope, pyflakes, etc.)",
+      "homepage": "https://github.com/python-lsp/python-lsp-server",
+      "command": "pylsp",
+      "args": [],
+      "languages": ["python"],
+      "file_patterns": ["*.py", "*.pyi", "*.pyw"],
+      "root_markers": ["pyproject.toml", "setup.py", "requirements.txt"],
+      "install": {
+        "pip": "pip install python-lsp-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "rust-analyzer",
+      "name": "rust-analyzer",
+      "label": "Rust",
+      "description": "Rust language server implementing the Language Server Protocol",
+      "homepage": "https://rust-analyzer.github.io/",
+      "command": "rust-analyzer",
+      "args": [],
+      "languages": ["rust"],
+      "file_patterns": ["*.rs"],
+      "root_markers": ["Cargo.toml", "Cargo.lock"],
+      "install": {
+        "rustup": "rustup component add rust-analyzer",
+        "brew": "brew install rust-analyzer"
+      },
+      "settings": {}
+    },
+    {
+      "id": "clangd",
+      "name": "clangd",
+      "label": "C / C++",
+      "description": "Language server for C, C++, and Objective-C, part of LLVM",
+      "homepage": "https://clangd.llvm.org/",
+      "command": "clangd",
+      "args": [],
+      "languages": ["c", "cpp", "objc", "objcpp", "cuda"],
+      "file_patterns": ["*.c", "*.h", "*.cpp", "*.hpp", "*.cc", "*.hh", "*.cxx", "*.hxx", "*.m", "*.mm"],
+      "root_markers": ["compile_commands.json", "CMakeLists.txt", "Makefile", ".clangd"],
+      "install": {
+        "brew": "brew install llvm",
+        "apt": "apt install clangd"
+      },
+      "settings": {}
+    },
+    {
+      "id": "nextls",
+      "name": "nextls",
+      "label": "Elixir (Next LS)",
+      "description": "Language server for Elixir, focused on code intelligence",
+      "homepage": "https://github.com/elixir-tools/next-ls",
+      "command": "nextls",
+      "args": ["--stdio"],
+      "languages": ["elixir"],
+      "file_patterns": ["*.ex", "*.exs", "mix.exs"],
+      "root_markers": ["mix.exs"],
+      "install": {
+        "mix": "mix escript.install hex next_ls"
+      },
+      "settings": {}
+    },
+    {
+      "id": "elixir-ls",
+      "name": "elixir-ls",
+      "label": "Elixir (ElixirLS)",
+      "description": "Language server and debugger for Elixir",
+      "homepage": "https://github.com/elixir-lsp/elixir-ls",
+      "command": "elixir-ls",
+      "args": [],
+      "languages": ["elixir"],
+      "file_patterns": ["*.ex", "*.exs", "mix.exs"],
+      "root_markers": ["mix.exs"],
+      "install": {
+        "manual": "Download from https://github.com/elixir-lsp/elixir-ls/releases"
+      },
+      "settings": {}
+    },
+    {
+      "id": "lua-language-server",
+      "name": "lua-language-server",
+      "label": "Lua",
+      "description": "Language server for Lua with rich features",
+      "homepage": "https://github.com/LuaLS/lua-language-server",
+      "command": "lua-language-server",
+      "args": [],
+      "languages": ["lua"],
+      "file_patterns": ["*.lua"],
+      "root_markers": [".luarc.json", ".luarc.jsonc", ".luacheckrc"],
+      "install": {
+        "brew": "brew install lua-language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "zls",
+      "name": "zls",
+      "label": "Zig",
+      "description": "Language server for Zig",
+      "homepage": "https://github.com/zigtools/zls",
+      "command": "zls",
+      "args": [],
+      "languages": ["zig"],
+      "file_patterns": ["*.zig"],
+      "root_markers": ["build.zig", "zls.json"],
+      "install": {
+        "brew": "brew install zls"
+      },
+      "settings": {}
+    },
+    {
+      "id": "taplo",
+      "name": "taplo",
+      "label": "TOML",
+      "description": "TOML language server and toolkit",
+      "homepage": "https://taplo.tamasfe.dev/",
+      "command": "taplo",
+      "args": ["lsp", "stdio"],
+      "languages": ["toml"],
+      "file_patterns": ["*.toml"],
+      "root_markers": [],
+      "install": {
+        "cargo": "cargo install taplo-cli --locked --features lsp",
+        "npm": "npm install -g @taplo/cli"
+      },
+      "settings": {}
+    },
+    {
+      "id": "yaml-language-server",
+      "name": "yaml-language-server",
+      "label": "YAML",
+      "description": "Language server for YAML files with schema validation",
+      "homepage": "https://github.com/redhat-developer/yaml-language-server",
+      "command": "yaml-language-server",
+      "args": ["--stdio"],
+      "languages": ["yaml"],
+      "file_patterns": ["*.yaml", "*.yml"],
+      "root_markers": [],
+      "install": {
+        "npm": "npm install -g yaml-language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "json-language-server",
+      "name": "vscode-json-languageserver",
+      "label": "JSON",
+      "description": "JSON language server extracted from VSCode",
+      "homepage": "https://github.com/microsoft/vscode/tree/main/extensions/json-language-features",
+      "command": "vscode-json-language-server",
+      "args": ["--stdio"],
+      "languages": ["json", "jsonc"],
+      "file_patterns": ["*.json", "*.jsonc"],
+      "root_markers": [],
+      "install": {
+        "npm": "npm install -g vscode-langservers-extracted"
+      },
+      "settings": {}
+    },
+    {
+      "id": "html-language-server",
+      "name": "vscode-html-languageserver",
+      "label": "HTML",
+      "description": "HTML language server extracted from VSCode",
+      "homepage": "https://github.com/microsoft/vscode/tree/main/extensions/html-language-features",
+      "command": "vscode-html-language-server",
+      "args": ["--stdio"],
+      "languages": ["html"],
+      "file_patterns": ["*.html", "*.htm"],
+      "root_markers": [],
+      "install": {
+        "npm": "npm install -g vscode-langservers-extracted"
+      },
+      "settings": {}
+    },
+    {
+      "id": "css-language-server",
+      "name": "vscode-css-languageserver",
+      "label": "CSS / SCSS / Less",
+      "description": "CSS language server extracted from VSCode",
+      "homepage": "https://github.com/microsoft/vscode/tree/main/extensions/css-language-features",
+      "command": "vscode-css-language-server",
+      "args": ["--stdio"],
+      "languages": ["css", "scss", "less"],
+      "file_patterns": ["*.css", "*.scss", "*.less"],
+      "root_markers": [],
+      "install": {
+        "npm": "npm install -g vscode-langservers-extracted"
+      },
+      "settings": {}
+    },
+    {
+      "id": "tailwindcss-language-server",
+      "name": "tailwindcss-language-server",
+      "label": "Tailwind CSS",
+      "description": "Intelligent Tailwind CSS tooling",
+      "homepage": "https://github.com/tailwindlabs/tailwindcss-intellisense",
+      "command": "tailwindcss-language-server",
+      "args": ["--stdio"],
+      "languages": ["html", "css", "javascript", "typescript", "typescriptreact", "javascriptreact"],
+      "file_patterns": ["*.html", "*.css", "*.js", "*.jsx", "*.ts", "*.tsx"],
+      "root_markers": ["tailwind.config.js", "tailwind.config.ts", "tailwind.config.cjs", "tailwind.config.mjs"],
+      "install": {
+        "npm": "npm install -g @tailwindcss/language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "eslint-language-server",
+      "name": "vscode-eslint-language-server",
+      "label": "ESLint",
+      "description": "ESLint language server for JavaScript/TypeScript linting",
+      "homepage": "https://github.com/microsoft/vscode-eslint",
+      "command": "vscode-eslint-language-server",
+      "args": ["--stdio"],
+      "languages": ["javascript", "typescript", "javascriptreact", "typescriptreact"],
+      "file_patterns": ["*.js", "*.jsx", "*.ts", "*.tsx", "*.mjs", "*.cjs"],
+      "root_markers": [".eslintrc", ".eslintrc.js", ".eslintrc.json", ".eslintrc.yml", "eslint.config.js", "eslint.config.mjs"],
+      "install": {
+        "npm": "npm install -g vscode-langservers-extracted"
+      },
+      "settings": {}
+    },
+    {
+      "id": "docker-langserver",
+      "name": "docker-langserver",
+      "label": "Dockerfile",
+      "description": "Language server for Dockerfiles",
+      "homepage": "https://github.com/rcjsuen/dockerfile-language-server-nodejs",
+      "command": "docker-langserver",
+      "args": ["--stdio"],
+      "languages": ["dockerfile"],
+      "file_patterns": ["Dockerfile", "Dockerfile.*", "*.dockerfile"],
+      "root_markers": ["Dockerfile", "docker-compose.yml", "docker-compose.yaml"],
+      "install": {
+        "npm": "npm install -g dockerfile-language-server-nodejs"
+      },
+      "settings": {}
+    },
+    {
+      "id": "bash-language-server",
+      "name": "bash-language-server",
+      "label": "Bash / Shell",
+      "description": "Language server for Bash shell scripts",
+      "homepage": "https://github.com/bash-lsp/bash-language-server",
+      "command": "bash-language-server",
+      "args": ["start"],
+      "languages": ["sh", "bash", "zsh"],
+      "file_patterns": ["*.sh", "*.bash", "*.zsh", ".bashrc", ".zshrc", ".profile"],
+      "root_markers": [],
+      "install": {
+        "npm": "npm install -g bash-language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "marksman",
+      "name": "marksman",
+      "label": "Markdown",
+      "description": "Language server for Markdown with wiki-links and cross-references",
+      "homepage": "https://github.com/artempyanykh/marksman",
+      "command": "marksman",
+      "args": ["server"],
+      "languages": ["markdown"],
+      "file_patterns": ["*.md", "*.markdown"],
+      "root_markers": [".marksman.toml"],
+      "install": {
+        "brew": "brew install marksman"
+      },
+      "settings": {}
+    },
+    {
+      "id": "solargraph",
+      "name": "solargraph",
+      "label": "Ruby",
+      "description": "Language server for Ruby, featuring code completion and documentation",
+      "homepage": "https://solargraph.org/",
+      "command": "solargraph",
+      "args": ["stdio"],
+      "languages": ["ruby"],
+      "file_patterns": ["*.rb", "Gemfile", "Rakefile", "*.rake"],
+      "root_markers": ["Gemfile", ".solargraph.yml"],
+      "install": {
+        "gem": "gem install solargraph"
+      },
+      "settings": {}
+    },
+    {
+      "id": "sourcekit-lsp",
+      "name": "sourcekit-lsp",
+      "label": "Swift",
+      "description": "Language server for Swift and C-based languages",
+      "homepage": "https://github.com/swiftlang/sourcekit-lsp",
+      "command": "sourcekit-lsp",
+      "args": [],
+      "languages": ["swift", "c", "cpp", "objc"],
+      "file_patterns": ["*.swift"],
+      "root_markers": ["Package.swift", "*.xcodeproj", "*.xcworkspace"],
+      "install": {
+        "xcode": "Included with Xcode"
+      },
+      "settings": {}
+    },
+    {
+      "id": "kotlin-language-server",
+      "name": "kotlin-language-server",
+      "label": "Kotlin",
+      "description": "Language server for Kotlin",
+      "homepage": "https://github.com/fwcd/kotlin-language-server",
+      "command": "kotlin-language-server",
+      "args": [],
+      "languages": ["kotlin"],
+      "file_patterns": ["*.kt", "*.kts"],
+      "root_markers": ["build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts"],
+      "install": {
+        "brew": "brew install kotlin-language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "jdtls",
+      "name": "jdtls",
+      "label": "Java",
+      "description": "Eclipse JDT Language Server for Java",
+      "homepage": "https://github.com/eclipse-jdtls/eclipse.jdt.ls",
+      "command": "jdtls",
+      "args": [],
+      "languages": ["java"],
+      "file_patterns": ["*.java"],
+      "root_markers": ["pom.xml", "build.gradle", "build.gradle.kts", ".project"],
+      "install": {
+        "brew": "brew install jdtls"
+      },
+      "settings": {}
+    },
+    {
+      "id": "terraform-ls",
+      "name": "terraform-ls",
+      "label": "Terraform",
+      "description": "Official HashiCorp Terraform language server",
+      "homepage": "https://github.com/hashicorp/terraform-ls",
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "languages": ["terraform", "terraform-vars"],
+      "file_patterns": ["*.tf", "*.tfvars"],
+      "root_markers": [".terraform", "terraform.tfstate"],
+      "install": {
+        "brew": "brew install hashicorp/tap/terraform-ls"
+      },
+      "settings": {}
+    },
+    {
+      "id": "graphql-language-server",
+      "name": "graphql-lsp",
+      "label": "GraphQL",
+      "description": "Language server for GraphQL",
+      "homepage": "https://github.com/graphql/graphiql/tree/main/packages/graphql-language-service-cli",
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "languages": ["graphql"],
+      "file_patterns": ["*.graphql", "*.gql"],
+      "root_markers": [".graphqlrc", ".graphqlrc.json", ".graphqlrc.yml", "graphql.config.js"],
+      "install": {
+        "npm": "npm install -g graphql-language-service-cli"
+      },
+      "settings": {}
+    },
+    {
+      "id": "prisma-language-server",
+      "name": "prisma-language-server",
+      "label": "Prisma",
+      "description": "Language server for Prisma schema files",
+      "homepage": "https://github.com/prisma/language-tools",
+      "command": "prisma-language-server",
+      "args": ["--stdio"],
+      "languages": ["prisma"],
+      "file_patterns": ["*.prisma"],
+      "root_markers": ["schema.prisma"],
+      "install": {
+        "npm": "npm install -g @prisma/language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "astro-language-server",
+      "name": "astro-ls",
+      "label": "Astro",
+      "description": "Language server for Astro framework",
+      "homepage": "https://github.com/withastro/language-tools",
+      "command": "astro-ls",
+      "args": ["--stdio"],
+      "languages": ["astro"],
+      "file_patterns": ["*.astro"],
+      "root_markers": ["astro.config.mjs", "astro.config.js", "astro.config.ts"],
+      "install": {
+        "npm": "npm install -g @astrojs/language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "svelte-language-server",
+      "name": "svelteserver",
+      "label": "Svelte",
+      "description": "Language server for Svelte",
+      "homepage": "https://github.com/sveltejs/language-tools",
+      "command": "svelteserver",
+      "args": ["--stdio"],
+      "languages": ["svelte"],
+      "file_patterns": ["*.svelte"],
+      "root_markers": ["svelte.config.js"],
+      "install": {
+        "npm": "npm install -g svelte-language-server"
+      },
+      "settings": {}
+    },
+    {
+      "id": "vue-language-server",
+      "name": "vue-language-server",
+      "label": "Vue",
+      "description": "Language server for Vue.js (Volar)",
+      "homepage": "https://github.com/vuejs/language-tools",
+      "command": "vue-language-server",
+      "args": ["--stdio"],
+      "languages": ["vue"],
+      "file_patterns": ["*.vue"],
+      "root_markers": ["vite.config.js", "vite.config.ts", "vue.config.js"],
+      "install": {
+        "npm": "npm install -g @vue/language-server"
+      },
+      "settings": {}
+    }
+  ]
+}
