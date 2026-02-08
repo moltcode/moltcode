@@ -1,0 +1,233 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-02-08T00:00:00Z",
+  "servers": [
+    {
+      "id": "figma",
+      "name": "Figma",
+      "description": "Access Figma designs, components, variables, and files. Read design tokens, inspect layers, and export assets.",
+      "type": "http",
+      "icon": "figma",
+      "config_schema": {
+        "url": "https://mcp.figma.com",
+        "required_env": ["FIGMA_ACCESS_TOKEN"],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["design", "ui", "collaboration"],
+      "url": "https://www.figma.com/developers",
+      "stars": 1250
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "description": "Repository management, pull requests, issues, code search, and GitHub Actions integration.",
+      "type": "http",
+      "icon": "github",
+      "config_schema": {
+        "url": "https://api.githubcopilot.com/mcp/",
+        "required_env": ["GITHUB_TOKEN"],
+        "optional_env": ["GITHUB_ENTERPRISE_URL"]
+      },
+      "source": "moltcode",
+      "tags": ["git", "code", "collaboration"],
+      "url": "https://github.com",
+      "stars": 3200
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "description": "Read and write Notion pages, databases, and blocks. Search across your workspace.",
+      "type": "http",
+      "icon": "notion",
+      "config_schema": {
+        "url": "https://mcp.notion.com/mcp",
+        "required_env": ["NOTION_API_KEY"],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["docs", "wiki", "collaboration"],
+      "url": "https://developers.notion.com",
+      "stars": 890
+    },
+    {
+      "id": "sentry",
+      "name": "Sentry",
+      "description": "Query error reports, monitor performance issues, and analyze crash data from Sentry.",
+      "type": "http",
+      "icon": "sentry",
+      "config_schema": {
+        "url": "https://mcp.sentry.dev/mcp",
+        "required_env": ["SENTRY_AUTH_TOKEN"],
+        "optional_env": ["SENTRY_ORG", "SENTRY_PROJECT"]
+      },
+      "source": "moltcode",
+      "tags": ["monitoring", "errors", "debugging"],
+      "url": "https://sentry.io",
+      "stars": 675
+    },
+    {
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "description": "Query and manage PostgreSQL databases. Execute SQL, inspect schemas, and analyze data.",
+      "type": "stdio",
+      "icon": "database",
+      "config_schema": {
+        "command": "npx",
+        "args": ["-y", "@bytebase/dbhub"],
+        "required_env": ["DATABASE_URL"],
+        "optional_env": ["DB_SSL_MODE"]
+      },
+      "source": "moltcode",
+      "tags": ["database", "sql", "data"],
+      "stars": 520
+    },
+    {
+      "id": "filesystem",
+      "name": "Filesystem",
+      "description": "Secure filesystem access with configurable permissions. Read, write, and manage files.",
+      "type": "stdio",
+      "icon": "folder",
+      "config_schema": {
+        "command": "npx",
+        "args": ["-y", "@anthropic/mcp-filesystem"],
+        "required_env": ["ALLOWED_PATHS"],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["files", "local"],
+      "stars": 430
+    },
+    {
+      "id": "slack",
+      "name": "Slack",
+      "description": "Send messages, read channels, manage threads, and interact with Slack workspaces.",
+      "type": "http",
+      "icon": "slack",
+      "config_schema": {
+        "url": "https://slack.com/api/mcp",
+        "required_env": ["SLACK_BOT_TOKEN"],
+        "optional_env": ["SLACK_USER_TOKEN"]
+      },
+      "source": "moltcode",
+      "tags": ["chat", "collaboration", "notifications"],
+      "stars": 780
+    },
+    {
+      "id": "linear",
+      "name": "Linear",
+      "description": "Manage issues, projects, and cycles in Linear. Create, update, and query your backlog.",
+      "type": "http",
+      "icon": "linear",
+      "config_schema": {
+        "url": "https://api.linear.app/mcp",
+        "required_env": ["LINEAR_API_KEY"],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["issues", "project-management", "agile"],
+      "stars": 560
+    },
+    {
+      "id": "puppeteer",
+      "name": "Browser Automation",
+      "description": "Control a headless browser for web scraping, testing, and automation tasks.",
+      "type": "stdio",
+      "icon": "globe",
+      "config_schema": {
+        "command": "npx",
+        "args": ["-y", "@anthropic/mcp-puppeteer"],
+        "required_env": [],
+        "optional_env": ["PUPPETEER_EXECUTABLE_PATH", "PUPPETEER_HEADLESS"]
+      },
+      "source": "moltcode",
+      "tags": ["browser", "automation", "testing"],
+      "stars": 340
+    },
+    {
+      "id": "chrome-devtools",
+      "name": "Chrome DevTools",
+      "description": "Control and inspect a live Chrome browser. Access DevTools for debugging, performance analysis, network inspection, screenshots, and console messages.",
+      "type": "stdio",
+      "icon": "chrome",
+      "config_schema": {
+        "command": "npx",
+        "args": ["-y", "chrome-devtools-mcp@latest"],
+        "required_env": [],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["browser", "debugging", "devtools", "chrome"],
+      "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "stars": 2800
+    },
+    {
+      "id": "brave-search",
+      "name": "Brave Search",
+      "description": "Web and local search using the Brave Search API. Privacy-focused search with real-time results.",
+      "type": "stdio",
+      "icon": "search",
+      "config_schema": {
+        "command": "npx",
+        "args": ["-y", "@anthropic/mcp-server-brave-search"],
+        "required_env": ["BRAVE_API_KEY"],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["search", "web", "research"],
+      "url": "https://github.com/anthropics/mcp-server-brave-search",
+      "stars": 1100
+    },
+    {
+      "id": "context7",
+      "name": "Context7",
+      "description": "Fetch up-to-date documentation for libraries and frameworks directly into your agent's context.",
+      "type": "stdio",
+      "icon": "book",
+      "config_schema": {
+        "command": "npx",
+        "args": ["-y", "@upstash/context7-mcp@latest"],
+        "required_env": [],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["docs", "documentation", "reference"],
+      "url": "https://github.com/nicepkg/context7",
+      "stars": 1500
+    },
+    {
+      "id": "sequential-thinking",
+      "name": "Sequential Thinking",
+      "description": "Structured sequential thinking for breaking down complex problems, iteratively refining solutions, and exploring multiple reasoning paths.",
+      "type": "stdio",
+      "icon": "brain",
+      "config_schema": {
+        "command": "npx",
+        "args": ["-y", "@anthropic/mcp-server-sequential-thinking"],
+        "required_env": [],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["reasoning", "thinking", "problem-solving"],
+      "url": "https://github.com/anthropics/mcp-server-sequential-thinking",
+      "stars": 950
+    },
+    {
+      "id": "memory",
+      "name": "Memory",
+      "description": "Persistent memory using a knowledge graph. Store and retrieve entities, relations, and observations across sessions.",
+      "type": "stdio",
+      "icon": "database",
+      "config_schema": {
+        "command": "npx",
+        "args": ["-y", "@anthropic/mcp-server-memory"],
+        "required_env": [],
+        "optional_env": []
+      },
+      "source": "moltcode",
+      "tags": ["memory", "knowledge-graph", "persistence"],
+      "url": "https://github.com/anthropics/mcp-server-memory",
+      "stars": 820
+    }
+  ]
+}
