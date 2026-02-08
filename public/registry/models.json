@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "updated_at": "2026-02-08T00:00:00Z",
   "agents": {
-    "claude-code": {
+    "claude": {
       "models": [
         {"id": "default", "name": "Default", "description": "Let Claude Code choose the best model"},
         {"id": "opus", "name": "Opus", "description": "Most capable, best for complex tasks"},
@@ -15,7 +15,7 @@
         {"id": "default", "name": "Default", "description": "Let Codex choose the model"}
       ]
     },
-    "gemini-code": {
+    "gemini": {
       "models": [
         {"id": "default", "name": "Default", "description": "Let Gemini choose the model"},
         {"id": "gemini-2.5-pro", "name": "Gemini 2.5 Pro", "description": "Most capable Gemini model"},
