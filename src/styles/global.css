@@ -188,8 +188,15 @@ body {
 
 /* Feature icon glow */
 .feature-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.625rem;
   background: linear-gradient(135deg, rgba(231, 159, 116, 0.15) 0%, rgba(173, 98, 61, 0.1) 100%);
   border: 1px solid rgba(231, 159, 116, 0.2);
+  flex-shrink: 0;
 }
 
 /* Noise texture overlay */

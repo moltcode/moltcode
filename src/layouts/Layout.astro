@@ -33,9 +33,22 @@ const { title, description = "The AI coding workstation for developers who bring
     <meta name="twitter:image" content="https://moltcode.com/og-image.png" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="canonical" href={`https://moltcode.com${Astro.url.pathname}`} />
     <title>{title}</title>
   </head>
   <body class="gradient-bg grid-pattern noise-overlay relative min-h-screen antialiased">
     <slot />
+
+    <!-- Track download button clicks as virtual pageviews (uses Cloudflare auto-injected beacon) -->
+    <script>
+      document.querySelectorAll('[data-track-download]').forEach((el) => {
+        el.addEventListener('click', () => {
+          if (window.__cfBeacon && window.__cfBeacon.load) {
+            window.__cfBeacon.load({ path: '/virtual/download-click' });
+          }
+        });
+      });
+    </script>
   </body>
 </html>

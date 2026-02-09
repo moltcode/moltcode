@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Privacy Policy - Molt Code">
+  <Nav />
+  <main class="max-w-3xl mx-auto px-6 py-32">
+    <h1 class="text-4xl font-bold text-[#f4e9df] mb-2">Privacy Policy</h1>
+    <p class="text-[#f4e9df]/40 text-sm mb-12">Last updated: February 2026</p>
+
+    <div class="prose">
+      <h2>Overview</h2>
+      <p>
+        Molt Code is a desktop application that respects your privacy. Your API keys, code, and project data stay on your machine. We do not have access to your code, your API keys, or the content of your conversations with AI agents.
+      </p>
+
+      <h2>What We Collect</h2>
+
+      <h3>Website (moltcode.com)</h3>
+      <p>
+        We use Cloudflare Web Analytics to collect anonymous, aggregated website traffic data. This includes page views, referrers, browser type, and country. Cloudflare Web Analytics does not use cookies, does not track individual users, and does not collect personal information.
+      </p>
+
+      <h3>Desktop Application</h3>
+      <p>
+        The Molt Code desktop app collects anonymous telemetry to help us improve the product. This may include:
+      </p>
+      <ul>
+        <li>App version and operating system</li>
+        <li>Feature usage patterns (which features are used, not the content)</li>
+        <li>Crash reports and error logs</li>
+        <li>Performance metrics</li>
+      </ul>
+      <p>
+        Telemetry never includes your source code, API keys, file contents, or conversation content. You can disable telemetry in the app settings.
+      </p>
+
+      <h2>What We Do Not Collect</h2>
+      <ul>
+        <li>Your source code or project files</li>
+        <li>Your API keys or credentials</li>
+        <li>The content of your AI agent conversations</li>
+        <li>Personal information (name, email) unless you voluntarily provide it</li>
+      </ul>
+
+      <h2>API Keys &amp; Third-Party Services</h2>
+      <p>
+        Molt Code is a bring-your-own-key application. When you configure an AI provider (e.g., Anthropic, OpenAI, Google), your API keys are stored locally on your device and sent directly to the respective provider. We never see or proxy these requests.
+      </p>
+      <p>
+        Your use of third-party AI providers is subject to their respective privacy policies.
+      </p>
+
+      <h2>Data Storage</h2>
+      <p>
+        All your data — projects, settings, API keys, and conversation history — is stored locally on your machine. We do not operate servers that store your data.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        The Molt Code website does not use cookies.
+      </p>
+
+      <h2>Changes to This Policy</h2>
+      <p>
+        We may update this policy from time to time. Changes will be posted on this page with an updated date.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        If you have questions about this privacy policy, open an issue on our <a href="https://github.com/moltcode/moltcode" target="_blank">GitHub repository</a>.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f4e9df;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose p {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose li {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose a {
+    color: #e79f74;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: #f4e9df;
+  }
+</style>
