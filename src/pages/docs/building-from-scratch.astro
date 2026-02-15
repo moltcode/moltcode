@@ -1,0 +1,293 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+---
+
+<Layout title="Building a Product from Scratch - Molt Code Docs">
+  <div class="docs-layout">
+    <DocsSidebar currentPath="/docs/building-from-scratch" />
+    <div class="docs-main">
+      <main class="docs-content">
+        <p class="text-[#e79f74] text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
+        <h1 class="text-4xl font-bold text-[#f4e9df] mb-4">Building a Product from Scratch</h1>
+        <p class="text-[#f4e9df]/50 text-base mb-12 leading-relaxed">The ideal end-to-end workflow: from research to a fully scaffolded product, with agents doing the heavy lifting at every step.</p>
+
+        <div class="prose">
+          <h2 id="the-five-stages">The Five Stages</h2>
+          <p>
+            Building something new from scratch in Molt Code follows a natural pipeline. Each stage feeds into the next, and each one leverages a different agent mode or tool for what it's best at. Here's the full flow:
+          </p>
+          <ol>
+            <li><strong>Research</strong> — Use AI chat to explore the problem space, evaluate tech stacks, and gather requirements.</li>
+            <li><strong>Document</strong> — Capture the research as a doc in the project's knowledge base.</li>
+            <li><strong>Plan</strong> — Switch to the Planner agent to turn research into a structured technical PRD.</li>
+            <li><strong>Break down</strong> — Pass the PRD to the default agent and have it create a topologically ordered epic with dependency-tracked issues.</li>
+            <li><strong>Execute</strong> — Drag the epic into chat with the Issue Resolver, and let it work through every issue in the right order.</li>
+          </ol>
+          <p>
+            Let's walk through each stage.
+          </p>
+
+          <h2 id="stage-1-research">Stage 1: Research</h2>
+          <p>
+            Before writing any code, you need to understand the problem. Start a chat session with your preferred AI provider — Claude Code, Codex, Gemini, or OpenCode — and use it as a research assistant. The goal here isn't to build anything yet, it's to explore.
+          </p>
+          <p>
+            Ask the agent to:
+          </p>
+          <ul>
+            <li><strong>Research the domain</strong> — "What are the best approaches for building a real-time collaboration tool?" or "Compare WebSocket libraries for Node.js in 2026."</li>
+            <li><strong>Evaluate tech stacks</strong> — "Given these requirements, what stack would you recommend? Consider developer experience, ecosystem maturity, and performance."</li>
+            <li><strong>Identify constraints early</strong> — "What are the common pitfalls when building X? What should I watch out for?"</li>
+            <li><strong>Explore prior art</strong> — "How do existing tools like Y and Z handle this? What can we learn from their architecture?"</li>
+          </ul>
+          <p>
+            You can also use the web search capabilities of providers that support it, or use Experiment mode to run the same research prompt across multiple models and compare their recommendations side by side. Different models often have different blind spots — Claude might give a thorough architectural analysis while Gemini surfaces more recent libraries.
+          </p>
+          <p>
+            The output of this stage is a clear understanding of what you're building, what technology you'll use, and what the key decisions are. Don't worry about formatting yet — just get the thinking done.
+          </p>
+
+          <h2 id="stage-2-document">Stage 2: Document the Research</h2>
+          <p>
+            Now take that research and capture it in the project's knowledge base. Open the knowledge panel from the sidebar, create a new <strong>Doc</strong>, and paste in the key findings from your research session.
+          </p>
+          <p>
+            Structure it however makes sense for your project — tech stack decisions, architecture notes, API design sketches, key constraints, open questions. The point is to get it out of the chat and into a persistent, referenceable document.
+          </p>
+          <p>
+            Why this matters: chat sessions are conversations — they're great for exploration but terrible for reference. A doc is stable. Every future agent session can reference it with <code>@doc_name</code>, which means you never have to re-explain the tech stack or design decisions. You write it once, and every agent that touches this project can read it.
+          </p>
+          <p>
+            This is also the right moment to clean up the research. Remove dead ends, consolidate decisions, and highlight anything that's still unresolved. The cleaner this document is, the better the PRD will be in the next stage.
+          </p>
+
+          <h2 id="stage-3-plan">Stage 3: Draft the Technical PRD</h2>
+          <p>
+            Switch to the <strong>Planner</strong> agent mode. The Planner can explore your codebase and knowledge base but cannot edit files — it's purpose-built for research and planning without the risk of accidental changes.
+          </p>
+          <p>
+            Reference the research doc you just created and ask the Planner to produce a structured PRD. A good prompt looks like:
+          </p>
+          <blockquote>
+            Using @research_doc as context, write a technical PRD for this project. Include a clear problem statement, desired behaviour with concrete examples, what's in scope and what's not, technical constraints, and testable acceptance criteria.
+          </blockquote>
+          <p>
+            The Planner will read the research, understand the decisions you've already made, and produce a structured PRD with:
+          </p>
+          <ul>
+            <li><strong>Problem</strong> — What you're building and why it matters.</li>
+            <li><strong>Desired Behaviour</strong> — Concrete descriptions of what the finished product should do, with examples and edge cases.</li>
+            <li><strong>Scope</strong> — Clear boundaries. What's in v1 and what's explicitly deferred. This is critical for preventing the agent from over-engineering in later stages.</li>
+            <li><strong>Constraints</strong> — Technical decisions from the research stage: the chosen stack, deployment targets, performance requirements, compatibility needs.</li>
+            <li><strong>Acceptance Criteria</strong> — A checklist of independently verifiable conditions that define "done".</li>
+          </ul>
+          <p>
+            Review the PRD. Refine it. This document is the contract between you and the agents that will build the product. Ambiguity here becomes wasted work later. Once you're satisfied, save it as a <strong>PRD</strong> in the knowledge base.
+          </p>
+
+          <h2 id="stage-4-break-down">Stage 4: Create the Issue Epic</h2>
+          <p>
+            Now switch back to the <strong>Default</strong> coding agent. Reference the PRD and ask it to break the work into a topologically ordered epic with dependency tracking. A good prompt:
+          </p>
+          <blockquote>
+            Using @project_prd, create an epic of issues that implements this PRD. Break it into small, independently implementable issues. Track dependencies between them — which issues block which. Order them topologically so they can be resolved in sequence.
+          </blockquote>
+          <p>
+            The agent will analyse the PRD and create a structured set of issues, each with:
+          </p>
+          <ul>
+            <li>A clear title and description</li>
+            <li>The right priority level</li>
+            <li>Dependency links — issue 3 is blocked by issues 1 and 2</li>
+            <li>A logical ordering — foundational work first, features that depend on it after</li>
+          </ul>
+          <p>
+            For example, a real-time collaboration tool might produce issues like:
+          </p>
+          <ol>
+            <li>Set up project scaffolding and base configuration</li>
+            <li>Implement database schema and migrations</li>
+            <li>Create authentication system (blocked by 1, 2)</li>
+            <li>Build WebSocket server infrastructure (blocked by 1)</li>
+            <li>Implement document data model (blocked by 2)</li>
+            <li>Create real-time sync engine (blocked by 4, 5)</li>
+            <li>Build editor UI component (blocked by 1)</li>
+            <li>Integrate editor with sync engine (blocked by 6, 7)</li>
+            <li>Add presence indicators and cursors (blocked by 6, 3)</li>
+            <li>Implement conflict resolution (blocked by 6)</li>
+          </ol>
+          <p>
+            The dependency graph ensures that no issue is attempted before its prerequisites are complete. This is what makes automated resolution possible in the next stage.
+          </p>
+
+          <h2 id="stage-5-execute">Stage 5: Resolve with Issue Resolver</h2>
+          <p>
+            This is where it all comes together. Drag the top-level epic issue from the sidebar into the chat input, switch to <strong>Issue Resolver</strong> mode, and let the agent work.
+          </p>
+          <p>
+            The Issue Resolver is purpose-built for this. It:
+          </p>
+          <ul>
+            <li><strong>Reads the dependency graph</strong> — it understands which issues come first and which are blocked.</li>
+            <li><strong>Resolves in topological order</strong> — it picks up the next unblocked issue, implements it, then moves to the next.</li>
+            <li><strong>Carries context forward</strong> — as it completes each issue, the codebase evolves, and the agent works against the latest state for every subsequent issue.</li>
+            <li><strong>Respects the PRD</strong> — because the issues were derived from the PRD and the PRD is in the knowledge base, the agent stays aligned with the original requirements throughout.</li>
+          </ul>
+          <p>
+            This is the "go read a book" moment. The agent will methodically work through the entire epic — setting up the project, building the foundation, layering on features in the right order. You can monitor progress in real time, or check back later to review what was built.
+          </p>
+          <p>
+            When the agent finishes an issue, it marks it as done and moves to the next one. If it hits a problem, it surfaces it so you can step in. But for well-defined PRDs with clear issues, the agent can often resolve the entire epic end to end.
+          </p>
+
+          <h2 id="why-this-works">Why This Pipeline Works</h2>
+          <p>
+            Each stage uses the right tool for the job:
+          </p>
+          <ul>
+            <li><strong>Research</strong> uses conversational AI where it's strongest — exploring, comparing, reasoning about trade-offs.</li>
+            <li><strong>Documentation</strong> turns ephemeral chat into persistent, referenceable knowledge.</li>
+            <li><strong>Planning</strong> uses a read-only agent that can't accidentally break things while it thinks.</li>
+            <li><strong>Breakdown</strong> uses a coding agent's understanding of software structure to create a real dependency graph.</li>
+            <li><strong>Execution</strong> uses an automated resolver that respects the dependency order and carries context across issues.</li>
+          </ul>
+          <p>
+            The pipeline also creates a clean audit trail. At any point you can look back and see: what was the research? What decisions were made? What's the PRD? Which issues are done, which are in progress? Everything is traceable from idea to implementation.
+          </p>
+
+          <h2 id="tips">Tips</h2>
+          <ul>
+            <li><strong>Don't skip the research step</strong> — jumping straight to a PRD without understanding the problem leads to rewrites. Spend the time upfront.</li>
+            <li><strong>Use Experiment mode for research</strong> — run the same research prompts across multiple models. Different models have different knowledge and different biases. Triangulating gives you a more complete picture.</li>
+            <li><strong>Keep the PRD tight</strong> — a focused PRD produces focused issues. If the scope is too broad, break it into multiple PRDs and multiple epics.</li>
+            <li><strong>Review the issue breakdown before executing</strong> — check that the dependency graph makes sense and that issues are small enough. Large issues get worse results than small, well-scoped ones.</li>
+            <li><strong>Start small</strong> — for your first time through this pipeline, pick a small project. A CLI tool, a simple API, a single-page app. Get comfortable with the flow before tackling something large.</li>
+            <li><strong>Iterate, don't restart</strong> — if the Issue Resolver produces something that's 80% right, fix the remaining 20% manually or with a follow-up session. Perfect is the enemy of shipped.</li>
+          </ul>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .docs-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-content {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      padding: 6rem 1.5rem 3rem;
+    }
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f4e9df;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose p {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul, .prose ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul {
+    list-style: disc;
+  }
+
+  .prose ol {
+    list-style: decimal;
+  }
+
+  .prose li {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose strong {
+    color: #f4e9df;
+    font-weight: 600;
+  }
+
+  .prose em {
+    color: rgba(244, 233, 223, 0.7);
+    font-style: italic;
+  }
+
+  .prose code {
+    background: rgba(231, 159, 116, 0.1);
+    color: #e79f74;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .prose blockquote {
+    border-left: 3px solid rgba(231, 159, 116, 0.4);
+    padding: 0.75rem 1.25rem;
+    margin: 1.25rem 0;
+    background: rgba(231, 159, 116, 0.04);
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  .prose blockquote p {
+    color: rgba(244, 233, 223, 0.7);
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  .prose a {
+    color: #e79f74;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: #f4e9df;
+  }
+
+  .doc-img {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(244, 233, 223, 0.08);
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+</style>

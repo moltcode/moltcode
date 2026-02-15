@@ -1,0 +1,258 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const sections = [
+  {
+    title: "Getting Started",
+    items: [
+      { title: "What is Molt Code?", href: "/docs/what-is-moltcode" },
+      { title: "Features & Chat Organisation", href: "/docs/features" },
+      { title: "Drafting PRDs with Agents", href: "/docs/prds" },
+      { title: "Resolving Issues with Agents", href: "/docs/resolving-issues" },
+      { title: "Building a Product from Scratch", href: "/docs/building-from-scratch" },
+    ],
+  },
+  {
+    title: "Help",
+    items: [
+      { title: "Support & Contact", href: "/docs/support" },
+    ],
+  },
+];
+
+type TocItem = { title: string; id: string };
+
+const tocMap: Record<string, TocItem[]> = {
+  "/docs/what-is-moltcode": [
+    { title: "The Idea", id: "the-idea" },
+    { title: "Why a Desktop App?", id: "why-a-desktop-app" },
+    { title: "How It Works", id: "how-it-works" },
+    { title: "What Makes It Different", id: "what-makes-it-different" },
+    { title: "Who It's For", id: "who-its-for" },
+  ],
+  "/docs/features": [
+    { title: "Overview", id: "overview" },
+    { title: "Creating a Feature", id: "creating-a-feature" },
+    { title: "Working Inside a Feature", id: "working-inside-a-feature" },
+    { title: "Experiments", id: "experiments" },
+    { title: "Tips for Staying Organised", id: "tips-for-staying-organised" },
+  ],
+  "/docs/prds": [
+    { title: "The Knowledge Base", id: "the-knowledge-base" },
+    { title: "Why PRDs Matter", id: "why-prds-matter" },
+    { title: "Using the Planner Agent", id: "using-the-planner-agent" },
+    { title: "Writing a PRD", id: "writing-a-prd" },
+    { title: "Referencing Docs in Chat", id: "referencing-in-chat" },
+    { title: "Tips", id: "tips" },
+  ],
+  "/docs/resolving-issues": [
+    { title: "The Workflow", id: "the-workflow" },
+    { title: "Dragging Issues into Chat", id: "dragging-issues-into-chat" },
+    { title: "Sub-Issues & Dependencies", id: "sub-issues-and-dependencies" },
+    { title: "Issue-to-PRD Pipeline", id: "issue-to-prd-pipeline" },
+    { title: "Choosing the Right Agent", id: "choosing-the-right-agent" },
+    { title: "Tips", id: "tips" },
+  ],
+  "/docs/support": [
+    { title: "GitHub Issues", id: "github-issues" },
+    { title: "Reporting Bugs", id: "reporting-bugs" },
+    { title: "Feature Requests", id: "feature-requests" },
+    { title: "Questions", id: "questions" },
+    { title: "Links", id: "links" },
+  ],
+  "/docs/building-from-scratch": [
+    { title: "The Five Stages", id: "the-five-stages" },
+    { title: "1. Research", id: "stage-1-research" },
+    { title: "2. Document", id: "stage-2-document" },
+    { title: "3. Draft the PRD", id: "stage-3-plan" },
+    { title: "4. Create the Epic", id: "stage-4-break-down" },
+    { title: "5. Resolve with Agent", id: "stage-5-execute" },
+    { title: "Why This Works", id: "why-this-works" },
+    { title: "Tips", id: "tips" },
+  ],
+};
+
+const toc = tocMap[currentPath] || [];
+---
+
+<aside class="docs-sidebar">
+  <div class="sidebar-inner">
+    <a href="/" class="sidebar-logo">
+      <svg width="24" height="24" viewBox="0 0 64 64" class="rounded-md">
+        <defs>
+          <linearGradient id="sbBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#27272a"/>
+            <stop offset="100%" stop-color="#3f3f46"/>
+          </linearGradient>
+          <linearGradient id="sbCopper" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b45309"/>
+            <stop offset="50%" stop-color="#d97706"/>
+            <stop offset="100%" stop-color="#92400e"/>
+          </linearGradient>
+          <linearGradient id="sbBronze" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f59e0b"/>
+            <stop offset="100%" stop-color="#d97706"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#sbBg)"/>
+        <rect x="12" y="30" width="16" height="24" rx="4" fill="url(#sbCopper)"/>
+        <rect x="34" y="20" width="16" height="34" rx="4" fill="url(#sbCopper)" opacity="0.7"/>
+        <rect x="24" y="10" width="16" height="28" rx="4" fill="url(#sbBronze)"/>
+      </svg>
+      <span>Docs</span>
+    </a>
+
+    <nav class="sidebar-nav">
+      {sections.map((section) => (
+        <div class="sidebar-section">
+          <p class="sidebar-section-title">{section.title}</p>
+          <ul>
+            {section.items.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={["sidebar-link", { active: currentPath === item.href }]}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+
+    {toc.length > 0 && (
+      <div class="sidebar-toc">
+        <p class="sidebar-section-title">On this page</p>
+        <ul>
+          {toc.map((item) => (
+            <li>
+              <a href={`#${item.id}`} class="sidebar-toc-link">
+                {item.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+</aside>
+
+<style>
+  .docs-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    border-right: 1px solid rgba(244, 233, 223, 0.06);
+  }
+
+  .sidebar-inner {
+    padding: 1.25rem 1rem;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #f4e9df;
+    text-decoration: none;
+    padding-bottom: 1.25rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(244, 233, 223, 0.06);
+  }
+
+  .sidebar-logo:hover {
+    color: #e79f74;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+  }
+
+  .sidebar-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-section-title {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(244, 233, 223, 0.35);
+    padding: 0.375rem 0.625rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .sidebar-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar-link {
+    display: block;
+    padding: 0.375rem 0.625rem;
+    font-size: 0.8125rem;
+    color: rgba(244, 233, 223, 0.55);
+    text-decoration: none;
+    border-radius: 0.375rem;
+    transition: all 0.15s ease;
+    line-height: 1.4;
+  }
+
+  .sidebar-link:hover {
+    color: #f4e9df;
+    background: rgba(244, 233, 223, 0.04);
+  }
+
+  .sidebar-link.active {
+    color: #e79f74;
+    background: rgba(231, 159, 116, 0.08);
+  }
+
+  .sidebar-toc {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(244, 233, 223, 0.06);
+  }
+
+  .sidebar-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar-toc-link {
+    display: block;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    color: rgba(244, 233, 223, 0.4);
+    text-decoration: none;
+    border-radius: 0.375rem;
+    transition: all 0.15s ease;
+    line-height: 1.5;
+  }
+
+  .sidebar-toc-link:hover {
+    color: #e79f74;
+    background: rgba(231, 159, 116, 0.05);
+  }
+
+  @media (max-width: 768px) {
+    .docs-sidebar {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,187 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+---
+
+<Layout title="Drafting PRDs with Agents - Molt Code Docs">
+  <div class="docs-layout">
+    <DocsSidebar currentPath="/docs/prds" />
+    <div class="docs-main">
+      <main class="docs-content">
+        <p class="text-[#e79f74] text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
+        <h1 class="text-4xl font-bold text-[#f4e9df] mb-4">Drafting PRDs with Agents</h1>
+        <p class="text-[#f4e9df]/50 text-base mb-12 leading-relaxed">Use the built-in knowledge base and the Planner agent to go from idea to structured requirements without writing them yourself.</p>
+
+        <div class="prose">
+          <h2 id="the-knowledge-base">The Knowledge Base</h2>
+          <p>
+            Every project in Molt Code has a built-in knowledge base accessible from the sidebar. Click the book icon to open the knowledge panel. Inside you'll find three tabs:
+          </p>
+          <ul>
+            <li><strong>Docs</strong> — Free-form documentation pages for your project. Write architecture notes, API specs, or anything the agent should know. Reference them in chat using <code>@context_name</code> syntax.</li>
+            <li><strong>PRDs</strong> — Structured Product Requirements Documents with dedicated fields for problem statement, desired behaviour, scope, constraints, and acceptance criteria.</li>
+            <li><strong>Archived</strong> — Pages you've archived to keep things tidy without losing them.</li>
+          </ul>
+          <p>
+            Use the <strong>+</strong> button to create new pages. Each project has its own set of knowledge pages, so agents always have the right context for the codebase they're working in.
+          </p>
+
+          <img src="/docs/features/docs_and_prds.png" alt="Knowledge base panel showing Docs, PRDs, and Archived tabs with a list of pages" class="doc-img" />
+
+          <h2 id="why-prds-matter">Why PRDs Matter for AI Agents</h2>
+          <p>
+            AI agents are good at executing, but they need direction. A vague prompt like "add authentication" can go in a dozen different directions. A PRD narrows the scope — it tells the agent what the problem is, what "done" looks like, and what's explicitly out of scope.
+          </p>
+          <p>
+            When you write a PRD in Molt Code, the agent can reference it throughout the session. Instead of restating requirements in every message, you write it once and the agent stays aligned with the intent.
+          </p>
+
+          <h2 id="using-the-planner-agent">Using the Planner Agent</h2>
+          <p>
+            Molt Code includes a <strong>Planner</strong> agent mode specifically designed for drafting plans and PRDs. Unlike the default coding agent, the Planner can explore your codebase and create plans but <strong>cannot edit files</strong> — making it safe to use for research and planning without accidentally modifying code.
+          </p>
+          <p>
+            To switch to the Planner, click the agent mode selector at the bottom of the chat input and choose <strong>Planner</strong>.
+          </p>
+
+          <img src="/docs/features/prd_agent.png" alt="Agent mode selector showing Default, Planner, and Issue Resolver options" class="doc-img" />
+
+          <p>
+            The available agent modes are:
+          </p>
+          <ul>
+            <li><strong>Default</strong> — Standard coding agent. Full access to read, write, and execute.</li>
+            <li><strong>Planner</strong> — Explore and create plans. Can read files and search the codebase but cannot edit. Ideal for drafting PRDs, architecture plans, and investigation.</li>
+            <li><strong>Issue Resolver</strong> — Resolves issues in topological order. Designed for working through a queue of related tasks.</li>
+          </ul>
+
+          <h2 id="writing-a-prd">Writing a PRD</h2>
+          <p>
+            A PRD in Molt Code has five structured sections:
+          </p>
+          <ul>
+            <li><strong>Problem</strong> — What's broken or missing, and who it affects. Keep it to 2–3 sentences.</li>
+            <li><strong>Desired Behaviour</strong> — What should happen from the user's perspective. Describe input, output, and edge cases. Concrete examples beat abstract descriptions.</li>
+            <li><strong>Scope</strong> — What's in scope and explicitly what is not. State non-goals to prevent over-engineering.</li>
+            <li><strong>Constraints</strong> — Technical constraints the implementor wouldn't know from reading the code alone — transport restrictions, backward compatibility requirements, migration paths.</li>
+            <li><strong>Acceptance Criteria</strong> — A testable checklist of what "done" looks like. Each criterion should be independently verifiable.</li>
+          </ul>
+          <p>
+            You can write these manually, or start a session with the Planner agent and ask it to draft a PRD for you. The Planner will explore the codebase, understand the current architecture, and produce a structured PRD you can review and refine.
+          </p>
+
+          <h2 id="referencing-in-chat">Referencing Docs in Chat</h2>
+          <p>
+            Once you've written a doc or PRD, you can reference it in any chat session using the <code>@context_name</code> syntax. This injects the document content into the agent's context, so it has the full requirements without you needing to paste them in.
+          </p>
+          <p>
+            This is particularly powerful when combining a PRD with the default coding agent — the agent reads the requirements, understands the scope, and implements accordingly.
+          </p>
+
+          <h2 id="tips">Tips</h2>
+          <ul>
+            <li><strong>Draft with the Planner, implement with Default</strong> — Use the Planner to explore and write the PRD, then switch to the Default agent for implementation. This keeps planning and execution cleanly separated.</li>
+            <li><strong>Be specific about non-goals</strong> — The most useful part of a PRD is often the scope section. Explicitly state what the agent should not do to prevent it from over-engineering.</li>
+            <li><strong>Archive when done</strong> — Once a feature is shipped, archive the PRD rather than deleting it. You can always reference it later if the feature needs revisiting.</li>
+            <li><strong>One PRD per feature</strong> — Match PRDs to features. If you have a "User onboarding" feature, write a "User onboarding" PRD in the relevant project's knowledge base.</li>
+          </ul>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .docs-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-content {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      padding: 6rem 1.5rem 3rem;
+    }
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f4e9df;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose p {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose li {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose strong {
+    color: #f4e9df;
+    font-weight: 600;
+  }
+
+  .prose code {
+    background: rgba(231, 159, 116, 0.1);
+    color: #e79f74;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .prose a {
+    color: #e79f74;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: #f4e9df;
+  }
+
+  .doc-img {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(244, 233, 223, 0.08);
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+</style>

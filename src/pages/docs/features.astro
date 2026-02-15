@@ -1,0 +1,177 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+---
+
+<Layout title="Features & Chat Organisation - Molt Code Docs">
+  <div class="docs-layout">
+    <DocsSidebar currentPath="/docs/features" />
+    <div class="docs-main">
+      <main class="docs-content">
+        <p class="text-[#e79f74] text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
+        <h1 class="text-4xl font-bold text-[#f4e9df] mb-4">Features & Chat Organisation</h1>
+        <p class="text-[#f4e9df]/50 text-base mb-12 leading-relaxed">Learn how to group sessions across projects around a single goal, keep your work organised, and leverage docs and experiments.</p>
+
+        <div class="prose">
+          <h2 id="overview">Overview</h2>
+          <p>
+            In Molt Code, a <strong>Feature</strong> is the primary way to organise your work. A feature groups chat sessions across one or more projects around a single goal — like "Dark mode support", "User onboarding", or "API redesign". Instead of losing track of scattered conversations, features give you a dedicated workspace where every related session lives together.
+          </p>
+
+          <img src="/docs/features/hero_screenshot.png" alt="Molt Code interface showing multiple panels and chat sessions" class="doc-img" />
+
+          <h2 id="creating-a-feature">Creating a Feature</h2>
+
+          <h3>Step 1: Open the start screen</h3>
+          <p>
+            When you launch Molt Code, the start screen shows three columns: your <strong>Projects</strong>, <strong>Recent Sessions</strong>, and <strong>Features</strong>. You can see existing features on the right side, each showing how many projects it spans and when it was last active.
+          </p>
+          <p>
+            Click the <strong>"New feature"</strong> button at the top of the start screen, or use the <strong>+</strong> button next to the Features heading.
+          </p>
+
+          <img src="/docs/features/create_feature_start.png" alt="Molt Code start screen showing Projects, Recent Sessions, and Features columns" class="doc-img" />
+
+          <h3>Step 2: Configure the feature</h3>
+          <p>
+            The New Feature modal lets you set up your feature:
+          </p>
+          <ul>
+            <li><strong>Name</strong> — Give your feature a descriptive name. Molt Code suggests common patterns like "Dark mode support", "User onboarding", or "API redesign" as starting points.</li>
+            <li><strong>Projects</strong> — Select which projects this feature spans. A feature can include one or many projects, letting you coordinate cross-repo work from a single place.</li>
+          </ul>
+          <p>
+            Once you're happy with the setup, click <strong>"Create feature"</strong>.
+          </p>
+
+          <img src="/docs/features/create_features_modal.png" alt="New Feature modal with name input, suggestion chips, and project selection" class="doc-img" />
+
+          <h2 id="working-inside-a-feature">Working Inside a Feature</h2>
+          <p>
+            After creating a feature, you land in the feature workspace. The left sidebar shows all sessions grouped under this feature, and the main area is your chat interface. To start working, click <strong>"Open a project"</strong> to attach a project and begin a new session.
+          </p>
+          <p>
+            Each session within a feature is tied to a specific project, but the feature itself ties them all together. This means you can have a backend session and a frontend session under the same "User onboarding" feature, keeping everything in context.
+          </p>
+
+          <img src="/docs/features/feature_chat.png" alt="Feature workspace with sidebar sessions and chat area" class="doc-img" />
+
+          <h2 id="experiments">Experiments</h2>
+          <p>
+            When you're unsure which approach to take, switch from <strong>Chat</strong> mode to <strong>Experiment</strong> mode. Experiments let you run the same prompt across multiple AI models in parallel branches — for instance, Claude Code, Codex, and Gemini side by side.
+          </p>
+          <p>
+            Use the <strong>+</strong> and <strong>−</strong> buttons to control how many parallel branches you want (up to the models you have configured). Each branch runs independently, letting you compare approaches, code quality, or solutions before committing to one.
+          </p>
+
+          <img src="/docs/features/experiments.png" alt="Experiment mode with three parallel branches: Claude Code, Codex, and Gemini" class="doc-img" />
+
+          <h2 id="tips-for-staying-organised">Tips for Staying Organised</h2>
+          <ul>
+            <li><strong>One feature per goal</strong> — Keep features focused. "Checkout flow redesign" is better than "Q1 work".</li>
+            <li><strong>Use multiple projects</strong> — If a feature touches both frontend and backend, add both projects so sessions stay grouped.</li>
+            <li><strong>Write PRDs first</strong> — Before starting a complex feature, write a PRD in the knowledge base. Agents can reference it for context, keeping implementation aligned with requirements.</li>
+            <li><strong>Archive old docs</strong> — Once a doc is no longer relevant, archive it rather than deleting it. You can always restore it later.</li>
+            <li><strong>Experiment before committing</strong> — Use Experiment mode to compare approaches across models before picking a direction for your implementation.</li>
+          </ul>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .docs-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-content {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      padding: 6rem 1.5rem 3rem;
+    }
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f4e9df;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose p {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose li {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose strong {
+    color: #f4e9df;
+    font-weight: 600;
+  }
+
+  .prose code {
+    background: rgba(231, 159, 116, 0.1);
+    color: #e79f74;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .prose a {
+    color: #e79f74;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: #f4e9df;
+  }
+
+  .doc-img {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(244, 233, 223, 0.08);
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+</style>

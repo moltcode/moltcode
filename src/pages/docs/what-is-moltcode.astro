@@ -1,0 +1,173 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+---
+
+<Layout title="What is Molt Code? - Molt Code Docs">
+  <div class="docs-layout">
+    <DocsSidebar currentPath="/docs/what-is-moltcode" />
+    <div class="docs-main">
+      <main class="docs-content">
+        <p class="text-[#e79f74] text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
+        <h1 class="text-4xl font-bold text-[#f4e9df] mb-4">What is Molt Code?</h1>
+        <p class="text-[#f4e9df]/50 text-base mb-12 leading-relaxed">A desktop environment built so the AI does the work while you focus on what matters.</p>
+
+        <div class="prose">
+          <h2 id="the-idea">The Idea</h2>
+          <p>
+            Molt Code is a desktop environment tailored for AI-assisted software development. The core idea is simple: you should be able to kick off work, go read a book, and come back to real progress. The app manages AI agents, organises your projects, and handles the tedious parts so you don't have to babysit every step.
+          </p>
+          <p>
+            It's not another chat interface bolted onto an editor. It's a purpose-built workspace where AI agents run as managed processes — you see everything they do, control what they have access to, and let them operate independently across multiple projects at once.
+          </p>
+
+          <img src="/docs/features/hero_screenshot.png" alt="Molt Code desktop interface with multiple chat panels and agent sessions running side by side" class="doc-img" />
+
+          <h2 id="why-a-desktop-app">Why a Desktop App?</h2>
+          <p>
+            AI coding agents live in your terminal. You run Claude Code, Codex, or Gemini CLI in a shell, and the conversation disappears as soon as you close it. If you're working across five projects with multiple agents, you end up with a mess of terminal tabs, no organisation, and no way to see what's happening at a glance.
+          </p>
+          <p>
+            Molt Code solves this by giving you a single place to manage it all. Projects on the left, conversations in the centre, agent output in real time. Everything is persistent — close the app, reopen it, and your sessions are exactly where you left them.
+          </p>
+
+          <h2 id="how-it-works">How It Works</h2>
+          <p>
+            When you open Molt Code, you see your projects, recent sessions, and features. Pick a project, start a chat, and the AI agent spins up as a managed subprocess. You can:
+          </p>
+          <ul>
+            <li><strong>Run multiple agents</strong> — across different projects, at the same time, each in its own session.</li>
+            <li><strong>Group work into features</strong> — a feature ties related sessions together across projects, so "API redesign" has its backend and frontend conversations in one place.</li>
+            <li><strong>Experiment across models</strong> — send the same prompt to Claude Code, Codex, and Gemini in parallel and compare the results before committing to an approach.</li>
+            <li><strong>Write docs and PRDs</strong> — each project has a knowledge base that agents can reference during sessions, keeping implementation aligned with intent.</li>
+          </ul>
+
+          <h2 id="what-makes-it-different">What Makes It Different</h2>
+
+          <h3>You bring your own keys</h3>
+          <p>
+            Molt Code doesn't proxy your API requests or require a subscription. You configure your own API keys for Anthropic, OpenAI, Google, or any other provider. The keys stay on your machine, requests go directly to the provider. No middleman.
+          </p>
+
+          <h3>Agents are processes, not plugins</h3>
+          <p>
+            Each agent (Claude Code, Codex, Gemini CLI) runs as its own subprocess. Molt Code manages the lifecycle — start, stop, restart, monitor. When an agent is done, it terminates cleanly. No idle processes eating RAM in the background.
+          </p>
+
+          <h3>Full visibility</h3>
+          <p>
+            Every tool call, every file edit, every decision the agent makes is visible in real time. You're not guessing what happened — you can see the entire chain of actions, approve or deny tool calls, and step in when needed.
+          </p>
+
+          <h3>Built for the multi-project reality</h3>
+          <p>
+            Most developers don't work on one project at a time. Molt Code is designed around this — switch between projects instantly, run agents in parallel, and keep everything organised without terminal tab chaos.
+          </p>
+
+          <h2 id="who-its-for">Who It's For</h2>
+          <p>
+            Molt Code is for developers who use AI coding agents seriously. If you've found yourself juggling terminal sessions, losing context between conversations, or wishing you could just hand off a task and come back to it later — that's exactly the problem this solves.
+          </p>
+          <p>
+            It works on macOS and runs locally on your machine. Your code, your keys, your data — nothing leaves your computer unless you send it to an AI provider.
+          </p>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .docs-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-content {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      padding: 6rem 1.5rem 3rem;
+    }
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f4e9df;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose p {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose li {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose strong {
+    color: #f4e9df;
+    font-weight: 600;
+  }
+
+  .prose code {
+    background: rgba(231, 159, 116, 0.1);
+    color: #e79f74;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .prose a {
+    color: #e79f74;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: #f4e9df;
+  }
+
+  .doc-img {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(244, 233, 223, 0.08);
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+</style>

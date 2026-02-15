@@ -1,0 +1,184 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+---
+
+<Layout title="Resolving Issues with Agents - Molt Code Docs">
+  <div class="docs-layout">
+    <DocsSidebar currentPath="/docs/resolving-issues" />
+    <div class="docs-main">
+      <main class="docs-content">
+        <p class="text-[#e79f74] text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
+        <h1 class="text-4xl font-bold text-[#f4e9df] mb-4">Resolving Issues with Agents</h1>
+        <p class="text-[#f4e9df]/50 text-base mb-12 leading-relaxed">Drag an issue into chat, let the agent do the work.</p>
+
+        <div class="prose">
+          <h2 id="the-workflow">The Workflow</h2>
+          <p>
+            Molt Code has a built-in issue tracker in the sidebar. Issues can be top-level tasks or broken down into sub-issues with dependencies. The key workflow is simple: drag an issue (or sub-issue) from the sidebar into the chat, and the agent picks it up and starts working on it.
+          </p>
+          <p>
+            The agent reads the issue title, description, priority, and any linked PRD or context — then executes against it. You don't need to retype requirements or explain what needs to happen. The issue <em>is</em> the prompt.
+          </p>
+
+          <img src="/docs/features/resolve_issue_prd.png" alt="Chat session with an issue card pinned at the bottom, ready for an agent to resolve" class="doc-img" />
+
+          <h2 id="dragging-issues-into-chat">Dragging Issues into Chat</h2>
+          <p>
+            Open the issues panel from the sidebar. You'll see your issues listed with their status and priority. To assign one to an agent:
+          </p>
+          <ul>
+            <li><strong>Drag the issue</strong> from the sidebar into the chat area. The issue appears as a card pinned to the chat, showing the title, status, and priority.</li>
+            <li><strong>Choose your agent</strong> — pick Claude Code, Codex, OpenCode, Gemini, or whichever CLI you have configured.</li>
+            <li><strong>Send</strong> — the agent receives the issue as context and begins working. You can add extra instructions in the message if needed, or just send it as-is.</li>
+          </ul>
+          <p>
+            The agent sees everything attached to the issue: the description, any linked PRDs from the knowledge base, and the issue hierarchy (parent issues, sub-issues, blockers). This gives it full context without you having to copy-paste anything.
+          </p>
+
+          <h2 id="sub-issues-and-dependencies">Sub-Issues and Dependencies</h2>
+          <p>
+            Complex work is rarely a single task. Molt Code lets you break issues into sub-issues with dependency relationships — issue B is blocked by issue A, issue C depends on both.
+          </p>
+          <p>
+            When you drag a sub-issue into chat, the agent understands where it sits in the hierarchy. It knows what's already been done (parent and sibling issues) and what it's responsible for (just this sub-issue). This prevents agents from going out of scope or re-doing work that's already complete.
+          </p>
+
+          <h2 id="issue-to-prd-pipeline">The Issue-to-PRD Pipeline</h2>
+          <p>
+            The most effective workflow combines issues with PRDs:
+          </p>
+          <ul>
+            <li><strong>Create an issue</strong> describing what needs to happen at a high level.</li>
+            <li><strong>Draft a PRD</strong> using the Planner agent — give it the issue and ask it to explore the codebase and produce a structured plan with problem statement, scope, constraints, and acceptance criteria.</li>
+            <li><strong>Link the PRD</strong> to the issue so any agent that picks it up has the full requirements.</li>
+            <li><strong>Drag the issue into chat</strong> with the default coding agent. It reads the PRD, understands the scope, and implements.</li>
+          </ul>
+          <p>
+            This separation between planning and execution keeps things clean. The Planner researches and defines. The coding agent builds.
+          </p>
+
+          <h2 id="choosing-the-right-agent">Choosing the Right Agent</h2>
+          <p>
+            Different issues call for different agents. The chat input lets you pick from your configured CLIs and agent modes:
+          </p>
+          <ul>
+            <li><strong>Claude Code, Codex, OpenCode, Gemini</strong> — different AI providers, each with their own strengths. Pick based on the task or use Experiment mode to compare.</li>
+            <li><strong>Default mode</strong> — full coding agent with read, write, and execute access. Use for implementation tasks.</li>
+            <li><strong>Planner mode</strong> — read-only exploration. Use for investigation, architecture review, or drafting PRDs before handing off to a coding agent.</li>
+            <li><strong>Issue Resolver mode</strong> — designed to work through a queue of related issues in topological order, respecting dependencies.</li>
+          </ul>
+
+          <h2 id="tips">Tips</h2>
+          <ul>
+            <li><strong>Write good issue descriptions</strong> — the agent reads them literally. A vague issue gets a vague implementation. Be specific about what needs to change and why.</li>
+            <li><strong>Break it down</strong> — smaller sub-issues get better results than one giant task. The agent can focus on a well-scoped piece of work rather than trying to boil the ocean.</li>
+            <li><strong>Link PRDs for complex work</strong> — for anything non-trivial, write a PRD first. The agent's output quality scales directly with the quality of its input context.</li>
+            <li><strong>Use Issue Resolver for batch work</strong> — if you have a set of related sub-issues with dependencies, the Issue Resolver mode processes them in the right order automatically.</li>
+            <li><strong>Add instructions when dragging</strong> — you can type additional context in the message alongside the dragged issue. Use this for one-off guidance like "use the existing auth middleware" or "don't touch the database schema".</li>
+          </ul>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .docs-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-content {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      padding: 6rem 1.5rem 3rem;
+    }
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f4e9df;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose p {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose li {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose strong {
+    color: #f4e9df;
+    font-weight: 600;
+  }
+
+  .prose em {
+    color: rgba(244, 233, 223, 0.7);
+    font-style: italic;
+  }
+
+  .prose code {
+    background: rgba(231, 159, 116, 0.1);
+    color: #e79f74;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .prose a {
+    color: #e79f74;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: #f4e9df;
+  }
+
+  .doc-img {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(244, 233, 223, 0.08);
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+</style>
