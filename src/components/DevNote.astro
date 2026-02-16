@@ -1,59 +1,191 @@
 ---
 ---
 
-<section class="py-24 px-6">
-  <div class="max-w-3xl mx-auto">
-    <div class="bg-[#1a1512]/50 rounded-3xl p-8 md:p-10 border border-white/5 relative overflow-hidden">
-      <!-- Subtle accent -->
-      <div class="absolute top-0 left-8 w-1 h-16 bg-gradient-to-b from-[#e79f74] to-transparent"></div>
+<section class="py-24 px-6 border-t border-white/5">
+  <div class="max-w-4xl mx-auto">
 
-      <div class="relative">
-        <h3 class="text-2xl font-bold text-[#f4e9df] mb-6">Why I built this</h3>
+    <div class="grid md:grid-cols-[1fr_1px_240px] gap-0 items-start">
 
-        <div class="space-y-4 text-[#f4e9df]/70 leading-relaxed">
+      <!-- Story -->
+      <div class="story-col">
+        <p class="section-label">How this started</p>
+
+        <div class="story-blocks">
           <p>
-            I wanted <span class="text-[#f4e9df]">observability</span>. I wanted to see what agents were actually doing, give them better tools, and make them more efficient at getting work done.
+            I started using Claude Code on day one. Pretty quickly I was hacking together tmux scripts to run multiple agents in parallel, one on the frontend, one on the backend, just to see if I could get them to coordinate. It worked, sort of. But finding old conversations was painful, setup disappeared every time my machine restarted, and orphan MCP processes would silently eat RAM and CPU in the background.
           </p>
 
           <p>
-            So I built Molt Code. And then I started using it every day. It's been so long since I've even opened another editor.
+            So I put together a small web app. Just a place to chat, search, and keep things organised. That was the whole idea.
           </p>
 
           <p>
-            My goal now? <span class="text-[#e79f74]">Use this editor to build this editor.</span> I'm already there. Every feature, every fix, every improvement — done through Molt Code itself.
+            Then I started working across multiple projects and needed <strong>context isolation</strong>. A way to switch mental contexts without juggling random windows. I didn't want to reopen everything after a restart. I wanted a persistent interface that just picks up where I left off. One app, one state, no wasted memory from duplicate processes.
           </p>
 
           <p>
-            The next step is making agents use fewer tokens while being more effective. Better tools, smarter workflows, less waste.
+            I knew from the start that Anthropic and OpenAI would ship their own versions of this, and they did. But I was also sure those products would be built for the general public, not for someone like me who needs to orchestrate agents across repos every day. <strong>This is built for the workflow I actually have.</strong>
           </p>
 
-          <p class="text-[#f4e9df]">
-            If that sounds interesting, hop on the journey.
+          <p>
+            I use Molt Code daily across different projects. I'm building the next version of this app inside this app. It's sticking around because I need it, and I'll keep improving it for as long as that's true.
           </p>
         </div>
+      </div>
 
-        <!-- Divider -->
-        <div class="my-8 h-px bg-white/5"></div>
+      <!-- Vertical rule -->
+      <div class="vr"></div>
 
-        <!-- Call to action -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div class="flex-1">
-            <p class="text-[#f4e9df]/50 text-sm">
-              You <span class="text-[#f4e9df]/70">will</span> find bugs. This is v0.0.1. When you do, please open an issue — it genuinely helps.
-            </p>
-          </div>
-          <a
-            href="https://github.com/moltcode/moltcode/issues"
-            target="_blank"
-            class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-[#f4e9df]/80 hover:bg-white/10 hover:border-white/20 transition-colors text-sm"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
+      <!-- Sidebar -->
+      <div class="side-col">
+        <div class="side-block">
+          <p class="side-kicker">Today</p>
+          <p class="side-value">Used daily</p>
+          <p class="side-sub">across multiple projects</p>
+        </div>
+
+        <div class="side-block">
+          <p class="side-value">Self-hosted</p>
+          <p class="side-sub">Building v.next inside itself</p>
+        </div>
+
+        <div class="side-bugs">
+          <p>You <em>will</em> find bugs. This is early. When you do, please open an issue.</p>
+          <a href="https://github.com/moltcode/moltcode/issues" target="_blank" class="issue-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             Open an issue
           </a>
         </div>
       </div>
+
     </div>
   </div>
 </section>
+
+<style>
+  .section-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(244, 233, 223, 0.3);
+    margin-bottom: 1.5rem;
+  }
+
+  .story-col {
+    padding-right: 2.5rem;
+  }
+
+  .story-blocks p {
+    color: rgba(244, 233, 223, 0.55);
+    line-height: 1.8;
+    font-size: 0.9375rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .story-blocks p:last-child {
+    margin-bottom: 0;
+  }
+
+  .story-blocks strong {
+    color: #f4e9df;
+    font-weight: 500;
+  }
+
+  /* Vertical rule */
+  .vr {
+    background: rgba(244, 233, 223, 0.06);
+    align-self: stretch;
+  }
+
+  /* Sidebar */
+  .side-col {
+    padding-left: 2.5rem;
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .side-kicker {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #e79f74;
+    margin-bottom: 0.75rem;
+  }
+
+  .side-block {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(244, 233, 223, 0.06);
+  }
+
+  .side-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f4e9df;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .side-sub {
+    font-size: 0.8125rem;
+    color: rgba(244, 233, 223, 0.35);
+    margin: 0.125rem 0 0;
+  }
+
+  .side-bugs {
+    padding-top: 0.5rem;
+  }
+
+  .side-bugs p {
+    font-size: 0.75rem;
+    color: rgba(244, 233, 223, 0.3);
+    line-height: 1.5;
+    margin: 0 0 0.625rem;
+  }
+
+  .side-bugs em {
+    color: rgba(244, 233, 223, 0.5);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .issue-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    color: rgba(244, 233, 223, 0.5);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .issue-link:hover {
+    color: #e79f74;
+  }
+
+  @media (max-width: 768px) {
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .story-col {
+      padding-right: 0;
+    }
+
+    .vr {
+      height: 1px;
+      width: 100%;
+    }
+
+    .side-col {
+      padding-left: 0;
+      position: static;
+    }
+  }
+</style>

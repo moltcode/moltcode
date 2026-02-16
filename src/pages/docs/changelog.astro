@@ -1,0 +1,486 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+---
+
+<Layout title="Changelog - Molt Code">
+  <div class="docs-layout">
+    <DocsSidebar currentPath="/docs/changelog" />
+    <div class="docs-main">
+      <main class="docs-content">
+        <p class="text-[#e79f74] text-sm font-medium mb-4 tracking-wide uppercase">Journal</p>
+        <h1 class="text-4xl font-bold text-[#f4e9df] mb-4">Changelog</h1>
+        <p class="text-[#f4e9df]/50 text-base mb-12 leading-relaxed">A journal of how Molt Code evolved — from first commit to where it is today. 555 commits across 139 days of building.</p>
+
+        <div class="prose">
+
+          <div class="timeline">
+
+            <!-- What's Next -->
+            <div class="timeline-entry next-up">
+              <div class="timeline-marker upcoming"></div>
+              <div class="timeline-content">
+                <p class="timeline-date upcoming-label">What's Next</p>
+                <h2 id="whats-next">On the Horizon</h2>
+
+                <div class="next-item">
+                  <h3>Hardened Channels Experience</h3>
+                  <p>Making channels the primary interface for non-critical work. The thread agent is more capable of prompting Codex and Claude than doing it manually — leaning into that.</p>
+                  <div class="reasoning">
+                    <span class="reasoning-label">Thinking</span>
+                    <p>Channels should be the default place I go for things that don't need my full attention. The thread agent already knows how to prompt the right CLI better than I do most of the time. Time to trust it and build around that.</p>
+                  </div>
+                </div>
+
+                <div class="next-item">
+                  <h3>Molt Agent — The Platform Agent</h3>
+                  <p>A first-party agent that lives inside Molt Code and knows the entire platform. The go-to for "where is this?" and "what changed?" without context-switching.</p>
+                  <div class="reasoning">
+                    <span class="reasoning-label">Thinking</span>
+                    <p>I need one agent that just knows everything about the workspace — issues, sessions, files, history. Instead of searching manually, I should be able to ask and get an answer immediately. This becomes the starting point for any task.</p>
+                  </div>
+                </div>
+
+                <div class="next-item">
+                  <h3>Workflow Orchestration</h3>
+                  <p>Higher-level primitives where Claude reasons about what needs to happen, creates a workflow, spins up an agent to execute it, and that agent picks the right CLI for each step — then reports back.</p>
+                  <div class="reasoning">
+                    <span class="reasoning-label">Thinking</span>
+                    <p>Claude should solve the high-level problem and Codex should write the code. The UX for this isn't obvious yet — at the end of the day, Claude creates the workflow, creates an agent, hands the workflow off, and the agent manages finishing everything up before reporting back. That agent might use different CLIs for different purposes. Still figuring out the best architecture for this. It hasn't fully fermented yet.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Phase 10 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">February 11 – 15, 2026</p>
+                <h2 id="chat-groups-and-session-forking">Chat Groups & Session Forking</h2>
+                <p>
+                  Introduced chat groups for organising sessions by feature or topic. Added session forking and rewind — you can now branch a conversation at any point and explore a different direction without losing history.
+                </p>
+                <ul>
+                  <li>Chat groups with feature-based organisation</li>
+                  <li>Session forking and rewind to any point</li>
+                  <li>Planner agent variant for structured planning</li>
+                  <li>Permission MCP migrated from Go/TCP to native Elixir/SSE</li>
+                  <li>Orchestrator pattern replaces Runner for CLI adapters</li>
+                  <li>Knowledge base doc mentions with drag-and-drop</li>
+                  <li>Konva-based annotation canvas with layer management</li>
+                  <li>Desktop notifications for agent permission requests</li>
+                  <li>Plugin system removed in favour of cleaner Orchestrator pattern</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 9 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">February 3 – 10, 2026</p>
+                <h2 id="graph-execution-and-experiments">Graph Execution & Experiments</h2>
+                <p>
+                  The most architecturally ambitious phase. A graph execution system enables supervisor agents to coordinate multiple sub-agents working in parallel. Experiments let you run the same prompt against different models side by side.
+                </p>
+                <ul>
+                  <li>Generic graph execution system for supervisor agents</li>
+                  <li>Parallel implementation experiments across models</li>
+                  <li>Agent variant system with capability-based AgentSpec model</li>
+                  <li>Context mentions and agent questions in chat</li>
+                  <li>Worker agent communication with parent sessions</li>
+                  <li>Claude Code server mode with keep-alive</li>
+                  <li>MCP server and model registries</li>
+                  <li>ThreadManager for managed threads and dependency graphs</li>
+                  <li>Classic editor app with git integration and threading</li>
+                  <li>Control CLI renamed to <code>moltcode</code></li>
+                  <li>Release v0.0.5</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 8 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">January 25 – February 1, 2026</p>
+                <h2 id="channels-and-rebrand">Channels & Rebrand to Molt Code</h2>
+                <p>
+                  Slack-inspired channels for team communication, a native OpenCode Go adapter, and the official rebrand from "Quorvian" to "Molt Code."
+                </p>
+                <ul>
+                  <li>Slack-inspired channels and threads system</li>
+                  <li>OpenCode adapter with shared runtime and issue mentions</li>
+                  <li>Lua adapters replaced with pure Elixir CLI adapters</li>
+                  <li>Fast-forward message injection for running agents</li>
+                  <li>Rebrand from "Quorvian" to "Molt Code"</li>
+                  <li>MCP configured servers and git undo</li>
+                  <li>Tabbed file interface in chat</li>
+                  <li>Ephemeral overlay system</li>
+                  <li>File change tracking and session search</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 7 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">January 7 – 25, 2026</p>
+                <h2 id="architecture-hardening">Architecture Hardening & Split View</h2>
+                <p>
+                  A deep engineering sprint focused on streaming resilience, native PTY terminals, SQLite for standalone packaging, Lexical editor migration, and split-pane chat for side-by-side sessions.
+                </p>
+                <ul>
+                  <li>Flattened segment architecture for optimised streaming</li>
+                  <li>Streaming resilience with sequence tracking and resync</li>
+                  <li>SessionStore with file-based message persistence</li>
+                  <li>Direct PTY terminal support via erlexec (replacing ttyd)</li>
+                  <li>React Compiler enabled</li>
+                  <li>Command palette</li>
+                  <li>SQLite database support for standalone desktop deployment</li>
+                  <li>Lexical editor migration and Sentry integration</li>
+                  <li>Split-pane chat view and permission policy system</li>
+                  <li>Turn-based pagination for chat history</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 6 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">December 25, 2025 – January 7, 2026</p>
+                <h2 id="permissions-mcp-and-workspace">Permissions, MCP & Workspace Tabs</h2>
+                <p>
+                  Introduced Model Context Protocol support, a permission server to control agent actions, and workspace tabs with a proper routing framework.
+                </p>
+                <ul>
+                  <li>Go MCP permission server for Claude CLI</li>
+                  <li>MCP module with registry and configured servers</li>
+                  <li>OpenAPI schema generator and validation</li>
+                  <li>Workspace tabs with tab management</li>
+                  <li>Next.js-like router API</li>
+                  <li>Go-backed Lua runtime</li>
+                  <li>OpenCode integration added</li>
+                  <li>Code Review app with working changes, commit history, branches</li>
+                  <li>macOS-style app switcher overlay</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">November 29 – December 25, 2025</p>
+                <h2 id="knowledge-base-and-lsp">Knowledge Base, Annotations & LSP</h2>
+                <p>
+                  Major feature additions: a knowledge base for documents and PRDs, professional image annotation tools, a rich text editor, and language server protocol integration for code intelligence.
+                </p>
+                <ul>
+                  <li>Knowledge Base API and React hooks</li>
+                  <li>Image annotation with canvas, toolbar, shapes, dragging</li>
+                  <li>Color picker, highlighter, eraser, blur, and pen smoothing</li>
+                  <li>Callout annotations with export</li>
+                  <li>Rich text editor with slash menu, blocks, lists, dividers</li>
+                  <li>LSP support for Elixir (Next LS), Python (Pyright), and TypeScript</li>
+                  <li>Session pinning and prompt management</li>
+                  <li>Stories renamed to Epics</li>
+                  <li>Embedded PostgreSQL with Tauri configuration</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">November 16 – 28, 2025</p>
+                <h2 id="rich-ui-and-issues">Rich UI, Issues & Glass Design</h2>
+                <p>
+                  A massive UI push with the glass design system, built-in issue tracking, and rich editing capabilities. The product evolved from a chat wrapper into a full development environment.
+                </p>
+                <ul>
+                  <li>Glass design specification implemented across the UI</li>
+                  <li>Machine issues management system</li>
+                  <li>Git commit history and file changes</li>
+                  <li>Mermaid diagram rendering</li>
+                  <li>Project branding system with theme management</li>
+                  <li>Web search tool segment</li>
+                  <li>Live reasoning display with LatestReasoningBar</li>
+                  <li>Session interruption and user-initiated interrupt handling</li>
+                  <li>File upload, comment attachments, and custom labels</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">November 7 – 15, 2025</p>
+                <h2 id="phoenix-channels-and-worktrees">Phoenix Channels & Worktrees</h2>
+                <p>
+                  Major infrastructure shift from REST/SSE to Phoenix Channels for real-time bidirectional communication. Git worktrees enable parallel agent work on separate branches.
+                </p>
+                <ul>
+                  <li>Session streaming migrated from SSE to Phoenix Channels</li>
+                  <li>All transports consolidated on Phoenix Channels</li>
+                  <li>REST controllers dropped in favour of channels</li>
+                  <li>Managed git worktrees UI and session wiring</li>
+                  <li>File-change previews and click-to-open git diff overlay</li>
+                  <li>Machine terminal proxying via Phoenix Channel</li>
+                  <li>Comprehensive test suite added</li>
+                  <li>MachineDevPanel as persistent development sidebar</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">October 21 – November 3, 2025</p>
+                <h2 id="multi-agent-and-lua">Multi-Agent Support & Lua Adapters</h2>
+                <p>
+                  The platform became truly multi-agent. A Lua adapter layer abstracted away differences between Claude, Codex, and Gemini CLIs. The dashboard was restructured into projects and terminals.
+                </p>
+                <ul>
+                  <li>Gemini CLI and Codex support added</li>
+                  <li>Lua-based adapter system for unified agent handling</li>
+                  <li>LuaDelegator pattern for unified agent events</li>
+                  <li>AgentInstructionBuilder and AgentSegmentFactory</li>
+                  <li>File preview with Monaco editor</li>
+                  <li>Dashboard redesign: projects and terminals</li>
+                  <li>Git status panel</li>
+                  <li>Directory selector with search</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 1 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker last"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">September 29 – October 20, 2025</p>
+                <h2 id="genesis">Genesis</h2>
+                <p>
+                  The project begins. A basic AI chat interface wrapping Claude CLI, evolving into a backend service with session streaming, tool inspection, and a dark theme.
+                </p>
+                <ul>
+                  <li>Project creation — first commit</li>
+                  <li>Permission request handling for Claude client</li>
+                  <li>Migration to a separate backend service</li>
+                  <li>Tool inspector and ClaudeClient refactor</li>
+                  <li>Session streaming with checkpointing</li>
+                  <li>Nested tool rendering with ParentToolSegment</li>
+                  <li>Agent/session event types with progress tracking</li>
+                  <li>Dark theme styles</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .docs-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-content {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      padding: 6rem 1.5rem 3rem;
+    }
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f4e9df;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose p {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose li {
+    color: rgba(244, 233, 223, 0.6);
+    line-height: 1.75;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose strong {
+    color: #f4e9df;
+    font-weight: 600;
+  }
+
+  .prose code {
+    background: rgba(231, 159, 116, 0.1);
+    color: #e79f74;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.4375rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: rgba(231, 159, 116, 0.15);
+  }
+
+  .timeline-entry {
+    position: relative;
+    padding-bottom: 3rem;
+  }
+
+  .timeline-entry:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0.375rem;
+    width: 0.5625rem;
+    height: 0.5625rem;
+    border-radius: 50%;
+    background: #e79f74;
+    box-shadow: 0 0 0 3px rgba(231, 159, 116, 0.15);
+  }
+
+  .timeline-date {
+    font-size: 0.8125rem;
+    color: #e79f74;
+    font-weight: 500;
+    margin-bottom: 0.25rem !important;
+    letter-spacing: 0.01em;
+  }
+
+  .timeline-content h2 {
+    margin-top: 0.25rem;
+  }
+
+  /* What's Next section */
+  .timeline-entry.next-up {
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid rgba(244, 233, 223, 0.06);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-marker.upcoming {
+    background: transparent;
+    border: 2px solid #e79f74;
+    box-shadow: 0 0 0 3px rgba(231, 159, 116, 0.1), 0 0 12px rgba(231, 159, 116, 0.2);
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+
+  .upcoming-label {
+    font-size: 0.6875rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(231, 159, 116, 0.7) !important;
+  }
+
+  .next-item {
+    margin-bottom: 1.75rem;
+  }
+
+  .next-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .next-item h3 {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: #f4e9df;
+    margin-bottom: 0.375rem;
+  }
+
+  .next-item > p {
+    margin-bottom: 0.625rem;
+  }
+
+  .reasoning {
+    position: relative;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(244, 233, 223, 0.03);
+    border-left: 2px solid rgba(244, 233, 223, 0.08);
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+
+  .reasoning-label {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(244, 233, 223, 0.3);
+    margin-bottom: 0.375rem;
+  }
+
+  .reasoning p {
+    font-size: 0.875rem;
+    color: rgba(244, 233, 223, 0.4) !important;
+    line-height: 1.65;
+    margin-bottom: 0 !important;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .timeline {
+      padding-left: 1.5rem;
+    }
+
+    .timeline-marker {
+      left: -1.5rem;
+    }
+  }
+</style>
