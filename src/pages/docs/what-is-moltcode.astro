@@ -9,9 +9,9 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
     <DocsSidebar currentPath="/docs/what-is-moltcode" />
     <div class="docs-main">
       <main class="docs-content">
-        <p class="text-[#e79f74] text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
-        <h1 class="text-4xl font-bold text-[#f4e9df] mb-4">What is Molt Code?</h1>
-        <p class="text-[#f4e9df]/50 text-base mb-12 leading-relaxed">A desktop environment built so the AI does the work while you focus on what matters.</p>
+        <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
+        <h1 class="text-4xl font-bold text-theme-primary mb-4">What is Molt Code?</h1>
+        <p class="text-theme-primary/50 text-base mb-12 leading-relaxed">A desktop environment built so the AI does the work while you focus on what matters.</p>
 
         <div class="prose">
           <h2 id="the-idea">The Idea</h2>
@@ -65,6 +65,50 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
             Most developers don't work on one project at a time. Molt Code is designed around this — switch between projects instantly, run agents in parallel, and keep everything organised without terminal tab chaos.
           </p>
 
+          <h2 id="how-is-it-different-from-openclaw">How Is It Different from OpenClaw?</h2>
+          <p>
+            <a href="https://openclaw.ai/" target="_blank">OpenClaw</a> is a popular open-source AI assistant that connects to messaging apps like WhatsApp, Telegram, Slack, and Discord. It's a general-purpose agent — you talk to it through chat, and it can browse the web, manage your calendar, send emails, and run shell commands on your behalf. Think of it as a personal assistant that happens to live in your group chats.
+          </p>
+          <p>
+            Molt Code is not that. It's purpose-built for software development and nothing else.
+          </p>
+          <p>
+            The difference comes down to scope and architecture. OpenClaw is a single agent you interact with through a messaging interface. It's great for ad-hoc tasks and automation, but it wasn't designed around the workflows that professional development demands — managing multiple codebases, running parallel agent sessions, organising work into features, or comparing output across different AI models side by side.
+          </p>
+          <p>
+            Molt Code gives you a dedicated desktop workspace where AI coding agents (Claude Code, Codex, Gemini CLI) run as managed processes. You can spin up multiple agents across different projects simultaneously, group related sessions into features, and see every tool call and file edit in real time. It's structured around how developers actually work — not around chat threads.
+          </p>
+          <p>
+            A few concrete differences:
+          </p>
+          <ul>
+            <li><strong>Multi-agent, multi-project</strong> — OpenClaw runs as a single agent instance. Molt Code manages many agents across many projects at once, each with its own session and lifecycle.</li>
+            <li><strong>Dev-specific tooling</strong> — Molt Code has built-in support for PRDs, knowledge bases, issue tracking, and dependency graphs. OpenClaw focuses on general productivity (email, calendar, web browsing).</li>
+            <li><strong>Model comparison</strong> — Molt Code lets you send the same prompt to Claude, Codex, and Gemini in parallel and compare the results before committing. OpenClaw routes through one model at a time.</li>
+            <li><strong>Desktop-native</strong> — Molt Code is a native macOS app with a purpose-built UI for code review, agent monitoring, and project management. OpenClaw is accessed through existing messaging platforms.</li>
+            <li><strong>Process management</strong> — Agents in Molt Code are real subprocesses you can start, stop, restart, and monitor. OpenClaw runs as a single long-lived process with a chat interface on top.</li>
+          </ul>
+          <p>
+            Neither is strictly better than the other — they solve different problems. If you want an AI assistant woven into your daily communication tools, OpenClaw is excellent. If you want a dedicated environment for running AI coding agents at scale across your projects, that's what Molt Code is built for.
+          </p>
+
+          <h2 id="will-it-do-what-openclaw-does">Will It Do What OpenClaw Does?</h2>
+          <p>
+            Probably, yes — but not by copying the approach.
+          </p>
+          <p>
+            OpenClaw's strength is breadth. It can triage your email, manage your calendar, browse the web, control smart home devices, and handle dozens of integrations through a growing library of skills. It achieves this by giving an AI model wide access to your system and letting it figure things out. That's powerful, but it's also a black box — things happen, and you hope they happened correctly.
+          </p>
+          <p>
+            Molt Code will grow into general-purpose capabilities over time, but with a different philosophy: <strong>observability first</strong>. Every action an agent takes should be visible, auditable, and controllable. Before adding email automation or browser control, the foundation needs to be right — you should be able to see exactly what the agent is doing, why it's doing it, approve or reject individual actions, and trace back through the full history when something goes wrong.
+          </p>
+          <p>
+            The plan is to introduce these capabilities as managed skills with the same process-level visibility that coding agents already have. When Molt Code handles your email, you'll see it draft the reply, see the reasoning, and approve the send — not just get a notification that it "handled 47 emails overnight." When it browses the web on your behalf, you'll see the navigation, the data it extracts, and the decisions it makes along the way.
+          </p>
+          <p>
+            This means Molt Code will likely trail OpenClaw on raw feature count for a while. That's a deliberate trade-off. Moving fast and adding integrations is easy. Building them so that you actually trust the agent to act on your behalf — that's the harder problem, and the one worth solving properly.
+          </p>
+
           <h2 id="who-its-for">Who It's For</h2>
           <p>
             Molt Code is for developers who use AI coding agents seriously. If you've found yourself juggling terminal sessions, losing context between conversations, or wishing you could just hand off a task and come back to it later — that's exactly the problem this solves.
@@ -108,7 +152,7 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
   .prose h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #f4e9df;
+    color: var(--color-primary);
     margin-top: 2.5rem;
     margin-bottom: 0.75rem;
   }
@@ -116,13 +160,13 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
   .prose h3 {
     font-size: 1.125rem;
     font-weight: 500;
-    color: #f4e9df;
+    color: var(--color-primary);
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
   }
 
   .prose p {
-    color: rgba(244, 233, 223, 0.6);
+    color: var(--color-secondary);
     line-height: 1.75;
     margin-bottom: 1rem;
   }
@@ -134,19 +178,19 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
   }
 
   .prose li {
-    color: rgba(244, 233, 223, 0.6);
+    color: var(--color-secondary);
     line-height: 1.75;
     margin-bottom: 0.25rem;
   }
 
   .prose strong {
-    color: #f4e9df;
+    color: var(--color-primary);
     font-weight: 600;
   }
 
   .prose code {
-    background: rgba(231, 159, 116, 0.1);
-    color: #e79f74;
+    background: rgba(var(--color-accent-rgb), 0.1);
+    color: var(--color-accent);
     padding: 0.15rem 0.4rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
@@ -154,19 +198,19 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
   }
 
   .prose a {
-    color: #e79f74;
+    color: var(--color-accent);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
   .prose a:hover {
-    color: #f4e9df;
+    color: var(--color-primary);
   }
 
   .doc-img {
     width: 100%;
     border-radius: 0.75rem;
-    border: 1px solid rgba(244, 233, 223, 0.08);
+    border: 1px solid var(--color-border);
     margin: 1.5rem 0 2rem;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   }

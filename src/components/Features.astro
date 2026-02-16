@@ -47,10 +47,10 @@ const features = [
   <div class="max-w-4xl mx-auto">
     <!-- Section header -->
     <div class="mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-[#f4e9df] mb-3">
+      <h2 class="text-3xl md:text-4xl font-bold text-theme-primary mb-3">
         Built with clear goals
       </h2>
-      <p class="text-lg text-[#f4e9df]/50">
+      <p class="text-lg text-theme-primary/50">
         What we're optimizing for.
       </p>
     </div>
@@ -86,10 +86,10 @@ const features = [
     </div>
 
     <!-- Highlighted callout -->
-    <div class="mt-12 py-6 border-t border-b border-[#e79f74]/20">
+    <div class="mt-12 py-6 border-t border-b border-theme-accent/20">
       <p class="text-center">
-        <span class="text-[#e79f74] font-medium">Both you and the agents</span>
-        <span class="text-[#f4e9df]/70"> have access to all these features.</span>
+        <span class="text-theme-accent font-medium">Both you and the agents</span>
+        <span class="text-theme-primary/70"> have access to all these features.</span>
       </p>
     </div>
   </div>
@@ -107,16 +107,16 @@ const features = [
     gap: 1rem;
     align-items: start;
     padding: 1.25rem 0;
-    border-bottom: 1px solid rgba(244, 233, 223, 0.06);
+    border-bottom: 1px solid var(--color-border);
     transition: background 0.2s ease;
   }
 
   .feature-row:first-child {
-    border-top: 1px solid rgba(244, 233, 223, 0.06);
+    border-top: 1px solid var(--color-border);
   }
 
   .feature-row:hover {
-    background: rgba(231, 159, 116, 0.03);
+    background: rgba(var(--color-accent-rgb), 0.03);
     margin: 0 -1rem;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -125,12 +125,13 @@ const features = [
   .feature-number {
     font-family: ui-monospace, monospace;
     font-size: 0.75rem;
-    color: rgba(244, 233, 223, 0.25);
+    color: var(--color-secondary);
+    opacity: 0.4;
     padding-top: 0.125rem;
   }
 
   .feature-icon {
-    color: #e79f74;
+    color: var(--color-accent);
   }
 
   .feature-content {
@@ -140,13 +141,13 @@ const features = [
   .feature-title {
     font-size: 1rem;
     font-weight: 500;
-    color: #f4e9df;
+    color: var(--color-primary);
     margin-bottom: 0.25rem;
   }
 
   .feature-desc {
     font-size: 0.9375rem;
-    color: rgba(244, 233, 223, 0.5);
+    color: var(--color-secondary);
     line-height: 1.5;
   }
 
@@ -154,8 +155,8 @@ const features = [
     margin-top: 2.5rem;
     padding: 1.5rem;
     border-radius: 1rem;
-    border: 1px dashed rgba(231, 159, 116, 0.3);
-    background: rgba(231, 159, 116, 0.03);
+    border: 1px dashed rgba(var(--color-accent-rgb), 0.3);
+    background: rgba(var(--color-accent-rgb), 0.03);
   }
 
   .upcoming-header {
@@ -170,8 +171,8 @@ const features = [
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #e79f74;
-    background: rgba(231, 159, 116, 0.12);
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.12);
     padding: 0.2rem 0.6rem;
     border-radius: 9999px;
   }
@@ -179,12 +180,12 @@ const features = [
   .upcoming-title {
     font-size: 1.125rem;
     font-weight: 600;
-    color: #f4e9df;
+    color: var(--color-primary);
   }
 
   .upcoming-desc {
     font-size: 0.9375rem;
-    color: rgba(244, 233, 223, 0.55);
+    color: var(--color-secondary);
     line-height: 1.6;
     margin-bottom: 1rem;
   }
@@ -197,9 +198,10 @@ const features = [
 
   .upcoming-tags span {
     font-size: 0.75rem;
-    color: rgba(231, 159, 116, 0.7);
-    background: rgba(231, 159, 116, 0.08);
-    border: 1px solid rgba(231, 159, 116, 0.15);
+    color: var(--color-accent);
+    opacity: 0.7;
+    background: rgba(var(--color-accent-rgb), 0.08);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
     padding: 0.2rem 0.6rem;
     border-radius: 9999px;
   }

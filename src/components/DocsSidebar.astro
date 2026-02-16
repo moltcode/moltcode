@@ -169,7 +169,7 @@ const toc = tocMap[currentPath] || [];
     position: sticky;
     top: 0;
     height: 100vh;
-    border-right: 1px solid rgba(244, 233, 223, 0.06);
+    border-right: 1px solid var(--color-border);
   }
 
   .sidebar-inner {
@@ -186,15 +186,15 @@ const toc = tocMap[currentPath] || [];
     gap: 0.625rem;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: #f4e9df;
+    color: var(--color-primary);
     text-decoration: none;
     padding-bottom: 1.25rem;
     margin-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(244, 233, 223, 0.06);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .sidebar-logo:hover {
-    color: #e79f74;
+    color: var(--color-accent);
   }
 
   .sidebar-nav {
@@ -210,7 +210,8 @@ const toc = tocMap[currentPath] || [];
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: rgba(244, 233, 223, 0.35);
+    color: var(--color-secondary);
+    opacity: 0.6;
     padding: 0.375rem 0.625rem;
     margin-bottom: 0.25rem;
   }
@@ -225,7 +226,7 @@ const toc = tocMap[currentPath] || [];
     display: block;
     padding: 0.375rem 0.625rem;
     font-size: 0.8125rem;
-    color: rgba(244, 233, 223, 0.55);
+    color: var(--color-secondary);
     text-decoration: none;
     border-radius: 0.375rem;
     transition: all 0.15s ease;
@@ -233,18 +234,18 @@ const toc = tocMap[currentPath] || [];
   }
 
   .sidebar-link:hover {
-    color: #f4e9df;
-    background: rgba(244, 233, 223, 0.04);
+    color: var(--color-primary);
+    background: var(--color-surface);
   }
 
   .sidebar-link.active {
-    color: #e79f74;
-    background: rgba(231, 159, 116, 0.08);
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.08);
   }
 
   .sidebar-toc {
     padding-top: 1rem;
-    border-top: 1px solid rgba(244, 233, 223, 0.06);
+    border-top: 1px solid var(--color-border);
   }
 
   .sidebar-toc ul {
@@ -257,7 +258,8 @@ const toc = tocMap[currentPath] || [];
     display: block;
     padding: 0.25rem 0.625rem;
     font-size: 0.75rem;
-    color: rgba(244, 233, 223, 0.4);
+    color: var(--color-secondary);
+    opacity: 0.7;
     text-decoration: none;
     border-radius: 0.375rem;
     transition: all 0.15s ease;
@@ -265,8 +267,9 @@ const toc = tocMap[currentPath] || [];
   }
 
   .sidebar-toc-link:hover {
-    color: #e79f74;
-    background: rgba(231, 159, 116, 0.05);
+    color: var(--color-accent);
+    opacity: 1;
+    background: rgba(var(--color-accent-rgb), 0.05);
   }
 
   @media (max-width: 768px) {

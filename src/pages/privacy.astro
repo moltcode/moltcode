@@ -7,8 +7,8 @@ import Footer from '../components/Footer.astro';
 <Layout title="Privacy Policy - Molt Code">
   <Nav />
   <main class="max-w-3xl mx-auto px-6 py-32">
-    <h1 class="text-4xl font-bold text-[#f4e9df] mb-2">Privacy Policy</h1>
-    <p class="text-[#f4e9df]/40 text-sm mb-12">Last updated: February 2026</p>
+    <h1 class="text-4xl font-bold text-theme-primary mb-2">Privacy Policy</h1>
+    <p class="text-theme-primary/40 text-sm mb-12">Last updated: February 2026</p>
 
     <div class="prose">
       <h2>Overview</h2>
@@ -81,7 +81,7 @@ import Footer from '../components/Footer.astro';
   .prose h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #f4e9df;
+    color: var(--color-primary);
     margin-top: 2.5rem;
     margin-bottom: 0.75rem;
   }
@@ -89,13 +89,13 @@ import Footer from '../components/Footer.astro';
   .prose h3 {
     font-size: 1.125rem;
     font-weight: 500;
-    color: #f4e9df;
+    color: var(--color-primary);
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
   }
 
   .prose p {
-    color: rgba(244, 233, 223, 0.6);
+    color: var(--color-secondary);
     line-height: 1.75;
     margin-bottom: 1rem;
   }
@@ -107,18 +107,18 @@ import Footer from '../components/Footer.astro';
   }
 
   .prose li {
-    color: rgba(244, 233, 223, 0.6);
+    color: var(--color-secondary);
     line-height: 1.75;
     margin-bottom: 0.25rem;
   }
 
   .prose a {
-    color: #e79f74;
+    color: var(--color-accent);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
   .prose a:hover {
-    color: #f4e9df;
+    color: var(--color-primary);
   }
 </style>

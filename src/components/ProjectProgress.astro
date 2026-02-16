@@ -71,7 +71,7 @@ const recentUpdates = [
     top: 0;
     height: 100vh;
     overflow-y: auto;
-    background: rgba(11, 9, 7, 0.8);
+    background: var(--color-glass-surface);
     border-left: 1px solid var(--color-border);
     backdrop-filter: blur(8px);
   }
@@ -88,7 +88,8 @@ const recentUpdates = [
   .section-label {
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--color-muted);
+    color: var(--color-secondary);
+    opacity: 0.6;
     margin-bottom: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -120,7 +121,7 @@ const recentUpdates = [
     top: 0.4rem;
     bottom: 0;
     width: 2px;
-    background: rgba(244, 233, 223, 0.1);
+    background: var(--color-border-strong);
   }
 
   .stepper-item:last-child::before {
@@ -142,7 +143,7 @@ const recentUpdates = [
 
   .stepper-item.done .stepper-marker {
     background: #28c840;
-    color: #0b0907;
+    color: var(--color-bg);
   }
 
   .stepper-item.done::before {
@@ -151,16 +152,16 @@ const recentUpdates = [
 
   .stepper-item.in-progress .stepper-marker {
     background: var(--color-accent);
-    box-shadow: 0 0 8px rgba(231, 159, 116, 0.5);
+    box-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.5);
   }
 
   .stepper-item.in-progress::before {
-    background: linear-gradient(to bottom, var(--color-accent), rgba(244, 233, 223, 0.1));
+    background: linear-gradient(to bottom, var(--color-accent), var(--color-border-strong));
   }
 
   .stepper-item.pending .stepper-marker {
-    background: rgba(244, 233, 223, 0.08);
-    border: 1.5px solid rgba(244, 233, 223, 0.15);
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border-strong);
   }
 
   .stepper-dot {
@@ -170,12 +171,13 @@ const recentUpdates = [
   }
 
   .stepper-item.in-progress .stepper-dot {
-    background: #0b0907;
+    background: var(--color-bg);
     animation: pulse-dot 2s infinite;
   }
 
   .stepper-item.pending .stepper-dot {
-    background: rgba(244, 233, 223, 0.25);
+    background: var(--color-secondary);
+    opacity: 0.4;
   }
 
   @keyframes pulse-dot {
@@ -189,7 +191,7 @@ const recentUpdates = [
   }
 
   .stepper-item.done .stepper-label {
-    color: rgba(244, 233, 223, 0.5);
+    color: var(--color-secondary);
   }
 
   .stepper-item.in-progress .stepper-label {
@@ -198,7 +200,8 @@ const recentUpdates = [
   }
 
   .stepper-item.pending .stepper-label {
-    color: rgba(244, 233, 223, 0.4);
+    color: var(--color-secondary);
+    opacity: 0.7;
   }
 
   .updates-list {
@@ -221,7 +224,8 @@ const recentUpdates = [
 
   .update-date {
     font-size: 0.6875rem;
-    color: var(--color-muted);
+    color: var(--color-secondary);
+    opacity: 0.6;
     text-transform: uppercase;
     letter-spacing: 0.03em;
   }

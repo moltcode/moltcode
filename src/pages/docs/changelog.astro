@@ -9,9 +9,9 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
     <DocsSidebar currentPath="/docs/changelog" />
     <div class="docs-main">
       <main class="docs-content">
-        <p class="text-[#e79f74] text-sm font-medium mb-4 tracking-wide uppercase">Journal</p>
-        <h1 class="text-4xl font-bold text-[#f4e9df] mb-4">Changelog</h1>
-        <p class="text-[#f4e9df]/50 text-base mb-12 leading-relaxed">A journal of how Molt Code evolved — from first commit to where it is today. 555 commits across 139 days of building.</p>
+        <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Journal</p>
+        <h1 class="text-4xl font-bold text-theme-primary mb-4">Changelog</h1>
+        <p class="text-theme-primary/50 text-base mb-12 leading-relaxed">A journal of how Molt Code evolved — from first commit to where it is today. 555 commits across 139 days of building.</p>
 
         <div class="prose">
 
@@ -321,13 +321,13 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
   .prose h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #f4e9df;
+    color: var(--color-primary);
     margin-top: 0;
     margin-bottom: 0.75rem;
   }
 
   .prose p {
-    color: rgba(244, 233, 223, 0.6);
+    color: var(--color-secondary);
     line-height: 1.75;
     margin-bottom: 1rem;
   }
@@ -339,19 +339,19 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
   }
 
   .prose li {
-    color: rgba(244, 233, 223, 0.6);
+    color: var(--color-secondary);
     line-height: 1.75;
     margin-bottom: 0.25rem;
   }
 
   .prose strong {
-    color: #f4e9df;
+    color: var(--color-primary);
     font-weight: 600;
   }
 
   .prose code {
-    background: rgba(231, 159, 116, 0.1);
-    color: #e79f74;
+    background: rgba(var(--color-accent-rgb), 0.1);
+    color: var(--color-accent);
     padding: 0.15rem 0.4rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
@@ -371,7 +371,7 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
     top: 0.5rem;
     bottom: 0.5rem;
     width: 1px;
-    background: rgba(231, 159, 116, 0.15);
+    background: rgba(var(--color-accent-rgb), 0.15);
   }
 
   .timeline-entry {
@@ -390,13 +390,13 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
     width: 0.5625rem;
     height: 0.5625rem;
     border-radius: 50%;
-    background: #e79f74;
-    box-shadow: 0 0 0 3px rgba(231, 159, 116, 0.15);
+    background: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.15);
   }
 
   .timeline-date {
     font-size: 0.8125rem;
-    color: #e79f74;
+    color: var(--color-accent);
     font-weight: 500;
     margin-bottom: 0.25rem !important;
     letter-spacing: 0.01em;
@@ -409,14 +409,14 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
   /* What's Next section */
   .timeline-entry.next-up {
     padding-bottom: 3.5rem;
-    border-bottom: 1px solid rgba(244, 233, 223, 0.06);
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: 0.5rem;
   }
 
   .timeline-marker.upcoming {
     background: transparent;
-    border: 2px solid #e79f74;
-    box-shadow: 0 0 0 3px rgba(231, 159, 116, 0.1), 0 0 12px rgba(231, 159, 116, 0.2);
+    border: 2px solid var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.1), 0 0 12px rgba(var(--color-accent-rgb), 0.2);
     width: 0.625rem;
     height: 0.625rem;
   }
@@ -425,7 +425,7 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
     font-size: 0.6875rem !important;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: rgba(231, 159, 116, 0.7) !important;
+    color: rgba(var(--color-accent-rgb), 0.7) !important;
   }
 
   .next-item {
@@ -439,7 +439,7 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
   .next-item h3 {
     font-size: 1.0625rem;
     font-weight: 500;
-    color: #f4e9df;
+    color: var(--color-primary);
     margin-bottom: 0.375rem;
   }
 
@@ -451,8 +451,8 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
     position: relative;
     margin-top: 0.5rem;
     padding: 0.75rem 1rem;
-    background: rgba(244, 233, 223, 0.03);
-    border-left: 2px solid rgba(244, 233, 223, 0.08);
+    background: var(--color-surface);
+    border-left: 2px solid var(--color-border);
     border-radius: 0 0.375rem 0.375rem 0;
   }
 
@@ -462,13 +462,13 @@ import DocsSidebar from '../../components/DocsSidebar.astro';
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: rgba(244, 233, 223, 0.3);
+    color: var(--color-secondary);
     margin-bottom: 0.375rem;
   }
 
   .reasoning p {
     font-size: 0.875rem;
-    color: rgba(244, 233, 223, 0.4) !important;
+    color: var(--color-secondary) !important;
     line-height: 1.65;
     margin-bottom: 0 !important;
     font-style: italic;
