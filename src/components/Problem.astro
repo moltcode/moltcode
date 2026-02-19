@@ -1,110 +1,223 @@
 ---
 ---
 
-<section class="py-20 px-6 border-b border-theme-border">
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-12">
-      <h2 class="text-2xl md:text-3xl font-bold text-theme-primary mb-4">
-        Terminal-based AI workflows don't scale
+<section class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <!-- Section intro -->
+    <div class="text-center mb-16">
+      <div class="section-badge">
+        <span class="section-badge-dot"></span>
+        The Problem
+      </div>
+      <h2 class="text-3xl md:text-5xl font-bold text-theme-primary mb-4">
+        AI in the terminal is powerful.<br />Managing it is <span class="line-through opacity-50">not</span> <span class="gradient-text">chaos.</span>
       </h2>
-      <p class="text-lg text-theme-primary/50">
-        If you're working on multiple projects, you've hit these walls.
-      </p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="pain-point">
-        <div class="pain-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
-          </svg>
+    <!-- Before / After split -->
+    <div class="grid md:grid-cols-2 gap-6 md:gap-0">
+      <!-- Before -->
+      <div class="before-panel">
+        <div class="panel-label">
+          <div class="panel-label-icon before-icon">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          Without Molt Code
         </div>
-        <div>
-          <h3 class="pain-title">Context switching nightmare</h3>
-          <p class="pain-desc">Which terminal has which project? Which agent is waiting for input? You're constantly hunting.</p>
+        <div class="panel-items">
+          <div class="panel-item">
+            <span class="item-num">01</span>
+            <div>
+              <p class="item-title">Tab roulette</p>
+              <p class="item-desc">12 terminals. Which one is the backend agent? Scroll and pray.</p>
+            </div>
+          </div>
+          <div class="panel-item">
+            <span class="item-num">02</span>
+            <div>
+              <p class="item-title">Silent stalls</p>
+              <p class="item-desc">Your agent asked for permission 20 min ago. You had no idea.</p>
+            </div>
+          </div>
+          <div class="panel-item">
+            <span class="item-num">03</span>
+            <div>
+              <p class="item-title">Lost context</p>
+              <p class="item-desc">Restart your machine. Every session, every state — gone.</p>
+            </div>
+          </div>
+          <div class="panel-item">
+            <span class="item-num">04</span>
+            <div>
+              <p class="item-title">Memory bloat</p>
+              <p class="item-desc">Orphan MCP processes silently eating 4GB of RAM.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="pain-point">
-        <div class="pain-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-            <path d="M12 6v6l4 2"/>
-          </svg>
+      <!-- After -->
+      <div class="after-panel">
+        <div class="panel-label">
+          <div class="panel-label-icon after-icon">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          With Molt Code
         </div>
-        <div>
-          <h3 class="pain-title">Agents waiting in the background</h3>
-          <p class="pain-desc">An agent needs your approval but you forgot about it. Tasks stall because you can't see what's pending.</p>
-        </div>
-      </div>
-
-      <div class="pain-point">
-        <div class="pain-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-          </svg>
-        </div>
-        <div>
-          <h3 class="pain-title">Copy-paste hell</h3>
-          <p class="pain-desc">Terminal selection is a trap. Scrollback disappears. You can't easily grab code snippets or errors.</p>
-        </div>
-      </div>
-
-      <div class="pain-point">
-        <div class="pain-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
-        </div>
-        <div>
-          <h3 class="pain-title">Lost track of what happened where</h3>
-          <p class="pain-desc">Was that bugfix in project A or B? Terminals don't give you history you can actually search.</p>
+        <div class="panel-items">
+          <div class="panel-item">
+            <span class="item-num accent">01</span>
+            <div>
+              <p class="item-title">One window, every project</p>
+              <p class="item-desc">All agents organized in a persistent workspace.</p>
+            </div>
+          </div>
+          <div class="panel-item">
+            <span class="item-num accent">02</span>
+            <div>
+              <p class="item-title">Desktop notifications</p>
+              <p class="item-desc">Get pinged instantly. Watch YouTube in peace.</p>
+            </div>
+          </div>
+          <div class="panel-item">
+            <span class="item-num accent">03</span>
+            <div>
+              <p class="item-title">Persistent state</p>
+              <p class="item-desc">Reboot, restart — everything picks up where you left off.</p>
+            </div>
+          </div>
+          <div class="panel-item">
+            <span class="item-num accent">04</span>
+            <div>
+              <p class="item-title">Clean process control</p>
+              <p class="item-desc">Agents terminate when done. Zero orphans.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <p class="text-center text-theme-primary/40 mt-10 text-sm">
-      Molt Code solves this with a proper workspace—not another terminal wrapper.
-    </p>
   </div>
 </section>
 
 <style>
-  .pain-point {
-    display: flex;
-    gap: 1rem;
-    padding: 1.25rem;
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    background: rgba(var(--color-accent-rgb), 0.08);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  }
+
+  .section-badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .before-panel,
+  .after-panel {
+    padding: 2rem;
+    border-radius: 1.25rem;
+  }
+
+  .before-panel {
     background: var(--color-surface);
-    border-radius: 0.75rem;
     border: 1px solid var(--color-border);
   }
 
-  .pain-icon {
-    flex-shrink: 0;
-    width: 2.5rem;
-    height: 2.5rem;
+  .after-panel {
+    background: rgba(var(--color-accent-rgb), 0.03);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  }
+
+  @media (min-width: 768px) {
+    .before-panel {
+      border-radius: 1.25rem 0 0 1.25rem;
+      border-right: none;
+    }
+    .after-panel {
+      border-radius: 0 1.25rem 1.25rem 0;
+      border-left: 2px solid rgba(var(--color-accent-rgb), 0.25);
+    }
+  }
+
+  .panel-label {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-secondary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .panel-label-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(239, 68, 68, 0.1);
-    border-radius: 0.5rem;
-    color: #f87171;
   }
 
-  .pain-title {
-    font-size: 1rem;
+  .before-icon {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+  }
+
+  .after-icon {
+    background: rgba(40, 200, 64, 0.15);
+    color: #28c840;
+  }
+
+  .panel-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .panel-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .item-num {
+    font-family: var(--font-family-mono);
+    font-size: 0.6875rem;
+    color: var(--color-secondary);
+    opacity: 0.3;
+    flex-shrink: 0;
+    padding-top: 0.125rem;
+  }
+
+  .item-num.accent {
+    color: var(--color-accent);
+    opacity: 0.7;
+  }
+
+  .item-title {
+    font-size: 0.9375rem;
     font-weight: 500;
     color: var(--color-primary);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.125rem;
   }
 
-  .pain-desc {
-    font-size: 0.875rem;
+  .item-desc {
+    font-size: 0.8125rem;
     color: var(--color-secondary);
     line-height: 1.5;
   }

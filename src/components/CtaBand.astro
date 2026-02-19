@@ -1,0 +1,165 @@
+---
+import { config } from '../config';
+---
+
+<section class="py-28 px-6 relative overflow-hidden">
+  <!-- Animated background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[450px] rounded-full blur-[150px]" style="background: rgba(var(--color-accent-rgb), 0.08)"></div>
+    <div class="cta-grid-bg"></div>
+  </div>
+
+  <div class="max-w-3xl mx-auto text-center relative z-10">
+    <!-- Decorative bracket -->
+    <div class="cta-bracket">
+      <span class="bracket-char">{</span>
+      <span class="bracket-text">ready?</span>
+      <span class="bracket-char">}</span>
+    </div>
+
+    <h2 class="text-3xl md:text-5xl font-bold text-theme-primary mb-4 leading-tight">
+      Stop juggling terminals.<br />
+      <span class="gradient-text">Start shipping.</span>
+    </h2>
+    <p class="text-lg text-theme-primary/50 mb-10 max-w-xl mx-auto">
+      Download Molt Code, add your API keys, and let your agents work while you focus.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href={config.downloadUrl} data-track-download class="cta-button-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        <span>Download for Mac</span>
+      </a>
+      <a href={config.githubUrl} target="_blank" class="cta-button-secondary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+        <span>View on GitHub</span>
+      </a>
+    </div>
+
+    <!-- Trust signals -->
+    <div class="trust-signals">
+      <span class="trust-item">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Free forever
+      </span>
+      <span class="trust-item">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        No account required
+      </span>
+      <span class="trust-item">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Your keys, your data
+      </span>
+      <span class="trust-item">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        macOS (Apple Silicon &amp; Intel)
+      </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(var(--color-accent-rgb), 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(var(--color-accent-rgb), 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse 50% 60% at 50% 50%, black, transparent);
+    -webkit-mask-image: radial-gradient(ellipse 50% 60% at 50% 50%, black, transparent);
+  }
+
+  .cta-bracket {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-family-mono);
+  }
+
+  .bracket-char {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  .bracket-text {
+    font-size: 0.875rem;
+    color: var(--color-accent);
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+
+  .cta-button-primary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-strong) 100%);
+    box-shadow:
+      0 0 0 1px rgba(var(--color-accent-rgb), 0.3),
+      0 8px 24px rgba(var(--color-accent-rgb), 0.25),
+      inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
+  }
+
+  .cta-button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px rgba(var(--color-accent-rgb), 0.4),
+      0 12px 32px rgba(var(--color-accent-rgb), 0.35),
+      inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+
+  .cta-button-secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    transition: all 0.3s ease;
+  }
+
+  .cta-button-secondary:hover {
+    transform: translateY(-2px);
+    border-color: rgba(var(--color-accent-rgb), 0.4);
+    background: rgba(var(--color-accent-rgb), 0.06);
+  }
+
+  .trust-signals {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    color: var(--color-secondary);
+    opacity: 0.5;
+  }
+
+  .trust-item svg {
+    color: #28c840;
+    opacity: 0.7;
+  }
+</style>

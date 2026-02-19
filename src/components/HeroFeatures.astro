@@ -1,71 +1,50 @@
 ---
-const features = [
+const pillars = [
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>`,
-    title: "Desktop Notifications",
-    description: "Get notified instantly when an agent needs your approval — no more tab-checking or wasted idle time.",
-    sub: "Watch a YouTube video while agents work. You'll know the moment they need you.",
-    tag: null,
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M6 8l4 4-4 4"/><line x1="12" y1="16" x2="18" y2="16"/></svg>`,
+    label: "Desktop-Native",
+    desc: "Real app. Real notifications. Real performance.",
+    stat: "<100ms",
+    statLabel: "launch time",
   },
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>`,
-    title: "Structured Dev Tools",
-    description: "Built-in Docs, PRDs, and Issues — for both you and the agents.",
-    sub: "Write with Claude Opus, get it implemented with Codex or Minimax. All structured, all tracked.",
-    tag: null,
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`,
+    label: "Multi-Agent",
+    desc: "Claude, Codex, Gemini — side by side.",
+    stat: "4+",
+    statLabel: "agents supported",
   },
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><path d="M12 10v6"/><path d="M9 13h6"/></svg>`,
-    title: "Session Groups",
-    description: "Pick multiple projects, create a feature — keep all issues, PRDs, and sessions together for agents to access.",
-    sub: "No more juggling tabs. One group per feature, across repos, with everything agents need in one place.",
-    tag: null,
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>`,
+    label: "Your Keys",
+    desc: "Direct API. No middleman markup.",
+    stat: "$0",
+    statLabel: "platform fee",
   },
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8"/><path d="M8 13h6"/></svg>`,
-    title: "Channels",
-    description: "A chat-like interface for supervised agent conversations.",
-    sub: "Agent crafts prompts, fixes issues, talks to other agents — then reports back to you in a thread.",
-    tag: "Beta",
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>`,
+    label: "Multi-Project",
+    desc: "One feature across many codebases.",
+    stat: "∞",
+    statLabel: "projects",
   },
 ];
 ---
 
-<section class="py-20 px-6 relative overflow-hidden">
-  <!-- Subtle background accent -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-theme-accent/5 rounded-full blur-3xl pointer-events-none"></div>
-
-  <div class="max-w-5xl mx-auto relative z-10">
-    <!-- Section header -->
-    <div class="text-center mb-14">
-      <p class="text-sm font-medium text-theme-accent tracking-wide uppercase mb-3">Core Experience</p>
-      <h2 class="text-3xl md:text-4xl font-bold text-theme-primary mb-4">
-        Built around how you actually work
-      </h2>
-      <p class="text-lg text-theme-primary/50 max-w-2xl mx-auto">
-        Features designed to keep you in flow — not fight your tools.
-      </p>
-    </div>
-
-    <!-- Features grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      {features.map((feature) => (
-        <div class="hero-feature-card group">
-          <div class="flex items-start gap-4">
-            <div class="feature-icon shrink-0 mt-0.5" set:html={feature.icon}></div>
-            <div class="min-w-0">
-              <div class="flex items-center gap-2 mb-1.5">
-                <h3 class="text-base font-semibold text-theme-primary">{feature.title}</h3>
-                {feature.tag && (
-                  <span class="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-theme-accent/10 text-theme-accent border border-theme-accent/20">
-                    {feature.tag}
-                  </span>
-                )}
-              </div>
-              <p class="text-sm text-theme-primary/60 leading-relaxed mb-2">{feature.description}</p>
-              <p class="text-xs text-theme-primary/35 leading-relaxed">{feature.sub}</p>
+<section class="py-8 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      {pillars.map((p) => (
+        <div class="pillar-card group">
+          <div class="pillar-top">
+            <div class="pillar-icon" set:html={p.icon}></div>
+            <div class="pillar-stat">
+              <span class="stat-value">{p.stat}</span>
+              <span class="stat-label">{p.statLabel}</span>
             </div>
           </div>
+          <h3 class="text-sm font-semibold text-theme-primary mb-1">{p.label}</h3>
+          <p class="text-xs text-theme-primary/40 leading-relaxed">{p.desc}</p>
         </div>
       ))}
     </div>
@@ -73,18 +52,76 @@ const features = [
 </section>
 
 <style>
-  .hero-feature-card {
-    padding: 1.5rem;
+  .pillar-card {
+    padding: 1.25rem;
     border-radius: 1rem;
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
 
-  .hero-feature-card:hover {
-    border-color: var(--color-glass-border);
-    background: var(--color-glass-surface);
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(var(--color-accent-rgb), 0.5), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pillar-card:hover::before {
+    opacity: 1;
+  }
+
+  .pillar-card:hover {
+    border-color: rgba(var(--color-accent-rgb), 0.2);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+
+  .pillar-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .pillar-icon {
+    color: var(--color-accent);
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.625rem;
+    background: linear-gradient(135deg, rgba(var(--color-accent-rgb), 0.12) 0%, rgba(var(--color-accent-strong-rgb), 0.08) 100%);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  }
+
+  .pillar-stat {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    font-family: var(--font-family-mono);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.5625rem;
+    color: var(--color-secondary);
+    opacity: 0.4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 </style>

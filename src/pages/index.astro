@@ -3,31 +3,33 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import HeroFeatures from '../components/HeroFeatures.astro';
+import Ticker from '../components/Ticker.astro';
 import Problem from '../components/Problem.astro';
+import HowItWorks from '../components/HowItWorks.astro';
 import Features from '../components/Features.astro';
 import Agents from '../components/Agents.astro';
-
 import Philosophy from '../components/Philosophy.astro';
 import DevNote from '../components/DevNote.astro';
-
+import CtaBand from '../components/CtaBand.astro';
 import Footer from '../components/Footer.astro';
 import ProjectProgress from '../components/ProjectProgress.astro';
 ---
 
-<Layout title="Molt Code - Workstation for Effective AI Agents">
+<Layout title="Molt Code — The AI Coding Workstation">
   <div class="page-layout">
     <div class="main-content">
       <Nav />
       <main>
         <Hero />
         <HeroFeatures />
+        <Ticker />
         <Problem />
+        <HowItWorks />
         <Features />
-
         <Agents />
         <Philosophy />
         <DevNote />
-
+        <CtaBand />
       </main>
       <Footer />
     </div>
@@ -38,7 +40,7 @@ import ProjectProgress from '../components/ProjectProgress.astro';
 <style>
   .page-layout {
     display: grid;
-    grid-template-columns: 1fr 20%;
+    grid-template-columns: 1fr 18%;
     min-height: 100vh;
   }
 

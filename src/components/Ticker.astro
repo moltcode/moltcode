@@ -1,0 +1,72 @@
+---
+const items = [
+  "Multi-agent orchestration",
+  "Persistent sessions",
+  "Desktop notifications",
+  "Process management",
+  "Visual MCP config",
+  "Issue tracking",
+  "Built-in docs",
+  "Zero orphan processes",
+  "BYO API keys",
+  "Multi-project workspaces",
+  "Claude Code",
+  "Codex",
+  "Gemini CLI",
+  "OpenCode",
+];
+---
+
+<div class="ticker-wrapper" aria-hidden="true">
+  <div class="ticker-track">
+    {[...items, ...items].map((item) => (
+      <span class="ticker-item">
+        <span class="ticker-dot"></span>
+        {item}
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .ticker-wrapper {
+    overflow: hidden;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(var(--color-accent-rgb), 0.02);
+    padding: 0.75rem 0;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 2rem;
+    animation: ticker 40s linear infinite;
+    width: max-content;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    opacity: 0.6;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .ticker-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.5;
+  }
+</style>

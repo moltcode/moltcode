@@ -1,0 +1,101 @@
+# Molt Code
+
+> Molt Code is a free desktop application for macOS that orchestrates AI coding agents across multiple projects. It provides a purpose-built workspace where developers bring their own API keys to run agents like Claude Code, Codex, Gemini CLI, and OpenCode as managed subprocesses — with persistent sessions, desktop notifications, and full visibility into every tool call and file edit.
+
+The core idea: kick off work across multiple repos, let AI agents handle it, get notified when they need input, and come back to real progress. No subscriptions. No middlemen. Just you and your APIs.
+
+## Links
+
+- [Home](https://moltcode.com/)
+- [What is Molt Code?](https://moltcode.com/docs/what-is-moltcode)
+- [Features & Chat Organisation](https://moltcode.com/docs/features)
+- [Building a Product from Scratch](https://moltcode.com/docs/building-from-scratch)
+- [Resolving Issues with Agents](https://moltcode.com/docs/resolving-issues)
+- [Drafting PRDs with Agents](https://moltcode.com/docs/prds)
+- [Changelog](https://moltcode.com/docs/changelog)
+- [Support & Contact](https://moltcode.com/docs/support)
+- [Privacy Policy](https://moltcode.com/privacy)
+- [Terms of Service](https://moltcode.com/terms)
+- [GitHub Repository](https://github.com/moltcode/moltcode)
+- [GitHub Issues](https://github.com/moltcode/moltcode/issues)
+
+## Key Concepts
+
+### Bring Your Own Keys
+Molt Code does not proxy API requests or require a subscription. Users configure their own API keys for Anthropic, OpenAI, Google, or any other provider. Keys stay on the user's machine and requests go directly to the provider.
+
+### Agents as Managed Processes
+Each agent (Claude Code, Codex, Gemini CLI, OpenCode) runs as a real subprocess — spawned on demand, monitored in real time, and terminated cleanly when done. No orphan processes eating RAM.
+
+### Features
+A Feature groups chat sessions across one or more projects around a single goal (e.g., "API redesign", "Dark mode support"). Backend and frontend sessions live together under one feature, keeping everything in context.
+
+### Knowledge Base (Docs & PRDs)
+Every project has a built-in knowledge base with Docs (free-form documentation), PRDs (structured Product Requirements Documents), and an archive. Agents reference these during sessions using @context_name syntax.
+
+### Agent Modes
+- **Default** — Standard coding agent with full read, write, and execute access.
+- **Planner** — Explore and create plans. Can read files and search the codebase but cannot edit. Ideal for drafting PRDs and architecture plans.
+- **Issue Resolver** — Optimized for picking up issues from the tracker and implementing them with full context.
+
+### Experiments
+Send the same prompt to multiple AI providers in parallel and compare results side by side before committing to an approach.
+
+### Channels
+Supervised agent conversations with threaded reports. Channels are designed for non-critical work where a thread agent prompts the right CLI on your behalf.
+
+### Built-in Issue Tracker
+Issues with sub-issues and dependency relationships. Drag an issue from the sidebar into chat, and the agent picks it up with full context (description, linked PRDs, hierarchy). The issue is the prompt.
+
+## How It Works
+
+1. **Add your projects & keys** — Point Molt Code at your repos and paste in your API keys. Supports Claude, OpenAI, Google, and open-source models.
+2. **Spin up agents** — Launch coding agents as managed subprocesses, each scoped to a project with its own context. Agents get access to Docs, PRDs, and Issues.
+3. **Ship while they work** — Desktop notifications tell you when an agent needs input. Review diffs, approve changes, coordinate across repos from one persistent window.
+
+## Building a Product from Scratch (Workflow)
+
+Molt Code supports a five-stage pipeline for building new products:
+
+1. **Research** — Use AI chat to explore the problem space, evaluate tech stacks, and gather requirements. Use Experiment mode to compare recommendations across models.
+2. **Document** — Capture research in the project's knowledge base as a Doc page.
+3. **Plan** — Switch to the Planner agent to turn research into a structured technical PRD with problem statement, scope, constraints, and acceptance criteria.
+4. **Break down** — Pass the PRD to the default agent and have it create a topologically ordered epic with dependency-tracked issues.
+5. **Execute** — Drag the epic into chat with the Issue Resolver, and let it work through every issue in the right order.
+
+## Features
+
+- **Full Visibility** — See every tool call, file edit, and decision. No black boxes.
+- **Desktop Notifications** — Instant alerts when agents need approval. Zero tab-checking.
+- **Built-in Docs & PRDs** — Write specs with one agent, implement with another. All structured.
+- **Purpose-Built UI** — Designed for AI workflows, not a chat bolted onto an editor.
+- **Visual MCP Config** — Configure tools and permissions without touching JSON files.
+- **Lightweight Runtime** — Agents spin up on demand, terminate cleanly. No idle processes.
+- **Process Manager** — Start, stop, tail, and grep your dev processes from one place.
+- **Channels** — Supervised agent conversations with threaded reports.
+- **Persistent Sessions** — Close the app, reopen it, and sessions are exactly where you left off. Survives reboots.
+- **Multi-Project Support** — One window, every project. All agents organized in a persistent workspace.
+- **Clean Process Control** — Agents terminate when done. Zero orphan processes.
+
+## Supported Agents
+
+- **Claude Code** (Anthropic) — Deep reasoning, MCP tools, best for planning.
+- **Codex** (OpenAI) — Code-optimized, fast inference, multi-language.
+- **Gemini CLI** (Google) — Multimodal, large context, fast.
+- **OpenCode** (Open Source) — Self-hosted, customizable, no API costs.
+
+More agents coming via an extensible adapter system.
+
+## Philosophy
+
+Molt Code rejects subscriptions on top of API costs, middlemen marking up tokens, vendor lock-in to one AI provider, and code going through someone else's servers. It believes in a free desktop app with no strings attached, direct API access with your keys, support for any AI provider, and complete developer tool ownership.
+
+## Privacy
+
+Molt Code is a privacy-respecting desktop application. API keys, code, and project data stay on the user's machine. The app collects anonymous telemetry (app version, feature usage patterns, crash reports) which can be disabled in settings. It never collects source code, API keys, file contents, or conversation content.
+
+## Platform
+
+- **Current platform**: macOS (desktop app)
+- **Price**: Free — $0 platform fee
+- **Source**: Available on GitHub at github.com/moltcode/moltcode

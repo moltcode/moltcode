@@ -1,0 +1,175 @@
+---
+const steps = [
+  {
+    num: "1",
+    title: "Add your projects & keys",
+    desc: "Point Molt Code at your repos and paste in your API keys. That's the entire setup.",
+    detail: "Supports Claude, OpenAI, Google, and open-source models. Switch between them per-session.",
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>`,
+  },
+  {
+    num: "2",
+    title: "Spin up agents",
+    desc: "Launch coding agents as managed subprocesses — each scoped to a project with its own context.",
+    detail: "Agents get access to your Docs, PRDs, and Issues. They know what to build before you type a word.",
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+  },
+  {
+    num: "3",
+    title: "Ship while they work",
+    desc: "Desktop notifications tell you when an agent needs input. The rest of the time? You're free.",
+    detail: "Review diffs, approve changes, coordinate across repos — all from one persistent window.",
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+  },
+];
+---
+
+<section class="py-24 px-6 relative">
+  <!-- Subtle background accent -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[1px] bg-gradient-to-r from-transparent via-[rgba(var(--color-accent-rgb),0.2)] to-transparent"></div>
+  </div>
+
+  <div class="max-w-4xl mx-auto relative z-10">
+    <div class="text-center mb-16">
+      <div class="section-badge">
+        <span class="section-badge-dot"></span>
+        How it works
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-theme-primary">
+        Three steps to <span class="gradient-text">orchestrated AI</span>
+      </h2>
+    </div>
+
+    <div class="steps-grid">
+      {steps.map((step, i) => (
+        <div class="step-card" style={`animation-delay: ${i * 0.15}s`}>
+          <div class="step-header">
+            <div class="step-number">{step.num}</div>
+            <div class="step-icon" set:html={step.icon}></div>
+          </div>
+          <h3 class="text-lg font-semibold text-theme-primary mb-2">{step.title}</h3>
+          <p class="text-sm text-theme-primary/60 leading-relaxed mb-2">{step.desc}</p>
+          <p class="text-xs text-theme-primary/30 leading-relaxed">{step.detail}</p>
+          {i < steps.length - 1 && (
+            <div class="step-connector">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-theme-accent/30 hidden md:block"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    background: rgba(var(--color-accent-rgb), 0.08);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  }
+
+  .section-badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .steps-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+  }
+
+  .step-card {
+    position: relative;
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    transition: all 0.3s ease;
+  }
+
+  .step-card:first-child {
+    border-radius: 1.25rem 1.25rem 0 0;
+  }
+
+  .step-card:last-child {
+    border-radius: 0 0 1.25rem 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .step-card:first-child {
+      border-radius: 1.25rem 0 0 1.25rem;
+    }
+    .step-card:last-child {
+      border-radius: 0 1.25rem 1.25rem 0;
+    }
+    .step-card:not(:last-child) {
+      border-right: none;
+    }
+  }
+
+  .step-card:hover {
+    background: rgba(var(--color-accent-rgb), 0.03);
+    z-index: 1;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .step-number {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(var(--color-accent-rgb), 0.15), rgba(var(--color-accent-strong-rgb), 0.1));
+    border: 1.5px solid rgba(var(--color-accent-rgb), 0.3);
+    color: var(--color-accent);
+  }
+
+  .step-icon {
+    color: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  .step-connector {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: var(--color-bg);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

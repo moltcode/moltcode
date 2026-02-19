@@ -310,3 +310,35 @@ body {
 .bg-accent\/10 { background: rgba(var(--color-accent-rgb), 0.1); }
 .border-accent\/20 { border-color: rgba(var(--color-accent-rgb), 0.2); }
 .via-accent\/50 { --tw-gradient-via: rgba(var(--color-accent-rgb), 0.5); }
+
+
+/* Section reveal animation */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-up {
+  animation: reveal-up 0.8s ease-out both;
+}
+
+/* Smooth line-through */
+.line-through {
+  text-decoration: line-through;
+  text-decoration-color: rgba(var(--color-accent-rgb), 0.4);
+  text-decoration-thickness: 2px;
+}
+
+/* Focus ring for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
