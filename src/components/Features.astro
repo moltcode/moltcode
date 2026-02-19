@@ -3,65 +3,81 @@ const features = [
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`,
     title: "Full Visibility",
-    description: "See exactly what AI agents are doing. Every tool call, every file edit, every decision."
+    description: "See every tool call, file edit, and decision. No black boxes.",
+    highlight: false,
+  },
+  {
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>`,
+    title: "Desktop Notifications",
+    description: "Instant alerts when agents need approval. Zero tab-checking.",
+    highlight: true,
+  },
+  {
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>`,
+    title: "Built-in Docs & PRDs",
+    description: "Write specs with Opus, implement with Codex. All structured.",
+    highlight: false,
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>`,
-    title: "Better UI for AI",
-    description: "Purpose-built interface for AI workflows, not a chat bolted onto an editor."
-  },
-  {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>`,
-    title: "CLI-Independent Agents",
-    description: "Agents run as managed subprocesses. Clean separation, better control."
+    title: "Purpose-Built UI",
+    description: "Designed for AI workflows — not a chat bolted onto an editor.",
+    highlight: false,
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`,
-    title: "Easy Tool Configuration",
-    description: "Configure MCP servers, permissions, and agent tools without touching config files."
-  },
-  {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h.01"/><path d="M12 8h.01"/><path d="M17 8h.01"/></svg>`,
-    title: "Multi-Chat, Multi-Project",
-    description: "Multiple conversations, multiple projects, all in one app."
+    title: "Visual MCP Config",
+    description: "Configure tools and permissions without touching JSON files.",
+    highlight: true,
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
-    title: "Low Memory, Run & Kill",
-    description: "Agents spin up when needed, terminate when done. No idle processes eating RAM."
+    title: "Lightweight Runtime",
+    description: "Agents spin up on demand, terminate cleanly. No idle processes.",
+    highlight: false,
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
-    title: "Better Process Management",
-    description: "Define, start, stop, and monitor processes. Tail logs, grep output."
+    title: "Process Manager",
+    description: "Start, stop, tail, and grep your dev processes from one place.",
+    highlight: false,
   },
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
-    title: "Edge Cases, Handled by Default",
-    description: "Common sharp edges from real coding sessions — already smoothed out so you don't have to."
-  }
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8"/><path d="M8 13h6"/></svg>`,
+    title: "Channels",
+    description: "Supervised agent conversations with threaded reports back to you.",
+    highlight: false,
+  },
 ];
 ---
 
-<section id="features" class="py-24 px-6">
-  <div class="max-w-4xl mx-auto">
+<section id="features" class="py-16 md:py-24 px-4 md:px-6 relative">
+  <!-- Top accent line -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-[rgba(var(--color-accent-rgb),0.15)] to-transparent"></div>
+
+  <div class="max-w-5xl mx-auto">
     <!-- Section header -->
-    <div class="mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-theme-primary mb-3">
-        Built with clear goals
+    <div class="text-center mb-10 md:mb-16">
+      <div class="section-badge">
+        <span class="section-badge-dot"></span>
+        Features
+      </div>
+      <h2 class="text-2xl md:text-4xl font-bold text-theme-primary mb-3 md:mb-4">
+        Everything you need.<br /><span class="text-theme-primary/40">Nothing you don't.</span>
       </h2>
-      <p class="text-lg text-theme-primary/50">
-        What we're optimizing for.
+      <p class="text-sm md:text-base text-theme-primary/50 max-w-2xl mx-auto">
+        Each feature works for both you <em>and</em> your agents.
       </p>
     </div>
 
-    <!-- Features list -->
-    <div class="features-list">
-      {features.map((feature, index) => (
-        <div class="feature-row">
-          <div class="feature-number">{String(index + 1).padStart(2, '0')}</div>
-          <div class="feature-icon" set:html={feature.icon}></div>
-          <div class="feature-content">
+    <!-- Feature grid -->
+    <div class="feature-grid">
+      {features.map((feature, i) => (
+        <div class={`feature-card ${feature.highlight ? 'feature-card-highlight' : ''}`}>
+          <div class="feature-icon-wrap">
+            <div class="feature-icon" set:html={feature.icon}></div>
+          </div>
+          <div class="feature-text">
             <h3 class="feature-title">{feature.title}</h3>
             <p class="feature-desc">{feature.description}</p>
           </div>
@@ -70,150 +86,304 @@ const features = [
     </div>
 
     <!-- Upcoming -->
-    <div class="upcoming-card">
+    <div class="upcoming-banner">
       <div class="upcoming-header">
-        <span class="upcoming-badge">Upcoming</span>
-        <h3 class="upcoming-title">Platform Agent</h3>
+        <div class="flex items-center gap-2 md:gap-3">
+          <span class="upcoming-badge">Coming Soon</span>
+          <h3 class="text-base md:text-lg font-semibold text-theme-primary">Platform Agent</h3>
+        </div>
+        <div class="upcoming-pulse">
+          <span class="upcoming-pulse-dot"></span>
+          In Development
+        </div>
       </div>
-      <p class="upcoming-desc">
-        An autonomous agent that sits on top of your project, reads your PRDs, creates dependency-tracked issues, and delegates work to coding agents — resolving the entire backlog without manual intervention. Plan once, let it build.
+      <p class="text-xs md:text-sm text-theme-primary/50 leading-relaxed mb-3 md:mb-4">
+        An autonomous agent that reads your PRDs, creates dependency-tracked issues, and delegates work to coding agents. Plan once, let it build.
       </p>
-      <div class="upcoming-tags">
-        <span>Autonomous delegation</span>
-        <span>PRD-to-code pipeline</span>
-        <span>Multi-agent orchestration</span>
+      <div class="flex flex-wrap gap-1.5 md:gap-2">
+        <span class="upcoming-tag">Autonomous delegation</span>
+        <span class="upcoming-tag">PRD → Code pipeline</span>
+        <span class="upcoming-tag">Multi-agent orchestration</span>
       </div>
-    </div>
-
-    <!-- Highlighted callout -->
-    <div class="mt-12 py-6 border-t border-b border-theme-accent/20">
-      <p class="text-center">
-        <span class="text-theme-accent font-medium">Both you and the agents</span>
-        <span class="text-theme-primary/70"> have access to all these features.</span>
-      </p>
     </div>
   </div>
 </section>
 
 <style>
-  .features-list {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .feature-row {
-    display: grid;
-    grid-template-columns: 2.5rem 2.5rem 1fr;
-    gap: 1rem;
-    align-items: start;
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--color-border);
-    transition: background 0.2s ease;
-  }
-
-  .feature-row:first-child {
-    border-top: 1px solid var(--color-border);
-  }
-
-  .feature-row:hover {
-    background: rgba(var(--color-accent-rgb), 0.03);
-    margin: 0 -1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .feature-number {
-    font-family: ui-monospace, monospace;
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.75rem;
-    color: var(--color-secondary);
-    opacity: 0.4;
-    padding-top: 0.125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    background: rgba(var(--color-accent-rgb), 0.08);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  }
+
+  .section-badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  /* ===== Feature Grid ===== */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.625rem;
+  }
+
+  @media (min-width: 480px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .feature-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  /* ===== Feature Card ===== */
+  .feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 0.875rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (min-width: 480px) {
+    .feature-card {
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1.125rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .feature-card {
+      padding: 1.25rem;
+      gap: 1rem;
+      border-radius: 1rem;
+    }
+  }
+
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 50% 0%, rgba(var(--color-accent-rgb), 0.06) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .feature-card:hover::after { opacity: 1; }
+
+  .feature-card:hover {
+    border-color: rgba(var(--color-accent-rgb), 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  /* Highlight cards span 2 cols on tablet+ */
+  .feature-card-highlight {
+    border-color: rgba(var(--color-accent-rgb), 0.15);
+    background: rgba(var(--color-accent-rgb), 0.03);
+  }
+
+  @media (min-width: 768px) {
+    .feature-card-highlight {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  /* ===== Icon ===== */
+  .feature-icon-wrap {
+    flex-shrink: 0;
   }
 
   .feature-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
     color: var(--color-accent);
+    background: linear-gradient(135deg, rgba(var(--color-accent-rgb), 0.12) 0%, rgba(var(--color-accent-strong-rgb), 0.08) 100%);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+    transition: all 0.3s ease;
   }
 
-  .feature-content {
+  @media (min-width: 480px) {
+    .feature-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+  }
+
+  .feature-card:hover .feature-icon {
+    box-shadow: 0 0 16px rgba(var(--color-accent-rgb), 0.2);
+    transform: scale(1.05);
+  }
+
+  /* ===== Text ===== */
+  .feature-text {
     min-width: 0;
   }
 
   .feature-title {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.875rem;
+    font-weight: 600;
     color: var(--color-primary);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.125rem;
+  }
+
+  @media (min-width: 768px) {
+    .feature-title {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
   }
 
   .feature-desc {
-    font-size: 0.9375rem;
-    color: var(--color-secondary);
+    font-size: 0.8125rem;
     line-height: 1.5;
+    color: var(--color-secondary);
+    opacity: 0.7;
   }
 
-  .upcoming-card {
-    margin-top: 2.5rem;
-    padding: 1.5rem;
+  @media (min-width: 768px) {
+    .feature-desc {
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+  }
+
+  /* ===== Upcoming Banner ===== */
+  .upcoming-banner {
+    margin-top: 1rem;
+    padding: 1.25rem;
     border-radius: 1rem;
-    border: 1px dashed rgba(var(--color-accent-rgb), 0.3);
-    background: rgba(var(--color-accent-rgb), 0.03);
+    border: 1px dashed rgba(var(--color-accent-rgb), 0.25);
+    background: rgba(var(--color-accent-rgb), 0.02);
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .upcoming-banner {
+      margin-top: 1.5rem;
+      padding: 1.75rem 2rem;
+      border-radius: 1.25rem;
+    }
+  }
+
+  .upcoming-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(var(--color-accent-rgb), 0.3), transparent);
   }
 
   .upcoming-header {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .upcoming-badge {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.12);
-    padding: 0.2rem 0.6rem;
-    border-radius: 9999px;
-  }
-
-  .upcoming-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-primary);
-  }
-
-  .upcoming-desc {
-    font-size: 0.9375rem;
-    color: var(--color-secondary);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-
-  .upcoming-tags {
-    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .upcoming-tags span {
-    font-size: 0.75rem;
+  @media (min-width: 640px) {
+    .upcoming-header {
+      margin-bottom: 0.75rem;
+      gap: 0.75rem;
+    }
+  }
+
+  .upcoming-badge {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.12);
+    padding: 0.1875rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  @media (min-width: 640px) {
+    .upcoming-badge {
+      font-size: 0.625rem;
+      padding: 0.25rem 0.625rem;
+    }
+  }
+
+  .upcoming-pulse {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.625rem;
+    color: var(--color-accent);
+    opacity: 0.7;
+  }
+
+  @media (min-width: 640px) {
+    .upcoming-pulse {
+      font-size: 0.6875rem;
+    }
+  }
+
+  .upcoming-pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; box-shadow: 0 0 2px rgba(var(--color-accent-rgb), 0.3); }
+    50% { opacity: 1; box-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.5); }
+  }
+
+  .upcoming-tag {
+    font-size: 0.625rem;
     color: var(--color-accent);
     opacity: 0.7;
     background: rgba(var(--color-accent-rgb), 0.08);
     border: 1px solid rgba(var(--color-accent-rgb), 0.15);
-    padding: 0.2rem 0.6rem;
+    padding: 0.1875rem 0.5rem;
     border-radius: 9999px;
   }
 
-  @media (max-width: 640px) {
-    .feature-row {
-      grid-template-columns: 2rem 1fr;
-      gap: 0.75rem;
-    }
-
-    .feature-number {
-      display: none;
+  @media (min-width: 640px) {
+    .upcoming-tag {
+      font-size: 0.6875rem;
+      padding: 0.2rem 0.6rem;
     }
   }
 </style>
