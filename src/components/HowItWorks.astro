@@ -2,29 +2,29 @@
 const steps = [
   {
     num: "1",
-    title: "Add your projects & keys",
-    desc: "Point Molt Code at your repos and paste in your API keys. That's the entire setup.",
-    detail: "Supports Claude, OpenAI, Google, and open-source models. Switch between them per-session.",
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>`,
+    title: "Write a PRD",
+    desc: "Describe what you want built — scope, constraints, acceptance criteria. Or let a Planner agent draft it by exploring your codebase.",
+    detail: "Structured templates keep specs focused. Agents read them directly.",
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>`,
   },
   {
     num: "2",
-    title: "Spin up agents",
-    desc: "Launch coding agents as managed subprocesses — each scoped to a project with its own context.",
-    detail: "Agents get access to your Docs, PRDs, and Issues. They know what to build before you type a word.",
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    title: "Generate an epic",
+    desc: "The system breaks your PRD into dependency-tracked issues, orders them, and bundles them into an execution chain.",
+    detail: "Each issue knows its blockers and sequence. No manual breakdown needed.",
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></svg>`,
   },
   {
     num: "3",
-    title: "Ship while they work",
-    desc: "Desktop notifications tell you when an agent needs input. The rest of the time? You're free.",
-    detail: "Review diffs, approve changes, coordinate across repos — all from one persistent window.",
+    title: "A tree of agents resolves it",
+    desc: "A supervisor agent spawns a tree of coding agents that systematically resolve each issue in dependency order.",
+    detail: "You review diffs and approve. Desktop notifications tell you when agents need input.",
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
   },
 ];
 ---
 
-<section class="py-24 px-6 relative">
+<section class="py-24 px-6 relative" id="pipeline">
   <!-- Subtle background accent -->
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[1px] bg-gradient-to-r from-transparent via-[rgba(var(--color-accent-rgb),0.2)] to-transparent"></div>
@@ -34,10 +34,10 @@ const steps = [
     <div class="text-center mb-16">
       <div class="section-badge">
         <span class="section-badge-dot"></span>
-        How it works
+        The Pipeline
       </div>
       <h2 class="text-3xl md:text-4xl font-bold text-theme-primary">
-        Three steps to <span class="gradient-text">orchestrated AI</span>
+        From spec to <span class="gradient-text">shipped code.</span>
       </h2>
     </div>
 
