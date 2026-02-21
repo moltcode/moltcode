@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Turn specs into shipped code. Molt Code orchestrates AI coding agents through an automated pipeline — from PRD to issues to implementation. Free, your existing API keys." } = Astro.props;
+const { title, description = "Molt Code is a free desktop app that orchestrates AI coding agents. Write a spec, generate issues, and let a tree of agents implement — using Claude, Codex, or Gemini with your own API keys." } = Astro.props;
 ---
 
 <!doctype html>
@@ -47,10 +47,46 @@ const { title, description = "Turn specs into shipped code. Molt Code orchestrat
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="https://moltcode.com/og-image.png" />
 
+    <meta name="application-name" content="Molt Code" />
+    <meta property="og:site_name" content="Molt Code" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={`https://moltcode.com${Astro.url.pathname}`} />
     <title>{title}</title>
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Molt Code",
+          "alternateName": "MoltCode",
+          "url": "https://moltcode.com",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "macOS",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "description": description,
+          "screenshot": "https://moltcode.com/og-image.png",
+          "softwareVersion": "0.0.54",
+          "downloadUrl": "https://github.com/moltcode/moltcode/releases",
+          "author": { "@type": "Organization", "name": "Molt Code", "url": "https://moltcode.com" }
+        },
+        {
+          "@type": "WebSite",
+          "name": "Molt Code",
+          "url": "https://moltcode.com"
+        },
+        {
+          "@type": "Organization",
+          "name": "Molt Code",
+          "url": "https://moltcode.com",
+          "logo": "https://moltcode.com/favicon.svg",
+          "sameAs": ["https://github.com/moltcode/moltcode"]
+        }
+      ]
+    })} />
   </head>
   <body class="gradient-bg grid-pattern noise-overlay relative min-h-screen antialiased">
     <slot />
