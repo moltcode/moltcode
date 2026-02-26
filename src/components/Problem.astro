@@ -14,6 +14,37 @@
       </h2>
     </div>
 
+    <!-- Bottleneck visualization -->
+    <div class="bottleneck-callout">
+      <div class="bottleneck-bars">
+        <div class="bottleneck-row">
+          <span class="bottleneck-label">Today</span>
+          <div class="bottleneck-bar">
+            <div class="bar-segment bar-fast" style="flex: 1;">
+              <span>Code generation</span>
+            </div>
+            <div class="bar-segment bar-slow" style="flex: 4;">
+              <span>Planning, context, orchestration</span>
+            </div>
+          </div>
+        </div>
+        <div class="bottleneck-row">
+          <span class="bottleneck-label">With Molt Code</span>
+          <div class="bottleneck-bar">
+            <div class="bar-segment bar-fast" style="flex: 1;">
+              <span>Code generation</span>
+            </div>
+            <div class="bar-segment bar-reduced" style="flex: 1.5;">
+              <span>Orchestration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bottleneck-insight">
+        Models get faster every month. The bottleneck never was code generation &mdash; it&apos;s everything around it. <span class="gradient-text">We shrink the slow part.</span>
+      </p>
+    </div>
+
     <!-- Before / After split -->
     <div class="grid md:grid-cols-2 gap-6 md:gap-0">
       <!-- Before -->
@@ -220,5 +251,119 @@
     font-size: 0.8125rem;
     color: var(--color-secondary);
     line-height: 1.5;
+  }
+
+  /* Bottleneck visualization */
+  .bottleneck-callout {
+    max-width: 40rem;
+    margin: 0 auto 3rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .bottleneck-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .bottleneck-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .bottleneck-label {
+    font-family: var(--font-family-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-secondary);
+    width: 6.5rem;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .bottleneck-bar {
+    display: flex;
+    flex: 1;
+    height: 2.25rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    gap: 2px;
+  }
+
+  .bar-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    transition: flex 0.6s ease;
+  }
+
+  .bar-segment span {
+    font-family: var(--font-family-mono);
+    font-size: 0.5625rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 0.5rem;
+  }
+
+  .bar-fast {
+    background: rgba(var(--color-accent-rgb), 0.15);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.25);
+  }
+
+  .bar-fast span {
+    color: var(--color-accent);
+  }
+
+  .bar-slow {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+
+  .bar-slow span {
+    color: #ef4444;
+    opacity: 0.8;
+  }
+
+  .bar-reduced {
+    background: rgba(var(--color-accent-rgb), 0.08);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  }
+
+  .bar-reduced span {
+    color: var(--color-accent);
+    opacity: 0.6;
+  }
+
+  .bottleneck-insight {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: var(--color-secondary);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 480px) {
+    .bottleneck-label {
+      width: 4.5rem;
+      font-size: 0.5625rem;
+    }
+
+    .bar-segment span {
+      font-size: 0.5rem;
+    }
+
+    .bottleneck-callout {
+      padding: 1rem;
+    }
   }
 </style>

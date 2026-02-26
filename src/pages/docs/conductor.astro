@@ -1,0 +1,438 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import DocsSidebar from '../../components/DocsSidebar.astro';
+import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
+---
+
+<Layout title="Conductor - Molt Code Docs">
+  <div class="docs-layout">
+    <DocsSidebar currentPath="/docs/conductor" />
+    <div class="docs-main">
+      <main class="docs-content">
+        <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Meet the Conductor</p>
+        <h1 class="text-4xl font-bold text-theme-primary mb-4">The CTO You Always Needed</h1>
+        <p class="text-theme-primary/50 text-base mb-12 leading-relaxed">You're the CEO. Talk vision, strategy, and outcomes. Conductor handles the engineering.</p>
+
+        <div class="prose">
+          <h2 id="your-cto-built-in">Your CTO, Built In</h2>
+          <p>
+            Every founder, every product lead, every person with an idea has the same problem: translating what's in your head into something that actually gets built. You know what you want. You can describe it. But between your vision and working software, there's an entire layer of engineering decisions, architecture choices, task breakdowns, and coordination that traditionally requires a technical co-founder or an engineering manager.
+          </p>
+          <p>
+            Conductor is that layer.
+          </p>
+          <p>
+            Think of it as your CTO. You speak in outcomes — "I need a landing page for our new product," "the onboarding flow is confusing, fix it," "build me a dashboard that shows real-time metrics." Conductor takes that high-level intent and translates it into engineering reality. It figures out the architecture. It breaks the work into tasks. It assigns those tasks to the right specialists. And it manages the whole thing from start to finish.
+          </p>
+          <p>
+            You never have to think about which agent to use, what order things should happen in, or how to write a technical spec. That's Conductor's job. Your job is to say what you want and decide if what comes back is right.
+          </p>
+
+          <h2 id="how-it-starts">How It Starts</h2>
+          <p>
+            Conductor doesn't just take your request and run. It does what any good CTO does in the first meeting — it listens, asks smart questions, and makes sure it actually understands what you're after before a single line of code gets written.
+          </p>
+          <p>
+            The conversation might go like this:
+          </p>
+          <div class="conversation">
+            <div class="conversation-line">
+              <span class="speaker you">You</span>
+              <span class="message">"Build me a landing page for our new product."</span>
+            </div>
+            <div class="conversation-line">
+              <span class="speaker conductor">Conductor</span>
+              <span class="message">"Got it. What's the product? What's the core value proposition you want the page to communicate?"</span>
+            </div>
+            <div class="conversation-line">
+              <span class="speaker you">You</span>
+              <span class="message">"It's a project management tool for remote teams. Speed and simplicity are the pitch."</span>
+            </div>
+            <div class="conversation-line">
+              <span class="speaker conductor">Conductor</span>
+              <span class="message">"Do you have a tech stack preference, or should I decide? And how many sections are you thinking — hero, features, pricing, or something different?"</span>
+            </div>
+          </div>
+          <p>
+            The depth of this conversation scales with the complexity of the task. A simple request gets one or two clarifying questions. A complex product build might involve a proper discovery session — vision, constraints, target audience, existing codebase, tech preferences. Conductor calibrates.
+          </p>
+          <p>
+            This isn't a form to fill out. It's a conversation. And once Conductor has enough clarity, it moves.
+          </p>
+
+          <h2 id="the-orchestration">The Orchestration</h2>
+          <p>
+            Here's where Conductor separates itself from every other AI coding tool.
+          </p>
+          <p>
+            Once Conductor understands what you want, it doesn't just start writing code. It does what a real engineering leader does — it plans, delegates, and coordinates. Behind the scenes, Conductor has a full team of specialised agents at its disposal:
+          </p>
+
+          <div class="agent-orchestra">
+            <div class="orchestra-conductor">
+              <div class="orchestra-node conductor-node">
+                <span class="node-icon">&#9670;</span>
+                <span class="node-label">Conductor</span>
+                <span class="node-role">orchestrates</span>
+              </div>
+            </div>
+            <div class="orchestra-line"></div>
+            <div class="orchestra-agents">
+              <div class="orchestra-node">
+                <span class="node-icon">&#9679;</span>
+                <span class="node-label">Planner</span>
+                <span class="node-role">architecture &amp; specs</span>
+              </div>
+              <div class="orchestra-node">
+                <span class="node-icon">&#9679;</span>
+                <span class="node-label">Designer</span>
+                <span class="node-role">visual design</span>
+              </div>
+              <div class="orchestra-node">
+                <span class="node-icon">&#9679;</span>
+                <span class="node-label">Developer</span>
+                <span class="node-role">implementation</span>
+              </div>
+              <div class="orchestra-node">
+                <span class="node-icon">&#9679;</span>
+                <span class="node-label">Supervisor</span>
+                <span class="node-role">quality &amp; review</span>
+              </div>
+            </div>
+          </div>
+
+          <p>
+            <strong>Planner agents</strong> explore the codebase, understand the architecture, and draft detailed technical plans and PRDs. <strong>Designer agents</strong> handle the visual side — layouts, components, visual hierarchy. <strong>Developer agents</strong> write the code. <strong>Supervisor agents</strong> review the output and enforce engineering standards.
+          </p>
+          <p>
+            Conductor decides who does what. It knows that a landing page needs design before implementation. It knows that a database migration needs a plan before anyone touches the schema. It knows that a bug fix might just need a single developer, while a new feature needs the full team.
+          </p>
+          <p>
+            The key insight: <strong>you never see any of this complexity</strong>. You get a brief, digestible plan. "Here's what I'm going to build, here are the major pieces, here's the approach." Behind that summary, sub-agents are receiving detailed technical specifications, architectural constraints, and implementation instructions. The Conductor abstracts the engineering so you can focus on the product.
+          </p>
+
+          <h2 id="a-real-example">A Real Example</h2>
+          <p>
+            Let's walk through what happens when you tell Conductor: "Build me a landing page for our project management tool."
+          </p>
+          <ol>
+            <li><strong>Discovery</strong> — Conductor asks about your vision, tech stack preferences, what pages and sections you need, your target audience. Two to five exchanges. A real conversation, not a questionnaire.</li>
+            <li><strong>Brief plan to you</strong> — Conductor comes back with something like: <em>"I'll build a responsive landing page with a hero section, three feature highlights, a testimonial block, and a CTA. React with Tailwind. I'll design the layout first, then implement."</em> Short, high-level, CEO-friendly.</li>
+            <li><strong>Detailed delegation</strong> — Behind the scenes, Conductor spins up a Planner agent to draft the technical architecture. A Designer agent to create the visual layout. Developer agents to implement each section. Each agent gets a detailed brief — but you never have to write or even read those briefs.</li>
+            <li><strong>Execution</strong> — Sub-agents work through their tasks. Conductor monitors progress, resolves blockers, and ensures each piece fits together.</li>
+            <li><strong>Review &amp; delivery</strong> — Conductor reviews the assembled output before presenting it to you. If something doesn't meet the standard, it sends it back to the agent for revision. You see the finished result, not the messy middle.</li>
+            <li><strong>Your call</strong> — You review what Conductor presents. Want changes? Say so in plain language. Conductor translates your feedback into specific instructions for the right agent and the cycle continues until you're happy.</li>
+          </ol>
+
+          <h2 id="the-team">The Team</h2>
+          <p>
+            Conductor doesn't work alone. It manages a roster of specialised agents, each built for a specific type of work:
+          </p>
+          <ul>
+            <li><strong>Planner</strong> — Explores the codebase, understands the architecture, and creates detailed technical plans and PRDs. This is the agent that turns your idea into an engineering specification.</li>
+            <li><strong>Designer</strong> — Handles visual design, layouts, component design, and UI decisions. When your product needs to look good, not just work, the Designer is who Conductor calls.</li>
+            <li><strong>Developer</strong> — The general-purpose coding agent. Writes the implementation, builds the features, fixes the bugs. The workhorse of the team.</li>
+            <li><strong>Supervisor</strong> — Reviews output, enforces engineering standards, and manages execution chains. Think of it as the senior engineer who reviews every PR before it merges.</li>
+            <li><strong>Issue Resolver</strong> — Specialises in working through issue backlogs in topological order, resolving dependencies and blockers systematically.</li>
+          </ul>
+          <p>
+            Conductor assembles the right team for the job. A quick bug fix might only need a Developer. A new product feature might involve the full roster. You don't decide the staffing — Conductor does, based on the complexity and nature of what you're asking for.
+          </p>
+
+          <h2 id="nothing-ships-without-review">Nothing Ships Without Review</h2>
+          <p>
+            Conductor doesn't just delegate and hope for the best. Every piece of work goes through a review loop before it reaches you.
+          </p>
+          <p>
+            When a sub-agent finishes its task, Conductor evaluates the output. Does it meet the requirements? Does it follow engineering best practices? Does it fit with the rest of the work? If not, Conductor sends it back with specific feedback. The sub-agent revises and resubmits.
+          </p>
+          <p>
+            Only when Conductor is satisfied does the work get presented to you. And even then, you have full control. You can approve, request changes, or redirect entirely. Conductor takes your feedback — in plain language, not technical jargon — and translates it into actionable instructions for the team.
+          </p>
+          <p>
+            This is the CTO dynamic in action. The CEO doesn't review pull requests. The CEO says "this doesn't feel right, the hero section needs more energy" and the CTO figures out what that means technically and makes it happen.
+          </p>
+
+          <h2 id="why-this-matters">Why This Matters</h2>
+          <p>
+            The bottleneck in AI-assisted development has never been the coding. AI can write code. The bottleneck is everything around the code — understanding what to build, breaking it into the right pieces, coordinating the work, maintaining quality, and translating between business intent and technical execution.
+          </p>
+          <p>
+            That's orchestration. And that's what Conductor does.
+          </p>
+          <p>
+            Without Conductor, you're the project manager. You decide which agent to use. You write the prompts. You review every output. You figure out the order of operations. You're managing the AI instead of managing your product.
+          </p>
+          <p>
+            With Conductor, you're the CEO. You say what you want. You make the final call. Everything in between is handled.
+          </p>
+          <p>
+            It's the difference between having access to AI tools and having an AI-powered engineering team.
+          </p>
+          <p>
+            Conductor is available now in Molt Code.
+          </p>
+        </div>
+        <DocsDownloadCta />
+      </main>
+      <Footer />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .docs-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-content {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      padding: 6rem 1.5rem 3rem;
+    }
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose p {
+    color: var(--color-secondary);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose ul, .prose ol {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose ol {
+    list-style: decimal;
+  }
+
+  .prose li {
+    color: var(--color-secondary);
+    line-height: 1.75;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .prose code {
+    background: rgba(var(--color-accent-rgb), 0.1);
+    color: var(--color-accent);
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .prose a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: var(--color-primary);
+  }
+
+  /* Conversation block */
+  .conversation {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .conversation-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+  }
+
+  .conversation-line + .conversation-line {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .speaker {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .speaker.you {
+    background: rgba(var(--color-accent-rgb), 0.12);
+    color: var(--color-accent);
+  }
+
+  .speaker.conductor {
+    background: rgba(245, 158, 11, 0.12);
+    color: rgb(245, 158, 11);
+  }
+
+  .message {
+    color: var(--color-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* Agent orchestra diagram */
+  .agent-orchestra {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 2rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .orchestra-conductor {
+    display: flex;
+    justify-content: center;
+  }
+
+  .orchestra-line {
+    width: 2px;
+    height: 1.5rem;
+    background: var(--color-border);
+    position: relative;
+  }
+
+  .orchestra-line::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 32rem;
+    height: 2px;
+    background: var(--color-border);
+  }
+
+  .orchestra-agents {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 1rem;
+    position: relative;
+  }
+
+  .orchestra-agents::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .orchestra-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    background: rgba(var(--color-accent-rgb), 0.03);
+    min-width: 6.5rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .orchestra-node:hover {
+    border-color: rgba(var(--color-accent-rgb), 0.3);
+  }
+
+  .conductor-node {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.06);
+  }
+
+  .conductor-node .node-icon {
+    color: rgb(245, 158, 11);
+  }
+
+  .node-icon {
+    font-size: 1rem;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .node-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .node-role {
+    font-size: 0.6875rem;
+    color: var(--color-secondary);
+    opacity: 0.7;
+  }
+
+  @media (max-width: 640px) {
+    .orchestra-agents {
+      gap: 0.5rem;
+    }
+
+    .orchestra-node {
+      min-width: 5rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .node-label {
+      font-size: 0.75rem;
+    }
+
+    .node-role {
+      font-size: 0.625rem;
+    }
+  }
+</style>
