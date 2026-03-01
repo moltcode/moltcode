@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/optimize-images.mjs && astro build",
+    "optimize-images": "node scripts/optimize-images.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

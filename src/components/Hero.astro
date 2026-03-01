@@ -91,28 +91,59 @@ import { config } from '../config';
       <div class="screenshot-glow"></div>
       <div class="screenshot-border"></div>
       <div class="screenshot-frame">
-        <!-- Window chrome -->
-        <div class="screenshot-chrome">
-          <div class="flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ff5f57]"></span>
-            <span class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#febc2e]"></span>
-            <span class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#28c840]"></span>
-          </div>
-          <span class="screenshot-chrome-text">Molt Code</span>
-          <div></div>
-        </div>
-        <img
-          src="/hero_screenshot.png"
-          alt="Molt Code showing the PRD to epic to agent resolution pipeline"
-          class="w-full h-auto"
-          loading="eager"
-        />
+        <picture class="screenshot-dark">
+          <source
+            type="image/webp"
+            srcset="
+              /optimized/hero_dark/640w.webp   640w,
+              /optimized/hero_dark/1024w.webp 1024w,
+              /optimized/hero_dark/1536w.webp 1536w,
+              /optimized/hero_dark/2048w.webp 2048w
+            "
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 1024px"
+          />
+          <img
+            src="/optimized/hero_dark/2048w.png"
+            alt="Molt Code showing the PRD to epic to agent resolution pipeline"
+            class="w-full h-auto"
+            loading="eager"
+            fetchpriority="high"
+            width="2048"
+            height="1331"
+          />
+        </picture>
+        <picture class="screenshot-light">
+          <source
+            type="image/webp"
+            srcset="
+              /optimized/hero_light/640w.webp   640w,
+              /optimized/hero_light/1024w.webp 1024w,
+              /optimized/hero_light/1536w.webp 1536w,
+              /optimized/hero_light/2048w.webp 2048w
+            "
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 1024px"
+          />
+          <img
+            src="/optimized/hero_light/2048w.png"
+            alt="Molt Code showing the PRD to epic to agent resolution pipeline"
+            class="w-full h-auto"
+            loading="eager"
+            fetchpriority="high"
+            width="2048"
+            height="1331"
+          />
+        </picture>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+  picture.screenshot-light { display: none; }
+  picture.screenshot-dark { display: block; }
+  :global([data-theme="light"]) picture.screenshot-light { display: block; }
+  :global([data-theme="light"]) picture.screenshot-dark { display: none; }
+
   .hero-grid-bg {
     position: absolute;
     inset: 0;
@@ -491,34 +522,4 @@ import { config } from '../config';
     }
   }
 
-  .screenshot-chrome {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 0.75rem;
-    background: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  @media (min-width: 640px) {
-    .screenshot-chrome {
-      padding: 0.75rem 1rem;
-    }
-  }
-
-  .screenshot-chrome-text {
-    font-size: 10px;
-    color: var(--color-primary);
-    opacity: 0.2;
-    font-family: var(--font-family-mono);
-  }
-
-  @media (min-width: 640px) {
-    .screenshot-chrome-text {
-      font-size: 11px;
-    }
-    .screenshot-chrome-text::after {
-      content: ' — 3 projects · 2 agents active';
-    }
-  }
 </style>
