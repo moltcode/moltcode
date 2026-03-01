@@ -80,9 +80,9 @@
   --color-accent-light: rgb(160, 85, 40);
   --color-accent-strong: rgb(140, 70, 30);
 
-  --color-bg: #faf7f4;
-  --color-bg-gradient-start: #faf7f4;
-  --color-bg-gradient-end: #f5f0eb;
+  --color-bg: #ffffff;
+  --color-bg-gradient-start: #ffffff;
+  --color-bg-gradient-end: #ffffff;
   --color-surface: rgba(0, 0, 0, 0.04);
   --color-surface-solid: #ffffff;
   --color-border: rgba(0, 0, 0, 0.08);
