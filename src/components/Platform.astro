@@ -1,9 +1,9 @@
 ---
 const features = [
   {
-    title: "Connect All Your Desktops",
-    description: "Link every machine you own into a single fleet. Your desktops become on-demand compute for coding agents — assign tasks, run builds, and execute across all of them from one place.",
-    accent: "Compute",
+    title: "Every Machine, One Mesh",
+    description: "Your laptop, your desktop, your cloud box &mdash; each one is a full development environment. Connect them into the harness and let agents work inside any of them with complete context.",
+    accent: "Workspaces",
     svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Central hub -->
       <circle cx="140" cy="90" r="16" fill="rgba(var(--color-accent-rgb), 0.15)" stroke="rgba(var(--color-accent-rgb), 0.6)" stroke-width="1.5"/>
@@ -43,9 +43,9 @@ const features = [
     </svg>`,
   },
   {
-    title: "Monitor from Phone & iPad",
-    description: "Check agent progress, approve actions, and review results from your phone or iPad. Full visibility into every running session — work from the couch, the caf\u00e9, or wherever you are.",
-    accent: "Convenience",
+    title: "Steer from Anywhere",
+    description: "Review agent work, approve changes, and redirect priorities from your phone or iPad. You stay in the loop without being in the chair.",
+    accent: "Control",
     svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- iPad -->
       <rect x="30" y="22" width="100" height="136" rx="10" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1.5"/>
@@ -92,8 +92,8 @@ const features = [
     </svg>`,
   },
   {
-    title: "Work with Beefy Remote Machines",
-    description: "Connect powerful cloud instances and keep agents running 24/7. No dropped SSH sessions, no lost context. Your remote machines become persistent, always-on agent infrastructure.",
+    title: "Agents That Never Leave Their Desk",
+    description: "Agents stay connected to your workspaces around the clock. No dropped sessions, no lost context. They pick up right where they left off &mdash; like a colleague who never goes home.",
     accent: "Persistence",
     svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Cloud shape -->
@@ -133,9 +133,9 @@ const features = [
     </svg>`,
   },
   {
-    title: "Connect Edge Devices",
-    description: "Run LLMs on edge hardware and manage their full lifecycle from the platform. Raspberry Pis, NUCs, local GPUs — connect them all and let agents use them as distributed compute.",
-    accent: "Edge",
+    title: "Any Machine Is a Workspace",
+    description: "A Raspberry Pi running your home automation. A NUC under your desk. A GPU rig in the closet. If it can run code, agents can work inside it &mdash; managed from one place.",
+    accent: "Reach",
     svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Central platform node -->
       <rect x="110" y="70" width="60" height="40" rx="6" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.4)" stroke-width="1.5"/>
@@ -189,8 +189,8 @@ const features = [
     </svg>`,
   },
   {
-    title: "Bring Your Own LLMs",
-    description: "Connect self-hosted models — Ollama, vLLM, or any OpenAI-compatible endpoint — and use them from any machine in your fleet. Your models, your hardware, zero vendor lock-in.",
+    title: "Bring Any Model",
+    description: "Claude, Codex, Gemini &mdash; or self-hosted via Ollama, vLLM, any OpenAI-compatible endpoint. Your subscriptions or your API keys. The harness doesn't care who's thinking, just where they're working.",
     accent: "Freedom",
     svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Self-hosted server -->
@@ -245,13 +245,13 @@ const features = [
     <div class="text-center mb-10 md:mb-16">
       <div class="platform-badge">
         <span class="platform-badge-dot"></span>
-        Platform
+        The Mesh
       </div>
       <h2 class="text-2xl md:text-4xl font-bold text-theme-primary mb-3 md:mb-4">
-        One platform.<br /><span class="gradient-text">Every machine.</span>
+        Your workspaces. Your models.<br /><span class="gradient-text">One harness.</span>
       </h2>
       <p class="text-sm md:text-base text-theme-primary/50 max-w-2xl mx-auto mb-8">
-        Sign in to connect your desktops, phones, cloud instances, and edge devices into a unified fleet for your AI agents.
+        Agents need somewhere real to work &mdash; not a sandbox, but your actual environment with full context. Your machines are those workspaces. The harness connects them.
       </p>
       <a href="https://platform.moltcode.com" class="platform-signin-btn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -259,14 +259,75 @@ const features = [
           <polyline points="10 17 15 12 10 7"/>
           <line x1="15" y1="12" x2="3" y2="12"/>
         </svg>
-        <span>Sign in to Platform</span>
+        <span>Sign in to Hub</span>
       </a>
     </div>
 
+    <!-- Beer artwork hero - the vibe -->
+    <div class="mesh-hero-illustration">
+      <svg width="100%" height="100%" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Couch -->
+        <path d="M60 132 Q60 100, 95 100 L305 100 Q340 100, 340 132 L340 162 L60 162 Z" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1"/>
+        <rect x="54" y="148" width="292" height="22" rx="8" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
+        <rect x="74" y="170" width="6" height="12" rx="3" fill="rgba(var(--color-accent-rgb), 0.15)"/>
+        <rect x="320" y="170" width="6" height="12" rx="3" fill="rgba(var(--color-accent-rgb), 0.15)"/>
+
+        <!-- Person -->
+        <circle cx="160" cy="72" r="16" fill="rgba(var(--color-accent-rgb), 0.12)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
+        <path d="M146 92 Q142 116, 138 148" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <path d="M152 100 Q175 106, 195 98" stroke="rgba(var(--color-accent-rgb), 0.18)" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+        <!-- Phone in hand -->
+        <rect x="188" y="78" width="26" height="40" rx="6" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1"/>
+        <rect x="192" y="84" width="18" height="26" rx="3" fill="rgba(var(--color-accent-rgb), 0.15)"/>
+        <circle cx="198" cy="91" r="2" fill="rgba(40, 200, 64, 0.6)"/>
+        <rect x="203" y="89.5" width="6" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
+        <circle cx="198" cy="100" r="2" fill="rgba(40, 200, 64, 0.6)"/>
+        <rect x="203" y="98.5" width="6" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
+
+        <!-- Beer -->
+        <rect x="270" y="100" width="20" height="38" rx="4" fill="rgba(245, 189, 66, 0.15)" stroke="rgba(245, 189, 66, 0.35)" stroke-width="1"/>
+        <rect x="273" y="108" width="14" height="26" rx="3" fill="rgba(245, 189, 66, 0.25)"/>
+        <ellipse cx="280" cy="107" rx="10" ry="4" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.1)" stroke-width="0.5"/>
+        <path d="M290 110 Q300 110, 300 120 Q300 130, 290 130" stroke="rgba(245, 189, 66, 0.3)" stroke-width="2" fill="none"/>
+        <circle cx="277" cy="126" r="1.2" fill="rgba(245, 189, 66, 0.3)">
+          <animate attributeName="cy" values="126;116;110" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;0.5;0" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="282" cy="122" r="1" fill="rgba(245, 189, 66, 0.25)">
+          <animate attributeName="cy" values="122;112;106" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.25;0.4;0" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Floating status indicators (agents working) -->
+        <circle cx="80" cy="48" r="6" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="80" cy="48" r="2" fill="rgba(40, 200, 64, 0.5)"/>
+
+        <circle cx="340" cy="40" r="6" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="3.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="340" cy="40" r="2" fill="rgba(40, 200, 64, 0.5)"/>
+
+        <circle cx="60" cy="90" r="5" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2.8s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="60" cy="90" r="2" fill="rgba(40, 200, 64, 0.5)"/>
+
+        <circle cx="360" cy="80" r="5" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2.4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="360" cy="80" r="2" fill="rgba(40, 200, 64, 0.5)"/>
+
+        <text x="200" y="194" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="9">AGENTS SHIPPING</text>
+      </svg>
+    </div>
+
     <!-- 3-step onboarding -->
-    <div class="onboarding-hero">
-      <h3 class="text-lg md:text-xl font-semibold text-theme-primary mb-2">Get started in 3 steps</h3>
-      <p class="text-sm text-theme-primary/50 mb-8 max-w-md mx-auto">Install on your desktop, grab the mobile app, and manage your infra from anywhere.</p>
+    <div class="onboarding-section">
+      <h3 class="text-lg md:text-xl font-semibold text-theme-primary mb-2">Up and running in 3 steps</h3>
+      <p class="text-sm text-theme-primary/50 mb-8 max-w-md mx-auto">Connect your workspace, grab the mobile app, and let the harness do the rest.</p>
 
       <div class="onboarding-steps">
         <!-- Step 1: Desktop -->
@@ -296,8 +357,8 @@ const features = [
               <line x1="80" y1="-1" x2="80" y2="5" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </div>
-          <h4 class="step-title">Install Desktop App</h4>
-          <p class="step-desc">Run the agent on your machine. It connects your desktop to the Molt mesh.</p>
+          <h4 class="step-title">Connect Your Workspace</h4>
+          <p class="step-desc">Install the desktop app. Your machine joins the mesh &mdash; files, tools, environment and all.</p>
         </div>
 
         <div class="step-connector">
@@ -333,7 +394,7 @@ const features = [
             </svg>
           </div>
           <h4 class="step-title">Get the Mobile App</h4>
-          <p class="step-desc">Install on your phone. See all your machines, connect, and manage agents on the go.</p>
+          <p class="step-desc">See what your agents are doing. Review, approve, and steer &mdash; from wherever you are.</p>
         </div>
 
         <div class="step-connector">
@@ -395,15 +456,15 @@ const features = [
               </circle>
               <circle cx="24" cy="52" r="1.5" fill="rgba(40, 200, 64, 0.5)"/>
 
-              <text x="80" y="116" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7">ALL SYSTEMS RUNNING</text>
+              <text x="80" y="116" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7">AGENTS SHIPPING</text>
             </svg>
           </div>
-          <h4 class="step-title">Relax & Monitor</h4>
-          <p class="step-desc">Your desktop infra runs itself. Check in from your phone while you enjoy a cold one.</p>
+          <h4 class="step-title">Ship While You Chill</h4>
+          <p class="step-desc">Agents work your codebase. You review from the couch. Cold one optional but encouraged.</p>
         </div>
       </div>
 
-      <p class="text-xs text-theme-primary/40 mt-6">Less than a pint a month. 🍺</p>
+      <p class="text-xs text-theme-primary/40 mt-6">Less than a pint a month.</p>
     </div>
 
     <!-- Feature cards -->
@@ -425,6 +486,11 @@ const features = [
 </section>
 
 <style>
+  .mesh-hero-illustration {
+    max-width: 32rem;
+    margin: 0 auto 3rem;
+  }
+
   .platform-badge {
     display: inline-flex;
     align-items: center;
@@ -597,25 +663,12 @@ const features = [
     }
   }
 
-  /* === Onboarding hero === */
-  .onboarding-hero {
+  /* === Onboarding section === */
+  .onboarding-section {
     max-width: 56rem;
     margin: 0 auto 3rem;
     text-align: center;
-    padding: 2rem 1.5rem;
-    border-radius: 1.25rem;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .onboarding-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(var(--color-accent-rgb), 0.06) 0%, transparent 70%);
-    pointer-events: none;
+    padding: 2rem 0;
   }
 
   .onboarding-steps {

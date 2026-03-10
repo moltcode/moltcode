@@ -86,6 +86,14 @@ const roles = [
         </div>
       ))}
     </div>
+
+    <!-- Upcoming: custom agents -->
+    <div class="upcoming-teaser">
+      <span class="upcoming-badge">Upcoming</span>
+      <p class="upcoming-text">
+        Create your own agent roles with custom tool sets, system prompts, and permissions — wire in your own scripts, APIs, or MCP servers and deploy a purpose-built agent across your workspaces.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -191,6 +199,38 @@ const roles = [
 
   .role-desc {
     font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-secondary);
+  }
+
+  /* === Upcoming teaser === */
+  .upcoming-teaser {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px dashed rgba(var(--color-accent-rgb), 0.2);
+    background: rgba(var(--color-accent-rgb), 0.03);
+  }
+
+  .upcoming-badge {
+    flex-shrink: 0;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    padding: 0.2rem 0.5rem;
+    border-radius: 9999px;
+    background: rgba(var(--color-accent-rgb), 0.1);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.2);
+    font-family: var(--font-family-mono);
+  }
+
+  .upcoming-text {
+    font-size: 0.8125rem;
     line-height: 1.5;
     color: var(--color-secondary);
   }
