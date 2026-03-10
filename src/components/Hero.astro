@@ -59,6 +59,7 @@ import { config } from '../config';
 
     <!-- Subscribe CTA — emerges from under desktop image -->
     <div class="subscribe-clip">
+      <canvas id="subscribe-glow" class="subscribe-glow"></canvas>
       <a href="https://platform.moltcode.com" class="subscribe-card" id="subscribe-btn">
         <div class="subscribe-top">
           <div class="subscribe-left">
@@ -325,6 +326,21 @@ import { config } from '../config';
     z-index: 0;
   }
 
+  .subscribe-glow {
+    position: absolute;
+    inset: -60px;
+    width: calc(100% + 120px);
+    height: calc(100% + 120px);
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .subscribe-clip:has(.subscribe-card.visible) .subscribe-glow {
+    opacity: 1;
+  }
+
   .subscribe-card {
     display: flex;
     flex-direction: column;
@@ -494,4 +510,84 @@ import { config } from '../config';
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  // Pixelated color-cycling grid behind subscribe card
+  const glowCanvas = document.getElementById('subscribe-glow') as HTMLCanvasElement;
+  const glowCtx = glowCanvas.getContext('2d');
+  const GCELL = 30;
+  const GLOW_COLORS = [
+    [231, 159, 116], // copper
+    [116, 185, 231], // blue
+    [165, 116, 231], // purple
+    [231, 116, 165], // pink
+    [116, 231, 165], // green
+    [231, 210, 116], // gold
+    [116, 210, 231], // cyan
+  ];
+  let glowW = 0;
+  let glowH = 0;
+
+  function resizeGlow() {
+    const parent = glowCanvas.parentElement!;
+    const rect = parent.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    glowW = rect.width + 120;
+    glowH = rect.height + 120;
+    glowCanvas.width = glowW * dpr;
+    glowCanvas.height = glowH * dpr;
+    glowCanvas.style.width = glowW + 'px';
+    glowCanvas.style.height = glowH + 'px';
+    glowCtx?.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function drawGlow() {
+    if (!glowCtx) return;
+    glowCtx.clearRect(0, 0, glowW, glowH);
+
+    const isDarkMode = document.documentElement.getAttribute('data-theme') !== 'light';
+    const time = performance.now() / 1000;
+    const cols = Math.ceil(glowW / GCELL);
+    const rows = Math.ceil(glowH / GCELL);
+    const centerX = glowW / 2;
+    const centerY = glowH / 2;
+    const maxDist = Math.sqrt(centerX * centerX + centerY * centerY);
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const x = col * GCELL;
+        const y = row * GCELL;
+        const cx = x + GCELL / 2;
+        const cy = y + GCELL / 2;
+
+        // Distance from center for fade
+        const dx = cx - centerX;
+        const dy = cy - centerY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const fade = Math.max(0, 1 - dist / (maxDist * 0.7));
+        if (fade <= 0) continue;
+
+        // Each cell cycles through colors at a slightly offset phase
+        const phase = time * 0.5 + (col * 0.15) + (row * 0.15);
+        const progress = ((phase % GLOW_COLORS.length) + GLOW_COLORS.length) % GLOW_COLORS.length;
+        const idx = Math.floor(progress);
+        const frac = progress - idx;
+        const c1 = GLOW_COLORS[idx % GLOW_COLORS.length];
+        const c2 = GLOW_COLORS[(idx + 1) % GLOW_COLORS.length];
+
+        const r = Math.round(c1[0] + (c2[0] - c1[0]) * frac);
+        const g = Math.round(c1[1] + (c2[1] - c1[1]) * frac);
+        const b = Math.round(c1[2] + (c2[2] - c1[2]) * frac);
+
+        const alpha = fade * fade * (isDarkMode ? 0.12 : 0.07);
+        glowCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        glowCtx.fillRect(x, y, GCELL, GCELL);
+      }
+    }
+
+    requestAnimationFrame(drawGlow);
+  }
+
+  resizeGlow();
+  drawGlow();
+  window.addEventListener('resize', resizeGlow);
 </script>
