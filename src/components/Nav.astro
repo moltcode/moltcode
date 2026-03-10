@@ -3,12 +3,12 @@ import ThemeToggle from './ThemeToggle.astro';
 import { config } from '../config';
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 glass">
-  <div class="max-w-7xl mx-auto px-6 py-3.5">
-    <div class="flex items-center justify-between">
+<div class="nav-wrapper fixed top-0 left-0 right-0 z-50 flex justify-center pt-3" id="nav-wrapper">
+  <nav class="nav-bar" id="nav-bar">
+    <div class="flex items-center justify-between w-full px-5 py-2.5">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2.5 group">
-        <svg width="32" height="32" viewBox="0 0 64 64" class="rounded-lg shadow-lg group-hover:shadow-[0_0_20px_rgba(231,159,116,0.3)] transition-shadow">
+      <a href="/" class="flex items-center gap-2.5">
+        <svg width="28" height="28" viewBox="0 0 64 64" class="rounded-lg">
           <defs>
             <linearGradient id="navBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#27272a"/>
@@ -32,40 +32,52 @@ import { config } from '../config';
         <span class="text-lg font-semibold text-theme-primary">Molt Code</span>
       </a>
 
-      <!-- Center nav links -->
-      <div class="hidden md:flex items-center gap-1 bg-theme-surface/50 rounded-full px-1 py-1 border border-theme-border">
-        <a href="#pipeline" class="nav-pill">Pipeline</a>
-        <a href="#features" class="nav-pill">Features</a>
-        <a href="#agents" class="nav-pill">Agents</a>
-        <a href="/docs/what-is-moltcode" class="nav-pill">Docs</a>
-        <a href="/docs/changelog" class="nav-pill">Changelog</a>
-      </div>
-
       <!-- Right side -->
       <div class="flex items-center gap-3">
         <ThemeToggle />
-        <a href="https://platform.moltcode.com" class="text-theme-secondary hover:text-theme-accent transition-colors text-sm font-medium px-3 py-2">
-          Sign in
+        <a href="/docs/what-is-moltcode" class="text-theme-secondary hover:text-theme-primary transition-colors text-sm font-medium px-3 py-2 hidden sm:block">
+          Docs
         </a>
-        <a href={config.downloadUrl} data-track-download class="btn-primary px-4 py-2 rounded-full text-sm font-medium">
-          Download
+        <a href="https://platform.moltcode.com" class="text-theme-secondary hover:text-theme-primary transition-colors text-sm font-medium px-3 py-2">
+          Sign in
         </a>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
 
 <style>
-  .nav-pill {
-    padding: 0.375rem 0.875rem;
+  .nav-bar {
+    width: 80vw;
     border-radius: 9999px;
-    font-size: 0.8125rem;
-    color: var(--color-secondary);
-    transition: all 0.2s ease;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .nav-pill:hover {
-    color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.08);
+  .nav-bar.scrolled {
+    width: 60vw;
   }
 </style>
+
+<script>
+  const nav = document.getElementById('nav-bar');
+  let scrolled = false;
+
+  function onScroll() {
+    const isScrolled = window.scrollY > 50;
+    if (isScrolled !== scrolled) {
+      scrolled = isScrolled;
+      if (scrolled) {
+        nav?.classList.add('scrolled');
+      } else {
+        nav?.classList.remove('scrolled');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
