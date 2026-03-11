@@ -8,6 +8,10 @@ import { config } from '../config';
   <div class="hero-bg-grain"></div>
 
   <div class="hero-content">
+    <!-- Tagline -->
+    <p class="hero-tagline hero-fade-in" style="animation-delay: 0.1s">Molt Code is the nacelle that mounts the engine to the airframe.</p>
+    <p class="hero-subtext hero-fade-in" style="animation-delay: 0.15s">Every good feature of all the CLIs, baked into one environment so any model can be as powerful as Claude Code. Did it click? Maybe you should rapidly click.</p>
+
     <!-- CTA -->
     <div class="hero-ctas hero-fade-in" style="animation-delay: 0.2s">
       <a href={config.downloadUrl} data-track-download class="hero-btn-primary">
@@ -145,6 +149,26 @@ import { config } from '../config';
     .hero-content {
       top: 8rem;
     }
+  }
+
+  /* Tagline */
+  .hero-tagline {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto 0.75rem;
+    line-height: 1.3;
+  }
+
+  .hero-subtext {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 34rem;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
   }
 
   /* CTAs */
