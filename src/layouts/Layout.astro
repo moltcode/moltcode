@@ -436,19 +436,50 @@ const { title, description = "Molt Code is the harness your AI coding agents nee
           lastGhostSpawn = now;
         }
 
-        // Move ghosts — faster when clicks slow down
+        // Move ghosts — faster when clicks slow down, with separation so they don't stack
         const clickRatio = Math.min(recentClicks / 4, 1);
-        for (const ghost of ghosts) {
+        const SEPARATION_RADIUS = CELL * 2.5;
+        const SEPARATION_FORCE = 120;
+
+        for (let gi = 0; gi < ghosts.length; gi++) {
+          const ghost = ghosts[gi];
           ghost.speed = 40 + (1 - clickRatio) * 280;
+
+          // Chase player
           const tx = playerCellX * CELL + CELL / 2;
           const ty = playerCellY * CELL + CELL / 2;
-          const gdx = tx - ghost.x;
-          const gdy = ty - ghost.y;
+          let gdx = tx - ghost.x;
+          let gdy = ty - ghost.y;
           const gDist = Math.sqrt(gdx * gdx + gdy * gdy);
+          let moveX = 0;
+          let moveY = 0;
           if (gDist > 1) {
-            ghost.x += (gdx / gDist) * ghost.speed * dt;
-            ghost.y += (gdy / gDist) * ghost.speed * dt;
+            moveX = (gdx / gDist) * ghost.speed;
+            moveY = (gdy / gDist) * ghost.speed;
           }
+
+          // Separation from other ghosts
+          let sepX = 0;
+          let sepY = 0;
+          for (let gj = 0; gj < ghosts.length; gj++) {
+            if (gi === gj) continue;
+            const other = ghosts[gj];
+            const sx = ghost.x - other.x;
+            const sy = ghost.y - other.y;
+            const sDist = Math.sqrt(sx * sx + sy * sy);
+            if (sDist < SEPARATION_RADIUS && sDist > 0.1) {
+              const strength = (1 - sDist / SEPARATION_RADIUS);
+              sepX += (sx / sDist) * SEPARATION_FORCE * strength;
+              sepY += (sy / sDist) * SEPARATION_FORCE * strength;
+            }
+          }
+
+          ghost.x += (moveX + sepX) * dt;
+          ghost.y += (moveY + sepY) * dt;
+
+          // Keep ghosts in bounds
+          ghost.x = Math.max(0, Math.min(ghost.x, w));
+          ghost.y = Math.max(0, Math.min(ghost.y, h));
         }
 
         // Check ghost collision
