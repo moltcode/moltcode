@@ -48,7 +48,7 @@ import { config } from '../config';
 
 <style>
   .nav-bar {
-    width: 80vw;
+    width: 92vw;
     border-radius: 9999px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -57,8 +57,20 @@ import { config } from '../config';
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  @media (min-width: 640px) {
+    .nav-bar {
+      width: 80vw;
+    }
+  }
+
   .nav-bar.scrolled {
-    width: 60vw;
+    width: 85vw;
+  }
+
+  @media (min-width: 640px) {
+    .nav-bar.scrolled {
+      width: 60vw;
+    }
   }
 </style>
 
