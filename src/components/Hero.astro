@@ -9,8 +9,13 @@ import { config } from '../config';
 
   <div class="hero-content">
     <!-- Tagline -->
-    <p class="hero-tagline hero-fade-in" style="animation-delay: 0.1s">For DevX. For Speed.</p>
-    <p class="hero-subtext hero-fade-in" style="animation-delay: 0.15s">Every good feature of all the CLIs, baked into one environment so any model can be as powerful as Claude Code. Did it click? Maybe you should rapidly click.</p>
+    <p class="hero-tagline hero-fade-in" style="animation-delay: 0.1s">One workspace. Any agent. Your keys.</p>
+    <p class="hero-subtext hero-fade-in" style="animation-delay: 0.15s">Desktop, iPad, and phone — connected into one mesh. Run any coding agent across all your machines with full context, managed processes, and zero configuration.</p>
+
+    <!-- Pricing hook -->
+    <div class="hero-pricing hero-fade-in" style="animation-delay: 0.175s">
+      <span class="hero-pricing-badge">Free forever. Runs your CLIs. With your subscriptions. No hack.</span>
+    </div>
 
     <!-- CTA -->
     <div class="hero-ctas hero-fade-in" style="animation-delay: 0.2s">
@@ -178,9 +183,29 @@ import { config } from '../config';
     color: var(--text-secondary);
     text-align: center;
     max-width: 34rem;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1.25rem;
     line-height: 1.6;
     padding: 0 0.25rem;
+  }
+
+  .hero-pricing {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-pricing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    background: rgba(var(--color-accent-rgb), 0.08);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.2);
+    letter-spacing: 0.01em;
   }
 
   /* CTAs */
