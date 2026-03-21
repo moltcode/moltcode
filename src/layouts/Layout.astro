@@ -42,6 +42,19 @@ const { title, description = "Molt Code is the harness your AI coding agents nee
       })();
     </script>
 
+    <!-- Platform detection — before first paint -->
+    <script is:inline>
+      (function() {
+        var ua = navigator.userAgent;
+        var p = 'mac-arm';
+        if (/iPhone|iPod/.test(ua) || /iPad/.test(ua) ||
+            (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) {
+          p = 'ios';
+        }
+        document.documentElement.setAttribute('data-platform', p);
+      })();
+    </script>
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -807,6 +820,26 @@ const { title, description = "Molt Code is the harness your AI coding agents nee
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseleave', onMouseLeave);
       document.addEventListener('click', onClickWithHint);
+    </script>
+
+    <!-- Download dropdown toggle -->
+    <script>
+      document.addEventListener('click', (e) => {
+        const toggle = (e.target as Element).closest('[data-dl-toggle]');
+        if (toggle) {
+          e.stopPropagation();
+          const cta = toggle.closest('[data-download-cta]');
+          const dropdown = cta?.querySelector('[data-dl-dropdown]');
+          // Close any other open dropdowns first
+          document.querySelectorAll('[data-dl-dropdown].open').forEach(el => {
+            if (el !== dropdown) el.classList.remove('open');
+          });
+          dropdown?.classList.toggle('open');
+          return;
+        }
+        // Close all dropdowns when clicking outside
+        document.querySelectorAll('[data-dl-dropdown].open').forEach(el => el.classList.remove('open'));
+      });
     </script>
 
     <!-- Track download button clicks as virtual pageviews (uses Cloudflare auto-injected beacon) -->
