@@ -110,7 +110,10 @@ const features = [
       ))}
     </ul>
 
-    <p class="features-quirk">Time to buy that big tablet and a wireless keyboard. Lose some backpack weight.</p>
+    <blockquote class="features-belief">
+      <span class="belief-line"></span>
+      <p>Every machine you own should be useful.</p>
+    </blockquote>
   </div>
 </section>
 
@@ -294,13 +297,30 @@ const features = [
     max-width: 36rem;
   }
 
-  .features-quirk {
+  .features-belief {
+    margin: 3.5rem auto 0;
+    padding: 2rem 0;
     text-align: center;
-    font-size: 0.8125rem;
-    color: var(--color-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    max-width: 28rem;
+  }
+
+  .features-belief p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .belief-line {
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background: var(--color-accent, var(--color-primary));
+    margin: 0 auto 1.25rem;
     opacity: 0.5;
-    margin-top: 2rem;
-    font-style: italic;
   }
 
   /* Checklist */
