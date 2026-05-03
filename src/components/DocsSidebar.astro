@@ -9,24 +9,24 @@ const sections = [
   {
     title: "Getting Started",
     items: [
-      { title: "What is Molt Code?", href: "/docs/what-is-moltcode" },
-      { title: "Conductor", href: "/docs/conductor" },
-      { title: "Features & Chat Organisation", href: "/docs/features" },
-      { title: "Drafting PRDs with Agents", href: "/docs/prds" },
-      { title: "Resolving Issues with Agents", href: "/docs/resolving-issues" },
-      { title: "Building a Product from Scratch", href: "/docs/building-from-scratch" },
+      { title: "What is Molt Code?", href: "/docs/what-is-moltcode/" },
+      { title: "Conductor", href: "/docs/conductor/" },
+      { title: "Features & Chat Organisation", href: "/docs/features/" },
+      { title: "Drafting PRDs with Agents", href: "/docs/prds/" },
+      { title: "Resolving Issues with Agents", href: "/docs/resolving-issues/" },
+      { title: "Building a Product from Scratch", href: "/docs/building-from-scratch/" },
     ],
   },
   {
     title: "Journal",
     items: [
-      { title: "Changelog", href: "/docs/changelog" },
+      { title: "Changelog", href: "/docs/changelog/" },
     ],
   },
   {
     title: "Help",
     items: [
-      { title: "Support & Contact", href: "/docs/support" },
+      { title: "Support & Contact", href: "/docs/support/" },
     ],
   },
 ];
@@ -34,14 +34,14 @@ const sections = [
 type TocItem = { title: string; id: string };
 
 const tocMap: Record<string, TocItem[]> = {
-  "/docs/what-is-moltcode": [
+  "/docs/what-is-moltcode/": [
     { title: "The Idea", id: "the-idea" },
     { title: "Why a Desktop App?", id: "why-a-desktop-app" },
     { title: "How It Works", id: "how-it-works" },
     { title: "What Makes It Different", id: "what-makes-it-different" },
     { title: "Who It's For", id: "who-its-for" },
   ],
-  "/docs/conductor": [
+  "/docs/conductor/": [
     { title: "Your CTO, Built In", id: "your-cto-built-in" },
     { title: "How It Starts", id: "how-it-starts" },
     { title: "The Orchestration", id: "the-orchestration" },
@@ -50,14 +50,14 @@ const tocMap: Record<string, TocItem[]> = {
     { title: "Nothing Ships Without Review", id: "nothing-ships-without-review" },
     { title: "Why This Matters", id: "why-this-matters" },
   ],
-  "/docs/features": [
+  "/docs/features/": [
     { title: "Overview", id: "overview" },
     { title: "Creating a Feature", id: "creating-a-feature" },
     { title: "Working Inside a Feature", id: "working-inside-a-feature" },
     { title: "Experiments", id: "experiments" },
     { title: "Tips for Staying Organised", id: "tips-for-staying-organised" },
   ],
-  "/docs/prds": [
+  "/docs/prds/": [
     { title: "The Knowledge Base", id: "the-knowledge-base" },
     { title: "Why PRDs Matter", id: "why-prds-matter" },
     { title: "Using the Planner Agent", id: "using-the-planner-agent" },
@@ -65,7 +65,7 @@ const tocMap: Record<string, TocItem[]> = {
     { title: "Referencing Docs in Chat", id: "referencing-in-chat" },
     { title: "Tips", id: "tips" },
   ],
-  "/docs/resolving-issues": [
+  "/docs/resolving-issues/": [
     { title: "The Workflow", id: "the-workflow" },
     { title: "Dragging Issues into Chat", id: "dragging-issues-into-chat" },
     { title: "Sub-Issues & Dependencies", id: "sub-issues-and-dependencies" },
@@ -73,14 +73,14 @@ const tocMap: Record<string, TocItem[]> = {
     { title: "Choosing the Right Agent", id: "choosing-the-right-agent" },
     { title: "Tips", id: "tips" },
   ],
-  "/docs/support": [
+  "/docs/support/": [
     { title: "GitHub Issues", id: "github-issues" },
     { title: "Reporting Bugs", id: "reporting-bugs" },
     { title: "Feature Requests", id: "feature-requests" },
     { title: "Questions", id: "questions" },
     { title: "Links", id: "links" },
   ],
-  "/docs/changelog": [
+  "/docs/changelog/": [
     { title: "On the Horizon", id: "whats-next" },
     { title: "Chat Groups & Session Forking", id: "chat-groups-and-session-forking" },
     { title: "Graph Execution & Experiments", id: "graph-execution-and-experiments" },
@@ -93,7 +93,7 @@ const tocMap: Record<string, TocItem[]> = {
     { title: "Multi-Agent & Lua", id: "multi-agent-and-lua" },
     { title: "Genesis", id: "genesis" },
   ],
-  "/docs/building-from-scratch": [
+  "/docs/building-from-scratch/": [
     { title: "The Five Stages", id: "the-five-stages" },
     { title: "1. Research", id: "stage-1-research" },
     { title: "2. Document", id: "stage-2-document" },

@@ -3,97 +3,116 @@ import { config } from '../config';
 import AppleIcon from './AppleIcon.astro';
 ---
 
-<div class="docs-download-cta">
-  <div class="cta-inner" data-download-cta>
-    <p class="cta-text">Ready to try it yourself?</p>
-    <div class="cta-right">
-      <a href={config.downloadUrl} data-track-download data-dl="mac-arm" class="cta-download-btn">
-        <AppleIcon size={18} />
-        <span>Download for Mac (Apple Silicon)</span>
-        <span class="cta-version">v{config.version}</span>
-      </a>
-      <a href={config.appStoreUrl} data-dl="ios" class="cta-download-btn">
-        <AppleIcon size={18} />
-        <span>iPhone & iPad</span>
-      </a>
-      <div class="cta-dl-more">
-        <button type="button" class="cta-dl-toggle" data-dl-toggle>
-          All downloads
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="cta-dl-dropdown" data-dl-dropdown>
-          <a href={config.downloadUrl} data-track-download class="cta-dl-item">
-            <AppleIcon size={14} />
-            macOS — Apple Silicon
-          </a>
-          <a href={config.appStoreUrl} class="cta-dl-item">
-            <AppleIcon size={14} />
-            iPhone & iPad — App Store
-          </a>
+<section class="docs-cta-section">
+  <div class="pane">
+    <div class="pane-header">
+      <div class="pane-dots">
+        <span class="pane-dot"></span>
+        <span class="pane-dot"></span>
+        <span class="pane-dot"></span>
+      </div>
+      <span class="pane-path">~/ready</span>
+    </div>
+    <div class="cta-body">
+      <div class="cta-prompt"><span class="cta-p">$</span> molt --ready<span class="caret"></span></div>
+      <h2 class="cta-title">Ready to try it yourself?</h2>
+      <p class="cta-sub">Free forever. Uses your existing API keys. Runs locally on your machine.</p>
+
+      <div class="cta-actions" data-download-cta>
+        <a href={config.downloadUrl} data-track-download data-dl="mac-arm" class="btn btn-primary">
+          <AppleIcon size={16} />
+          download.mac
+        </a>
+        <a href={config.appStoreUrl} data-dl="ios" class="btn btn-primary">
+          <AppleIcon size={16} />
+          download.ios
+        </a>
+        <div class="cta-more">
+          <button type="button" class="btn" data-dl-toggle>
+            all.platforms
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="cta-dropdown" data-dl-dropdown>
+            <a href={config.downloadUrl} data-track-download class="cta-dl-item">
+              <AppleIcon size={14} />
+              macos.apple-silicon
+            </a>
+            <a href={config.appStoreUrl} class="cta-dl-item">
+              <AppleIcon size={14} />
+              ios.app-store
+            </a>
+          </div>
         </div>
       </div>
+
+      <ul class="cta-trust">
+        <li>free forever</li>
+        <li>no account required</li>
+        <li>uses your existing API keys</li>
+        <li>macOS, iPhone & iPad</li>
+      </ul>
     </div>
   </div>
-</div>
+</section>
 
 <style>
-  .docs-download-cta {
+  .docs-cta-section {
     margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--color-border);
   }
 
-  .cta-inner {
+  .cta-body {
+    padding: 2rem 1.5rem;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 1rem;
+    align-items: flex-start;
   }
 
-  .cta-text {
-    font-size: 0.9375rem;
-    font-weight: 500;
+  @media (min-width: 640px) {
+    .cta-body {
+      padding: 3rem 2.5rem;
+    }
+  }
+
+  .cta-prompt {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
     color: var(--color-secondary);
   }
 
-  .cta-right {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  .cta-p {
+    color: var(--color-accent);
+    margin-right: 0.25rem;
   }
 
-  .cta-download-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1.25rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
+  .cta-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
     font-weight: 600;
-    color: white;
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-strong) 100%);
-    box-shadow:
-      0 0 0 1px rgba(var(--color-accent-rgb), 0.3),
-      0 4px 12px rgba(var(--color-accent-rgb), 0.2);
-    transition: all 0.3s ease;
-    white-space: nowrap;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 32rem;
   }
 
-  .cta-download-btn:hover {
-    transform: translateY(-1px);
-    box-shadow:
-      0 0 0 1px rgba(var(--color-accent-rgb), 0.4),
-      0 8px 20px rgba(var(--color-accent-rgb), 0.3);
+  .cta-sub {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    color: var(--color-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 32rem;
   }
 
-  .cta-version {
-    font-size: 0.75rem;
-    font-weight: 400;
-    opacity: 0.7;
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    position: relative;
   }
 
-  /* Platform-based primary button visibility */
   [data-dl] {
     display: none;
   }
@@ -103,46 +122,25 @@ import AppleIcon from './AppleIcon.astro';
     display: inline-flex;
   }
 
-  .cta-dl-more {
+  .cta-more {
     position: relative;
   }
 
-  .cta-dl-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0;
-    border: none;
-    background: none;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--color-secondary);
-    cursor: pointer;
-    transition: color 0.2s ease;
-    font-family: inherit;
-    white-space: nowrap;
-  }
-
-  .cta-dl-toggle:hover {
-    color: var(--text-primary);
-  }
-
-  .cta-dl-dropdown {
+  .cta-dropdown {
     display: none;
     position: absolute;
-    bottom: calc(100% + 0.5rem);
-    right: 0;
+    top: calc(100% + 0.375rem);
+    left: 0;
     flex-direction: column;
-    min-width: 13rem;
-    padding: 0.375rem;
-    border-radius: 0.75rem;
-    background: var(--color-surface-solid);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-    z-index: 999;
+    min-width: 14rem;
+    padding: 0.25rem;
+    border-radius: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    z-index: 50;
   }
 
-  .cta-dl-dropdown:global(.open) {
+  .cta-dropdown:global(.open) {
     display: flex;
   }
 
@@ -150,30 +148,35 @@ import AppleIcon from './AppleIcon.astro';
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: background 0.15s ease;
-    white-space: nowrap;
+    padding: 0.5rem 0.625rem;
+    border-radius: 6px;
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    color: var(--color-primary);
+    transition: background 120ms ease, color 120ms ease;
   }
 
   .cta-dl-item:hover {
-    background: rgba(var(--color-accent-rgb), 0.08);
+    background: var(--color-bg);
+    color: var(--color-accent);
   }
 
-  @media (max-width: 480px) {
-    .cta-inner {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  .cta-trust {
+    list-style: none;
+    padding: 1rem 0 0;
+    margin: 0.5rem 0 0;
+    border-top: 1px dashed var(--color-border);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-muted);
+  }
 
-    .cta-right {
-      flex-direction: column;
-      width: 100%;
-      align-items: flex-start;
-    }
+  .cta-trust li::before {
+    content: "✓ ";
+    color: var(--color-accent);
   }
 </style>

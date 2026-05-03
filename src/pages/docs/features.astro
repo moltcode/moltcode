@@ -8,7 +8,7 @@ import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
 
 <Layout title="Features & Chat Organisation - Molt Code Docs">
   <div class="docs-layout">
-    <DocsSidebar currentPath="/docs/features" />
+    <DocsSidebar currentPath="/docs/features/" />
     <div class="docs-main">
       <main class="docs-content">
         <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
@@ -21,7 +21,20 @@ import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
             In Molt Code, a <strong>Feature</strong> is the primary way to organise your work. A feature groups chat sessions across one or more projects around a single goal — like "Dark mode support", "User onboarding", or "API redesign". Instead of losing track of scattered conversations, features give you a dedicated workspace where every related session lives together.
           </p>
 
-          <img src="/docs/features/hero_screenshot.png" alt="Molt Code interface showing multiple panels and chat sessions" class="doc-img" />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/optimized/app_main/640w.webp 640w, /optimized/app_main/1024w.webp 1024w, /optimized/app_main/1536w.webp 1536w, /optimized/app_main/2048w.webp 2048w"
+              sizes="(min-width: 768px) 48rem, 100vw"
+            />
+            <img
+              src="/optimized/app_main/2048w.png"
+              alt="Molt Code interface showing multiple panels and chat sessions"
+              class="doc-img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
 
           <h2 id="creating-a-feature">Creating a Feature</h2>
 

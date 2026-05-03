@@ -7,7 +7,7 @@ import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
 
 <Layout title="What is Molt Code? - Molt Code Docs">
   <div class="docs-layout">
-    <DocsSidebar currentPath="/docs/what-is-moltcode" />
+    <DocsSidebar currentPath="/docs/what-is-moltcode/" />
     <div class="docs-main">
       <main class="docs-content">
         <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
@@ -23,7 +23,20 @@ import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
             It's not another chat interface bolted onto an editor. It's a purpose-built workspace where AI agents run as managed processes — you see everything they do, control what they have access to, and let them operate independently across multiple projects at once.
           </p>
 
-          <img src="/docs/features/hero_screenshot.png" alt="Molt Code desktop interface with multiple chat panels and agent sessions running side by side" class="doc-img" />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/optimized/app_main/640w.webp 640w, /optimized/app_main/1024w.webp 1024w, /optimized/app_main/1536w.webp 1536w, /optimized/app_main/2048w.webp 2048w"
+              sizes="(min-width: 768px) 48rem, 100vw"
+            />
+            <img
+              src="/optimized/app_main/2048w.png"
+              alt="Molt Code desktop interface with multiple chat panels and agent sessions running side by side"
+              class="doc-img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
 
           <h2 id="why-a-desktop-app">Why a Desktop App?</h2>
           <p>
