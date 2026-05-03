@@ -1,587 +1,269 @@
 ---
+const devices = [
+  {
+    path: '~/devices/desktop',
+    label: 'desktop.app',
+    title: 'Where the thinking happens.',
+    desc: 'Your beefy machine at home or the office. Full IDE, managed processes, agents running across every workspace. This is the engine room.',
+    img: '/app.png',
+  },
+  {
+    path: '~/devices/ipad',
+    label: 'ipad.app',
+    title: 'Take the whole picture with you.',
+    desc: 'At a cafe, in a meeting, on the couch. Pull up diffs, review agent work, walk someone through the architecture.',
+    img: '/ipad.png',
+  },
+  {
+    path: '~/devices/phone',
+    label: 'iphone.app',
+    title: 'Step away. Stay in the loop.',
+    desc: "Go for a walk. Grab dinner. Your agents keep working. Glance at your phone to see what shipped, what needs approval, and what's next.",
+    img: '/phone.png',
+  },
+];
 ---
 
-<section class="ecosystem" id="ecosystem">
-
-  <!-- Slide 1: Intro -->
-  <div class="eco-slide" data-eco-slide>
-    <div class="eco-slide-inner eco-slide-intro">
-      <span class="eco-eyebrow">The Ecosystem</span>
-      <h2 class="eco-intro-title">Three devices.<br/>One system.<br/>Every moment covered.</h2>
-      <p class="eco-intro-sub">Scroll to explore</p>
-      <svg class="eco-scroll-hint" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-    </div>
+<section class="section" id="ecosystem">
+  <div class="section-head">
+    <span class="chip">// the.ecosystem</span>
+    <h2 class="section-title">Three devices. One system. Every moment covered.</h2>
   </div>
 
-  <!-- Slide 2: Desktop -->
-  <div class="eco-slide" data-eco-slide>
-    <div class="eco-slide-inner eco-slide-device">
-      <div class="eco-device eco-device--desktop">
-        <img src="/app.png" alt="Molt Code — Desktop app" />
-      </div>
-      <div class="eco-copy">
-        <span class="eco-label">Desktop App</span>
-        <h3 class="eco-heading">Where the thinking happens.</h3>
-        <p class="eco-desc">Your beefy machine at home or the office. Full IDE, managed processes, agents running across every workspace. This is the engine room.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide 3: iPad -->
-  <div class="eco-slide" data-eco-slide>
-    <div class="eco-slide-inner eco-slide-device">
-      <div class="eco-device eco-device--ipad">
-        <img src="/ipad.png" alt="Molt Code — iPad app" />
-      </div>
-      <div class="eco-copy">
-        <span class="eco-label">iPad App</span>
-        <h3 class="eco-heading">Take the whole picture with you.</h3>
-        <p class="eco-desc">At a cafe, in a meeting, on the couch. Pull up diffs, review agent work, walk someone through the architecture.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide 4: iPhone -->
-  <div class="eco-slide" data-eco-slide>
-    <div class="eco-slide-inner eco-slide-device">
-      <div class="eco-device eco-device--iphone">
-        <img src="/phone.png" alt="Molt Code — iPhone app" />
-      </div>
-      <div class="eco-copy">
-        <span class="eco-label">iPhone App</span>
-        <h3 class="eco-heading">Step away. Stay in the loop.</h3>
-        <p class="eco-desc">Go for a walk. Grab dinner. Your agents keep working. Glance at your phone to see what shipped, what needs approval, and what's next.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide 5: Headless -->
-  <div class="eco-slide" data-eco-slide>
-    <div class="eco-slide-inner eco-slide-device">
-      <div class="eco-device eco-device--headless">
-        <div class="headless-terminal">
-          <!-- Title bar -->
-          <div class="term-titlebar">
-            <div class="term-dots">
-              <span class="term-dot term-dot--red"></span>
-              <span class="term-dot term-dot--yellow"></span>
-              <span class="term-dot term-dot--green"></span>
-            </div>
-            <span class="term-title">moltcode — headless</span>
+  <div class="eco-stack">
+    {devices.map((d) => (
+      <div class="pane eco-pane">
+        <div class="pane-header">
+          <div class="pane-dots">
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
           </div>
-          <!-- Terminal body -->
-          <div class="term-body">
-            <div class="term-line"><span class="term-prompt">$</span> moltcode serve --headless</div>
-            <div class="term-line term-dim">&nbsp;</div>
-            <div class="term-line term-accent">  molt code v0.1.0 — headless mode</div>
-            <div class="term-line term-dim">  Listening on mesh...</div>
-            <div class="term-line term-dim">&nbsp;</div>
-            <div class="term-line"><span class="term-green">●</span> workspace <span class="term-accent">api-server</span> connected</div>
-            <div class="term-line"><span class="term-green">●</span> workspace <span class="term-accent">ml-pipeline</span> connected</div>
-            <div class="term-line"><span class="term-green">●</span> workspace <span class="term-accent">infra</span> connected</div>
-            <div class="term-line term-dim">&nbsp;</div>
-            <div class="term-line"><span class="term-blue">→</span> agent <span class="term-accent">claude</span> resolving <span class="term-dim">ISS-042</span></div>
-            <div class="term-line"><span class="term-blue">→</span> agent <span class="term-accent">codex</span> running tests on <span class="term-dim">ml-pipeline</span></div>
-            <div class="term-line"><span class="term-green">✓</span> agent <span class="term-accent">claude</span> pushed <span class="term-dim">fix/auth-middleware</span></div>
-            <div class="term-line term-dim">&nbsp;</div>
-            <div class="term-line term-dim">  3 workspaces · 2 agents active · uptime 4d 11h</div>
-            <div class="term-line"><span class="term-cursor">█</span></div>
+          <span class="pane-path">{d.path}</span>
+        </div>
+        <div class="eco-body">
+          <div class="eco-copy">
+            <span class="chip chip-accent">{d.label}</span>
+            <h3 class="eco-title">{d.title}</h3>
+            <p class="eco-desc">{d.desc}</p>
+          </div>
+          <div class="eco-img-wrap">
+            <img src={d.img} alt={d.title} loading="lazy" />
           </div>
         </div>
       </div>
-      <div class="eco-copy">
-        <span class="eco-label eco-label--upcoming">Coming Soon</span>
-        <h3 class="eco-heading">No screen. Pure horsepower.</h3>
-        <p class="eco-desc">Deploy Molt Code headless on any server. CI runners, cloud VMs, bare metal — agents work your codebases without a GUI. Same mesh, same control from your phone.</p>
+    ))}
+
+    <!-- Headless pane -->
+    <div class="pane eco-pane">
+      <div class="pane-header">
+        <div class="pane-dots">
+          <span class="pane-dot"></span>
+          <span class="pane-dot"></span>
+          <span class="pane-dot"></span>
+        </div>
+        <span class="pane-path">moltcode --headless</span>
+      </div>
+      <div class="eco-body">
+        <div class="eco-copy">
+          <span class="chip">coming.soon</span>
+          <h3 class="eco-title">No screen. Pure horsepower.</h3>
+          <p class="eco-desc">Deploy Molt Code headless on any server. CI runners, cloud VMs, bare metal — agents work your codebases without a GUI. Same mesh, same control from your phone.</p>
+        </div>
+        <div class="eco-term">
+          <div class="t-line"><span class="t-prompt">$</span> moltcode serve --headless</div>
+          <div class="t-line t-dim">&nbsp;</div>
+          <div class="t-line t-accent">  molt code v0.1.0 — headless mode</div>
+          <div class="t-line t-dim">  Listening on mesh...</div>
+          <div class="t-line t-dim">&nbsp;</div>
+          <div class="t-line"><span class="t-ok">●</span> workspace <span class="t-accent">api-server</span> connected</div>
+          <div class="t-line"><span class="t-ok">●</span> workspace <span class="t-accent">ml-pipeline</span> connected</div>
+          <div class="t-line"><span class="t-ok">●</span> workspace <span class="t-accent">infra</span> connected</div>
+          <div class="t-line t-dim">&nbsp;</div>
+          <div class="t-line"><span class="t-arrow">→</span> agent <span class="t-accent">claude</span> resolving <span class="t-dim">ISS-042</span></div>
+          <div class="t-line"><span class="t-arrow">→</span> agent <span class="t-accent">codex</span> running tests on <span class="t-dim">ml-pipeline</span></div>
+          <div class="t-line"><span class="t-ok">✓</span> agent <span class="t-accent">claude</span> pushed <span class="t-dim">fix/auth-middleware</span></div>
+          <div class="t-line t-dim">&nbsp;</div>
+          <div class="t-line t-dim">  3 workspaces · 2 agents active · uptime 4d 11h</div>
+          <div class="t-line"><span class="caret"></span></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Slide 6: CTA -->
-  <div class="eco-slide" data-eco-slide>
-    <div class="eco-slide-inner eco-slide-cta">
-      <div class="eco-cta-card">
-        <div class="eco-cta-top">
-          <div class="eco-cta-left">
-            <span class="eco-cta-label">One mesh. Every device.</span>
-            <span class="eco-cta-sub">Desktop, iPad & iPhone — connected and in sync.</span>
+    <!-- Subscribe pane -->
+    <a href="https://platform.moltcode.com" class="pane eco-cta-pane">
+      <div class="pane-header">
+        <div class="pane-dots">
+          <span class="pane-dot"></span>
+          <span class="pane-dot"></span>
+          <span class="pane-dot"></span>
+        </div>
+        <span class="pane-path">~/subscribe</span>
+      </div>
+      <div class="eco-cta-body">
+        <div class="eco-cta-row">
+          <div>
+            <div class="eco-cta-label">One mesh. Every device.</div>
+            <div class="eco-cta-sub">Desktop, iPad & iPhone — connected and in sync.</div>
           </div>
           <div class="eco-cta-right">
             <span class="eco-cta-price"><span class="eco-cta-amount">$9.99</span>/mo</span>
-            <a href="https://platform.moltcode.com" class="eco-cta-action">
-              Subscribe
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
+            <span class="eco-cta-action">subscribe →</span>
           </div>
         </div>
-        <div class="eco-cta-checks">
-          <span class="eco-cta-check">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Connect up to 5 devices
-          </span>
-          <span class="eco-cta-check">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Access any runner machine from phone and iPad
-          </span>
-          <span class="eco-cta-check">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Resilient traffic routing
-          </span>
-        </div>
+        <ul class="eco-cta-checks">
+          <li>connect up to 5 devices</li>
+          <li>access any runner from phone and iPad</li>
+          <li>resilient traffic routing</li>
+        </ul>
       </div>
-    </div>
+    </a>
   </div>
-
-  <!-- Stepper dots — fixed overlay -->
-  <div class="eco-stepper" id="eco-stepper">
-    <div class="eco-dot active" data-eco-dot></div>
-    <div class="eco-dot" data-eco-dot></div>
-    <div class="eco-dot" data-eco-dot></div>
-    <div class="eco-dot" data-eco-dot></div>
-    <div class="eco-dot" data-eco-dot></div>
-    <div class="eco-dot" data-eco-dot></div>
-  </div>
-
 </section>
 
 <style>
-  .ecosystem {
-    position: relative;
-    /* 6 slides tall */
-    height: 600vh;
+  .section-head {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
   }
 
-  /* === Each slide === */
-  .eco-slide {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
+  .section-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
   }
 
-  .eco-slide-inner {
-    height: 100%;
+  .eco-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .eco-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .eco-body {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+  }
+
+  .eco-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .eco-title {
+    font-family: var(--font-family-sans);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .eco-desc {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    color: var(--color-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .eco-img-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 0.75rem;
   }
 
-  /* === Intro slide === */
-  .eco-slide-intro {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .eco-eyebrow {
-    display: inline-block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-    padding: 0.3rem 0.875rem;
-    border-radius: 9999px;
-    background: rgba(var(--color-accent-rgb), 0.08);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
-    font-family: var(--font-family-mono);
-  }
-
-  .eco-intro-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-  }
-
-  .eco-intro-sub {
-    font-size: 0.8125rem;
-    color: var(--text-secondary);
-    margin-top: 0.5rem;
-  }
-
-  .eco-scroll-hint {
-    color: var(--text-secondary);
-    opacity: 0.4;
-    animation: hintBounce 2s ease-in-out infinite;
-  }
-
-  @keyframes hintBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
-  }
-
-  /* === Device slides === */
-  .eco-slide-device {
-    flex-direction: row;
-    gap: 3rem;
-    padding: 2rem 3rem;
-  }
-
-  @media (max-width: 767px) {
-    .eco-slide-device {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      padding: 1.5rem;
-    }
-  }
-
-  /* Alternate layout for iPad (3rd slide = even in device slides) */
-  .eco-slide:nth-child(3) .eco-slide-device {
-    flex-direction: row-reverse;
-  }
-
-  @media (max-width: 767px) {
-    .eco-slide:nth-child(3) .eco-slide-device {
-      flex-direction: column;
-    }
-  }
-
-  .eco-device {
-    flex-shrink: 0;
-  }
-
-  .eco-device img {
-    display: block;
+  .eco-img-wrap img {
     width: 100%;
     height: auto;
-    border-radius: 1rem;
+    display: block;
+    border-radius: 4px;
   }
 
-  .eco-device--desktop {
-    width: 55%;
-    max-width: 42rem;
-  }
-
-  .eco-device--ipad {
-    width: 38%;
-    max-width: 28rem;
-  }
-
-  .eco-device--ipad img {
-    border-radius: 1.25rem;
-  }
-
-  .eco-device--iphone {
-    width: 18%;
-    max-width: 14rem;
-  }
-
-  .eco-device--iphone img {
-    border-radius: 1.5rem;
-  }
-
-  .eco-device--headless {
-    width: 50%;
-    max-width: 30rem;
-  }
-
-  /* === Terminal illustration === */
-  .headless-terminal {
-    width: 100%;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    background: #0d0b09;
-    border: 1px solid rgba(var(--color-accent-rgb), 0.12);
-  }
-
-  :global([data-theme="light"]) .headless-terminal {
-    background: #1a1512;
-  }
-
-  .term-titlebar {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.625rem 0.875rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(var(--color-accent-rgb), 0.08);
-  }
-
-  .term-dots {
-    display: flex;
-    gap: 0.375rem;
-  }
-
-  .term-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-  }
-
-  .term-dot--red { background: #ff5f57; }
-  .term-dot--yellow { background: #febc2e; }
-  .term-dot--green { background: #28c840; }
-
-  .term-title {
-    font-size: 0.6875rem;
+  /* Terminal block */
+  .eco-term {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1rem;
     font-family: var(--font-family-mono);
-    color: rgba(244, 233, 223, 0.35);
-    letter-spacing: 0.02em;
-  }
-
-  :global([data-theme="light"]) .term-title {
-    color: rgba(244, 233, 223, 0.35);
-  }
-
-  .term-body {
-    padding: 1rem 1.125rem;
-    font-family: var(--font-family-mono);
-    font-size: 0.75rem;
+    font-size: 11px;
     line-height: 1.7;
-    color: rgba(244, 233, 223, 0.75);
+    color: var(--color-secondary);
+    overflow: hidden;
   }
 
-  :global([data-theme="light"]) .term-body {
-    color: rgba(244, 233, 223, 0.75);
-  }
-
-  @media (min-width: 640px) {
-    .term-body {
-      font-size: 0.8125rem;
-    }
-  }
-
-  .term-line {
+  .t-line {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .term-prompt {
-    color: rgba(var(--color-accent-rgb), 0.7);
-    margin-right: 0.375rem;
+  .t-prompt { color: var(--color-accent); margin-right: 0.375rem; }
+  .t-dim { color: var(--color-muted); }
+  .t-accent { color: var(--color-accent); }
+  .t-ok { color: #6FB87E; }
+  .t-arrow { color: #5A9FD4; }
+
+  /* Subscribe CTA pane */
+  .eco-cta-pane {
+    text-decoration: none;
   }
 
-  .term-dim {
-    color: rgba(244, 233, 223, 0.25);
+  .eco-cta-body {
+    padding: 1.5rem;
   }
 
-  .term-accent {
-    color: var(--color-accent);
-  }
-
-  :global([data-theme="light"]) .term-accent {
-    color: rgb(231, 159, 116);
-  }
-
-  .term-green {
-    color: #28c840;
-  }
-
-  .term-blue {
-    color: #5cacf0;
-  }
-
-  .term-cursor {
-    color: var(--color-accent);
-    animation: cursorBlink 1s step-end infinite;
-  }
-
-  @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  @media (max-width: 767px) {
-    .eco-device--desktop {
-      width: 85%;
-      max-height: 45vh;
-    }
-
-    .eco-device--ipad {
-      width: 55%;
-      max-height: 45vh;
-    }
-
-    .eco-device--iphone {
-      width: 35%;
-      max-height: 45vh;
-    }
-
-    .eco-device--headless {
-      width: 80%;
-      max-height: 45vh;
-    }
-
-    .eco-device img {
-      max-height: 45vh;
-      object-fit: contain;
-    }
-
-    .headless-terminal {
-      max-height: 45vh;
-      overflow: hidden;
+  @media (min-width: 640px) {
+    .eco-cta-body {
+      padding: 2rem;
     }
   }
 
-  /* === Copy === */
-  .eco-copy {
-    flex: 1;
-    min-width: 0;
-  }
-
-  @media (max-width: 767px) {
-    .eco-copy {
-      text-align: center;
-    }
-  }
-
-  .eco-slide:nth-child(3) .eco-copy {
-    text-align: right;
-  }
-
-  @media (max-width: 767px) {
-    .eco-slide:nth-child(3) .eco-copy {
-      text-align: center;
-    }
-  }
-
-  /* Alternate layout for headless slide (5th child) */
-  .eco-slide:nth-child(5) .eco-slide-device {
-    flex-direction: row-reverse;
-  }
-
-  @media (max-width: 767px) {
-    .eco-slide:nth-child(5) .eco-slide-device {
-      flex-direction: column;
-    }
-  }
-
-  .eco-slide:nth-child(5) .eco-copy {
-    text-align: right;
-  }
-
-  @media (max-width: 767px) {
-    .eco-slide:nth-child(5) .eco-copy {
-      text-align: center;
-    }
-  }
-
-  .eco-slide:nth-child(5) .eco-desc {
-    margin-left: auto;
-  }
-
-  @media (max-width: 767px) {
-    .eco-slide:nth-child(5) .eco-desc {
-      margin: 0 auto;
-    }
-  }
-
-  .eco-label {
-    display: inline-block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-    padding: 0.3rem 0.875rem;
-    border-radius: 9999px;
-    background: rgba(var(--color-accent-rgb), 0.08);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
-    margin-bottom: 0.75rem;
-    font-family: var(--font-family-mono);
-  }
-
-  .eco-label--upcoming {
-    color: var(--text-secondary);
-    background: rgba(var(--color-accent-rgb), 0.04);
-    border-color: rgba(var(--color-accent-rgb), 0.1);
-  }
-
-  .eco-heading {
-    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin-bottom: 0.75rem;
-  }
-
-  .eco-desc {
-    font-size: 0.9375rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    max-width: 24rem;
-  }
-
-  @media (max-width: 767px) {
-    .eco-desc {
-      margin: 0 auto;
-    }
-  }
-
-  .eco-slide:nth-child(3) .eco-desc {
-    margin-left: auto;
-  }
-
-  @media (max-width: 767px) {
-    .eco-slide:nth-child(3) .eco-desc {
-      margin: 0 auto;
-    }
-  }
-
-  /* === CTA slide === */
-  .eco-slide-cta {
-    padding: 2rem;
-  }
-
-  .eco-cta-card {
+  .eco-cta-row {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1.5rem 2rem;
-    border-radius: 1rem;
-    background: var(--color-surface);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--color-border);
-    width: 100%;
-    max-width: 32rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .eco-cta-card:hover {
-    border-color: rgba(var(--color-accent-rgb), 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  }
-
-  .eco-cta-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 1rem;
-  }
-
-  @media (max-width: 479px) {
-    .eco-cta-top {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-  }
-
-  .eco-cta-left {
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--color-border);
+    margin-bottom: 1rem;
   }
 
   .eco-cta-label {
-    font-size: 0.875rem;
+    font-family: var(--font-family-sans);
+    font-size: 14px;
     font-weight: 600;
     color: var(--color-primary);
   }
 
   .eco-cta-sub {
-    font-size: 0.75rem;
+    font-family: var(--font-family-mono);
+    font-size: 12px;
     color: var(--color-secondary);
+    margin-top: 0.25rem;
   }
 
   .eco-cta-right {
@@ -591,192 +273,51 @@
     gap: 0.25rem;
   }
 
-  @media (max-width: 479px) {
-    .eco-cta-right {
-      align-items: flex-start;
-    }
-  }
-
   .eco-cta-price {
-    font-size: 0.75rem;
+    font-family: var(--font-family-mono);
+    font-size: 12px;
     color: var(--color-secondary);
   }
 
   .eco-cta-amount {
-    font-size: 1.25rem;
+    font-family: var(--font-family-sans);
+    font-size: 1.125rem;
     font-weight: 700;
     color: var(--color-accent);
   }
 
   .eco-cta-action {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-family: var(--font-family-mono);
+    font-size: 12px;
     color: var(--color-accent);
-    text-decoration: none;
-    transition: gap 0.2s ease;
+    transition: letter-spacing 120ms ease;
   }
 
-  .eco-cta-card:hover .eco-cta-action {
-    gap: 0.5rem;
+  .eco-cta-pane:hover .eco-cta-action {
+    letter-spacing: 0.04em;
   }
 
   .eco-cta-checks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 0.375rem;
-    padding-top: 0.625rem;
-    border-top: 1px solid var(--color-border);
   }
 
-  .eco-cta-check {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-size: 0.75rem;
+  .eco-cta-checks li {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
     color: var(--color-secondary);
+    padding-left: 1.25rem;
+    position: relative;
   }
 
-  .eco-cta-check svg {
-    flex-shrink: 0;
+  .eco-cta-checks li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
   }
-
-  /* === Stepper === */
-  .eco-stepper {
-    position: fixed;
-    right: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    z-index: 100;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .eco-stepper.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .eco-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(var(--color-accent-rgb), 0.2);
-    border: 1.5px solid rgba(var(--color-accent-rgb), 0.3);
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-
-  .eco-dot.active {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    box-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.4);
-    transform: scale(1.3);
-  }
-
-  .eco-dot.done {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-  }
-
-  /* === Slide transition animations === */
-  .eco-slide .eco-slide-device .eco-device,
-  .eco-slide .eco-slide-device .eco-copy,
-  .eco-slide .eco-slide-intro > *,
-  .eco-slide .eco-slide-cta > * {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .eco-slide .eco-slide-device .eco-copy {
-    transition-delay: 0.15s;
-  }
-
-  .eco-slide.in-view .eco-slide-device .eco-device,
-  .eco-slide.in-view .eco-slide-device .eco-copy,
-  .eco-slide.in-view .eco-slide-intro > *,
-  .eco-slide.in-view .eco-slide-cta > * {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .eco-slide.in-view .eco-slide-intro > *:nth-child(2) { transition-delay: 0.1s; }
-  .eco-slide.in-view .eco-slide-intro > *:nth-child(3) { transition-delay: 0.2s; }
-  .eco-slide.in-view .eco-slide-intro > *:nth-child(4) { transition-delay: 0.3s; }
 </style>
-
-<script>
-  const section = document.getElementById('ecosystem')!;
-  const allSlides = document.querySelectorAll('[data-eco-slide]');
-  const dots = document.querySelectorAll('[data-eco-dot]');
-  const stepper = document.getElementById('eco-stepper')!;
-  const nav = document.getElementById('nav-wrapper');
-  const totalSlides = allSlides.length;
-
-  function update() {
-    const rect = section.getBoundingClientRect();
-    const scrolled = -rect.top;
-    const slideHeight = window.innerHeight;
-    const totalScroll = section.offsetHeight - slideHeight;
-
-    // Are we inside the ecosystem section?
-    const inside = scrolled >= -10 && scrolled <= totalScroll + 10;
-
-    // Show/hide stepper
-    stepper.classList.toggle('visible', inside);
-
-    // Hide/show nav
-    if (nav) {
-      if (inside) {
-        nav.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        nav.style.opacity = '0';
-        nav.style.transform = 'translateY(-100%)';
-        nav.style.pointerEvents = 'none';
-      } else {
-        nav.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        nav.style.opacity = '1';
-        nav.style.transform = 'translateY(0)';
-        nav.style.pointerEvents = '';
-      }
-    }
-
-    // Which slide is current?
-    const currentIndex = Math.max(0, Math.min(
-      Math.floor(scrolled / slideHeight),
-      totalSlides - 1
-    ));
-
-    // Update slides
-    allSlides.forEach((slide, i) => {
-      slide.classList.toggle('in-view', i === currentIndex);
-    });
-
-    // Update dots
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentIndex);
-      dot.classList.toggle('done', i < currentIndex);
-    });
-  }
-
-  // Dot clicks scroll to that slide
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: sectionTop + (i * window.innerHeight),
-        behavior: 'smooth',
-      });
-    });
-  });
-
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-</script>
