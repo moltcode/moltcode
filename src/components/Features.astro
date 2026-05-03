@@ -1,399 +1,205 @@
 ---
-const heroFeature = {
-  icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>`,
-  title: "All your devices. One mesh.",
-  description: "Your desktop runs the agents. Your phone approves their work. Your iPad reviews the diffs. Connected into a single mesh — no forwarding, no VPN, no SSH tunnels. Just your machines, working together.",
-};
-
 const features = [
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-    title: "Any provider. Any CLI.",
-    description: "Claude, Codex, Gemini, OpenCode, Cursor, Copilot — bring whatever you already use.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
-    title: "Agents on the edge.",
-    description: "Run agents on Mesh-connected edge nodes. Prompt them all — connection headaches handled.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`,
-    title: "Ship features, not files.",
-    description: "Worktrees across multiple projects, organized. Think in features and outcomes.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>`,
-    title: "Batteries loaded.",
-    description: "Git, search, file tagging, terminal, image annotation — everything agents need.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>`,
-    title: "Managed processes.",
-    description: "Run dev servers, builds, tests — agents see logs in real-time. No piping.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-    title: "PRDs and docs built in.",
-    description: "Draft product specs, break down large problems, and let agents resolve them.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`,
-    title: "Issues and epics.",
-    description: "Dependency-aware execution chains. Agents resolve them in the exact right order.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
-    title: "One interface.",
-    description: "Files, git, issues, agents, processes, docs — no more switching between five tools.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
-    title: "Managed MCPs.",
-    description: "Model Context Protocol servers run in the app. Agents get tool access. Zero config.",
-  },
-  {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
-    title: "Managed LSPs.",
-    description: "Language servers in the app. Full type info, go-to-definition, and diagnostics for agents.",
-  },
+  ['providers', 'Any provider. Any CLI.', 'Claude, Codex, Gemini, OpenCode, Cursor, Copilot — bring whatever you already use.'],
+  ['edge', 'Agents on the edge.', 'Run agents on Mesh-connected edge nodes. Prompt them all — connection headaches handled.'],
+  ['features', 'Ship features, not files.', 'Worktrees across multiple projects, organized. Think in features and outcomes.'],
+  ['batteries', 'Batteries loaded.', 'Git, search, file tagging, terminal, image annotation — everything agents need.'],
+  ['processes', 'Managed processes.', 'Run dev servers, builds, tests — agents see logs in real-time. No piping.'],
+  ['prds', 'PRDs and docs built in.', 'Draft product specs, break down large problems, and let agents resolve them.'],
+  ['issues', 'Issues and epics.', 'Dependency-aware execution chains. Agents resolve them in the exact right order.'],
+  ['interface', 'One interface.', 'Files, git, issues, agents, processes, docs — no more switching between five tools.'],
+  ['mcp', 'Managed MCPs.', 'Model Context Protocol servers run in the app. Agents get tool access. Zero config.'],
+  ['lsp', 'Managed LSPs.', 'Language servers in the app. Full type info, go-to-definition, and diagnostics for agents.'],
 ];
 ---
 
-<section class="features-section" id="features">
-  <div class="features-inner">
-    <div class="features-header">
-      <span class="features-eyebrow">Everything included</span>
-      <h2 class="features-title">Built for you to leave that beefy machine at home.</h2>
-      <p class="features-subtitle">One app. Every tool your agents need. No configuration required.</p>
-    </div>
-
-    <!-- Hero feature: Multi-device mesh -->
-    <div class="feature-hero">
-      <div class="feature-hero-visual">
-        <div class="feature-hero-device feature-hero-desktop">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <span>Desktop</span>
-        </div>
-        <div class="feature-hero-mesh-lines">
-          <svg width="100%" height="100%" viewBox="0 0 120 40" fill="none" preserveAspectRatio="none">
-            <path d="M0 20 C40 20, 80 8, 120 8" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1" stroke-dasharray="4 3"/>
-            <path d="M0 20 C40 20, 80 32, 120 32" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1" stroke-dasharray="4 3"/>
-          </svg>
-        </div>
-        <div class="feature-hero-mobile-stack">
-          <div class="feature-hero-device feature-hero-phone">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-            <span>Phone</span>
-          </div>
-          <div class="feature-hero-device feature-hero-ipad">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            <span>iPad</span>
-          </div>
-        </div>
-      </div>
-      <div class="feature-hero-content">
-        <div class="feature-hero-icon" set:html={heroFeature.icon} />
-        <h3 class="feature-hero-title">{heroFeature.title}</h3>
-        <p class="feature-hero-desc">{heroFeature.description}</p>
-      </div>
-    </div>
-
-    <ul class="features-list">
-      {features.map((feature) => (
-        <li class="feature-item">
-          <svg class="feature-check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <div class="feature-text">
-            <h3 class="feature-name">{feature.title}</h3>
-            <p class="feature-desc">{feature.description}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
-
-    <blockquote class="features-belief">
-      <span class="belief-line"></span>
-      <p>Every machine you own should be useful.</p>
-    </blockquote>
+<section class="section" id="features">
+  <div class="section-head">
+    <span class="chip">// everything.included</span>
+    <h2 class="section-title">Built for you to leave that beefy machine at home.</h2>
+    <p class="section-sub">One app. Every tool your agents need. No configuration required.</p>
   </div>
+
+  <!-- Hero feature pane -->
+  <div class="pane mesh-pane">
+    <div class="pane-header">
+      <div class="pane-dots">
+        <span class="pane-dot"></span>
+        <span class="pane-dot"></span>
+        <span class="pane-dot"></span>
+      </div>
+      <span class="pane-path">~/mesh/devices</span>
+    </div>
+    <div class="mesh-body">
+      <h3 class="mesh-title">All your devices. One mesh.</h3>
+      <p class="mesh-desc">Your desktop runs the agents. Your phone approves their work. Your iPad reviews the diffs. Connected into a single mesh — no forwarding, no VPN, no SSH tunnels. Just your machines, working together.</p>
+      <div class="mesh-chips">
+        <span class="chip chip-accent">desktop</span>
+        <span class="chip chip-accent">phone</span>
+        <span class="chip chip-accent">ipad</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature grid -->
+  <div class="feat-grid">
+    {features.map(([tag, title, desc]) => (
+      <div class="feat-row">
+        <span class="feat-tag">[{tag}]</span>
+        <div class="feat-text">
+          <span class="feat-title">{title}</span>
+          <span class="feat-desc">{desc}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="feat-belief">› Every machine you own should be useful.</p>
 </section>
 
 <style>
-  .features-section {
-    position: relative;
-    padding: 6rem 1.5rem 8rem;
-  }
-
-  @media (min-width: 640px) {
-    .features-section {
-      padding: 8rem 2rem 10rem;
-    }
-  }
-
-  .features-inner {
-    max-width: 52rem;
-    margin: 0 auto;
-  }
-
-  /* Header */
-  .features-header {
-    text-align: center;
-    margin-bottom: 3.5rem;
-  }
-
-  @media (min-width: 640px) {
-    .features-header {
-      margin-bottom: 4rem;
-    }
-  }
-
-  .features-eyebrow {
-    display: inline-block;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--color-accent);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-
-  .features-title {
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: -0.02em;
-    margin-bottom: 0.75rem;
-    line-height: 1.15;
-  }
-
-  .features-subtitle {
-    font-size: 1.0625rem;
-    color: var(--color-secondary);
-    max-width: 28rem;
-    margin: 0 auto;
-    line-height: 1.5;
-  }
-
-  /* Hero feature — elevated mesh card */
-  .feature-hero {
-    display: flex;
-    flex-direction: column;
-    border-radius: 1rem;
-    border: 1px solid rgba(var(--color-accent-rgb), 0.2);
-    background: var(--color-surface);
-    overflow: hidden;
+  .section-head {
     margin-bottom: 2rem;
-    position: relative;
-  }
-
-  .feature-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(var(--color-accent-rgb), 0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  @media (min-width: 768px) {
-    .feature-hero {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-
-  .feature-hero-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 2rem 2.5rem;
-    color: var(--color-accent);
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 768px) {
-    .feature-hero-visual {
-      padding: 2.5rem 3rem;
-      border-right: 1px solid rgba(var(--color-accent-rgb), 0.1);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .feature-hero-visual {
-      padding: 2rem 1.5rem 1rem;
-      border-bottom: 1px solid rgba(var(--color-accent-rgb), 0.1);
-    }
-  }
-
-  .feature-hero-device {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.375rem;
-    color: var(--color-accent);
-    opacity: 0.7;
+    align-items: flex-start;
+    gap: 0.875rem;
   }
 
-  .feature-hero-device span {
-    font-size: 0.625rem;
+  .section-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-family: var(--font-family-mono);
-  }
-
-  .feature-hero-desktop {
-    opacity: 1;
-  }
-
-  .feature-hero-mesh-lines {
-    width: 5rem;
-    height: 2.5rem;
-    flex-shrink: 0;
-  }
-
-  .feature-hero-mobile-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .feature-hero-content {
-    padding: 2rem 2.5rem;
-    flex: 1;
-  }
-
-  @media (max-width: 767px) {
-    .feature-hero-content {
-      padding: 1.5rem;
-    }
-  }
-
-  .feature-hero-icon {
-    width: 2.75rem;
-    height: 2.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.75rem;
-    background: rgba(var(--color-accent-rgb), 0.1);
-    color: var(--color-accent);
-    margin-bottom: 0.875rem;
-  }
-
-  .feature-hero-title {
-    font-size: 1.375rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
     line-height: 1.2;
-    letter-spacing: -0.01em;
+    margin: 0;
   }
 
-  .feature-hero-desc {
-    font-size: 0.9375rem;
+  .section-sub {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
     color: var(--color-secondary);
-    line-height: 1.65;
+    line-height: 1.7;
+    margin: 0;
     max-width: 36rem;
   }
 
-  .features-belief {
-    margin: 3.5rem auto 0;
-    padding: 2rem 0;
-    text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    max-width: 28rem;
+  .mesh-pane {
+    margin-bottom: 1.5rem;
   }
 
-  .features-belief p {
-    font-size: 1.5rem;
+  .mesh-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  @media (min-width: 640px) {
+    .mesh-body {
+      padding: 2rem;
+    }
+  }
+
+  .mesh-title {
+    font-family: var(--font-family-sans);
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--color-primary);
-    letter-spacing: -0.02em;
-    line-height: 1.3;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .mesh-desc {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    color: var(--color-secondary);
+    line-height: 1.7;
     margin: 0;
   }
 
-  .belief-line {
-    display: block;
-    width: 2rem;
-    height: 2px;
-    background: var(--color-accent, var(--color-primary));
-    margin: 0 auto 1.25rem;
-    opacity: 0.5;
+  .mesh-chips {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
   }
 
-  /* Checklist */
-  .features-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .feat-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 0;
-    max-width: 48rem;
-    margin-left: auto;
-    margin-right: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-surface);
   }
 
   @media (min-width: 768px) {
-    .features-list {
-      grid-template-columns: repeat(2, 1fr);
+    .feat-grid {
+      grid-template-columns: 1fr 1fr;
     }
   }
 
-  .feature-item {
+  .feat-row {
     display: flex;
-    align-items: flex-start;
     gap: 0.75rem;
-    padding: 1rem 0.5rem;
+    padding: 1rem 1.25rem;
     border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    transition: background 120ms ease;
   }
 
-  /* Remove bottom border on last items per column */
-  .feature-item:last-child {
-    border-bottom: none;
+  .feat-row:hover {
+    background: var(--color-bg);
   }
 
   @media (min-width: 768px) {
-    .feature-item {
-      padding: 1rem 1.25rem;
-    }
-
-    /* Left column items get a right border */
-    .feature-item:nth-child(odd) {
+    .feat-row:nth-child(odd) {
       border-right: 1px solid var(--color-border);
     }
-
-    /* Remove bottom border on the last two items */
-    .feature-item:nth-last-child(1),
-    .feature-item:nth-last-child(2) {
+    .feat-row:nth-last-child(-n+2) {
       border-bottom: none;
     }
   }
 
-  .feature-check {
-    flex-shrink: 0;
-    color: #28c840;
-    opacity: 0.7;
-    margin-top: 0.125rem;
+  @media (max-width: 767px) {
+    .feat-row:last-child {
+      border-bottom: none;
+    }
   }
 
-  .feature-text {
+  .feat-tag {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    width: 6.5rem;
+    font-size: 11px;
+  }
+
+  .feat-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
     min-width: 0;
   }
 
-  .feature-name {
-    font-size: 0.875rem;
-    font-weight: 600;
+  .feat-title {
     color: var(--color-primary);
-    line-height: 1.3;
-    margin-bottom: 0.1875rem;
+    font-weight: 500;
   }
 
-  .feature-desc {
-    font-size: 0.8125rem;
+  .feat-desc {
     color: var(--color-secondary);
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 11.5px;
+  }
+
+  .feat-belief {
+    margin-top: 1.5rem;
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    color: var(--color-accent);
+    text-align: center;
   }
 </style>

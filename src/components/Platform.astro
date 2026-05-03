@@ -1,745 +1,213 @@
 ---
 const features = [
-  {
-    title: "Every Machine, One Mesh",
-    description: "Your laptop, your desktop, your cloud box &mdash; each one is a full development environment. Connect them into the harness and let agents work inside any of them with complete context.",
-    accent: "Workspaces",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Central hub -->
-      <circle cx="140" cy="90" r="16" fill="rgba(var(--color-accent-rgb), 0.15)" stroke="rgba(var(--color-accent-rgb), 0.6)" stroke-width="1.5"/>
-      <circle cx="140" cy="90" r="6" fill="var(--color-accent)"/>
+  { tag: 'workspaces', title: 'Every machine, one mesh', desc: 'Your laptop, your desktop, your cloud box — each one is a full development environment. Connect them into the harness and let agents work inside any of them with complete context.' },
+  { tag: 'control', title: 'Steer from anywhere', desc: 'Review agent work, approve changes, and redirect priorities from your phone or iPad. You stay in the loop without being in the chair.' },
+  { tag: 'persistence', title: 'Agents that never leave their desk', desc: 'Agents stay connected to your workspaces around the clock. No dropped sessions, no lost context. They pick up right where they left off — like a colleague who never goes home.' },
+  { tag: 'reach', title: 'Any machine is a workspace', desc: 'A Raspberry Pi running your home automation. A NUC under your desk. A GPU rig in the closet. If it can run code, agents can work inside it — managed from one place.' },
+  { tag: 'freedom', title: 'Bring any model', desc: "Claude, Codex, Gemini — or self-hosted via Ollama, vLLM, any OpenAI-compatible endpoint. Your subscriptions or your API keys. The harness doesn't care who's thinking, just where they're working." },
+];
 
-      <!-- Desktop 1 - top left -->
-      <rect x="30" y="20" width="52" height="36" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1"/>
-      <rect x="36" y="26" width="40" height="24" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)"/>
-      <rect x="48" y="58" width="16" height="4" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <line x1="82" y1="38" x2="124" y2="85" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1" stroke-dasharray="4 3"/>
-      <circle cx="82" cy="38" r="3" fill="rgba(var(--color-accent-rgb), 0.4)"/>
-
-      <!-- Desktop 2 - top right -->
-      <rect x="198" y="20" width="52" height="36" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1"/>
-      <rect x="204" y="26" width="40" height="24" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)"/>
-      <rect x="216" y="58" width="16" height="4" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <line x1="198" y1="38" x2="156" y2="85" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1" stroke-dasharray="4 3"/>
-      <circle cx="198" cy="38" r="3" fill="rgba(var(--color-accent-rgb), 0.4)"/>
-
-      <!-- Desktop 3 - bottom left -->
-      <rect x="30" y="120" width="52" height="36" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1"/>
-      <rect x="36" y="126" width="40" height="24" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)"/>
-      <rect x="48" y="158" width="16" height="4" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <line x1="82" y1="138" x2="124" y2="95" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1" stroke-dasharray="4 3"/>
-      <circle cx="82" cy="138" r="3" fill="rgba(var(--color-accent-rgb), 0.4)"/>
-
-      <!-- Desktop 4 - bottom right -->
-      <rect x="198" y="120" width="52" height="36" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1"/>
-      <rect x="204" y="126" width="40" height="24" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)"/>
-      <rect x="216" y="158" width="16" height="4" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <line x1="198" y1="138" x2="156" y2="95" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1" stroke-dasharray="4 3"/>
-      <circle cx="198" cy="138" r="3" fill="rgba(var(--color-accent-rgb), 0.4)"/>
-
-      <!-- Pulse rings -->
-      <circle cx="140" cy="90" r="28" fill="none" stroke="rgba(var(--color-accent-rgb), 0.1)" stroke-width="1"/>
-      <circle cx="140" cy="90" r="44" fill="none" stroke="rgba(var(--color-accent-rgb), 0.05)" stroke-width="1"/>
-    </svg>`,
-  },
-  {
-    title: "Steer from Anywhere",
-    description: "Review agent work, approve changes, and redirect priorities from your phone or iPad. You stay in the loop without being in the chair.",
-    accent: "Control",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- iPad -->
-      <rect x="30" y="22" width="100" height="136" rx="10" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1.5"/>
-      <rect x="38" y="34" width="84" height="100" rx="4" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-      <!-- iPad screen content - status bars -->
-      <rect x="44" y="42" width="48" height="4" rx="2" fill="rgba(var(--color-accent-rgb), 0.25)"/>
-      <rect x="44" y="52" width="72" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <rect x="44" y="60" width="60" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <!-- iPad status indicators -->
-      <circle cx="50" cy="74" r="4" fill="rgba(40, 200, 64, 0.4)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="1"/>
-      <rect x="60" y="72" width="36" height="4" rx="2" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-      <circle cx="50" cy="86" r="4" fill="rgba(40, 200, 64, 0.4)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="1"/>
-      <rect x="60" y="84" width="44" height="4" rx="2" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-      <circle cx="50" cy="98" r="4" fill="rgba(231, 159, 116, 0.4)" stroke="rgba(var(--color-accent-rgb), 0.6)" stroke-width="1"/>
-      <rect x="60" y="96" width="28" height="4" rx="2" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-      <!-- iPad progress bar -->
-      <rect x="44" y="112" width="72" height="6" rx="3" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-      <rect x="44" y="112" width="50" height="6" rx="3" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-      <!-- iPad home indicator -->
-      <rect x="64" y="142" width="32" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-
-      <!-- Phone -->
-      <rect x="165" y="38" width="56" height="104" rx="10" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1.5"/>
-      <rect x="171" y="50" width="44" height="76" rx="3" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-      <!-- Phone notch -->
-      <rect x="183" y="40" width="20" height="6" rx="3" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <!-- Phone screen content -->
-      <rect x="176" y="58" width="34" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.25)"/>
-      <rect x="176" y="66" width="28" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <!-- Phone notification cards -->
-      <rect x="176" y="76" width="34" height="16" rx="3" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="0.75"/>
-      <circle cx="182" cy="84" r="2.5" fill="rgba(40, 200, 64, 0.5)"/>
-      <rect x="188" y="82" width="18" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <rect x="176" y="96" width="34" height="16" rx="3" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="0.75"/>
-      <circle cx="182" cy="104" r="2.5" fill="rgba(var(--color-accent-rgb), 0.5)"/>
-      <rect x="188" y="102" width="18" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <!-- Phone home indicator -->
-      <rect x="181" y="132" width="24" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-
-      <!-- Sync waves between devices -->
-      <path d="M132 70 C145 70, 155 60, 165 60" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
-      <path d="M132 90 C148 90, 155 80, 165 80" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
-      <path d="M132 110 C148 110, 155 100, 165 100" stroke="rgba(var(--color-accent-rgb), 0.1)" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
-    </svg>`,
-  },
-  {
-    title: "Agents That Never Leave Their Desk",
-    description: "Agents stay connected to your workspaces around the clock. No dropped sessions, no lost context. They pick up right where they left off &mdash; like a colleague who never goes home.",
-    accent: "Persistence",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Cloud shape -->
-      <path d="M80 60 C80 40, 100 28, 120 32 C128 18, 152 18, 160 32 C178 28, 200 40, 200 60 C214 60, 220 76, 210 88 C220 100, 210 116, 196 114 L84 114 C70 116, 60 100, 70 88 C60 76, 66 60, 80 60Z" fill="rgba(var(--color-accent-rgb), 0.05)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1.5"/>
-
-      <!-- Server rack inside cloud -->
-      <rect x="108" y="52" width="64" height="18" rx="3" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-      <circle cx="118" cy="61" r="3" fill="rgba(40, 200, 64, 0.5)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="0.75"/>
-      <rect x="126" y="58" width="20" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <rect x="126" y="63" width="14" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <rect x="156" y="56" width="10" height="10" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.5"/>
-
-      <rect x="108" y="74" width="64" height="18" rx="3" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-      <circle cx="118" cy="83" r="3" fill="rgba(40, 200, 64, 0.5)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="0.75"/>
-      <rect x="126" y="80" width="24" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <rect x="126" y="85" width="16" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <rect x="156" y="78" width="10" height="10" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.5"/>
-
-      <rect x="108" y="96" width="64" height="18" rx="3" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-      <circle cx="118" cy="105" r="3" fill="rgba(40, 200, 64, 0.5)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="0.75"/>
-      <rect x="126" y="102" width="18" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <rect x="126" y="107" width="22" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <rect x="156" y="100" width="10" height="10" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.5"/>
-
-      <!-- Uptime indicator -->
-      <text x="140" y="142" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.4)" font-family="var(--font-family-mono)" font-size="9">99.9% UPTIME</text>
-
-      <!-- Connection lines going down to local -->
-      <line x1="124" y1="114" x2="100" y2="160" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1" stroke-dasharray="4 3"/>
-      <line x1="140" y1="114" x2="140" y2="160" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="4 3"/>
-      <line x1="156" y1="114" x2="180" y2="160" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1" stroke-dasharray="4 3"/>
-
-      <!-- Local indicators -->
-      <circle cx="100" cy="164" r="4" fill="rgba(var(--color-accent-rgb), 0.3)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="1"/>
-      <circle cx="140" cy="164" r="4" fill="rgba(var(--color-accent-rgb), 0.3)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="1"/>
-      <circle cx="180" cy="164" r="4" fill="rgba(var(--color-accent-rgb), 0.3)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="1"/>
-    </svg>`,
-  },
-  {
-    title: "Any Machine Is a Workspace",
-    description: "A Raspberry Pi running your home automation. A NUC under your desk. A GPU rig in the closet. If it can run code, agents can work inside it &mdash; managed from one place.",
-    accent: "Reach",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Central platform node -->
-      <rect x="110" y="70" width="60" height="40" rx="6" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.4)" stroke-width="1.5"/>
-      <text x="140" y="94" text-anchor="middle" fill="var(--color-accent)" font-family="var(--font-family-mono)" font-size="9" font-weight="600">HUB</text>
-
-      <!-- Edge device 1 - Raspberry Pi (top left) -->
-      <rect x="16" y="14" width="44" height="34" rx="3" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-      <!-- GPIO pins -->
-      <rect x="20" y="10" width="1.5" height="4" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-      <rect x="24" y="10" width="1.5" height="4" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-      <rect x="28" y="10" width="1.5" height="4" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-      <rect x="32" y="10" width="1.5" height="4" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-      <rect x="36" y="10" width="1.5" height="4" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-      <circle cx="30" cy="31" r="5" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.75"/>
-      <circle cx="48" cy="31" r="5" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.75"/>
-      <circle cx="26" cy="22" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-      <text x="38" y="56" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7">Pi</text>
-      <line x1="60" y1="31" x2="110" y2="80" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="3 3"/>
-
-      <!-- Edge device 2 - NUC (top right) -->
-      <rect x="220" y="14" width="44" height="28" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-      <rect x="226" y="20" width="32" height="4" rx="1" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-      <circle cx="232" cy="34" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-      <rect x="238" y="32" width="14" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-      <text x="242" y="52" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7">NUC</text>
-      <line x1="220" y1="28" x2="170" y2="80" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="3 3"/>
-
-      <!-- Edge device 3 - GPU box (bottom left) -->
-      <rect x="16" y="124" width="52" height="36" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-      <!-- GPU fan grills -->
-      <circle cx="32" cy="142" r="10" fill="none" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="0.75"/>
-      <circle cx="32" cy="142" r="6" fill="none" stroke="rgba(var(--color-accent-rgb), 0.1)" stroke-width="0.75"/>
-      <circle cx="32" cy="142" r="2" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <circle cx="52" cy="142" r="10" fill="none" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="0.75"/>
-      <circle cx="52" cy="142" r="6" fill="none" stroke="rgba(var(--color-accent-rgb), 0.1)" stroke-width="0.75"/>
-      <circle cx="52" cy="142" r="2" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <circle cx="22" cy="130" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-      <text x="42" y="170" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7">GPU</text>
-      <line x1="68" y1="142" x2="110" y2="100" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="3 3"/>
-
-      <!-- Edge device 4 - Generic IoT (bottom right) -->
-      <rect x="220" y="128" width="40" height="28" rx="6" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-      <circle cx="240" cy="138" r="3" fill="rgba(var(--color-accent-rgb), 0.15)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="0.75"/>
-      <rect x="228" y="146" width="24" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <circle cx="228" cy="134" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-      <text x="240" y="166" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7">IoT</text>
-      <line x1="220" y1="142" x2="170" y2="100" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="3 3"/>
-
-      <!-- Pulse ring around hub -->
-      <rect x="102" y="62" width="76" height="56" rx="10" fill="none" stroke="rgba(var(--color-accent-rgb), 0.08)" stroke-width="1"/>
-    </svg>`,
-  },
-  {
-    title: "Bring Any Model",
-    description: "Claude, Codex, Gemini &mdash; or self-hosted via Ollama, vLLM, any OpenAI-compatible endpoint. Your subscriptions or your API keys. The harness doesn't care who's thinking, just where they're working.",
-    accent: "Freedom",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Self-hosted server -->
-      <rect x="96" y="16" width="88" height="60" rx="6" fill="rgba(var(--color-accent-rgb), 0.05)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1.5"/>
-      <text x="140" y="33" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.5)" font-family="var(--font-family-mono)" font-size="8" font-weight="600">YOUR LLM</text>
-      <!-- Model layers -->
-      <rect x="108" y="40" width="64" height="8" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.75"/>
-      <rect x="112" y="43" width="12" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-      <rect x="128" y="43" width="8" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <rect x="108" y="52" width="64" height="8" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.75"/>
-      <rect x="112" y="55" width="16" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-      <rect x="132" y="55" width="10" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <rect x="108" y="64" width="64" height="8" rx="2" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="0.75"/>
-      <rect x="112" y="67" width="10" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.25)"/>
-
-      <!-- Arrow down to distribution -->
-      <line x1="140" y1="76" x2="140" y2="100" stroke="rgba(var(--color-accent-rgb), 0.35)" stroke-width="1.5"/>
-      <polygon points="135,98 140,106 145,98" fill="rgba(var(--color-accent-rgb), 0.35)"/>
-
-      <!-- Distribution node -->
-      <circle cx="140" cy="116" r="12" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.4)" stroke-width="1.5"/>
-      <circle cx="140" cy="116" r="4" fill="var(--color-accent)" opacity="0.6"/>
-
-      <!-- Machine 1 - left -->
-      <rect x="28" y="140" width="48" height="28" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <rect x="34" y="146" width="36" height="16" rx="2" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-      <circle cx="38" cy="150" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-      <line x1="76" y1="154" x2="128" y2="120" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="3 3"/>
-
-      <!-- Machine 2 - center -->
-      <rect x="116" y="144" width="48" height="28" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <rect x="122" y="150" width="36" height="16" rx="2" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-      <circle cx="126" cy="154" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-      <line x1="140" y1="144" x2="140" y2="128" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="3 3"/>
-
-      <!-- Machine 3 - right -->
-      <rect x="204" y="140" width="48" height="28" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <rect x="210" y="146" width="36" height="16" rx="2" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-      <circle cx="214" cy="150" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-      <line x1="204" y1="154" x2="152" y2="120" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="3 3"/>
-    </svg>`,
-  },
+const onboarding = [
+  { n: '01', cmd: 'molt connect', title: 'Connect your workspace', desc: 'Install the desktop app. Your machine joins the mesh — files, tools, environment and all.' },
+  { n: '02', cmd: 'molt mobile', title: 'Get the mobile app', desc: 'See what your agents are doing. Review, approve, and steer — from wherever you are.' },
+  { n: '03', cmd: 'molt chill', title: 'Ship while you chill', desc: 'Agents work your codebase. You review from the couch. Cold one optional but encouraged.' },
 ];
 ---
 
-<section id="platform" class="py-16 md:py-24 px-4 md:px-6 relative">
-  <!-- Top accent line -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-[rgba(var(--color-accent-rgb),0.15)] to-transparent"></div>
-
-  <div class="max-w-5xl mx-auto">
-    <!-- Section header -->
-    <div class="text-center mb-10 md:mb-16">
-      <div class="platform-badge">
-        <span class="platform-badge-dot"></span>
-        The Mesh
-      </div>
-      <h2 class="text-2xl md:text-4xl font-bold text-theme-primary mb-3 md:mb-4">
-        Your workspaces. Your models.<br /><span class="gradient-text">One harness.</span>
-      </h2>
-      <p class="text-sm md:text-base text-theme-primary/50 max-w-2xl mx-auto mb-8">
-        Agents need somewhere real to work &mdash; not a sandbox, but your actual environment with full context. Your machines are those workspaces. The harness connects them.
-      </p>
-      <a href="https://platform.moltcode.com" class="platform-signin-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-          <polyline points="10 17 15 12 10 7"/>
-          <line x1="15" y1="12" x2="3" y2="12"/>
-        </svg>
-        <span>Sign in to Hub</span>
-      </a>
-    </div>
-
-    <!-- Beer artwork hero - the vibe -->
-    <div class="mesh-hero-illustration">
-      <svg width="100%" height="100%" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Couch -->
-        <path d="M60 132 Q60 100, 95 100 L305 100 Q340 100, 340 132 L340 162 L60 162 Z" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1"/>
-        <rect x="54" y="148" width="292" height="22" rx="8" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-        <rect x="74" y="170" width="6" height="12" rx="3" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-        <rect x="320" y="170" width="6" height="12" rx="3" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-
-        <!-- Person -->
-        <circle cx="160" cy="72" r="16" fill="rgba(var(--color-accent-rgb), 0.12)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-        <path d="M146 92 Q142 116, 138 148" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="10" stroke-linecap="round" fill="none"/>
-        <path d="M152 100 Q175 106, 195 98" stroke="rgba(var(--color-accent-rgb), 0.18)" stroke-width="5" stroke-linecap="round" fill="none"/>
-
-        <!-- Phone in hand -->
-        <rect x="188" y="78" width="26" height="40" rx="6" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1"/>
-        <rect x="192" y="84" width="18" height="26" rx="3" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-        <circle cx="198" cy="91" r="2" fill="rgba(40, 200, 64, 0.6)"/>
-        <rect x="203" y="89.5" width="6" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-        <circle cx="198" cy="100" r="2" fill="rgba(40, 200, 64, 0.6)"/>
-        <rect x="203" y="98.5" width="6" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-
-        <!-- Beer -->
-        <rect x="270" y="100" width="20" height="38" rx="4" fill="rgba(245, 189, 66, 0.15)" stroke="rgba(245, 189, 66, 0.35)" stroke-width="1"/>
-        <rect x="273" y="108" width="14" height="26" rx="3" fill="rgba(245, 189, 66, 0.25)"/>
-        <ellipse cx="280" cy="107" rx="10" ry="4" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.1)" stroke-width="0.5"/>
-        <path d="M290 110 Q300 110, 300 120 Q300 130, 290 130" stroke="rgba(245, 189, 66, 0.3)" stroke-width="2" fill="none"/>
-        <circle cx="277" cy="126" r="1.2" fill="rgba(245, 189, 66, 0.3)">
-          <animate attributeName="cy" values="126;116;110" dur="2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.3;0.5;0" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="282" cy="122" r="1" fill="rgba(245, 189, 66, 0.25)">
-          <animate attributeName="cy" values="122;112;106" dur="2.5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.25;0.4;0" dur="2.5s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- Floating status indicators (agents working) -->
-        <circle cx="80" cy="48" r="6" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
-          <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="80" cy="48" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-
-        <circle cx="340" cy="40" r="6" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
-          <animate attributeName="opacity" values="0.5;1;0.5" dur="3.5s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="340" cy="40" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-
-        <circle cx="60" cy="90" r="5" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
-          <animate attributeName="opacity" values="0.5;1;0.5" dur="2.8s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="60" cy="90" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-
-        <circle cx="360" cy="80" r="5" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
-          <animate attributeName="opacity" values="0.5;1;0.5" dur="2.4s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="360" cy="80" r="2" fill="rgba(40, 200, 64, 0.5)"/>
-
-        <text x="200" y="194" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="9">AGENTS SHIPPING</text>
-      </svg>
-    </div>
-
-    <!-- 3-step onboarding -->
-    <div class="onboarding-section">
-      <h3 class="text-lg md:text-xl font-semibold text-theme-primary mb-2">Up and running in 3 steps</h3>
-      <p class="text-sm text-theme-primary/50 mb-8 max-w-md mx-auto">Connect your workspace, grab the mobile app, and let the harness do the rest.</p>
-
-      <div class="onboarding-steps">
-        <!-- Step 1: Desktop -->
-        <div class="onboarding-step">
-          <div class="step-number">1</div>
-          <div class="step-illustration">
-            <svg width="100%" height="100%" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="100" width="140" height="4" rx="2" fill="rgba(var(--color-accent-rgb), 0.1)"/>
-              <rect x="30" y="16" width="100" height="68" rx="6" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1.5"/>
-              <rect x="36" y="22" width="88" height="52" rx="3" fill="rgba(var(--color-accent-rgb), 0.1)"/>
-              <rect x="42" y="28" width="36" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-              <rect x="42" y="34" width="56" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-              <rect x="42" y="39" width="44" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-              <rect x="42" y="44" width="62" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-              <rect x="42" y="49" width="38" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-              <rect x="42" y="55" width="6" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.5)">
-                <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
-              </rect>
-              <circle cx="108" cy="30" r="3" fill="rgba(40, 200, 64, 0.6)"/>
-              <rect x="100" y="56" width="12" height="10" rx="2" fill="rgba(var(--color-accent-rgb), 0.25)"/>
-              <rect x="70" y="84" width="20" height="6" rx="1" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-              <rect x="60" y="90" width="40" height="4" rx="2" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-              <circle cx="80" cy="4" r="8" fill="rgba(var(--color-accent-rgb), 0.12)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1">
-                <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite"/>
-              </circle>
-              <path d="M77 2 L80 6 L83 2" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-              <line x1="80" y1="-1" x2="80" y2="5" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h4 class="step-title">Connect Your Workspace</h4>
-          <p class="step-desc">Install the desktop app. Your machine joins the mesh &mdash; files, tools, environment and all.</p>
-        </div>
-
-        <div class="step-connector">
-          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
-            <path d="M4 12 L30 12" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1.5" stroke-dasharray="4 3"/>
-            <path d="M26 7 L33 12 L26 17" stroke="rgba(var(--color-accent-rgb), 0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          </svg>
-        </div>
-
-        <!-- Step 2: Mobile -->
-        <div class="onboarding-step">
-          <div class="step-number">2</div>
-          <div class="step-illustration">
-            <svg width="100%" height="100%" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="48" y="8" width="64" height="104" rx="12" fill="rgba(var(--color-accent-rgb), 0.05)" stroke="rgba(var(--color-accent-rgb), 0.35)" stroke-width="1.5"/>
-              <rect x="66" y="12" width="28" height="6" rx="3" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-              <rect x="54" y="22" width="52" height="78" rx="4" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-              <rect x="60" y="28" width="28" height="3.5" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.3)"/>
-              <rect x="60" y="37" width="40" height="18" rx="3" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="0.75"/>
-              <circle cx="66" cy="43" r="2.5" fill="rgba(40, 200, 64, 0.5)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="0.75"/>
-              <rect x="72" y="41" width="22" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-              <rect x="72" y="47" width="16" height="2" rx="1" fill="rgba(var(--color-accent-rgb), 0.1)"/>
-              <rect x="60" y="59" width="40" height="18" rx="3" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="0.75"/>
-              <circle cx="66" cy="65" r="2.5" fill="rgba(40, 200, 64, 0.5)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="0.75"/>
-              <rect x="72" y="63" width="18" height="2.5" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-              <rect x="72" y="69" width="24" height="2" rx="1" fill="rgba(var(--color-accent-rgb), 0.1)"/>
-              <rect x="60" y="82" width="40" height="10" rx="5" fill="rgba(var(--color-accent-rgb), 0.2)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="0.75"/>
-              <text x="80" y="89.5" text-anchor="middle" fill="var(--color-accent)" font-size="6" font-family="var(--font-family-mono)" font-weight="600">CONNECT</text>
-              <rect x="68" y="104" width="24" height="3" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-              <path d="M118 40 C124 40, 128 36, 128 30" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1" fill="none"/>
-              <path d="M118 48 C130 48, 136 38, 136 28" stroke="rgba(var(--color-accent-rgb), 0.1)" stroke-width="1" fill="none"/>
-              <path d="M118 56 C136 56, 144 40, 144 26" stroke="rgba(var(--color-accent-rgb), 0.06)" stroke-width="1" fill="none"/>
-            </svg>
-          </div>
-          <h4 class="step-title">Get the Mobile App</h4>
-          <p class="step-desc">See what your agents are doing. Review, approve, and steer &mdash; from wherever you are.</p>
-        </div>
-
-        <div class="step-connector">
-          <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
-            <path d="M4 12 L30 12" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1.5" stroke-dasharray="4 3"/>
-            <path d="M26 7 L33 12 L26 17" stroke="rgba(var(--color-accent-rgb), 0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          </svg>
-        </div>
-
-        <!-- Step 3: Relax -->
-        <div class="onboarding-step">
-          <div class="step-number">3</div>
-          <div class="step-illustration">
-            <svg width="100%" height="100%" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Couch -->
-              <path d="M16 72 Q16 48, 40 48 L120 48 Q144 48, 144 72 L144 92 L16 92 Z" fill="rgba(var(--color-accent-rgb), 0.06)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1"/>
-              <rect x="12" y="82" width="136" height="16" rx="6" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-              <rect x="24" y="98" width="4" height="8" rx="2" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-              <rect x="132" y="98" width="4" height="8" rx="2" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-
-              <!-- Person -->
-              <circle cx="70" cy="34" r="10" fill="rgba(var(--color-accent-rgb), 0.12)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-              <path d="M60 44 Q58 60, 56 80" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="8" stroke-linecap="round" fill="none"/>
-              <path d="M64 52 Q78 56, 88 50" stroke="rgba(var(--color-accent-rgb), 0.18)" stroke-width="4" stroke-linecap="round" fill="none"/>
-
-              <!-- Phone in hand -->
-              <rect x="84" y="38" width="18" height="28" rx="4" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1"/>
-              <rect x="87" y="42" width="12" height="18" rx="2" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-              <circle cx="91" cy="47" r="1.5" fill="rgba(40, 200, 64, 0.6)"/>
-              <rect x="95" y="46" width="4" height="2" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-              <circle cx="91" cy="53" r="1.5" fill="rgba(40, 200, 64, 0.6)"/>
-              <rect x="95" y="52" width="4" height="2" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-
-              <!-- Beer -->
-              <rect x="118" y="52" width="14" height="26" rx="3" fill="rgba(245, 189, 66, 0.15)" stroke="rgba(245, 189, 66, 0.35)" stroke-width="1"/>
-              <rect x="120" y="58" width="10" height="18" rx="2" fill="rgba(245, 189, 66, 0.25)"/>
-              <ellipse cx="125" cy="57" rx="7" ry="3" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.1)" stroke-width="0.5"/>
-              <path d="M132 58 Q140 58, 140 66 Q140 74, 132 74" stroke="rgba(245, 189, 66, 0.3)" stroke-width="1.5" fill="none"/>
-              <circle cx="123" cy="70" r="1" fill="rgba(245, 189, 66, 0.3)">
-                <animate attributeName="cy" values="70;62;58" dur="2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.5;0" dur="2s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="127" cy="68" r="0.8" fill="rgba(245, 189, 66, 0.25)">
-                <animate attributeName="cy" values="68;60;56" dur="2.5s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.25;0.4;0" dur="2.5s" repeatCount="indefinite"/>
-              </circle>
-
-              <!-- Floating status indicators -->
-              <circle cx="36" cy="24" r="4" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="36" cy="24" r="1.5" fill="rgba(40, 200, 64, 0.5)"/>
-              <circle cx="140" cy="20" r="4" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="3.5s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="140" cy="20" r="1.5" fill="rgba(40, 200, 64, 0.5)"/>
-              <circle cx="24" cy="52" r="3.5" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="2.8s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="24" cy="52" r="1.5" fill="rgba(40, 200, 64, 0.5)"/>
-
-              <text x="80" y="116" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7">AGENTS SHIPPING</text>
-            </svg>
-          </div>
-          <h4 class="step-title">Ship While You Chill</h4>
-          <p class="step-desc">Agents work your codebase. You review from the couch. Cold one optional but encouraged.</p>
-        </div>
-      </div>
-
-      <p class="text-xs text-theme-primary/40 mt-6">Less than a pint a month.</p>
-    </div>
-
-    <!-- Feature cards -->
-    <div class="platform-grid">
-      {features.map((feature) => (
-        <div class="platform-card">
-          <div class="platform-card-visual">
-            <div set:html={feature.svg}></div>
-          </div>
-          <div class="platform-card-content">
-            <span class="platform-card-accent">{feature.accent}</span>
-            <h3 class="platform-card-title">{feature.title}</h3>
-            <p class="platform-card-desc">{feature.description}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+<section class="section">
+  <div class="section-head">
+    <span class="chip">// the.mesh</span>
+    <h2 class="section-title">Your workspaces. Your models. One harness.</h2>
+    <p class="section-sub">Agents need somewhere real to work — not a sandbox, but your actual environment with full context. Your machines are those workspaces. The harness connects them.</p>
+    <a href="https://platform.moltcode.com" class="btn">$ sign-in.hub</a>
   </div>
+
+  <!-- Feature grid -->
+  <div class="plat-grid">
+    {features.map((f) => (
+      <div class="pane plat-pane">
+        <div class="pane-header">
+          <div class="pane-dots">
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+          </div>
+          <span class="pane-path">~/{f.tag}</span>
+        </div>
+        <div class="plat-body">
+          <h3 class="plat-title">{f.title}</h3>
+          <p class="plat-desc">{f.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Onboarding -->
+  <div class="onboard-head">
+    <h3 class="onboard-title">Up and running in 3 steps.</h3>
+    <p class="onboard-sub">Connect your workspace, grab the mobile app, and let the harness do the rest.</p>
+  </div>
+
+  <div class="onboard-grid">
+    {onboarding.map((o) => (
+      <div class="pane">
+        <div class="pane-header">
+          <div class="pane-dots">
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+          </div>
+          <span class="pane-path">step.{o.n}</span>
+        </div>
+        <div class="onboard-body">
+          <div class="onboard-cmd"><span class="onboard-prompt">$</span> {o.cmd}</div>
+          <h4 class="onboard-step-title">{o.title}</h4>
+          <p class="onboard-desc">{o.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="onboard-foot">// less than a pint a month.</p>
 </section>
 
 <style>
-  .mesh-hero-illustration {
-    max-width: 32rem;
-    margin: 0 auto 3rem;
+  .section-head {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
   }
 
-  .platform-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
+  .section-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-    margin-bottom: 1rem;
-    padding: 0.375rem 1rem;
-    border-radius: 9999px;
-    background: rgba(var(--color-accent-rgb), 0.08);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
   }
 
-  .platform-badge-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-accent);
+  .section-sub {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    color: var(--color-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 36rem;
   }
 
-  .platform-signin-btn {
-    display: inline-flex;
-    align-items: center;
+  .plat-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .plat-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .plat-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
     gap: 0.625rem;
-    padding: 0.75rem 1.75rem;
-    border-radius: 9999px;
-    font-size: 0.9375rem;
+  }
+
+  .plat-title {
+    font-family: var(--font-family-sans);
+    font-size: 1rem;
     font-weight: 600;
-    color: white;
-    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-strong) 100%);
-    box-shadow:
-      0 0 0 1px rgba(var(--color-accent-rgb), 0.3),
-      0 6px 20px rgba(var(--color-accent-rgb), 0.2),
-      inset 0 1px 0 rgba(255,255,255,0.15);
-    transition: all 0.3s ease;
+    color: var(--color-primary);
+    margin: 0;
+    letter-spacing: -0.005em;
   }
 
-  .platform-signin-btn:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 0 0 1px rgba(var(--color-accent-rgb), 0.4),
-      0 10px 28px rgba(var(--color-accent-rgb), 0.3),
-      inset 0 1px 0 rgba(255,255,255,0.15);
+  .plat-desc {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    color: var(--color-secondary);
+    line-height: 1.7;
+    margin: 0;
   }
 
-  /* ===== Grid ===== */
-  .platform-grid {
+  .onboard-head {
+    margin-bottom: 1.5rem;
+  }
+
+  .onboard-title {
+    font-family: var(--font-family-sans);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+    margin: 0 0 0.5rem;
+  }
+
+  .onboard-sub {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    color: var(--color-secondary);
+    margin: 0;
+  }
+
+  .onboard-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 
-  @media (min-width: 640px) {
-    .platform-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .platform-grid {
+  @media (min-width: 768px) {
+    .onboard-grid {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
-  /* ===== Card ===== */
-  .platform-card {
+  .onboard-body {
+    padding: 1.25rem 1.5rem;
     display: flex;
     flex-direction: column;
-    border-radius: 1rem;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    position: relative;
+    gap: 0.5rem;
   }
 
-  .platform-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(circle at 50% 0%, rgba(var(--color-accent-rgb), 0.06) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .platform-card:hover::after { opacity: 1; }
-
-  .platform-card:hover {
-    border-color: rgba(var(--color-accent-rgb), 0.2);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
-  }
-
-  /* Last two cards span to fill row on 3-col */
-  @media (min-width: 1024px) {
-    .platform-card:nth-child(4) {
-      grid-column: 1 / 2;
-    }
-    .platform-card:nth-child(5) {
-      grid-column: 2 / 4;
-    }
-  }
-
-  .platform-card-visual {
-    padding: 1.25rem 1.25rem 0;
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .platform-card-visual::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 30px;
-    background: linear-gradient(to top, var(--color-surface), transparent);
-    pointer-events: none;
-  }
-
-  .platform-card-content {
-    padding: 1rem 1.25rem 1.25rem;
-  }
-
-  .platform-card-accent {
-    display: inline-block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
-    opacity: 0.7;
-    margin-bottom: 0.375rem;
+  .onboard-cmd {
     font-family: var(--font-family-mono);
-  }
-
-  .platform-card-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin-bottom: 0.375rem;
-    line-height: 1.3;
-  }
-
-  @media (min-width: 768px) {
-    .platform-card-title {
-      font-size: 1.0625rem;
-    }
-  }
-
-  .platform-card-desc {
-    font-size: 0.8125rem;
-    line-height: 1.6;
-    color: var(--color-secondary);
-    opacity: 0.7;
-  }
-
-  @media (min-width: 768px) {
-    .platform-card-desc {
-      font-size: 0.875rem;
-    }
-  }
-
-  /* === Onboarding section === */
-  .onboarding-section {
-    max-width: 56rem;
-    margin: 0 auto 3rem;
-    text-align: center;
-    padding: 2rem 0;
-  }
-
-  .onboarding-steps {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    .onboarding-steps {
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 0;
-    }
-  }
-
-  .onboarding-step {
-    flex: 1;
-    max-width: 220px;
-    position: relative;
-    text-align: center;
-  }
-
-  .step-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: rgba(var(--color-accent-rgb), 0.12);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.3);
-    color: var(--color-accent);
-    font-size: 0.75rem;
-    font-weight: 700;
-    font-family: var(--font-family-mono);
-    margin-bottom: 0.75rem;
-  }
-
-  .step-illustration {
-    width: 160px;
-    height: 120px;
-    margin: 0 auto 0.75rem;
-  }
-
-  .step-title {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--color-primary);
+    font-size: 11px;
+    color: var(--color-muted);
     margin-bottom: 0.25rem;
   }
 
-  .step-desc {
-    font-size: 0.75rem;
-    line-height: 1.5;
+  .onboard-prompt {
+    color: var(--color-accent);
+    margin-right: 0.25rem;
+  }
+
+  .onboard-step-title {
+    font-family: var(--font-family-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+
+  .onboard-desc {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
     color: var(--color-secondary);
-    opacity: 0.7;
+    line-height: 1.65;
+    margin: 0;
   }
 
-  .step-connector {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    .step-connector {
-      display: flex;
-      align-items: center;
-      padding-top: 80px;
-      flex-shrink: 0;
-    }
+  .onboard-foot {
+    margin-top: 1.5rem;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-muted);
+    text-align: center;
   }
 </style>

@@ -1,175 +1,129 @@
 ---
 const steps = [
   {
-    num: "1",
-    title: "Write a PRD",
-    desc: "Describe what you want built — scope, constraints, acceptance criteria. Or let a Planner agent draft it by exploring your codebase.",
-    detail: "Structured templates keep specs focused. Agents read them directly.",
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>`,
+    n: '01',
+    cmd: 'molt prd new',
+    title: 'Write a PRD',
+    desc: 'Describe what you want built — scope, constraints, acceptance criteria. Or let a Planner agent draft it by exploring your codebase.',
+    note: 'Structured templates keep specs focused. Agents read them directly.',
   },
   {
-    num: "2",
-    title: "Generate an epic",
-    desc: "The system breaks your PRD into dependency-tracked issues, orders them, and bundles them into an execution chain.",
-    detail: "Each issue knows its blockers and sequence. No manual breakdown needed.",
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></svg>`,
+    n: '02',
+    cmd: 'molt epic generate',
+    title: 'Generate an epic',
+    desc: 'The system breaks your PRD into dependency-tracked issues, orders them, and bundles them into an execution chain.',
+    note: 'Each issue knows its blockers and sequence. No manual breakdown needed.',
   },
   {
-    num: "3",
-    title: "A tree of agents resolves it",
-    desc: "A supervisor agent spawns a tree of coding agents that systematically resolve each issue in dependency order.",
-    detail: "You review diffs and approve. Desktop notifications tell you when agents need input.",
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+    n: '03',
+    cmd: 'molt epic resolve',
+    title: 'A tree of agents resolves it',
+    desc: 'A supervisor agent spawns a tree of coding agents that systematically resolve each issue in dependency order.',
+    note: 'You review diffs and approve. Desktop notifications tell you when agents need input.',
   },
 ];
 ---
 
-<section class="py-24 px-6 relative" id="pipeline">
-  <!-- Subtle background accent -->
-  <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[1px] bg-gradient-to-r from-transparent via-[rgba(var(--color-accent-rgb),0.2)] to-transparent"></div>
+<section class="section">
+  <div class="section-head">
+    <span class="chip">// the.pipeline</span>
+    <h2 class="section-title">From intent to shipped code.</h2>
   </div>
 
-  <div class="max-w-4xl mx-auto relative z-10">
-    <div class="text-center mb-16">
-      <div class="section-badge">
-        <span class="section-badge-dot"></span>
-        The Pipeline
-      </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-theme-primary">
-        From intent to <span class="gradient-text">shipped code.</span>
-      </h2>
-    </div>
-
-    <div class="steps-grid">
-      {steps.map((step, i) => (
-        <div class="step-card" style={`animation-delay: ${i * 0.15}s`}>
-          <div class="step-header">
-            <div class="step-number">{step.num}</div>
-            <div class="step-icon" set:html={step.icon}></div>
+  <div class="steps">
+    {steps.map((s) => (
+      <div class="pane step-pane">
+        <div class="pane-header">
+          <div class="pane-dots">
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
           </div>
-          <h3 class="text-lg font-semibold text-theme-primary mb-2">{step.title}</h3>
-          <p class="text-sm text-theme-primary/60 leading-relaxed mb-2">{step.desc}</p>
-          <p class="text-xs text-theme-primary/30 leading-relaxed">{step.detail}</p>
-          {i < steps.length - 1 && (
-            <div class="step-connector">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-theme-accent/30 hidden md:block"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          )}
+          <span class="pane-path">step.{s.n}</span>
         </div>
-      ))}
-    </div>
+        <div class="step-body">
+          <div class="step-cmd"><span class="step-prompt">$</span> {s.cmd}</div>
+          <h3 class="step-title">{s.title}</h3>
+          <p class="step-desc">{s.desc}</p>
+          <div class="step-note">› {s.note}</div>
+        </div>
+      </div>
+    ))}
   </div>
 </section>
 
 <style>
-  .section-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
+  .section-head {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+
+  .section-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-    margin-bottom: 1rem;
-    padding: 0.375rem 1rem;
-    border-radius: 9999px;
-    background: rgba(var(--color-accent-rgb), 0.08);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
   }
 
-  .section-badge-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-accent);
-  }
-
-  .steps-grid {
+  .steps {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   @media (min-width: 768px) {
-    .steps-grid {
+    .steps {
       grid-template-columns: repeat(3, 1fr);
-      gap: 0;
     }
   }
 
-  .step-card {
-    position: relative;
-    padding: 2rem;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    transition: all 0.3s ease;
-  }
-
-  .step-card:first-child {
-    border-radius: 1.25rem 1.25rem 0 0;
-  }
-
-  .step-card:last-child {
-    border-radius: 0 0 1.25rem 1.25rem;
-  }
-
-  @media (min-width: 768px) {
-    .step-card:first-child {
-      border-radius: 1.25rem 0 0 1.25rem;
-    }
-    .step-card:last-child {
-      border-radius: 0 1.25rem 1.25rem 0;
-    }
-    .step-card:not(:last-child) {
-      border-right: none;
-    }
-  }
-
-  .step-card:hover {
-    background: rgba(var(--color-accent-rgb), 0.03);
-    z-index: 1;
-  }
-
-  .step-header {
+  .step-body {
+    padding: 1.5rem;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.25rem;
+    flex-direction: column;
+    gap: 0.625rem;
   }
 
-  .step-number {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .step-cmd {
     font-family: var(--font-family-mono);
-    font-size: 1rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, rgba(var(--color-accent-rgb), 0.15), rgba(var(--color-accent-strong-rgb), 0.1));
-    border: 1.5px solid rgba(var(--color-accent-rgb), 0.3);
-    color: var(--color-accent);
+    font-size: 12px;
+    color: var(--color-secondary);
+    margin-bottom: 0.25rem;
   }
 
-  .step-icon {
+  .step-prompt {
     color: var(--color-accent);
-    opacity: 0.4;
+    margin-right: 0.25rem;
   }
 
-  .step-connector {
-    position: absolute;
-    right: -12px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    background: var(--color-bg);
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .step-title {
+    font-family: var(--font-family-sans);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .step-desc {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    color: var(--color-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .step-note {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-muted);
+    padding-top: 0.625rem;
+    margin-top: 0.25rem;
+    border-top: 1px dashed var(--color-border);
   }
 </style>

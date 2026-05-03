@@ -1,98 +1,98 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-import { config } from '../config';
 ---
 
-<div class="nav-wrapper fixed top-0 left-0 right-0 z-50 flex justify-center pt-3" id="nav-wrapper">
-  <nav class="nav-bar" id="nav-bar">
-    <div class="flex items-center justify-between w-full px-5 py-2.5">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2.5">
-        <svg width="28" height="28" viewBox="0 0 64 64" class="rounded-lg">
-          <defs>
-            <linearGradient id="navBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#27272a"/>
-              <stop offset="100%" stop-color="#3f3f46"/>
-            </linearGradient>
-            <linearGradient id="navCopperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#b45309"/>
-              <stop offset="50%" stop-color="#d97706"/>
-              <stop offset="100%" stop-color="#92400e"/>
-            </linearGradient>
-            <linearGradient id="navBronzeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f59e0b"/>
-              <stop offset="100%" stop-color="#d97706"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#navBgGrad)"/>
-          <rect x="12" y="30" width="16" height="24" rx="4" fill="url(#navCopperGrad)"/>
-          <rect x="34" y="20" width="16" height="34" rx="4" fill="url(#navCopperGrad)" opacity="0.7"/>
-          <rect x="24" y="10" width="16" height="28" rx="4" fill="url(#navBronzeGrad)"/>
-        </svg>
-        <span class="text-lg font-semibold text-theme-primary">Molt Code</span>
-      </a>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">
+      <span class="nav-prompt">$</span>
+      <span class="nav-name">moltcode</span>
+    </a>
 
-      <!-- Right side -->
-      <div class="flex items-center gap-3">
-        <ThemeToggle />
-        <a href="/pricing" class="text-theme-secondary hover:text-theme-primary transition-colors text-sm font-medium px-3 py-2 hidden sm:block">
-          Pricing
-        </a>
-        <a href="/docs/what-is-moltcode" class="text-theme-secondary hover:text-theme-primary transition-colors text-sm font-medium px-3 py-2 hidden sm:block">
-          Docs
-        </a>
-        <a href="https://platform.moltcode.com" class="text-theme-secondary hover:text-theme-primary transition-colors text-sm font-medium px-3 py-2">
-          Sign in
-        </a>
-      </div>
+    <div class="nav-links">
+      <ThemeToggle />
+      <a href="/pricing" class="nav-link">pricing</a>
+      <a href="/docs/what-is-moltcode" class="nav-link">docs</a>
+      <a href="https://platform.moltcode.com" class="nav-link nav-link-accent">sign-in</a>
     </div>
-  </nav>
-</div>
+  </div>
+</nav>
 
 <style>
-  .nav-bar {
-    width: 92vw;
-    border-radius: 9999px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .nav-inner {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
   @media (min-width: 640px) {
-    .nav-bar {
-      width: 80vw;
+    .nav-inner {
+      padding: 0.75rem 2rem;
     }
   }
 
-  .nav-bar.scrolled {
-    width: 85vw;
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-primary);
   }
 
-  @media (min-width: 640px) {
-    .nav-bar.scrolled {
-      width: 60vw;
+  .nav-prompt {
+    color: var(--color-accent);
+  }
+
+  .nav-name {
+    letter-spacing: -0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    padding: 0.375rem 0.625rem;
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    color: var(--color-secondary);
+    border-radius: 4px;
+    transition: color 120ms ease, background 120ms ease;
+  }
+
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-link-accent {
+    color: var(--color-primary);
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .nav-link-accent:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 540px) {
+    .nav-link:not(.nav-link-accent):not(.theme-toggle) {
+      display: none;
     }
   }
 </style>
-
-<script>
-  const nav = document.getElementById('nav-bar');
-  let scrolled = false;
-
-  function onScroll() {
-    const isScrolled = window.scrollY > 50;
-    if (isScrolled !== scrolled) {
-      scrolled = isScrolled;
-      if (scrolled) {
-        nav?.classList.add('scrolled');
-      } else {
-        nav?.classList.remove('scrolled');
-      }
-    }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-</script>

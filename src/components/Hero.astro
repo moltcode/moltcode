@@ -3,274 +3,116 @@ import { config } from '../config';
 import AppleIcon from './AppleIcon.astro';
 ---
 
-<section class="hero-section" id="hero">
-  <!-- Gradient background -->
-  <div class="hero-bg"></div>
-  <div class="hero-bg-grain"></div>
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <!-- Status chips -->
+    <div class="hero-chips">
+      <span class="chip chip-accent">v0.0.54</span>
+      <span class="chip">free.forever</span>
+      <span class="chip">your.keys</span>
+    </div>
 
-  <div class="hero-content">
-    <!-- Tagline -->
-    <p class="hero-tagline hero-fade-in" style="animation-delay: 0.1s">One workspace. Any agent. Your keys.</p>
-    <p class="hero-subtext hero-fade-in" style="animation-delay: 0.15s">Desktop, iPad, and phone — connected into one mesh. Run any coding agent across all your machines with full context, managed processes, and zero configuration.</p>
+    <!-- Headline -->
+    <h1 class="hero-headline">
+      One workspace.<br/>
+      Any agent.<br/>
+      Your keys.<span class="caret"></span>
+    </h1>
 
-    <!-- CTA — platform-detected primary button -->
-    <div class="hero-ctas hero-fade-in" style="animation-delay: 0.175s" data-download-cta>
-      <a href={config.downloadUrl} data-track-download data-dl="mac-arm" class="hero-btn-primary">
-        <AppleIcon size={24} />
-        Download for Mac (Apple Silicon)
+    <!-- Description -->
+    <p class="hero-desc">
+      Desktop, iPad, and phone — connected into one mesh. Run any coding agent across all your machines with full context, managed processes, and zero configuration.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero-ctas" data-download-cta>
+      <a href={config.downloadUrl} data-track-download data-dl="mac-arm" class="btn btn-primary">
+        <AppleIcon size={16} />
+        download.mac
       </a>
-      <a href={config.appStoreUrl} data-dl="ios" class="hero-btn-primary">
-        <AppleIcon size={24} />
-        Get on iPhone & iPad
+      <a href={config.appStoreUrl} data-dl="ios" class="btn btn-primary">
+        <AppleIcon size={16} />
+        download.ios
       </a>
       <div class="hero-dl-more">
-        <button type="button" class="hero-dl-toggle" data-dl-toggle>
-          All downloads
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        <button type="button" class="btn" data-dl-toggle>
+          all.platforms
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </button>
         <div class="hero-dl-dropdown" data-dl-dropdown>
           <a href={config.downloadUrl} data-track-download class="hero-dl-item">
-            <AppleIcon size={16} />
-            macOS — Apple Silicon
+            <AppleIcon size={14} />
+            macos.apple-silicon
           </a>
           <a href={config.appStoreUrl} class="hero-dl-item">
-            <AppleIcon size={16} />
-            iPhone & iPad — App Store
+            <AppleIcon size={14} />
+            ios.app-store
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Pricing hook — above devices -->
-    <div class="hero-pricing hero-fade-in" style="animation-delay: 0.3s">
-      <span class="hero-pricing-badge">Free forever. Runs your CLIs. With your subscriptions. No hack.</span>
-    </div>
-
-    <!-- Devices showcase -->
-    <div class="devices-wrap hero-fade-in" style="animation-delay: 0.6s" id="devices-wrap">
-      <!-- Desktop -->
-      <div class="device-desktop" id="device-desktop">
-        <div class="screenshot-frame">
-          <img
-            src="/app.png"
-            alt="Molt Code — Desktop app"
-            class="w-full h-auto"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
-      </div>
-
-      <!-- iPad -->
-      <div class="device-ipad" id="device-ipad">
-        <div class="ipad-frame">
-          <img
-            src="/ipad.png"
-            alt="Molt Code — iPad app"
-            class="w-full h-auto"
-            loading="eager"
-          />
-        </div>
-      </div>
-
-      <!-- Phone -->
-      <div class="device-phone" id="device-phone">
-        <div class="phone-frame">
-          <img
-            src="/phone.png"
-            alt="Molt Code — Mobile app"
-            class="w-full h-auto"
-            loading="eager"
-          />
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Subscribe CTA — emerges from under desktop image -->
-    <div class="subscribe-clip">
-      <canvas id="subscribe-glow" class="subscribe-glow"></canvas>
-      <a href="https://platform.moltcode.com" class="subscribe-card" id="subscribe-btn">
-        <div class="subscribe-top">
-          <div class="subscribe-left">
-            <span class="subscribe-label">Connect all your devices</span>
-            <span class="subscribe-desc">Desktop, iPad & iPhone on one mesh</span>
-          </div>
-          <div class="subscribe-right">
-            <span class="subscribe-price"><span class="subscribe-amount">$9.99</span>/mo</span>
-            <span class="subscribe-action">Subscribe <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-          </div>
-        </div>
-        <div class="subscribe-checks">
-          <span class="subscribe-check">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Connect up to 5 devices
-          </span>
-          <span class="subscribe-check">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Access any runner machine from phone and iPad
-          </span>
-          <span class="subscribe-check">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28c840" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Resilient traffic routing
-          </span>
-        </div>
-      </a>
+    <!-- Output line -->
+    <div class="hero-output">
+      <span class="hero-output-key">→</span> runs your CLIs with your subscriptions, no hack.
     </div>
   </div>
-
 </section>
 
 <style>
-  .hero-section {
-    position: relative;
-    min-height: 140vh;
+  .hero {
+    padding: 6rem 1.25rem 3rem;
     display: flex;
-    align-items: flex-start;
     justify-content: center;
-    padding: 6rem 1.25rem 4rem;
-    overflow: hidden;
   }
 
   @media (min-width: 640px) {
-    .hero-section {
-      min-height: 200vh;
-      padding: 8rem 2rem 6rem;
+    .hero {
+      padding: 8rem 2rem 4rem;
     }
   }
 
-  /* Background gradient */
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(var(--color-accent-rgb), 0.15), transparent 70%),
-      radial-gradient(ellipse 60% 50% at 30% 60%, rgba(var(--color-accent-strong-rgb), 0.08), transparent 60%),
-      radial-gradient(ellipse 50% 40% at 70% 50%, rgba(var(--color-accent-rgb), 0.06), transparent 50%);
-    z-index: 0;
-  }
-
-  .hero-bg-grain {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(var(--color-accent-rgb), 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(var(--color-accent-rgb), 0.02) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 20%, transparent);
-    -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 20%, transparent);
-    z-index: 0;
-  }
-
-  .hero-content {
-    position: sticky;
-    top: 5rem;
-    z-index: 1;
+  .hero-inner {
+    width: 100%;
+    max-width: 38rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
+    gap: 1.5rem;
   }
 
-  @media (min-width: 640px) {
-    .hero-content {
-      top: 8rem;
-    }
-  }
-
-  /* Tagline — does NOT shrink on phone */
-  .hero-tagline {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    text-align: center;
-    max-width: 40rem;
-    margin: 0 auto 0.75rem;
-    line-height: 1.3;
-    padding: 0 0.25rem;
-  }
-
-  .hero-subtext {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-align: center;
-    max-width: 34rem;
-    margin: 0 auto 1.25rem;
-    line-height: 1.6;
-    padding: 0 0.25rem;
-  }
-
-  .hero-pricing {
+  .hero-chips {
     display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    margin-top: 0;
-  }
-
-  .hero-pricing-badge {
-    display: inline-flex;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 0.5rem;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    padding: 0.5rem 1.25rem;
-    border-radius: 9999px;
-    background: rgba(var(--color-accent-rgb), 0.08);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.2);
-    letter-spacing: 0.01em;
-    text-align: center;
   }
 
-  /* CTAs */
+  .hero-headline {
+    font-family: var(--font-family-sans);
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .hero-desc {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--color-secondary);
+    max-width: 32rem;
+    margin: 0;
+  }
+
   .hero-ctas {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 10;
-  }
-
-  @media (min-width: 640px) {
-    .hero-ctas {
-      gap: 1rem;
-      margin-bottom: 4rem;
-    }
-  }
-
-  .hero-btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.875rem 2rem;
+    flex-wrap: wrap;
     gap: 0.5rem;
-    border-radius: 0.75rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: white;
-    background: var(--color-primary);
-    text-decoration: none;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    min-width: 11rem;
-  }
-
-  :global([data-theme="light"]) .hero-btn-primary {
-    background: #1a1512;
-    color: #ffffff;
-  }
-
-  :global([data-theme="dark"]) .hero-btn-primary {
-    background: #f4e9df;
-    color: #0b0907;
-  }
-
-  .hero-btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    opacity: 0.9;
+    align-items: center;
+    position: relative;
+    margin-top: 0.5rem;
   }
 
   /* Platform-based primary button visibility */
@@ -283,44 +125,22 @@ import AppleIcon from './AppleIcon.astro';
     display: inline-flex;
   }
 
-  /* "All downloads" dropdown */
   .hero-dl-more {
     position: relative;
-  }
-
-  .hero-dl-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0;
-    border: none;
-    background: none;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: color 0.2s ease;
-    font-family: inherit;
-  }
-
-  .hero-dl-toggle:hover {
-    color: var(--text-primary);
   }
 
   .hero-dl-dropdown {
     display: none;
     position: absolute;
-    top: calc(100% + 0.5rem);
-    left: 50%;
-    transform: translateX(-50%);
+    top: calc(100% + 0.375rem);
+    left: 0;
     flex-direction: column;
     min-width: 14rem;
-    padding: 0.375rem;
-    border-radius: 0.75rem;
-    background: var(--color-surface-solid);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-    z-index: 999;
+    padding: 0.25rem;
+    border-radius: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    z-index: 50;
   }
 
   .hero-dl-dropdown:global(.open) {
@@ -331,464 +151,31 @@ import AppleIcon from './AppleIcon.astro';
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: background 0.15s ease;
+    padding: 0.5rem 0.625rem;
+    border-radius: 6px;
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    color: var(--color-primary);
+    transition: background 120ms ease, color 120ms ease;
   }
 
   .hero-dl-item:hover {
-    background: rgba(var(--color-accent-rgb), 0.08);
+    background: var(--color-bg);
+    color: var(--color-accent);
   }
 
-  /* Devices container */
-  .devices-wrap {
-    position: relative;
-    width: 92vw;
-    max-width: none;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-  }
-
-  @media (min-width: 640px) {
-    .devices-wrap {
-      width: 80vw;
-    }
-  }
-
-  /* Desktop device */
-  .device-desktop {
+  .hero-output {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    color: var(--color-muted);
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--color-border);
     width: 100%;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
+    margin-top: 0.5rem;
   }
 
-  .screenshot-frame {
-    position: relative;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    border: none;
-    background: transparent;
-  }
-
-  @media (min-width: 640px) {
-    .screenshot-frame {
-      border-radius: 1rem;
-    }
-  }
-
-  /* iPad device */
-  .device-ipad {
-    position: absolute;
-    left: -2rem;
-    bottom: 0;
-    width: 45%;
-    opacity: 0;
-    transform: translateX(-60px) translateY(20px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
-    z-index: 2;
-  }
-
-  @media (min-width: 640px) {
-    .device-ipad {
-      left: -3rem;
-      width: 45%;
-    }
-  }
-
-  @media (max-width: 639px) {
-    .device-ipad {
-      width: 45%;
-      left: -1rem;
-    }
-  }
-
-  .ipad-frame {
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow:
-      0 25px 50px -12px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.06);
-    background: transparent;
-  }
-
-  @media (min-width: 640px) {
-    .ipad-frame {
-      border-radius: 1.25rem;
-    }
-  }
-
-  .device-ipad.visible {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-  }
-
-  /* Phone device */
-  .device-phone {
-    position: absolute;
-    right: -2rem;
-    bottom: 0;
-    width: 18%;
-    opacity: 0;
-    transform: translateX(60px) translateY(20px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
-    z-index: 2;
-  }
-
-  @media (min-width: 640px) {
-    .device-phone {
-      right: -3rem;
-      width: 16%;
-    }
-  }
-
-  @media (max-width: 639px) {
-    .device-phone {
-      width: 22%;
-      right: -1rem;
-    }
-  }
-
-  .phone-frame {
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow:
-      0 25px 50px -12px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(255, 255, 255, 0.06);
-    background: transparent;
-  }
-
-  @media (min-width: 640px) {
-    .phone-frame {
-      border-radius: 1.25rem;
-    }
-  }
-
-  /* Subscribe card — slides out from under desktop */
-  .subscribe-clip {
-    position: relative;
-    width: 92vw;
-    max-width: none;
-    display: flex;
-    justify-content: center;
-    margin-top: 4rem;
-    z-index: 0;
-  }
-
-  @media (min-width: 640px) {
-    .subscribe-clip {
-      width: 80vw;
-      margin-top: 6rem;
-    }
-  }
-
-  .subscribe-glow {
-    position: absolute;
-    inset: -60px;
-    width: calc(100% + 120px);
-    height: calc(100% + 120px);
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-
-  .subscribe-clip:has(.subscribe-card.visible) .subscribe-glow {
-    opacity: 1;
-  }
-
-  .subscribe-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    border-radius: 0.75rem;
-    background: var(--color-surface);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--color-border);
-    text-decoration: none;
-    cursor: pointer;
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .subscribe-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 479px) {
-    .subscribe-top {
-      flex-direction: column;
-      align-items: flex-start;
-      white-space: normal;
-      gap: 0.75rem;
-    }
-  }
-
-  .subscribe-checks {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    padding-top: 0.625rem;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .subscribe-check {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-size: 0.75rem;
-    color: var(--color-secondary);
-  }
-
-  @media (min-width: 480px) {
-    .subscribe-check {
-      white-space: nowrap;
-    }
-  }
-
-  .subscribe-check svg {
-    flex-shrink: 0;
-  }
-
-  .subscribe-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .subscribe-card:hover {
-    border-color: rgba(var(--color-accent-rgb), 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  }
-
-  .subscribe-left {
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-  }
-
-  .subscribe-label {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    line-height: 1.2;
-  }
-
-  .subscribe-desc {
-    font-size: 0.6875rem;
-    color: var(--color-secondary);
-    line-height: 1.2;
-  }
-
-  .subscribe-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.125rem;
-  }
-
-  @media (max-width: 479px) {
-    .subscribe-right {
-      align-items: flex-start;
-    }
-  }
-
-  .subscribe-price {
-    font-size: 0.75rem;
-    color: var(--color-secondary);
-    line-height: 1.2;
-  }
-
-  .subscribe-amount {
-    font-size: 1.125rem;
-    font-weight: 700;
+  .hero-output-key {
     color: var(--color-accent);
-  }
-
-  .subscribe-action {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    transition: gap 0.2s ease;
-  }
-
-  .subscribe-card:hover .subscribe-action {
-    gap: 0.5rem;
-  }
-
-  /* Scroll states */
-  .device-desktop.shifted {
-    transform: scale(0.95);
-  }
-
-  .device-phone.visible {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-  }
-
-  /* Fade-in animation */
-  .hero-fade-in {
-    opacity: 0;
-    animation: heroFadeUp 0.7s ease-out forwards;
-  }
-
-  @keyframes heroFadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    margin-right: 0.375rem;
   }
 </style>
-
-<script>
-  const desktop = document.getElementById('device-desktop');
-  const phone = document.getElementById('device-phone');
-  const ipad = document.getElementById('device-ipad');
-  const subscribeBtn = document.getElementById('subscribe-btn');
-  const hero = document.getElementById('hero');
-  let active = false;
-
-  function onScroll() {
-    if (!hero || !desktop || !phone || !ipad) return;
-
-    const rect = hero.getBoundingClientRect();
-    const scrolled = -rect.top;
-    const triggerPoint = window.innerHeight * 0.25;
-    const shouldActivate = scrolled > triggerPoint;
-
-    if (shouldActivate !== active) {
-      active = shouldActivate;
-      if (active) {
-        desktop.classList.add('shifted');
-        setTimeout(() => ipad.classList.add('visible'), 150);
-        setTimeout(() => phone.classList.add('visible'), 350);
-        setTimeout(() => subscribeBtn?.classList.add('visible'), 550);
-      } else {
-        subscribeBtn?.classList.remove('visible');
-        setTimeout(() => phone.classList.remove('visible'), 100);
-        setTimeout(() => ipad.classList.remove('visible'), 250);
-        setTimeout(() => desktop.classList.remove('shifted'), 400);
-      }
-    }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // Pixelated color-cycling grid behind subscribe card
-  const glowCanvas = document.getElementById('subscribe-glow') as HTMLCanvasElement;
-  const glowCtx = glowCanvas.getContext('2d');
-  const GCELL = 30;
-  const GLOW_COLORS = [
-    [231, 159, 116], // copper
-    [116, 185, 231], // blue
-    [165, 116, 231], // purple
-    [231, 116, 165], // pink
-    [116, 231, 165], // green
-    [231, 210, 116], // gold
-    [116, 210, 231], // cyan
-  ];
-  let glowW = 0;
-  let glowH = 0;
-  let glowRunning = false;
-
-  function resizeGlow() {
-    const parent = glowCanvas.parentElement!;
-    const rect = parent.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    glowW = rect.width + 120;
-    glowH = rect.height + 120;
-    glowCanvas.width = glowW * dpr;
-    glowCanvas.height = glowH * dpr;
-    glowCanvas.style.width = glowW + 'px';
-    glowCanvas.style.height = glowH + 'px';
-    glowCtx?.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function drawGlow() {
-    if (!glowCtx || !glowRunning) return;
-    glowCtx.clearRect(0, 0, glowW, glowH);
-
-    const isDarkMode = document.documentElement.getAttribute('data-theme') !== 'light';
-    const time = performance.now() / 1000;
-    const cols = Math.ceil(glowW / GCELL);
-    const rows = Math.ceil(glowH / GCELL);
-    const centerX = glowW / 2;
-    const centerY = glowH / 2;
-    const maxDist = Math.sqrt(centerX * centerX + centerY * centerY);
-
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const x = col * GCELL;
-        const y = row * GCELL;
-        const cx = x + GCELL / 2;
-        const cy = y + GCELL / 2;
-
-        // Distance from center for fade
-        const dx = cx - centerX;
-        const dy = cy - centerY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const fade = Math.max(0, 1 - dist / (maxDist * 0.7));
-        if (fade <= 0) continue;
-
-        // Each cell cycles through colors at a slightly offset phase
-        const phase = time * 0.5 + (col * 0.15) + (row * 0.15);
-        const progress = ((phase % GLOW_COLORS.length) + GLOW_COLORS.length) % GLOW_COLORS.length;
-        const idx = Math.floor(progress);
-        const frac = progress - idx;
-        const c1 = GLOW_COLORS[idx % GLOW_COLORS.length];
-        const c2 = GLOW_COLORS[(idx + 1) % GLOW_COLORS.length];
-
-        const r = Math.round(c1[0] + (c2[0] - c1[0]) * frac);
-        const g = Math.round(c1[1] + (c2[1] - c1[1]) * frac);
-        const b = Math.round(c1[2] + (c2[2] - c1[2]) * frac);
-
-        const alpha = fade * fade * (isDarkMode ? 0.12 : 0.07);
-        glowCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        glowCtx.fillRect(x, y, GCELL, GCELL);
-      }
-    }
-
-    requestAnimationFrame(drawGlow);
-  }
-
-  function startGlow() {
-    if (!glowRunning) {
-      glowRunning = true;
-      resizeGlow();
-      drawGlow();
-    }
-  }
-
-  function stopGlow() {
-    glowRunning = false;
-    if (glowCtx) glowCtx.clearRect(0, 0, glowW, glowH);
-  }
-
-  // Only run the glow canvas when subscribe card is visible
-  const glowObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => e.isIntersecting ? startGlow() : stopGlow());
-  }, { threshold: 0 });
-  glowObserver.observe(glowCanvas.parentElement!);
-
-  window.addEventListener('resize', () => { if (glowRunning) resizeGlow(); });
-</script>

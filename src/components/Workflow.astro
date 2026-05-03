@@ -1,458 +1,120 @@
 ---
 const capabilities = [
-  {
-    accent: "Code Review",
-    title: "Review diffs, not guesses.",
-    description: "Side-by-side diffs for every change agents make. Inline comments, threaded discussions, file-by-file navigation. You stay in control of what ships.",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Editor frame -->
-      <rect x="20" y="14" width="240" height="152" rx="8" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <!-- Title bar -->
-      <rect x="20" y="14" width="240" height="24" rx="8" fill="rgba(var(--color-accent-rgb), 0.06)"/>
-      <rect x="20" y="30" width="240" height="8" fill="rgba(var(--color-accent-rgb), 0.06)"/>
-      <circle cx="34" cy="26" r="4" fill="rgba(239, 68, 68, 0.5)"/>
-      <circle cx="46" cy="26" r="4" fill="rgba(245, 189, 66, 0.5)"/>
-      <circle cx="58" cy="26" r="4" fill="rgba(40, 200, 64, 0.5)"/>
-      <text x="140" y="29" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="8">review.tsx</text>
-      <!-- Split line -->
-      <line x1="140" y1="38" x2="140" y2="166" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1" stroke-dasharray="3 3"/>
-      <!-- Left side (old) -->
-      <text x="80" y="50" text-anchor="middle" fill="rgba(239, 68, 68, 0.4)" font-family="var(--font-family-mono)" font-size="7">OLD</text>
-      <rect x="30" y="56" width="100" height="8" rx="2" fill="rgba(239, 68, 68, 0.08)" stroke="rgba(239, 68, 68, 0.15)" stroke-width="0.5"/>
-      <rect x="34" y="58" width="52" height="4" rx="1" fill="rgba(239, 68, 68, 0.2)"/>
-      <rect x="30" y="68" width="100" height="8" rx="2" fill="rgba(239, 68, 68, 0.08)" stroke="rgba(239, 68, 68, 0.15)" stroke-width="0.5"/>
-      <rect x="34" y="70" width="68" height="4" rx="1" fill="rgba(239, 68, 68, 0.2)"/>
-      <rect x="30" y="80" width="100" height="8" rx="2" fill="rgba(var(--color-accent-rgb), 0.04)"/>
-      <rect x="34" y="82" width="44" height="4" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <rect x="30" y="92" width="100" height="8" rx="2" fill="rgba(var(--color-accent-rgb), 0.04)"/>
-      <rect x="34" y="94" width="60" height="4" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <!-- Right side (new) -->
-      <text x="200" y="50" text-anchor="middle" fill="rgba(40, 200, 64, 0.5)" font-family="var(--font-family-mono)" font-size="7">NEW</text>
-      <rect x="150" y="56" width="100" height="8" rx="2" fill="rgba(40, 200, 64, 0.08)" stroke="rgba(40, 200, 64, 0.15)" stroke-width="0.5"/>
-      <rect x="154" y="58" width="56" height="4" rx="1" fill="rgba(40, 200, 64, 0.2)"/>
-      <rect x="150" y="68" width="100" height="8" rx="2" fill="rgba(40, 200, 64, 0.08)" stroke="rgba(40, 200, 64, 0.15)" stroke-width="0.5"/>
-      <rect x="154" y="70" width="72" height="4" rx="1" fill="rgba(40, 200, 64, 0.2)"/>
-      <rect x="150" y="80" width="100" height="8" rx="2" fill="rgba(40, 200, 64, 0.08)" stroke="rgba(40, 200, 64, 0.15)" stroke-width="0.5"/>
-      <rect x="154" y="82" width="48" height="4" rx="1" fill="rgba(40, 200, 64, 0.2)"/>
-      <rect x="150" y="92" width="100" height="8" rx="2" fill="rgba(var(--color-accent-rgb), 0.04)"/>
-      <rect x="154" y="94" width="60" height="4" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <!-- Comment bubble -->
-      <rect x="155" y="108" width="90" height="32" rx="6" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <circle cx="167" cy="118" r="5" fill="rgba(var(--color-accent-rgb), 0.15)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="0.75"/>
-      <rect x="176" y="116" width="60" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <rect x="176" y="122" width="40" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <!-- Approve button -->
-      <rect x="170" y="148" width="60" height="14" rx="7" fill="rgba(40, 200, 64, 0.15)" stroke="rgba(40, 200, 64, 0.3)" stroke-width="0.75"/>
-      <text x="200" y="157.5" text-anchor="middle" fill="rgba(40, 200, 64, 0.7)" font-family="var(--font-family-mono)" font-size="7" font-weight="600">APPROVE</text>
-    </svg>`,
-  },
-  {
-    accent: "Git",
-    title: "Git that works for you.",
-    description: "Real-time status, staging, diffs, and worktree management. Agents commit with context. You see every change as it happens.",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Main branch line -->
-      <line x1="60" y1="30" x2="60" y2="160" stroke="rgba(var(--color-accent-rgb), 0.4)" stroke-width="2"/>
-      <!-- Feature branch -->
-      <path d="M60 60 C80 60, 100 45, 120 45" stroke="rgba(40, 200, 64, 0.4)" stroke-width="2" fill="none"/>
-      <line x1="120" y1="45" x2="200" y2="45" stroke="rgba(40, 200, 64, 0.4)" stroke-width="2"/>
-      <path d="M200 45 C220 45, 220 90, 60 120" stroke="rgba(40, 200, 64, 0.3)" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-      <!-- Commits on main -->
-      <circle cx="60" cy="30" r="6" fill="rgba(var(--color-accent-rgb), 0.2)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="1.5"/>
-      <circle cx="60" cy="60" r="6" fill="rgba(var(--color-accent-rgb), 0.2)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="1.5"/>
-      <circle cx="60" cy="90" r="6" fill="rgba(var(--color-accent-rgb), 0.2)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="1.5"/>
-      <circle cx="60" cy="120" r="8" fill="rgba(var(--color-accent-rgb), 0.15)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="1.5"/>
-      <circle cx="60" cy="120" r="3" fill="var(--color-accent)" opacity="0.6"/>
-      <circle cx="60" cy="150" r="6" fill="rgba(var(--color-accent-rgb), 0.2)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="1.5"/>
-      <!-- Commits on feature branch -->
-      <circle cx="130" cy="45" r="5" fill="rgba(40, 200, 64, 0.2)" stroke="rgba(40, 200, 64, 0.5)" stroke-width="1.5"/>
-      <circle cx="160" cy="45" r="5" fill="rgba(40, 200, 64, 0.2)" stroke="rgba(40, 200, 64, 0.5)" stroke-width="1.5"/>
-      <circle cx="190" cy="45" r="5" fill="rgba(40, 200, 64, 0.2)" stroke="rgba(40, 200, 64, 0.5)" stroke-width="1.5"/>
-      <!-- Branch label -->
-      <rect x="108" y="22" width="68" height="14" rx="7" fill="rgba(40, 200, 64, 0.1)" stroke="rgba(40, 200, 64, 0.25)" stroke-width="0.75"/>
-      <text x="142" y="31.5" text-anchor="middle" fill="rgba(40, 200, 64, 0.6)" font-family="var(--font-family-mono)" font-size="7" font-weight="600">feat/auth</text>
-      <!-- Merge label -->
-      <rect x="68" y="114" width="48" height="12" rx="6" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.75"/>
-      <text x="92" y="122.5" text-anchor="middle" fill="var(--color-accent)" font-family="var(--font-family-mono)" font-size="6" font-weight="600">MERGE</text>
-      <!-- File status indicators -->
-      <rect x="160" y="75" width="100" height="80" rx="6" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1"/>
-      <text x="170" y="90" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7" font-weight="600">CHANGES</text>
-      <circle cx="172" cy="104" r="3" fill="rgba(40, 200, 64, 0.5)"/>
-      <rect x="180" y="102" width="56" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <text x="240" y="105.5" fill="rgba(40, 200, 64, 0.5)" font-family="var(--font-family-mono)" font-size="6">+42</text>
-      <circle cx="172" cy="116" r="3" fill="rgba(231, 159, 116, 0.5)"/>
-      <rect x="180" y="114" width="48" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <text x="232" y="117.5" fill="rgba(231, 159, 116, 0.5)" font-family="var(--font-family-mono)" font-size="6">~18</text>
-      <circle cx="172" cy="128" r="3" fill="rgba(239, 68, 68, 0.5)"/>
-      <rect x="180" y="126" width="40" height="3" rx="1" fill="rgba(var(--color-accent-rgb), 0.2)"/>
-      <text x="224" y="129.5" fill="rgba(239, 68, 68, 0.5)" font-family="var(--font-family-mono)" font-size="6">-5</text>
-      <!-- Stage all button -->
-      <rect x="170" y="138" width="74" height="12" rx="6" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.75"/>
-      <text x="207" y="146.5" text-anchor="middle" fill="var(--color-accent)" font-family="var(--font-family-mono)" font-size="6" font-weight="600">STAGE ALL</text>
-    </svg>`,
-  },
-  {
-    accent: "Terminal",
-    title: "Built-in terminals. No piping.",
-    description: "Full PTY terminals inside the app. Agents see output in real-time. Multiple sessions, reconnect on resume, resize on the fly.",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Terminal window -->
-      <rect x="20" y="14" width="240" height="152" rx="8" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <!-- Title bar -->
-      <rect x="20" y="14" width="240" height="24" rx="8" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-      <rect x="20" y="30" width="240" height="8" fill="rgba(var(--color-accent-rgb), 0.08)"/>
-      <circle cx="34" cy="26" r="4" fill="rgba(239, 68, 68, 0.5)"/>
-      <circle cx="46" cy="26" r="4" fill="rgba(245, 189, 66, 0.5)"/>
-      <circle cx="58" cy="26" r="4" fill="rgba(40, 200, 64, 0.5)"/>
-      <!-- Tab bar -->
-      <rect x="80" y="20" width="52" height="12" rx="3" fill="rgba(var(--color-accent-rgb), 0.12)"/>
-      <text x="106" y="28.5" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.5)" font-family="var(--font-family-mono)" font-size="6">zsh</text>
-      <rect x="136" y="20" width="52" height="12" rx="3" fill="rgba(var(--color-accent-rgb), 0.06)"/>
-      <text x="162" y="28.5" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.3)" font-family="var(--font-family-mono)" font-size="6">node</text>
-      <!-- Terminal content -->
-      <text x="30" y="50" fill="rgba(var(--color-accent-rgb), 0.5)" font-family="var(--font-family-mono)" font-size="8">
-        <tspan fill="rgba(var(--color-accent-rgb), 0.7)">$</tspan> npm run dev
-      </text>
-      <text x="30" y="64" fill="rgba(40, 200, 64, 0.5)" font-family="var(--font-family-mono)" font-size="7.5">  VITE v6.0.0  ready in 284ms</text>
-      <text x="30" y="78" fill="rgba(var(--color-accent-rgb), 0.3)" font-family="var(--font-family-mono)" font-size="7.5">  Local:   http://localhost:5173</text>
-      <text x="30" y="92" fill="rgba(var(--color-accent-rgb), 0.3)" font-family="var(--font-family-mono)" font-size="7.5">  Network: http://192.168.1.42:5173</text>
-      <text x="30" y="110" fill="rgba(var(--color-accent-rgb), 0.5)" font-family="var(--font-family-mono)" font-size="8">
-        <tspan fill="rgba(var(--color-accent-rgb), 0.7)">$</tspan> mix test
-      </text>
-      <text x="30" y="124" fill="rgba(40, 200, 64, 0.5)" font-family="var(--font-family-mono)" font-size="7.5">  42 tests, 0 failures</text>
-      <text x="30" y="138" fill="rgba(40, 200, 64, 0.5)" font-family="var(--font-family-mono)" font-size="7.5">  Randomized with seed 84291</text>
-      <!-- Cursor -->
-      <text x="30" y="156" fill="rgba(var(--color-accent-rgb), 0.5)" font-family="var(--font-family-mono)" font-size="8">
-        <tspan fill="rgba(var(--color-accent-rgb), 0.7)">$</tspan>
-      </text>
-      <rect x="40" y="148" width="6" height="10" rx="1" fill="rgba(var(--color-accent-rgb), 0.5)">
-        <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
-      </rect>
-    </svg>`,
-  },
-  {
-    accent: "Processes",
-    title: "Dev servers that manage themselves.",
-    description: "Auto-start processes, monitor health, stream logs. OOM restart policies, port forwarding, and public URL sharing — all from the sidebar.",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Process panel -->
-      <rect x="20" y="14" width="240" height="152" rx="8" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <text x="36" y="32" fill="rgba(var(--color-accent-rgb), 0.5)" font-family="var(--font-family-mono)" font-size="8" font-weight="600">PROCESSES</text>
-      <!-- Process 1 - running -->
-      <rect x="30" y="42" width="220" height="32" rx="6" fill="rgba(40, 200, 64, 0.04)" stroke="rgba(40, 200, 64, 0.15)" stroke-width="0.75"/>
-      <circle cx="44" cy="58" r="4" fill="rgba(40, 200, 64, 0.5)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="0.75">
-        <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-      </circle>
-      <text x="56" y="54" fill="var(--color-primary)" font-family="var(--font-family-mono)" font-size="7.5" font-weight="600" opacity="0.7">vite dev</text>
-      <text x="56" y="64" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="6">:5173  |  48MB  |  2h 14m</text>
-      <rect x="200" y="50" width="40" height="16" rx="4" fill="rgba(40, 200, 64, 0.1)"/>
-      <text x="220" y="61" text-anchor="middle" fill="rgba(40, 200, 64, 0.6)" font-family="var(--font-family-mono)" font-size="6.5" font-weight="600">LIVE</text>
-      <!-- Process 2 - running -->
-      <rect x="30" y="80" width="220" height="32" rx="6" fill="rgba(40, 200, 64, 0.04)" stroke="rgba(40, 200, 64, 0.15)" stroke-width="0.75"/>
-      <circle cx="44" cy="96" r="4" fill="rgba(40, 200, 64, 0.5)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="0.75">
-        <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/>
-      </circle>
-      <text x="56" y="92" fill="var(--color-primary)" font-family="var(--font-family-mono)" font-size="7.5" font-weight="600" opacity="0.7">mix phx.server</text>
-      <text x="56" y="102" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="6">:4000  |  126MB  |  2h 14m</text>
-      <rect x="200" y="88" width="40" height="16" rx="4" fill="rgba(40, 200, 64, 0.1)"/>
-      <text x="220" y="99" text-anchor="middle" fill="rgba(40, 200, 64, 0.6)" font-family="var(--font-family-mono)" font-size="6.5" font-weight="600">LIVE</text>
-      <!-- Process 3 - restarting -->
-      <rect x="30" y="118" width="220" height="32" rx="6" fill="rgba(245, 189, 66, 0.04)" stroke="rgba(245, 189, 66, 0.15)" stroke-width="0.75"/>
-      <circle cx="44" cy="134" r="4" fill="rgba(245, 189, 66, 0.5)" stroke="rgba(245, 189, 66, 0.6)" stroke-width="0.75">
-        <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
-      </circle>
-      <text x="56" y="130" fill="var(--color-primary)" font-family="var(--font-family-mono)" font-size="7.5" font-weight="600" opacity="0.7">tailwind --watch</text>
-      <text x="56" y="140" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="6">restarting...  |  OOM policy: auto</text>
-      <rect x="191" y="126" width="50" height="16" rx="4" fill="rgba(245, 189, 66, 0.1)"/>
-      <text x="216" y="137" text-anchor="middle" fill="rgba(245, 189, 66, 0.6)" font-family="var(--font-family-mono)" font-size="6.5" font-weight="600">RESTART</text>
-    </svg>`,
-  },
-  {
-    accent: "Issues & Epics",
-    title: "Track work. Not tickets.",
-    description: "Hierarchical issues with dependency-aware execution chains. Create an epic, agents resolve sub-issues in the right order automatically.",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Epic card -->
-      <rect x="30" y="10" width="220" height="30" rx="6" fill="rgba(var(--color-accent-rgb), 0.08)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1"/>
-      <text x="48" y="28" fill="var(--color-accent)" font-family="var(--font-family-mono)" font-size="8" font-weight="600">EPIC: User Authentication</text>
-      <rect x="36" y="20" width="6" height="6" rx="1.5" fill="rgba(var(--color-accent-rgb), 0.4)"/>
-      <!-- Connector lines -->
-      <line x1="80" y1="40" x2="80" y2="54" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <line x1="140" y1="40" x2="140" y2="54" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <line x1="200" y1="40" x2="200" y2="54" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1"/>
-      <!-- Issue 1 - done -->
-      <rect x="40" y="54" width="80" height="36" rx="5" fill="rgba(40, 200, 64, 0.05)" stroke="rgba(40, 200, 64, 0.25)" stroke-width="1"/>
-      <circle cx="54" cy="66" r="4" fill="rgba(40, 200, 64, 0.4)" stroke="rgba(40, 200, 64, 0.6)" stroke-width="0.75"/>
-      <polyline points="51,66 53,68 57,64" stroke="rgba(40, 200, 64, 0.8)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <text x="64" y="68" fill="var(--color-primary)" font-family="var(--font-family-mono)" font-size="6.5" font-weight="500" opacity="0.6">DB schema</text>
-      <text x="50" y="82" fill="rgba(var(--color-accent-rgb), 0.3)" font-family="var(--font-family-mono)" font-size="5.5">resolved 4m ago</text>
-      <!-- Issue 2 - in progress -->
-      <rect x="100" y="54" width="80" height="36" rx="5" fill="rgba(var(--color-accent-rgb), 0.05)" stroke="rgba(var(--color-accent-rgb), 0.3)" stroke-width="1"/>
-      <circle cx="114" cy="66" r="4" fill="rgba(var(--color-accent-rgb), 0.3)" stroke="rgba(var(--color-accent-rgb), 0.5)" stroke-width="0.75">
-        <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-      </circle>
-      <text x="124" y="68" fill="var(--color-primary)" font-family="var(--font-family-mono)" font-size="6.5" font-weight="500" opacity="0.7">API routes</text>
-      <text x="110" y="82" fill="rgba(var(--color-accent-rgb), 0.4)" font-family="var(--font-family-mono)" font-size="5.5">agent working...</text>
-      <!-- Issue 3 - blocked -->
-      <rect x="160" y="54" width="80" height="36" rx="5" fill="rgba(var(--color-accent-rgb), 0.03)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1" stroke-dasharray="4 3"/>
-      <circle cx="174" cy="66" r="4" fill="rgba(var(--color-accent-rgb), 0.1)" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="0.75"/>
-      <text x="184" y="68" fill="var(--color-primary)" font-family="var(--font-family-mono)" font-size="6.5" font-weight="500" opacity="0.4">UI forms</text>
-      <text x="170" y="82" fill="rgba(var(--color-accent-rgb), 0.25)" font-family="var(--font-family-mono)" font-size="5.5">blocked by #2</text>
-      <!-- Dependency arrow from 2 to 3 -->
-      <path d="M180 64 L165 64" stroke="rgba(var(--color-accent-rgb), 0.2)" stroke-width="1" stroke-dasharray="2 2" fill="none"/>
-      <!-- Second level issues -->
-      <line x1="80" y1="90" x2="80" y2="108" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1"/>
-      <line x1="140" y1="90" x2="140" y2="108" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="1"/>
-      <!-- Level 2 issues -->
-      <rect x="40" y="108" width="80" height="28" rx="5" fill="rgba(40, 200, 64, 0.05)" stroke="rgba(40, 200, 64, 0.2)" stroke-width="0.75"/>
-      <circle cx="54" cy="122" r="3" fill="rgba(40, 200, 64, 0.4)"/>
-      <text x="62" y="124" fill="var(--color-primary)" font-family="var(--font-family-mono)" font-size="6" font-weight="500" opacity="0.5">Tests</text>
-      <rect x="100" y="108" width="80" height="28" rx="5" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.15)" stroke-width="0.75"/>
-      <circle cx="114" cy="122" r="3" fill="rgba(var(--color-accent-rgb), 0.3)">
-        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.8s" repeatCount="indefinite"/>
-      </circle>
-      <text x="122" y="124" fill="var(--color-primary)" font-family="var(--font-family-mono)" font-size="6" font-weight="500" opacity="0.6">Middleware</text>
-      <!-- Progress bar at bottom -->
-      <rect x="40" y="150" width="200" height="8" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)"/>
-      <rect x="40" y="150" width="80" height="8" rx="4" fill="rgba(40, 200, 64, 0.3)"/>
-      <rect x="120" y="150" width="30" height="8" rx="0" fill="rgba(var(--color-accent-rgb), 0.15)"/>
-      <text x="140" y="170" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="7">2/5 RESOLVED  ·  1 IN PROGRESS</text>
-    </svg>`,
-  },
-  {
-    accent: "Permissions",
-    title: "Agents ask before they act.",
-    description: "Every sensitive operation goes through approval. Sandbox untrusted sessions. Encrypted secrets vault. MCP permission server built in.",
-    svg: `<svg width="100%" height="100%" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Shield shape -->
-      <path d="M140 20 L200 44 L200 96 C200 130, 168 155, 140 164 C112 155, 80 130, 80 96 L80 44 Z" fill="rgba(var(--color-accent-rgb), 0.04)" stroke="rgba(var(--color-accent-rgb), 0.25)" stroke-width="1.5"/>
-      <!-- Inner shield highlight -->
-      <path d="M140 34 L188 52 L188 94 C188 122, 162 143, 140 150 C118 143, 92 122, 92 94 L92 52 Z" fill="rgba(var(--color-accent-rgb), 0.03)" stroke="rgba(var(--color-accent-rgb), 0.1)" stroke-width="1"/>
-      <!-- Lock icon in center -->
-      <rect x="128" y="72" width="24" height="20" rx="4" fill="rgba(var(--color-accent-rgb), 0.15)" stroke="rgba(var(--color-accent-rgb), 0.35)" stroke-width="1"/>
-      <path d="M133 72 L133 64 C133 58, 140 52, 147 58 L147 72" fill="none" stroke="rgba(var(--color-accent-rgb), 0.35)" stroke-width="1.5" stroke-linecap="round"/>
-      <circle cx="140" cy="82" r="2.5" fill="var(--color-accent)" opacity="0.6"/>
-      <line x1="140" y1="84" x2="140" y2="88" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-      <!-- Permission request cards floating around -->
-      <rect x="30" y="40" width="56" height="24" rx="5" fill="rgba(40, 200, 64, 0.06)" stroke="rgba(40, 200, 64, 0.2)" stroke-width="0.75"/>
-      <polyline points="39,50 42,53 49,47" stroke="rgba(40, 200, 64, 0.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <text x="54" y="53" fill="rgba(40, 200, 64, 0.5)" font-family="var(--font-family-mono)" font-size="6">file read</text>
-      <rect x="194" y="40" width="58" height="24" rx="5" fill="rgba(40, 200, 64, 0.06)" stroke="rgba(40, 200, 64, 0.2)" stroke-width="0.75"/>
-      <polyline points="203,50 206,53 213,47" stroke="rgba(40, 200, 64, 0.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <text x="218" y="53" fill="rgba(40, 200, 64, 0.5)" font-family="var(--font-family-mono)" font-size="6">git push</text>
-      <rect x="20" y="100" width="60" height="24" rx="5" fill="rgba(245, 189, 66, 0.06)" stroke="rgba(245, 189, 66, 0.2)" stroke-width="0.75"/>
-      <text x="34" y="114" fill="rgba(245, 189, 66, 0.5)" font-family="var(--font-family-mono)" font-size="6">? rm -rf</text>
-      <rect x="200" y="100" width="60" height="24" rx="5" fill="rgba(40, 200, 64, 0.06)" stroke="rgba(40, 200, 64, 0.2)" stroke-width="0.75"/>
-      <polyline points="209,110 212,113 219,107" stroke="rgba(40, 200, 64, 0.6)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <text x="224" y="114" fill="rgba(40, 200, 64, 0.5)" font-family="var(--font-family-mono)" font-size="6">npm run</text>
-      <!-- Audit trail -->
-      <rect x="80" y="148" width="120" height="14" rx="4" fill="rgba(var(--color-accent-rgb), 0.06)"/>
-      <text x="140" y="158" text-anchor="middle" fill="rgba(var(--color-accent-rgb), 0.35)" font-family="var(--font-family-mono)" font-size="6.5">AUDIT LOG  ·  47 ACTIONS</text>
-    </svg>`,
-  },
+  { tag: 'review', cmd: 'molt diff', title: 'Review diffs, not guesses.', desc: 'Side-by-side diffs for every change agents make. Inline comments, threaded discussions, file-by-file navigation. You stay in control of what ships.' },
+  { tag: 'git', cmd: 'molt git status', title: 'Git that works for you.', desc: 'Real-time status, staging, diffs, and worktree management. Agents commit with context. You see every change as it happens.' },
+  { tag: 'terminal', cmd: 'molt term', title: 'Built-in terminals. No piping.', desc: 'Full PTY terminals inside the app. Agents see output in real-time. Multiple sessions, reconnect on resume, resize on the fly.' },
+  { tag: 'processes', cmd: 'molt proc up', title: 'Dev servers that manage themselves.', desc: 'Auto-start processes, monitor health, stream logs. OOM restart policies, port forwarding, and public URL sharing — all from the sidebar.' },
+  { tag: 'issues', cmd: 'molt issue', title: 'Track work. Not tickets.', desc: 'Hierarchical issues with dependency-aware execution chains. Create an epic, agents resolve sub-issues in the right order automatically.' },
+  { tag: 'permissions', cmd: 'molt perm', title: 'Agents ask before they act.', desc: 'Every sensitive operation goes through approval. Sandbox untrusted sessions. Encrypted secrets vault. MCP permission server built in.' },
 ];
 ---
 
-<section id="workflow" class="workflow-section">
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-[rgba(var(--color-accent-rgb),0.15)] to-transparent"></div>
+<section class="section" id="workflow">
+  <div class="section-head">
+    <span class="chip">// developer.workflow</span>
+    <h2 class="section-title">Everything agents need. Nothing you need to configure.</h2>
+    <p class="section-sub">Code review, git, terminals, process management, issue tracking, and security — built in, not bolted on.</p>
+  </div>
 
-  <div class="workflow-inner">
-    <div class="text-center mb-10 md:mb-16">
-      <div class="workflow-badge">
-        <span class="workflow-badge-dot"></span>
-        Developer Workflow
-      </div>
-      <h2 class="workflow-title">
-        Everything agents need.<br /><span class="gradient-text">Nothing you need to configure.</span>
-      </h2>
-      <p class="workflow-subtitle">
-        Code review, git, terminals, process management, issue tracking, and security &mdash; built in, not bolted on.
-      </p>
-    </div>
-
-    <div class="workflow-grid">
-      {capabilities.map((cap) => (
-        <div class="workflow-card">
-          <div class="workflow-card-visual">
-            <div set:html={cap.svg}></div>
+  <div class="wf-grid">
+    {capabilities.map((c) => (
+      <div class="pane wf-pane">
+        <div class="pane-header">
+          <div class="pane-dots">
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
           </div>
-          <div class="workflow-card-content">
-            <span class="workflow-card-accent">{cap.accent}</span>
-            <h3 class="workflow-card-title">{cap.title}</h3>
-            <p class="workflow-card-desc">{cap.description}</p>
-          </div>
+          <span class="pane-path">~/{c.tag}</span>
         </div>
-      ))}
-    </div>
+        <div class="wf-body">
+          <div class="wf-cmd"><span class="wf-prompt">$</span> {c.cmd}</div>
+          <h3 class="wf-title">{c.title}</h3>
+          <p class="wf-desc">{c.desc}</p>
+        </div>
+      </div>
+    ))}
   </div>
 </section>
 
 <style>
-  .workflow-section {
-    position: relative;
-    padding: 6rem 1rem 8rem;
+  .section-head {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
   }
 
-  @media (min-width: 640px) {
-    .workflow-section {
-      padding: 8rem 1.5rem 10rem;
-    }
-  }
-
-  .workflow-inner {
-    max-width: 72rem;
-    margin: 0 auto;
-  }
-
-  .workflow-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
+  .section-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-accent);
-    margin-bottom: 1rem;
-    padding: 0.375rem 1rem;
-    border-radius: 9999px;
-    background: rgba(var(--color-accent-rgb), 0.08);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.15);
-  }
-
-  .workflow-badge-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-accent);
-  }
-
-  .workflow-title {
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    font-weight: 700;
-    color: var(--color-primary);
     letter-spacing: -0.02em;
-    margin-bottom: 0.75rem;
-    line-height: 1.15;
+    line-height: 1.2;
+    margin: 0;
   }
 
-  .workflow-subtitle {
-    font-size: 1.0625rem;
+  .section-sub {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
     color: var(--color-secondary);
-    max-width: 34rem;
-    margin: 0 auto;
-    line-height: 1.5;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 36rem;
   }
 
-  .workflow-grid {
+  .wf-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 
   @media (min-width: 640px) {
-    .workflow-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .wf-grid {
+      grid-template-columns: 1fr 1fr;
     }
   }
 
   @media (min-width: 1024px) {
-    .workflow-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .wf-grid {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 
-  .workflow-card {
+  .wf-body {
+    padding: 1.25rem 1.5rem 1.5rem;
     display: flex;
     flex-direction: column;
-    border-radius: 1rem;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    position: relative;
+    gap: 0.5rem;
   }
 
-  .workflow-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(circle at 50% 0%, rgba(var(--color-accent-rgb), 0.06) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .workflow-card:hover::after { opacity: 1; }
-
-  .workflow-card:hover {
-    border-color: rgba(var(--color-accent-rgb), 0.2);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-  }
-
-  .workflow-card-visual {
-    padding: 1.25rem 1.25rem 0;
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .workflow-card-visual::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 30px;
-    background: linear-gradient(to top, var(--color-surface), transparent);
-    pointer-events: none;
-  }
-
-  .workflow-card-content {
-    padding: 1rem 1.25rem 1.25rem;
-  }
-
-  .workflow-card-accent {
-    display: inline-block;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
-    opacity: 0.7;
-    margin-bottom: 0.375rem;
+  .wf-cmd {
     font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-muted);
+    margin-bottom: 0.25rem;
   }
 
-  .workflow-card-title {
-    font-size: 1rem;
+  .wf-prompt {
+    color: var(--color-accent);
+    margin-right: 0.25rem;
+  }
+
+  .wf-title {
+    font-family: var(--font-family-sans);
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--color-primary);
-    margin-bottom: 0.375rem;
-    line-height: 1.3;
+    margin: 0;
+    letter-spacing: -0.005em;
   }
 
-  @media (min-width: 768px) {
-    .workflow-card-title {
-      font-size: 1.0625rem;
-    }
-  }
-
-  .workflow-card-desc {
-    font-size: 0.8125rem;
-    line-height: 1.6;
+  .wf-desc {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
     color: var(--color-secondary);
-    opacity: 0.7;
-  }
-
-  @media (min-width: 768px) {
-    .workflow-card-desc {
-      font-size: 0.875rem;
-    }
+    line-height: 1.65;
+    margin: 0;
   }
 </style>
