@@ -5,21 +5,27 @@ const devices = [
     label: 'desktop.app',
     title: 'Where the thinking happens.',
     desc: 'Your beefy machine at home or the office. Full IDE, managed processes, agents running across every workspace. This is the engine room.',
-    img: '/app.png',
+    base: '/optimized/app_main',
+    widths: [640, 1024, 1536, 2048],
+    fallbackWidth: 2048,
   },
   {
     path: '~/devices/ipad',
     label: 'ipad.app',
     title: 'Take the whole picture with you.',
     desc: 'At a cafe, in a meeting, on the couch. Pull up diffs, review agent work, walk someone through the architecture.',
-    img: '/ipad.png',
+    base: '/optimized/ipad_main',
+    widths: [640, 1024, 1536, 2048],
+    fallbackWidth: 2048,
   },
   {
     path: '~/devices/phone',
     label: 'iphone.app',
     title: 'Step away. Stay in the loop.',
     desc: "Go for a walk. Grab dinner. Your agents keep working. Glance at your phone to see what shipped, what needs approval, and what's next.",
-    img: '/phone.png',
+    base: '/optimized/mobile_phone',
+    widths: [480, 720, 1080, 1320],
+    fallbackWidth: 1320,
   },
 ];
 ---
@@ -48,7 +54,19 @@ const devices = [
             <p class="eco-desc">{d.desc}</p>
           </div>
           <div class="eco-img-wrap">
-            <img src={d.img} alt={d.title} loading="lazy" />
+            <picture>
+              <source
+                type="image/webp"
+                srcset={d.widths.map((w) => `${d.base}/${w}w.webp ${w}w`).join(', ')}
+                sizes="(min-width: 768px) 50vw, 100vw"
+              />
+              <img
+                src={`${d.base}/${d.fallbackWidth}w.png`}
+                alt={d.title}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </div>
         </div>
       </div>
