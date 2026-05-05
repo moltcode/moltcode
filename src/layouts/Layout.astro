@@ -1,12 +1,13 @@
 ---
 import '../styles/global.css'
+import { config } from '../config';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "Molt Code is the harness your AI coding agents need. It gives Claude, Codex, and Gemini the structure, context, and coordination to actually ship — using your own API keys. Free desktop app." } = Astro.props;
+const { title, description = "The dev workspace for shipping with agents — same app on desktop, iPad, and phone. Spec a PRD, get a dependency-ordered tree of issues, agents resolve it. Review the diffs from anywhere." } = Astro.props;
 ---
 
 <!doctype html>
@@ -86,8 +87,8 @@ const { title, description = "Molt Code is the harness your AI coding agents nee
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
           "description": description,
           "screenshot": "https://moltcode.com/og-image.png",
-          "softwareVersion": "0.0.54",
-          "downloadUrl": "https://github.com/moltcode/moltcode/releases",
+          "softwareVersion": config.version,
+          "downloadUrl": config.downloadUrl,
           "author": { "@type": "Organization", "name": "Molt Code", "url": "https://moltcode.com" }
         },
         {

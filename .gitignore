@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+CF_ACCESS_KEY_ID_R2=45951a281dee82c16bb7d9abe915cfde
+CF_ACCOUNT_ID=30bd234e7d640f8ea9948f986d85923d
+CF_SECRET_ACCESS_KEY_R2=104265fdff2443eef09bc5cd2bb8cc6eb9c770b81aa623b4a6fa6695d8b32330
