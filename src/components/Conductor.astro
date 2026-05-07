@@ -1,0 +1,233 @@
+---
+const flow = [
+  { role: 'conductor', cli: 'claude', model: 'opus', task: 'holds the plan, splits the work', tone: 'lead' },
+  { role: 'sub-agent', cli: 'codex', model: 'gpt-5', task: 'implements the migration', tone: 'work' },
+  { role: 'sub-agent', cli: 'gemini', model: '2.5-pro', task: 'reviews the diff', tone: 'work' },
+  { role: 'sub-agent', cli: 'claude', model: 'sonnet', task: 'verifies the claim end-to-end', tone: 'work' },
+];
+---
+
+<section class="section">
+  <div class="section-head">
+    <span class="chip">// conductor</span>
+    <h2 class="section-title">One agent leads. The rest do the work.</h2>
+    <p class="section-sub">Pick a conductor — Claude, Codex, whichever — and it spawns sub-agents across every CLI subscription you already have. The conductor holds the long-horizon context. Sub-agents go heads-down on the work and report back. Sessions running 24+ hours on big refactors is normal.</p>
+  </div>
+
+  <div class="pane">
+    <div class="pane-header">
+      <div class="pane-dots">
+        <span class="pane-dot"></span>
+        <span class="pane-dot"></span>
+        <span class="pane-dot"></span>
+      </div>
+      <span class="pane-path">~/conductor/session</span>
+    </div>
+    <div class="cond-grid">
+      {flow.map((f) => (
+        <div class={`cond-row cond-${f.tone}`}>
+          <span class="cond-role">{f.role}</span>
+          <span class="cond-cli">$ {f.cli}</span>
+          <span class="cond-model">{f.model}</span>
+          <span class="cond-task">{f.task}</span>
+        </div>
+      ))}
+    </div>
+    <div class="cond-foot">// you describe the flow in plain words — conductor decides which CLI runs what</div>
+  </div>
+
+  <div class="cond-extras">
+    <div class="cond-extra">
+      <span class="cond-extra-tag">[verify]</span>
+      <div class="cond-extra-text">
+        <span class="cond-extra-title">Spawn a second opinion.</span>
+        <span class="cond-extra-desc">Sub-agent on a different CLI verifies the conductor's claim before you read it.</span>
+      </div>
+    </div>
+    <div class="cond-extra">
+      <span class="cond-extra-tag">[compact]</span>
+      <div class="cond-extra-text">
+        <span class="cond-extra-title">Cross-CLI compaction.</span>
+        <span class="cond-extra-desc">Claude hits the context limit? Compact the session into Codex and keep going. The plan survives.</span>
+      </div>
+    </div>
+    <div class="cond-extra">
+      <span class="cond-extra-tag">[steer]</span>
+      <div class="cond-extra-text">
+        <span class="cond-extra-title">Talk to the conductor, not the work.</span>
+        <span class="cond-extra-desc">Give clarity at the top. The conductor turns it into prompts for whichever sub-agent is actually doing the job.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-head {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+
+  .section-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .section-sub {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    color: var(--color-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 36rem;
+  }
+
+  .cond-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cond-row {
+    display: grid;
+    grid-template-columns: 6rem auto auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.875rem 1.5rem;
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 120ms ease;
+  }
+
+  @media (min-width: 640px) {
+    .cond-row {
+      padding: 0.875rem 2rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cond-row {
+      grid-template-columns: auto 1fr;
+      row-gap: 0.25rem;
+    }
+    .cond-task {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .cond-row:hover {
+    background: var(--color-bg);
+  }
+
+  .cond-role {
+    color: var(--color-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .cond-lead .cond-role {
+    color: var(--color-accent);
+  }
+
+  .cond-cli {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .cond-model {
+    color: var(--color-muted);
+  }
+
+  .cond-task {
+    color: var(--color-secondary);
+    line-height: 1.6;
+  }
+
+  .cond-foot {
+    padding: 0.875rem 1.5rem;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-muted);
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 640px) {
+    .cond-foot {
+      padding: 0.875rem 2rem;
+    }
+  }
+
+  .cond-extras {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  @media (min-width: 768px) {
+    .cond-extras {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  .cond-extra {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+  }
+
+  @media (min-width: 768px) {
+    .cond-extra {
+      border-bottom: none;
+      border-right: 1px solid var(--color-border);
+    }
+    .cond-extra:last-child {
+      border-right: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .cond-extra:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .cond-extra-tag {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    font-size: 11px;
+  }
+
+  .cond-extra-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .cond-extra-title {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .cond-extra-desc {
+    color: var(--color-secondary);
+    line-height: 1.6;
+    font-size: 11.5px;
+  }
+</style>

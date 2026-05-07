@@ -9,7 +9,13 @@ export default defineConfig({
   site: 'https://moltcode.com',
   trailingSlash: 'always',
   integrations: [sitemap()],
+  server: {
+    allowedHosts: true
+  },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    server: {
+      allowedHosts: true
+    }
   }
 });

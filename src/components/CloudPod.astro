@@ -1,0 +1,109 @@
+---
+const props = [
+  { tag: 'cluster', title: 'Your own pod, in the cloud.', desc: 'Every account gets a dedicated node that routes workflows from your Mac to whichever device you happen to be looking at. No shared tenancy in the request path.' },
+  { tag: 'tls', title: 'Clustered over TLS.', desc: 'A custom CA per pod. Your devices authenticate through the platform and join one private cluster. Nobody else lives on your wire.' },
+  { tag: 'sync', title: 'Sync that survives bad networks.', desc: 'Cafe wifi, tunnel through the subway, plane mode and back — the cluster reconciles. State stays consistent across desktop, iPad, and phone.' },
+  { tag: 'forward', title: 'Port forwarding, included.', desc: 'Dev server an agent just started? Forward it through your pod and open it on your phone. No ngrok, no tunnels to wire up.' },
+];
+---
+
+<section class="section">
+  <div class="section-head">
+    <span class="chip">// the.pod</span>
+    <h2 class="section-title">A piece of the internet, just for your machines.</h2>
+    <p class="section-sub">Behind every Molt account is a dedicated node on the BEAM — the runtime Discord and WhatsApp use to keep millions of connections alive. It's how every device stays in lockstep with your laptop, even on terrible networks.</p>
+  </div>
+
+  <div class="pod-grid">
+    {props.map((p) => (
+      <div class="pane pod-pane">
+        <div class="pane-header">
+          <div class="pane-dots">
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+            <span class="pane-dot"></span>
+          </div>
+          <span class="pane-path">~/pod/{p.tag}</span>
+        </div>
+        <div class="pod-body">
+          <h3 class="pod-title">{p.title}</h3>
+          <p class="pod-desc">{p.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="pod-belief">› The network is the boring part. That's the point.</p>
+</section>
+
+<style>
+  .section-head {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+
+  .section-title {
+    font-family: var(--font-family-sans);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .section-sub {
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    color: var(--color-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 36rem;
+  }
+
+  .pod-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .pod-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .pod-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .pod-title {
+    font-family: var(--font-family-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+
+  .pod-desc {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    color: var(--color-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .pod-belief {
+    margin-top: 1.5rem;
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    color: var(--color-accent);
+    text-align: center;
+  }
+</style>
