@@ -14,8 +14,7 @@ import AppleIcon from './AppleIcon.astro';
 
     <!-- Headline -->
     <h1 class="hero-headline">
-      Leave your laptop<br/>
-      at home.<span class="caret"></span>
+      <span class="hero-typed" data-typed-headline>Leave your laptop at home</span><span class="caret"></span>
     </h1>
 
     <!-- Description -->
@@ -58,6 +57,53 @@ import AppleIcon from './AppleIcon.astro';
   </div>
 </section>
 
+<script>
+  const headline = document.querySelector<HTMLElement>('[data-typed-headline]');
+
+  if (headline && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const phrases = [
+      'Leave your laptop at home',
+      'Access from anywhere',
+      'Highly scalable workspace for teams',
+      'and individuals',
+    ];
+    const typeDelay = 54;
+    const deleteDelay = 28;
+    const holdDelay = 1400;
+    let phraseIndex = 0;
+
+    const sleep = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+    const typePhrase = async (phrase: string) => {
+      for (let i = 1; i <= phrase.length; i += 1) {
+        headline.textContent = phrase.slice(0, i);
+        await sleep(typeDelay);
+      }
+    };
+
+    const deletePhrase = async () => {
+      const phrase = headline.textContent ?? '';
+      for (let i = phrase.length; i >= 0; i -= 1) {
+        headline.textContent = phrase.slice(0, i);
+        await sleep(deleteDelay);
+      }
+    };
+
+    const runTypingLoop = async () => {
+      headline.textContent = phrases[0];
+
+      while (true) {
+        await sleep(holdDelay);
+        await deletePhrase();
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        await typePhrase(phrases[phraseIndex]);
+      }
+    };
+
+    runTypingLoop();
+  }
+</script>
+
 <style>
   .hero {
     padding: 6rem 1.25rem 3rem;
@@ -94,6 +140,12 @@ import AppleIcon from './AppleIcon.astro';
     letter-spacing: -0.02em;
     color: var(--color-primary);
     margin: 0;
+    max-width: 17ch;
+    min-height: 2.3em;
+  }
+
+  .hero-typed {
+    display: inline;
   }
 
   .hero-desc {
