@@ -2,6 +2,6 @@
 
 export const config = {
   version: "1.0.17",
-  downloadUrl: "https://assets.moltcode.com/release/MoltCode-flutter-darwin-arm.dmg",
+  downloadUrl: "https://assets.moltcode.com/release/MoltCode-compose-darwin-arm.dmg",
   appStoreUrl: "https://apps.apple.com/in/app/molt-code/id6760204854",
 };
