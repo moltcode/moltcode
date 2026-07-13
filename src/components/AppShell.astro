@@ -1,0 +1,1047 @@
+---
+import { config } from '../config';
+import AppleIcon from './AppleIcon.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+// Deterministic pseudo-random so the activity heatmap is stable across builds
+const rand = (i: number) => {
+  const x = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+const WEEKS = 34;
+const DAYS = 7;
+const heatmap: number[] = [];
+for (let w = 0; w < WEEKS; w++) {
+  for (let d = 0; d < DAYS; d++) {
+    const r = rand(w * DAYS + d);
+    let level = 0;
+    if (w >= WEEKS - 7) level = r < 0.18 ? 0 : Math.min(4, Math.ceil(r * 4.6));
+    else if (w >= WEEKS - 11) level = r < 0.55 ? 0 : Math.ceil(r * 2.2);
+    else level = r < 0.93 ? 0 : 1;
+    heatmap.push(level);
+  }
+}
+
+const months = ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+const channels = ['subagents-experience', 'molt-mcp', 'amazon'];
+
+const projects = [
+  { name: 'swiftui' },
+  { name: 'exploration', badge: 2 },
+  { name: 'small_model' },
+  { name: 'cve_mcp' },
+  { name: 'cloud', active: true },
+  { name: 'loom' },
+  { name: 'random' },
+  { name: 'product_crawler' },
+  { name: 'molt', badge: 4 },
+];
+
+const railItems = [
+  { icon: 'home', label: 'Home', active: true },
+  { icon: 'activity', label: 'Activity', badge: 6 },
+  { icon: 'calendar', label: 'Routines' },
+  { icon: 'search', label: 'Search' },
+  { icon: 'hash', label: 'Designs' },
+  { icon: 'agents', label: 'Agents' },
+  { icon: 'zap', label: 'Skills' },
+  { icon: 'plug', label: 'MCP' },
+];
+
+const railBottom = [
+  { icon: 'book', label: 'Learn' },
+  { icon: 'cpu', label: 'Runs' },
+];
+
+const recents = [
+  { text: 'could you tell me if any holes in the diffusion implementation with neu…', time: '11h ago' },
+  { text: 'Okay, I want to try a radical new style of transformer, it woulf be singl…', time: '2d ago' },
+];
+
+const icons: Record<string, string> = {
+  home: '<path d="M3 11.2 12 3l9 8.2"/><path d="M5.5 9.8V21h13V9.8"/>',
+  activity: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  hash: '<path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/>',
+  agents: '<rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4m-6.5 9h.01M9 13h6"/><circle cx="12" cy="3" r="1"/>',
+  zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+  plug: '<path d="M12 22v-4M9 8V2M15 8V2M6 8h12v4a6 6 0 0 1-12 0V8z"/>',
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+  cpu: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>',
+  chevronLeft: '<path d="M15 18l-6-6 6-6"/>',
+  chevronDown: '<path d="m6 9 6 6 6-6"/>',
+  chevronUp: '<path d="m18 15-6-6-6 6"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  ellipsis: '<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 3.5 9A14 14 0 0 1 12 21a14 14 0 0 1-3.5-9A14 14 0 0 1 12 3z"/>',
+  refresh: '<path d="M3 12a9 9 0 0 1 15.2-6.5L21 8M21 12a9 9 0 0 1-15.2 6.5L3 16"/><path d="M21 3v5h-5M3 21v-5h5"/>',
+  stop: '<rect x="6" y="6" width="12" height="12" rx="1"/>',
+  monitor: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+  upload: '<path d="M12 19V5M5 12l7-7 7 7"/>',
+  sliders: '<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
+  list: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  knot: '<path d="M12 2v20M3.5 7l17 10M20.5 7l-17 10"/>',
+};
+
+const Icon = (name: string, size = 18) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
+---
+
+<div class="desktop" data-theme="dark">
+  <div class="window">
+    <!-- Titlebar -->
+    <div class="titlebar">
+      <div class="traffic" aria-hidden="true">
+        <span class="light red"></span>
+        <span class="light yellow"></span>
+        <span class="light green"></span>
+      </div>
+      <div class="titlebar-right">
+        <a href="/pricing/" class="titlebar-link">pricing</a>
+        <a href="/docs/what-is-moltcode/" class="titlebar-link">docs</a>
+        <a href="https://platform.moltcode.com" class="titlebar-link">sign in</a>
+        <span class="titlebar-sep" aria-hidden="true"></span>
+        <ThemeToggle />
+        <span class="titlebar-icon" set:html={Icon('upload', 15)} />
+        <span class="titlebar-icon" set:html={Icon('sliders', 15)} />
+        <span class="titlebar-icon" set:html={Icon('list', 15)} />
+        <span class="titlebar-icon" set:html={Icon('activity', 15)} />
+        <span class="titlebar-icon titlebar-user" set:html={Icon('user', 15)} />
+      </div>
+    </div>
+
+    <div class="window-body">
+      <!-- Icon rail -->
+      <aside class="rail" aria-label="App navigation">
+        <div class="rail-group">
+          {railItems.map((item) => (
+            <div class:list={['rail-item', { active: item.active }]}>
+              <span class="rail-icon">
+                <Fragment set:html={Icon(item.icon, 19)} />
+                {item.badge && <span class="rail-badge">{item.badge}</span>}
+              </span>
+              <span class="rail-label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="rail-group">
+          {railBottom.map((item) => (
+            <div class="rail-item">
+              <span class="rail-icon"><Fragment set:html={Icon(item.icon, 19)} /></span>
+              <span class="rail-label">{item.label}</span>
+            </div>
+          ))}
+          <div class="rail-item rail-hide">
+            <span class="rail-icon"><Fragment set:html={Icon('chevronLeft', 19)} /></span>
+            <span class="rail-label">Hide</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="side-start">
+          <span set:html={Icon('grid', 15)} />
+          <span>Start</span>
+        </div>
+
+        <div class="side-section">
+          <div class="side-heading">
+            <span class="side-caret" set:html={Icon('chevronDown', 12)} />
+            <span class="side-title">Channels</span>
+            <span class="side-count">3</span>
+            <span class="side-more" set:html={Icon('ellipsis', 14)} />
+          </div>
+          {channels.map((c) => (
+            <div class="side-item">
+              <span class="side-item-icon">#</span>
+              <span class="side-item-name">{c}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="side-section">
+          <div class="side-heading">
+            <span class="side-caret" set:html={Icon('chevronDown', 12)} />
+            <span class="side-title">Projects</span>
+            <span class="side-count">9</span>
+            <span class="side-more" set:html={Icon('ellipsis', 14)} />
+          </div>
+          {projects.map((p) => (
+            <div class:list={['side-item', { active: p.active }]}>
+              <span class="side-item-icon" set:html={Icon('folder', 14)} />
+              <span class="side-item-name">{p.name}</span>
+              {p.badge && <span class="side-badge">{p.badge}</span>}
+            </div>
+          ))}
+        </div>
+
+        <div class="side-section">
+          <div class="side-heading">
+            <span class="side-caret" set:html={Icon('chevronDown', 12)} />
+            <span class="side-title">Features</span>
+            <span class="side-more" set:html={Icon('ellipsis', 14)} />
+          </div>
+          <p class="side-note">Bundle changes across projects into a reviewable feature.</p>
+          <div class="side-action">
+            <span set:html={Icon('plus', 13)} />
+            <span>Create feature</span>
+          </div>
+        </div>
+
+        <div class="side-section">
+          <div class="side-heading">
+            <span class="side-caret" set:html={Icon('chevronDown', 12)} />
+            <span class="side-title">Browser</span>
+            <span class="side-count">1</span>
+            <span class="side-more" set:html={Icon('ellipsis', 14)} />
+          </div>
+          <div class="side-item active">
+            <span class="side-item-icon" set:html={Icon('globe', 14)} />
+            <span class="side-item-name">Discord for AI agents</span>
+          </div>
+          <div class="side-item">
+            <span class="side-item-icon" set:html={Icon('refresh', 14)} />
+            <span class="side-item-name">Refresh tabs</span>
+          </div>
+          <div class="side-item">
+            <span class="side-item-icon" set:html={Icon('stop', 14)} />
+            <span class="side-item-name">Stop browser</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main stage -->
+      <main class="stage">
+        <div class="aurora" aria-hidden="true"></div>
+
+        <div class="stage-inner">
+          <section class="stage-hero">
+            <div class="bolt-badge" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h1 class="stage-headline">
+              <span data-typed-headline>Leave your laptop at home</span><span class="caret"></span>
+            </h1>
+            <p class="stage-sub">
+              The same dev workspace on desktop, iPad, and phone. Spec a PRD, agents resolve it — you review the diffs from anywhere.
+            </p>
+            <div class="stage-ctas">
+              <a href={config.downloadUrl} data-track-download class="app-btn">
+                <AppleIcon size={15} />
+                Download for Mac
+              </a>
+              <a href={config.appStoreUrl} class="app-btn">
+                <AppleIcon size={15} />
+                Download for iOS
+              </a>
+            </div>
+          </section>
+
+          <section class="panel-block">
+            <div class="panel-label-row">
+              <span class="panel-label">Session activity</span>
+              <span class="panel-hint">249 in the last year</span>
+            </div>
+            <div class="heat">
+              <div class="heat-months" aria-hidden="true">
+                {months.map((m) => <span>{m}</span>)}
+              </div>
+              <div class="heat-grid" role="img" aria-label="Session activity heatmap for the last year">
+                {heatmap.map((level) => <span class={`heat-cell l${level}`}></span>)}
+              </div>
+              <div class="heat-legend" aria-hidden="true">
+                <span>Less</span>
+                <span class="heat-cell l0"></span>
+                <span class="heat-cell l1"></span>
+                <span class="heat-cell l2"></span>
+                <span class="heat-cell l3"></span>
+                <span class="heat-cell l4"></span>
+                <span>More</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel-block">
+            <div class="panel-label-row">
+              <span class="panel-label">Subscriptions</span>
+              <span class="panel-hint">2 active</span>
+            </div>
+
+            <div class="sub-card">
+              <div class="sub-head">
+                <span class="sub-avatar">C</span>
+                <div class="sub-id">
+                  <span class="sub-name">Claude</span>
+                  <span class="sub-tier">Max 20x</span>
+                </div>
+              </div>
+              <div class="sub-row">
+                <span class="sub-metric">Session</span>
+                <span class="sub-value"><strong>27%</strong> / 100%</span>
+              </div>
+              <div class="bar"><span class="bar-fill" style="width: 27%"></span></div>
+              <div class="sub-row">
+                <span class="sub-metric">Weekly</span>
+                <span class="sub-value"><strong>10%</strong> / 100%</span>
+              </div>
+              <div class="bar"><span class="bar-fill" style="width: 10%"></span></div>
+              <div class="sub-row">
+                <span class="sub-metric">Extra usage spent</span>
+                <span class="sub-value"><strong>$8.45</strong> / $21.62</span>
+              </div>
+              <div class="bar"><span class="bar-fill" style="width: 39%"></span></div>
+            </div>
+
+            <div class="sub-card">
+              <div class="sub-head">
+                <span class="sub-avatar">C</span>
+                <div class="sub-id">
+                  <span class="sub-name">Codex</span>
+                  <span class="sub-tier">Pro</span>
+                </div>
+              </div>
+              <div class="sub-row">
+                <span class="sub-metric">Session</span>
+                <span class="sub-value"><strong>4%</strong> / 100%</span>
+              </div>
+              <div class="bar"><span class="bar-fill" style="width: 4%"></span></div>
+              <div class="sub-row">
+                <span class="sub-metric">Credits</span>
+                <span class="sub-value"><strong>1,000 credits</strong> / 1,000 credits</span>
+              </div>
+              <div class="bar"><span class="bar-fill" style="width: 100%"></span></div>
+            </div>
+          </section>
+
+          <section class="panel-block">
+            <div class="panel-label-row">
+              <span class="panel-label">Recent</span>
+            </div>
+            {recents.map((r) => (
+              <div class="recent-row">
+                <span class="recent-icon" set:html={Icon('knot', 16)} />
+                <span class="recent-text">{r.text}</span>
+                <span class="recent-time">{r.time}</span>
+              </div>
+            ))}
+          </section>
+        </div>
+
+        <!-- Marketing content scrolls inside the app's main pane -->
+        <div class="stage-content">
+          <slot />
+        </div>
+      </main>
+    </div>
+
+    <!-- Status bar -->
+    <div class="statusbar">
+      <div class="statusbar-left">
+        <span set:html={Icon('monitor', 13)} />
+        <span>moltcode v{config.version}</span>
+      </div>
+      <div class="statusbar-right">
+        <span set:html={Icon('list', 13)} />
+        <span>Processes</span>
+        <span set:html={Icon('chevronUp', 12)} />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const headline = document.querySelector<HTMLElement>('[data-typed-headline]');
+
+  if (headline && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const phrases = [
+      'Leave your laptop at home',
+      'Access from anywhere',
+      'Highly scalable workspace for teams',
+      'and individuals',
+    ];
+    const typeDelay = 54;
+    const deleteDelay = 28;
+    const holdDelay = 1400;
+    let phraseIndex = 0;
+
+    const sleep = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+    const typePhrase = async (phrase: string) => {
+      for (let i = 1; i <= phrase.length; i += 1) {
+        headline.textContent = phrase.slice(0, i);
+        await sleep(typeDelay);
+      }
+    };
+
+    const deletePhrase = async () => {
+      const phrase = headline.textContent ?? '';
+      for (let i = phrase.length; i >= 0; i -= 1) {
+        headline.textContent = phrase.slice(0, i);
+        await sleep(deleteDelay);
+      }
+    };
+
+    const runTypingLoop = async () => {
+      headline.textContent = phrases[0];
+
+      while (true) {
+        await sleep(holdDelay);
+        await deletePhrase();
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        await typePhrase(phrases[phraseIndex]);
+      }
+    };
+
+    runTypingLoop();
+  }
+</script>
+
+<style>
+  /* ===== Desktop surround + window chrome ===== */
+  .desktop {
+    height: 100dvh;
+    padding: clamp(0px, 2vw, 26px);
+    box-sizing: border-box;
+    display: flex;
+  }
+
+  .window {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: clamp(0px, 1.5vw, 14px);
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    color: #d6d2c9;
+    font-family: var(--font-family-sans);
+    font-size: 13px;
+  }
+
+  /* ===== Titlebar ===== */
+  .titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 42px;
+    padding: 0 14px;
+    border-bottom: 1px solid #232323;
+    background: #171717;
+    flex-shrink: 0;
+  }
+
+  .traffic {
+    display: flex;
+    gap: 8px;
+  }
+
+  .light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .light.red { background: #ff5f57; }
+  .light.yellow { background: #febc2e; }
+  .light.green { background: #28c840; }
+
+  .titlebar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: rgba(214, 210, 201, 0.55);
+  }
+
+  .titlebar-link {
+    font-size: 12px;
+    color: rgba(214, 210, 201, 0.65);
+    transition: color 120ms ease;
+  }
+
+  .titlebar-link:hover {
+    color: var(--color-accent);
+  }
+
+  .titlebar-sep {
+    width: 1px;
+    height: 14px;
+    background: #2e2e2e;
+  }
+
+  .titlebar-icon {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .titlebar-user {
+    padding: 3px;
+    border: 1px solid #2e2e2e;
+    border-radius: 6px;
+  }
+
+  /* ===== Body layout ===== */
+  .window-body {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+  }
+
+  /* ===== Icon rail ===== */
+  .rail {
+    width: 66px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 12px;
+    background: #171717;
+    border-right: 1px solid #232323;
+    overflow-y: auto;
+  }
+
+  .rail-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .rail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    color: rgba(214, 210, 201, 0.45);
+  }
+
+  .rail-item.active {
+    color: var(--color-accent);
+  }
+
+  .rail-hide {
+    margin-top: 10px;
+  }
+
+  .rail-icon {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .rail-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    min-width: 15px;
+    height: 15px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: #f2eadb;
+    color: #171717;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 15px;
+    text-align: center;
+  }
+
+  .rail-label {
+    font-size: 9.5px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ===== Sidebar ===== */
+  .sidebar {
+    width: 236px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    padding: 10px 10px 20px;
+    background: #171717;
+    border-right: 1px solid #232323;
+  }
+
+  .side-start {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(217, 138, 82, 0.12);
+    border: 1px solid rgba(217, 138, 82, 0.18);
+    color: #e8e3d8;
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .side-section {
+    margin-bottom: 18px;
+  }
+
+  .side-heading {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    color: rgba(214, 210, 201, 0.55);
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+
+  .side-caret {
+    display: inline-flex;
+    color: rgba(214, 210, 201, 0.4);
+  }
+
+  .side-title {
+    flex: 0 0 auto;
+  }
+
+  .side-count {
+    color: rgba(214, 210, 201, 0.35);
+    font-size: 11.5px;
+  }
+
+  .side-more {
+    margin-left: auto;
+    display: inline-flex;
+    color: rgba(214, 210, 201, 0.3);
+  }
+
+  .side-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px 5px 14px;
+    border-radius: 7px;
+    color: rgba(214, 210, 201, 0.72);
+    font-size: 12.5px;
+  }
+
+  .side-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .side-item.active {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid #2c2c2c;
+    color: #ece7dc;
+  }
+
+  .side-item-icon {
+    display: inline-flex;
+    color: rgba(214, 210, 201, 0.4);
+    font-size: 12px;
+    width: 14px;
+    justify-content: center;
+  }
+
+  .side-item-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .side-badge {
+    min-width: 17px;
+    height: 17px;
+    padding: 0 5px;
+    border-radius: 9px;
+    background: #f2eadb;
+    color: #171717;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 17px;
+    text-align: center;
+  }
+
+  .side-note {
+    padding: 2px 14px;
+    margin: 2px 0;
+    color: rgba(214, 210, 201, 0.4);
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+
+  .side-action {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px;
+    color: rgba(214, 210, 201, 0.6);
+    font-size: 12.5px;
+    cursor: default;
+  }
+
+  .side-action:hover {
+    color: var(--color-accent);
+  }
+
+  /* ===== Stage (main pane) ===== */
+  .stage {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    overflow-y: auto;
+    background: #0e1014;
+  }
+
+  .aurora {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1100px;
+    pointer-events: none;
+    background:
+      radial-gradient(55% 42% at 82% 6%, rgba(228, 150, 90, 0.16), transparent 65%),
+      radial-gradient(45% 36% at 8% 72%, rgba(220, 145, 95, 0.10), transparent 60%),
+      radial-gradient(70% 55% at 48% 28%, rgba(84, 122, 188, 0.16), transparent 65%),
+      radial-gradient(38% 30% at 26% 8%, rgba(96, 134, 204, 0.13), transparent 60%),
+      linear-gradient(112deg, transparent 42%, rgba(120, 156, 216, 0.07) 50%, transparent 58%),
+      linear-gradient(104deg, transparent 60%, rgba(228, 160, 104, 0.06) 68%, transparent 76%);
+    mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+  }
+
+  .stage-inner {
+    position: relative;
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 3rem;
+  }
+
+  /* ===== Hero ===== */
+  .stage-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .bolt-badge {
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    background: linear-gradient(160deg, #2b2119, #1a150f);
+    border: 1px solid rgba(217, 138, 82, 0.28);
+    box-shadow: 0 0 40px rgba(217, 138, 82, 0.18);
+    margin-bottom: 0.5rem;
+  }
+
+  .stage-headline {
+    font-size: clamp(1.75rem, 4vw, 2.375rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #f2eadb;
+    margin: 0;
+    min-height: 1.25em;
+    line-height: 1.2;
+  }
+
+  .stage-sub {
+    color: rgba(214, 210, 201, 0.5);
+    font-size: 13.5px;
+    line-height: 1.6;
+    max-width: 30rem;
+    margin: 0;
+  }
+
+  .stage-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+    margin-top: 0.75rem;
+  }
+
+  .app-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 40px;
+    padding: 0 1.125rem;
+    border-radius: 9px;
+    background: #1f1f1f;
+    border: 1px solid #333333;
+    color: #ece7dc;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 120ms ease;
+  }
+
+  .app-btn:hover {
+    background: #262626;
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  /* ===== Panels ===== */
+  .panel-block {
+    margin-bottom: 3rem;
+  }
+
+  .panel-label-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .panel-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(214, 210, 201, 0.45);
+  }
+
+  .panel-hint {
+    font-size: 12px;
+    color: rgba(214, 210, 201, 0.4);
+  }
+
+  /* ===== Heatmap ===== */
+  .heat-months {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20%;
+    margin-bottom: 6px;
+    font-size: 10.5px;
+    color: rgba(214, 210, 201, 0.4);
+  }
+
+  .heat-grid {
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 3px;
+  }
+
+  .heat-cell {
+    aspect-ratio: 1;
+    width: 100%;
+    min-width: 6px;
+    border-radius: 2.5px;
+    background: rgba(255, 255, 255, 0.055);
+  }
+
+  .heat-cell.l1 { background: #4b3524; }
+  .heat-cell.l2 { background: #7a5232; }
+  .heat-cell.l3 { background: #b3763f; }
+  .heat-cell.l4 { background: #e29a5c; }
+
+  .heat-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 10.5px;
+    color: rgba(214, 210, 201, 0.4);
+  }
+
+  .heat-legend .heat-cell {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    flex: 0 0 auto;
+  }
+
+  .heat-legend span:first-child { margin-right: 3px; }
+  .heat-legend span:last-child { margin-left: 3px; }
+
+  /* ===== Subscription cards ===== */
+  .sub-card {
+    background: #191919;
+    border: 1px solid #272727;
+    border-radius: 12px;
+    padding: 1.125rem 1.25rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .sub-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .sub-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, #33261a, #221a12);
+    border: 1px solid rgba(217, 138, 82, 0.25);
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .sub-id {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+
+  .sub-name {
+    font-weight: 600;
+    color: #ece7dc;
+  }
+
+  .sub-tier {
+    font-size: 11.5px;
+    color: rgba(214, 210, 201, 0.45);
+  }
+
+  .sub-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0.625rem 0 0.375rem;
+    font-size: 12px;
+    color: rgba(214, 210, 201, 0.55);
+  }
+
+  .sub-value {
+    color: rgba(214, 210, 201, 0.45);
+  }
+
+  .sub-value strong {
+    color: #ece7dc;
+    font-weight: 600;
+  }
+
+  .bar {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    display: block;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #c97f45, #e8a468);
+  }
+
+  /* ===== Recent ===== */
+  .recent-row {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.75rem 0.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .recent-icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    color: rgba(214, 210, 201, 0.6);
+  }
+
+  .recent-text {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgba(214, 210, 201, 0.75);
+    font-size: 12.5px;
+  }
+
+  .recent-time {
+    flex-shrink: 0;
+    font-size: 11px;
+    color: rgba(214, 210, 201, 0.35);
+  }
+
+  /* ===== Marketing content inside the stage ===== */
+  .stage-content {
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* ===== Status bar ===== */
+  .statusbar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 34px;
+    padding: 0 14px;
+    border-top: 1px solid #232323;
+    background: #171717;
+    font-size: 11.5px;
+    color: rgba(214, 210, 201, 0.5);
+  }
+
+  .statusbar-left,
+  .statusbar-right {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .statusbar-right {
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid #2a2a2a;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px) {
+    .sidebar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .desktop {
+      padding: 0;
+    }
+
+    .window {
+      border: none;
+      border-radius: 0;
+    }
+
+    .rail {
+      display: none;
+    }
+
+    .titlebar-icon:not(.titlebar-user) {
+      display: none;
+    }
+
+    .heat-cell {
+      border-radius: 1.5px;
+    }
+  }
+</style>

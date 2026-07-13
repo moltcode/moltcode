@@ -31,18 +31,18 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --color-bg: #171717;
-  --color-surface: #1C1C1C;
+  --color-bg: #131313;
+  --color-surface: #1B1B1B;
   --color-primary: #F2EADB;
   --color-secondary: rgba(242, 234, 219, 0.55);
   --color-muted: rgba(242, 234, 219, 0.35);
-  --color-accent: #C47D4A;
-  --color-accent-strong: #D9925A;
-  --color-border: #343434;
-  --color-border-strong: #4A4A4A;
-  --color-prompt: #C47D4A;
+  --color-accent: #D98A52;
+  --color-accent-strong: #EBA366;
+  --color-border: #2E2E2E;
+  --color-border-strong: #454545;
+  --color-prompt: #D98A52;
 
-  --color-accent-rgb: 196, 125, 74;
+  --color-accent-rgb: 217, 138, 82;
 }
 
 /* ===== Light (warm paper) ===== */
