@@ -1,0 +1,949 @@
+{
+  "id": "agent-command-center",
+  "kind": "design",
+  "model": {
+    "frames": [
+      {
+        "h": 900,
+        "id": "screen",
+        "layout": {
+          "alignment": {
+            "horizontal": "stretch",
+            "vertical": "start"
+          },
+          "children": [
+            {
+              "alignment": {
+                "horizontal": "stretch",
+                "vertical": "center"
+              },
+              "children": [
+                {
+                  "alignment": {
+                    "horizontal": "start",
+                    "vertical": "center"
+                  },
+                  "children": [
+                    {
+                      "id": "brand-mark",
+                      "kind": "icon",
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 32
+                        },
+                        "width": {
+                          "mode": "fixed",
+                          "value": 32
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "brand-title",
+                      "kind": "heading",
+                      "label": "Molt Code",
+                      "sizing": {
+                        "height": {
+                          "mode": "hug",
+                          "value": 0
+                        },
+                        "width": {
+                          "mode": "hug",
+                          "value": 0
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "workspace-label",
+                      "kind": "text",
+                      "label": "Workspace overview",
+                      "sizing": {
+                        "height": {
+                          "mode": "hug",
+                          "value": 0
+                        },
+                        "width": {
+                          "mode": "hug",
+                          "value": 0
+                        }
+                      },
+                      "type": "content"
+                    }
+                  ],
+                  "gap": 12,
+                  "id": "brand",
+                  "layout": "row",
+                  "sizing": {
+                    "height": {
+                      "mode": "fill",
+                      "value": 1
+                    },
+                    "width": {
+                      "mode": "fill",
+                      "value": 1
+                    }
+                  },
+                  "type": "container"
+                },
+                {
+                  "alignment": {
+                    "horizontal": "end",
+                    "vertical": "center"
+                  },
+                  "children": [
+                    {
+                      "id": "search",
+                      "kind": "input",
+                      "props": {
+                        "placeholder": "Search sessions"
+                      },
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 40
+                        },
+                        "width": {
+                          "mode": "fixed",
+                          "value": 220
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "new-session",
+                      "kind": "button",
+                      "label": "New session",
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 40
+                        },
+                        "width": {
+                          "mode": "fixed",
+                          "value": 132
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "profile",
+                      "kind": "avatar",
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 36
+                        },
+                        "width": {
+                          "mode": "fixed",
+                          "value": 36
+                        }
+                      },
+                      "type": "content"
+                    }
+                  ],
+                  "gap": 10,
+                  "id": "top-actions",
+                  "layout": "row",
+                  "sizing": {
+                    "height": {
+                      "mode": "fill",
+                      "value": 1
+                    },
+                    "width": {
+                      "mode": "hug",
+                      "value": 0
+                    }
+                  },
+                  "type": "container"
+                }
+              ],
+              "gap": 20,
+              "id": "topbar",
+              "layout": "row",
+              "padding": {
+                "bottom": 14,
+                "left": 28,
+                "right": 28,
+                "top": 14
+              },
+              "sizing": {
+                "height": {
+                  "mode": "fixed",
+                  "value": 72
+                },
+                "width": {
+                  "mode": "fill",
+                  "value": 1
+                }
+              },
+              "type": "container"
+            },
+            {
+              "id": "top-divider",
+              "kind": "divider",
+              "sizing": {
+                "height": {
+                  "mode": "fixed",
+                  "value": 1
+                },
+                "width": {
+                  "mode": "fill",
+                  "value": 1
+                }
+              },
+              "type": "content"
+            },
+            {
+              "alignment": {
+                "horizontal": "stretch",
+                "vertical": "stretch"
+              },
+              "children": [
+                {
+                  "alignment": {
+                    "horizontal": "stretch",
+                    "vertical": "start"
+                  },
+                  "children": [
+                    {
+                      "id": "sidebar-overview",
+                      "kind": "heading",
+                      "label": "Workspace",
+                      "sizing": {
+                        "height": {
+                          "mode": "hug",
+                          "value": 0
+                        },
+                        "width": {
+                          "mode": "hug",
+                          "value": 0
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "nav-overview",
+                      "kind": "button",
+                      "label": "Overview",
+                      "props": {
+                        "variant": "secondary"
+                      },
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 40
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "nav-sessions",
+                      "kind": "button",
+                      "label": "Sessions",
+                      "props": {
+                        "variant": "secondary"
+                      },
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 40
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "nav-projects",
+                      "kind": "button",
+                      "label": "Projects",
+                      "props": {
+                        "variant": "secondary"
+                      },
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 40
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "sidebar-divider",
+                      "kind": "divider",
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 1
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "sidebar-recent",
+                      "kind": "heading",
+                      "label": "Recent projects",
+                      "sizing": {
+                        "height": {
+                          "mode": "hug",
+                          "value": 0
+                        },
+                        "width": {
+                          "mode": "hug",
+                          "value": 0
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "recent-one",
+                      "kind": "button",
+                      "label": "acp",
+                      "props": {
+                        "variant": "secondary"
+                      },
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 40
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "recent-two",
+                      "kind": "button",
+                      "label": "platform",
+                      "props": {
+                        "variant": "secondary"
+                      },
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 40
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "content"
+                    },
+                    {
+                      "id": "recent-three",
+                      "kind": "button",
+                      "label": "adapter runtime",
+                      "props": {
+                        "variant": "secondary"
+                      },
+                      "sizing": {
+                        "height": {
+                          "mode": "fixed",
+                          "value": 40
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "content"
+                    }
+                  ],
+                  "gap": 10,
+                  "id": "sidebar",
+                  "layout": "column",
+                  "padding": {
+                    "bottom": 0,
+                    "left": 0,
+                    "right": 0,
+                    "top": 4
+                  },
+                  "sizing": {
+                    "height": {
+                      "mode": "fill",
+                      "value": 1
+                    },
+                    "width": {
+                      "mode": "fixed",
+                      "value": 220
+                    }
+                  },
+                  "type": "container"
+                },
+                {
+                  "alignment": {
+                    "horizontal": "stretch",
+                    "vertical": "start"
+                  },
+                  "children": [
+                    {
+                      "alignment": {
+                        "horizontal": "stretch",
+                        "vertical": "center"
+                      },
+                      "children": [
+                        {
+                          "id": "dashboard-title",
+                          "kind": "heading",
+                          "label": "Good afternoon, Junaid",
+                          "sizing": {
+                            "height": {
+                              "mode": "hug",
+                              "value": 0
+                            },
+                            "width": {
+                              "mode": "fill",
+                              "value": 1
+                            }
+                          },
+                          "type": "content"
+                        },
+                        {
+                          "id": "refresh",
+                          "kind": "button",
+                          "label": "Refresh",
+                          "props": {
+                            "variant": "secondary"
+                          },
+                          "sizing": {
+                            "height": {
+                              "mode": "fixed",
+                              "value": 40
+                            },
+                            "width": {
+                              "mode": "fixed",
+                              "value": 96
+                            }
+                          },
+                          "type": "content"
+                        }
+                      ],
+                      "gap": 16,
+                      "id": "page-heading",
+                      "layout": "row",
+                      "sizing": {
+                        "height": {
+                          "mode": "hug",
+                          "value": 0
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "container"
+                    },
+                    {
+                      "alignment": {
+                        "horizontal": "stretch",
+                        "vertical": "stretch"
+                      },
+                      "children": [
+                        {
+                          "alignment": {
+                            "horizontal": "start",
+                            "vertical": "start"
+                          },
+                          "children": [
+                            {
+                              "id": "metric-active-label",
+                              "kind": "text",
+                              "label": "Active sessions",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            },
+                            {
+                              "id": "metric-active-value",
+                              "kind": "heading",
+                              "label": "06",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            }
+                          ],
+                          "gap": 8,
+                          "id": "metric-active",
+                          "layout": "column",
+                          "padding": {
+                            "bottom": 14,
+                            "left": 16,
+                            "right": 16,
+                            "top": 14
+                          },
+                          "sizing": {
+                            "height": {
+                              "mode": "fixed",
+                              "value": 118
+                            },
+                            "width": {
+                              "mode": "fill",
+                              "value": 1
+                            }
+                          },
+                          "type": "container"
+                        },
+                        {
+                          "alignment": {
+                            "horizontal": "start",
+                            "vertical": "start"
+                          },
+                          "children": [
+                            {
+                              "id": "metric-changes-label",
+                              "kind": "text",
+                              "label": "Files changed",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            },
+                            {
+                              "id": "metric-changes-value",
+                              "kind": "heading",
+                              "label": "24",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            }
+                          ],
+                          "gap": 8,
+                          "id": "metric-changes",
+                          "layout": "column",
+                          "padding": {
+                            "bottom": 14,
+                            "left": 16,
+                            "right": 16,
+                            "top": 14
+                          },
+                          "sizing": {
+                            "height": {
+                              "mode": "fixed",
+                              "value": 118
+                            },
+                            "width": {
+                              "mode": "fill",
+                              "value": 1
+                            }
+                          },
+                          "type": "container"
+                        },
+                        {
+                          "alignment": {
+                            "horizontal": "start",
+                            "vertical": "start"
+                          },
+                          "children": [
+                            {
+                              "id": "metric-reviews-label",
+                              "kind": "text",
+                              "label": "Ready for review",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            },
+                            {
+                              "id": "metric-reviews-value",
+                              "kind": "heading",
+                              "label": "03",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            }
+                          ],
+                          "gap": 8,
+                          "id": "metric-reviews",
+                          "layout": "column",
+                          "padding": {
+                            "bottom": 14,
+                            "left": 16,
+                            "right": 16,
+                            "top": 14
+                          },
+                          "sizing": {
+                            "height": {
+                              "mode": "fixed",
+                              "value": 118
+                            },
+                            "width": {
+                              "mode": "fill",
+                              "value": 1
+                            }
+                          },
+                          "type": "container"
+                        },
+                        {
+                          "alignment": {
+                            "horizontal": "start",
+                            "vertical": "start"
+                          },
+                          "children": [
+                            {
+                              "id": "metric-usage-label",
+                              "kind": "text",
+                              "label": "Usage this week",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            },
+                            {
+                              "id": "metric-usage-value",
+                              "kind": "heading",
+                              "label": "71%",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            }
+                          ],
+                          "gap": 8,
+                          "id": "metric-usage",
+                          "layout": "column",
+                          "padding": {
+                            "bottom": 14,
+                            "left": 16,
+                            "right": 16,
+                            "top": 14
+                          },
+                          "sizing": {
+                            "height": {
+                              "mode": "fixed",
+                              "value": 118
+                            },
+                            "width": {
+                              "mode": "fill",
+                              "value": 1
+                            }
+                          },
+                          "type": "container"
+                        }
+                      ],
+                      "columnGap": 16,
+                      "columns": 4,
+                      "id": "metrics",
+                      "layout": "grid",
+                      "rowGap": 16,
+                      "sizing": {
+                        "height": {
+                          "mode": "hug",
+                          "value": 0
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "container"
+                    },
+                    {
+                      "alignment": {
+                        "horizontal": "stretch",
+                        "vertical": "stretch"
+                      },
+                      "children": [
+                        {
+                          "alignment": {
+                            "horizontal": "stretch",
+                            "vertical": "start"
+                          },
+                          "children": [
+                            {
+                              "id": "activity-title",
+                              "kind": "heading",
+                              "label": "Activity",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            },
+                            {
+                              "id": "activity-list",
+                              "kind": "list",
+                              "sizing": {
+                                "height": {
+                                  "mode": "fill",
+                                  "value": 1
+                                },
+                                "width": {
+                                  "mode": "fill",
+                                  "value": 1
+                                }
+                              },
+                              "type": "content"
+                            }
+                          ],
+                          "gap": 14,
+                          "id": "activity-panel",
+                          "layout": "column",
+                          "padding": {
+                            "bottom": 18,
+                            "left": 20,
+                            "right": 20,
+                            "top": 18
+                          },
+                          "sizing": {
+                            "height": {
+                              "mode": "fill",
+                              "value": 1
+                            },
+                            "width": {
+                              "mode": "fill",
+                              "value": 1
+                            }
+                          },
+                          "type": "container"
+                        },
+                        {
+                          "alignment": {
+                            "horizontal": "stretch",
+                            "vertical": "start"
+                          },
+                          "children": [
+                            {
+                              "id": "focus-title",
+                              "kind": "heading",
+                              "label": "Focus next",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "hug",
+                                  "value": 0
+                                }
+                              },
+                              "type": "content"
+                            },
+                            {
+                              "id": "focus-copy",
+                              "kind": "text",
+                              "label": "Continue the design workflow and review the active sessions.",
+                              "sizing": {
+                                "height": {
+                                  "mode": "hug",
+                                  "value": 0
+                                },
+                                "width": {
+                                  "mode": "fill",
+                                  "value": 1
+                                }
+                              },
+                              "type": "content"
+                            },
+                            {
+                              "id": "focus-action",
+                              "kind": "button",
+                              "label": "Resume session",
+                              "sizing": {
+                                "height": {
+                                  "mode": "fixed",
+                                  "value": 44
+                                },
+                                "width": {
+                                  "mode": "fill",
+                                  "value": 1
+                                }
+                              },
+                              "type": "content"
+                            }
+                          ],
+                          "gap": 14,
+                          "id": "focus-panel",
+                          "layout": "column",
+                          "padding": {
+                            "bottom": 18,
+                            "left": 20,
+                            "right": 20,
+                            "top": 18
+                          },
+                          "sizing": {
+                            "height": {
+                              "mode": "fill",
+                              "value": 1
+                            },
+                            "width": {
+                              "mode": "fixed",
+                              "value": 300
+                            }
+                          },
+                          "type": "container"
+                        }
+                      ],
+                      "gap": 20,
+                      "id": "lower-panels",
+                      "layout": "row",
+                      "sizing": {
+                        "height": {
+                          "mode": "fill",
+                          "value": 1
+                        },
+                        "width": {
+                          "mode": "fill",
+                          "value": 1
+                        }
+                      },
+                      "type": "container"
+                    }
+                  ],
+                  "gap": 24,
+                  "id": "main",
+                  "layout": "column",
+                  "sizing": {
+                    "height": {
+                      "mode": "fill",
+                      "value": 1
+                    },
+                    "width": {
+                      "mode": "fill",
+                      "value": 1
+                    }
+                  },
+                  "type": "container"
+                }
+              ],
+              "gap": 28,
+              "id": "body",
+              "layout": "row",
+              "padding": {
+                "bottom": 28,
+                "left": 28,
+                "right": 28,
+                "top": 24
+              },
+              "sizing": {
+                "height": {
+                  "mode": "fill",
+                  "value": 1
+                },
+                "width": {
+                  "mode": "fill",
+                  "value": 1
+                }
+              },
+              "type": "container"
+            }
+          ],
+          "gap": 0,
+          "id": "root",
+          "layout": "column",
+          "name": "Agent command center",
+          "padding": {
+            "bottom": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0
+          },
+          "sizing": {
+            "height": {
+              "mode": "fill",
+              "value": 1
+            },
+            "width": {
+              "mode": "fill",
+              "value": 1
+            }
+          },
+          "type": "container"
+        },
+        "name": "Desktop",
+        "w": 1440,
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "version": 2
+  },
+  "name": "Agent Command Center",
+  "updatedAt": 1783954053324,
+  "version": 2
+}

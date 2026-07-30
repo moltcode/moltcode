@@ -1,0 +1,22 @@
+{
+  "operations": [
+    {"op":"before","selector":"#navOverview","markup":"<Row id=\"navOverviewR\" class=\"pillGhost\" padding=\"8 16\" align=\"center center\"><Text id=\"navOverviewT2\" style=\"label\">Overview&#160;</Text></Row>"},
+    {"op":"remove","selector":"#navOverview"},
+    {"op":"before","selector":"#navAccounts","markup":"<Row id=\"navAccountsR\" padding=\"8 16\" align=\"center center\"><Text id=\"navAccountsT2\" style=\"bodySoft\">Accounts&#160;</Text></Row>"},
+    {"op":"remove","selector":"#navAccounts"},
+    {"op":"before","selector":"#navInsights","markup":"<Row id=\"navInsightsR\" padding=\"8 16\" align=\"center center\"><Text id=\"navInsightsT2\" style=\"bodySoft\">Insights&#160;</Text></Row>"},
+    {"op":"remove","selector":"#navInsights"},
+    {"op":"before","selector":"#navGoals","markup":"<Row id=\"navGoalsR\" padding=\"8 16\" align=\"center center\"><Text id=\"navGoalsT2\" style=\"bodySoft\">Goals&#160;</Text></Row>"},
+    {"op":"remove","selector":"#navGoals"},
+    {"op":"before","selector":"#btnSend","markup":"<Row id=\"btnSendR\" class=\"pillGhost\" padding=\"12 20\" align=\"center center\"><Text id=\"btnSendT2\" style=\"label\">Send money&#160;</Text></Row>"},
+    {"op":"remove","selector":"#btnSend"},
+    {"op":"before","selector":"#btnAdd","markup":"<Row id=\"btnAddR\" class=\"pillBrand\" padding=\"12 20\" align=\"center center\"><Text id=\"btnAddT2\" style=\"eyebrowOnBrand\">ADD&#160;FUNDS&#160;</Text></Row>"},
+    {"op":"remove","selector":"#btnAdd"},
+    {"op":"before","selector":"#heroChip","markup":"<Row id=\"heroChipR\" class=\"pillVeil\" padding=\"8 16\" align=\"center center\"><Text id=\"heroChipT2\" style=\"bodyOnBrand\">+&#160;$2,304 this month&#160;</Text></Row>"},
+    {"op":"remove","selector":"#heroChip"},
+    {"op":"before","selector":"#txFilter","markup":"<Row id=\"txFilterR\" class=\"pillGhost\" padding=\"8 16\" align=\"center center\"><Text id=\"txFilterT2\" style=\"caption\">This week&#160;</Text></Row>"},
+    {"op":"remove","selector":"#txFilter"},
+    {"op":"before","selector":"#billsCta","markup":"<Row id=\"billsCtaR\" class=\"pillGhost\" padding=\"12 16\" width=\"fill\" align=\"center center\"><Text id=\"billsCtaT2\" style=\"label\">Schedule a payment&#160;</Text></Row>"},
+    {"op":"remove","selector":"#billsCta"}
+  ]
+}

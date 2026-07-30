@@ -1,0 +1,93 @@
+{
+  "operations": [
+    {"op":"setPath","path":"model.theme.colors.canvas","value":"#F5F2EA"},
+    {"op":"setPath","path":"model.theme.colors.panel","value":"#FFFFFF"},
+    {"op":"setPath","path":"model.theme.colors.surface","value":"#FFFFFF"},
+    {"op":"setPath","path":"model.theme.colors.text","value":"#16241E"},
+    {"op":"setPath","path":"model.theme.colors.muted","value":"#64756C"},
+    {"op":"setPath","path":"model.theme.colors.border","value":"#16241E14"},
+    {"op":"setPath","path":"model.theme.colors.accent","value":"#EB5A33"},
+    {"op":"setPath","path":"model.theme.colors.brand","value":"#16604A"},
+    {"op":"setPath","path":"model.theme.colors.brandDeep","value":"#0B3B2C"},
+    {"op":"setPath","path":"model.theme.colors.accentSoft","value":"#FBE4DA"},
+    {"op":"setPath","path":"model.theme.colors.mintSoft","value":"#DEF0E6"},
+    {"op":"setPath","path":"model.theme.colors.amber","value":"#E8A33D"},
+    {"op":"setPath","path":"model.theme.colors.amberSoft","value":"#F9EDD8"},
+    {"op":"setPath","path":"model.theme.colors.amberInk","value":"#8A5A10"},
+    {"op":"setPath","path":"model.theme.colors.success","value":"#2E9B68"},
+    {"op":"setPath","path":"model.theme.colors.violet","value":"#7A6FF0"},
+    {"op":"setPath","path":"model.theme.colors.textInverse","value":"#F4FBF7"},
+    {"op":"setPath","path":"model.theme.colors.mutedInverse","value":"#BADFCE"},
+
+    {"op":"setPath","path":"model.theme.paints.pine","value":{"type":"solid","color":"brand"}},
+    {"op":"setPath","path":"model.theme.paints.coral","value":{"type":"solid","color":"accent"}},
+    {"op":"setPath","path":"model.theme.paints.mint","value":{"type":"solid","color":"mintSoft"}},
+    {"op":"setPath","path":"model.theme.paints.coralSoft","value":{"type":"solid","color":"accentSoft"}},
+    {"op":"setPath","path":"model.theme.paints.amberSoftP","value":{"type":"solid","color":"amberSoft"}},
+    {"op":"setPath","path":"model.theme.paints.violetP","value":{"type":"solid","color":"violet"}},
+    {"op":"setPath","path":"model.theme.paints.amberP","value":{"type":"solid","color":"amber"}},
+    {"op":"setPath","path":"model.theme.paints.successP","value":{"type":"solid","color":"success"}},
+    {"op":"setPath","path":"model.theme.paints.track","value":{"type":"solid","color":"border"}},
+    {"op":"setPath","path":"model.theme.paints.heroLinear","value":{"type":"linear","colors":["brand","brandDeep"],"angle":28}},
+    {"op":"setPath","path":"model.theme.paints.sunrise","value":{"type":"linear","colors":["accent","amber"],"angle":20}},
+    {"op":"setPath","path":"model.theme.paints.glass","value":{"type":"solid","color":"#FFFFFFC7"}},
+    {"op":"setPath","path":"model.theme.paints.whiteVeil","value":{"type":"solid","color":"#FFFFFF2E"}},
+
+    {"op":"setPath","path":"model.theme.shaders.pulseGlow","value":{
+      "source":"uniform float2 size; uniform float4 deep; uniform float4 glow; half4 main(float2 xy) { float2 uv = size.x > 0.0 ? xy / size : float2(0.5); float d = distance(uv, float2(0.28, 0.18)); float g = smoothstep(0.95, 0.0, d); float vig = smoothstep(1.35, 0.2, distance(uv, float2(0.5))); float4 c = mix(deep, glow, g * 0.55); return half4(c.rgb * (0.82 + 0.18 * vig), 1.0); }",
+      "uniforms":{
+        "deep":{"type":"color","default":"#0B3B2C"},
+        "glow":{"type":"color","default":"#2E9B68"}
+      },
+      "fallback":"heroLinear"
+    }},
+    {"op":"setPath","path":"model.theme.paints.heroGlow","value":{"type":"shader","shader":"pulseGlow","fallback":"heroLinear"}},
+
+    {"op":"setPath","path":"model.theme.effects.float","value":{"shadows":[{"x":0,"y":16,"blur":40,"spread":-10,"color":"#0B3B2C33"}]}},
+    {"op":"setPath","path":"model.theme.effects.glass","value":{"backdropBlur":20,"shadows":[{"x":0,"y":8,"blur":24,"spread":-6,"color":"#0B3B2C26"}]}},
+
+    {"op":"setPath","path":"model.theme.styles.heroCard","value":{"appearance":{"fills":["heroGlow"],"radius":"card","effects":["float"],"clip":true}}},
+    {"op":"setPath","path":"model.theme.styles.glassCard","value":{"appearance":{"fills":["glass"],"radius":"card","effects":["glass"],"strokes":[{"paint":"border","width":1}]}}},
+    {"op":"setPath","path":"model.theme.styles.chipMint","value":{"appearance":{"fills":["mint"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.chipCoral","value":{"appearance":{"fills":["coralSoft"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.chipAmber","value":{"appearance":{"fills":["amberSoftP"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.chipGhost","value":{"appearance":{"strokes":[{"paint":"border","width":1}],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.chipInverse","value":{"appearance":{"fills":["whiteVeil"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.barTrack","value":{"appearance":{"fills":["track"],"radius":"round","clip":true}}},
+    {"op":"setPath","path":"model.theme.styles.barBrand","value":{"appearance":{"fills":["pine"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.barCoral","value":{"appearance":{"fills":["coral"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.barAmber","value":{"appearance":{"fills":["amberP"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.dotBrand","value":{"appearance":{"fills":["pine"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.dotCoral","value":{"appearance":{"fills":["coral"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.dotAmber","value":{"appearance":{"fills":["amberP"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.dotViolet","value":{"appearance":{"fills":["violetP"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.dotSuccess","value":{"appearance":{"fills":["successP"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.iconTile","value":{"appearance":{"fills":["mint"],"radius":"control"}}},
+    {"op":"setPath","path":"model.theme.styles.iconTileCoral","value":{"appearance":{"fills":["coralSoft"],"radius":"control"}}},
+    {"op":"setPath","path":"model.theme.styles.ghostBtn","value":{"appearance":{"strokes":[{"paint":"border","width":1}],"radius":"control"},"typography":"label"}},
+    {"op":"setPath","path":"model.theme.styles.navPill","value":{"appearance":{"fills":["mint"],"radius":"round"}}},
+    {"op":"setPath","path":"model.theme.styles.divider","value":{"appearance":{"fills":["track"]}}},
+
+    {"op":"setPath","path":"model.theme.typography.display","value":{"font":"displayFont","size":40,"lineHeight":48,"weight":700,"color":"text","maxLines":2}},
+    {"op":"setPath","path":"model.theme.typography.title","value":{"font":"displayFont","size":26,"lineHeight":32,"weight":700,"color":"text","maxLines":2}},
+    {"op":"setPath","path":"model.theme.typography.section","value":{"font":"displayFont","size":18,"lineHeight":24,"weight":600,"color":"text","maxLines":2}},
+    {"op":"setPath","path":"model.theme.typography.stat","value":{"font":"displayFont","size":30,"lineHeight":36,"weight":700,"color":"text","maxLines":1}},
+    {"op":"setPath","path":"model.theme.typography.statHero","value":{"font":"displayFont","size":52,"lineHeight":58,"weight":800,"color":"textInverse","maxLines":1}},
+    {"op":"setPath","path":"model.theme.typography.body","value":{"font":"bodyFont","size":14,"lineHeight":20,"weight":400,"color":"text","maxLines":3}},
+    {"op":"setPath","path":"model.theme.typography.caption","value":{"font":"bodyFont","size":12,"lineHeight":16,"weight":500,"color":"muted","maxLines":2}},
+    {"op":"setPath","path":"model.theme.typography.label","value":{"font":"bodyFont","size":13,"lineHeight":16,"weight":600,"color":"text","maxLines":2}},
+    {"op":"setPath","path":"model.theme.typography.labelMuted","value":{"font":"bodyFont","size":13,"lineHeight":16,"weight":500,"color":"muted","maxLines":1}},
+    {"op":"setPath","path":"model.theme.typography.labelBrand","value":{"font":"bodyFont","size":12,"lineHeight":16,"weight":600,"color":"brand","maxLines":1}},
+    {"op":"setPath","path":"model.theme.typography.labelCoral","value":{"font":"bodyFont","size":12,"lineHeight":16,"weight":600,"color":"accent","maxLines":1}},
+    {"op":"setPath","path":"model.theme.typography.labelAmber","value":{"font":"bodyFont","size":12,"lineHeight":16,"weight":600,"color":"amberInk","maxLines":1}},
+    {"op":"setPath","path":"model.theme.typography.labelInverse","value":{"font":"bodyFont","size":13,"lineHeight":16,"weight":600,"color":"textInverse","maxLines":1}},
+    {"op":"setPath","path":"model.theme.typography.captionInverse","value":{"font":"bodyFont","size":12,"lineHeight":16,"weight":500,"color":"mutedInverse","maxLines":2}},
+    {"op":"setPath","path":"model.theme.typography.heroTitle","value":{"font":"displayFont","size":24,"lineHeight":30,"weight":700,"color":"textInverse","maxLines":2}},
+
+    {"op":"setPath","path":"model.theme.modes.dark","value":{"colors":{
+      "canvas":"#101714","panel":"#18221D","surface":"#1D2A24","text":"#EFF5F1","muted":"#8DA197",
+      "border":"#FFFFFF1F","mintSoft":"#22382E","accentSoft":"#3B241D","amberSoft":"#34291A",
+      "brand":"#3FBF93","brandDeep":"#123227","amberInk":"#E8B96A","accent":"#F0714E"
+    }}}
+  ]
+}

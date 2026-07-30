@@ -1,0 +1,8 @@
+[
+  {"name":"EV charger","room":"Garage","draw":"7.2 kW","share":38,"status":"Charging"},
+  {"name":"Heat pump","room":"Utility","draw":"2.4 kW","share":21,"status":"Active"},
+  {"name":"Pool pump","room":"Backyard","draw":"1.1 kW","share":12,"status":"Scheduled"},
+  {"name":"Oven","room":"Kitchen","draw":"0.9 kW","share":9,"status":"Active"},
+  {"name":"Server rack","room":"Study","draw":"0.6 kW","share":7,"status":"Always on"},
+  {"name":"Washer","room":"Utility","draw":"0.4 kW","share":4,"status":"Idle"}
+]

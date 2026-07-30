@@ -3,98 +3,114 @@ import { config } from '../config';
 import AppleIcon from './AppleIcon.astro';
 import ThemeToggle from './ThemeToggle.astro';
 
-// Deterministic pseudo-random so the activity heatmap is stable across builds
-const rand = (i: number) => {
-  const x = Math.sin(i * 127.1 + 311.7) * 43758.5453;
-  return x - Math.floor(x);
-};
+// ---------------------------------------------------------------------------
+// Mirrors the desktop Explore view (compose_desktop shell/views/explore):
+// a three-column X-style layout — 280 nav / 600 feed / 400 rail — on a
+// lights-out canvas. Left nav = brand, Feed/Sessions, New session, destinations,
+// projects, account. Center = sticky tabs, inline composer, stream cards.
+// Right rail = search, "Continue working", "Most active".
+// ---------------------------------------------------------------------------
 
-const WEEKS = 34;
-const DAYS = 7;
-const heatmap: number[] = [];
-for (let w = 0; w < WEEKS; w++) {
-  for (let d = 0; d < DAYS; d++) {
-    const r = rand(w * DAYS + d);
-    let level = 0;
-    if (w >= WEEKS - 7) level = r < 0.18 ? 0 : Math.min(4, Math.ceil(r * 4.6));
-    else if (w >= WEEKS - 11) level = r < 0.55 ? 0 : Math.ceil(r * 2.2);
-    else level = r < 0.93 ? 0 : 1;
-    heatmap.push(level);
-  }
-}
+const navPrimary = [
+  { icon: 'home', label: 'Feed', active: true },
+  { icon: 'activity', label: 'Sessions' },
+];
 
-const months = ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+const navDestinations = [
+  { icon: 'electricity', label: 'MCP' },
+  { icon: 'flash', label: 'Skills' },
+  { icon: 'magicPen', label: 'Agents' },
+  { icon: 'terminal', label: 'CLIs' },
+  { icon: 'frame', label: 'Designs' },
+  { icon: 'repeat', label: 'Workflows' },
+];
 
-const channels = ['subagents-experience', 'molt-mcp', 'amazon'];
-
+// Scope monograms, as in ScopeNavRow — first letter over a chip circle.
 const projects = [
-  { name: 'swiftui' },
-  { name: 'exploration', badge: 2 },
+  { name: 'cloud' },
+  { name: 'molt' },
+  { name: 'exploration' },
   { name: 'small_model' },
   { name: 'cve_mcp' },
-  { name: 'cloud', active: true },
-  { name: 'loom' },
-  { name: 'random' },
-  { name: 'product_crawler' },
-  { name: 'molt', badge: 4 },
 ];
 
-const railItems = [
-  { icon: 'home', label: 'Home', active: true },
-  { icon: 'activity', label: 'Activity', badge: 6 },
-  { icon: 'calendar', label: 'Routines' },
-  { icon: 'search', label: 'Search' },
-  { icon: 'hash', label: 'Designs' },
-  { icon: 'agents', label: 'Agents' },
-  { icon: 'zap', label: 'Skills' },
-  { icon: 'plug', label: 'MCP' },
+// Stream cards: a "created" event is the user's root post, a "completed"
+// event is the agent's conclusion replying to it.
+const stream = [
+  {
+    kind: 'created',
+    author: 'You',
+    scope: 'm/molt',
+    time: '2m',
+    body: 'Wire the explore feed into the marketing site so the landing page is the product surface, not a screenshot of it.',
+  },
+  {
+    kind: 'completed',
+    author: 'Claude Opus',
+    scope: 'm/cloud',
+    time: '14m',
+    body: 'Pushed the pod scheduler change — cold starts are down to 1.9s p95 and the warm pool holds through the deploy.',
+    reply: 'can you make cloud pods spin up faster, the cold start is brutal',
+  },
+  {
+    kind: 'completed',
+    author: 'Codex',
+    scope: 'm/cve_mcp',
+    time: '1h',
+    body: 'Scanned 412 dependencies, found 3 advisories with fixes available. Opened a PR pinning all three.',
+    reply: 'audit the dependency tree for known CVEs',
+  },
 ];
 
-const railBottom = [
-  { icon: 'book', label: 'Learn' },
-  { icon: 'cpu', label: 'Runs' },
+// Right rail "Continue working" — mirrors ContinuityRow archetypes.
+const continuity = [
+  { archetype: 'session', label: 'm/swiftui', meta: 'Running · 4m', title: 'Rebuild the settings sheet with the new segmented control', live: true },
+  { archetype: 'file', label: 'ViewModel.kt', meta: '22m', title: 'modules/shell/src/main/kotlin/…/explore/data' },
+  { archetype: 'workflow', label: 'Workflow', meta: 'completed · 1h', title: 'Nightly integration suite', steps: 3 },
+  { archetype: 'terminal', label: 'Terminal', meta: 'live · 2h', title: 'pnpm dev', sub: 'cwd  ~/experiments/editor/website', live: true },
+  { archetype: 'issue', label: 'ISS-2041', meta: 'high · open · 3h', title: 'Feed pagination drops the last page on fast scroll' },
 ];
 
-const recents = [
-  { text: 'could you tell me if any holes in the diffusion implementation with neu…', time: '11h ago' },
-  { text: 'Okay, I want to try a radical new style of transformer, it woulf be singl…', time: '2d ago' },
+const mostActive = [
+  { name: 'molt', label: 'm/molt', count: 24 },
+  { name: 'cloud', label: 'm/cloud', count: 11 },
+  { name: 'exploration', label: 'm/exploration', count: 6 },
 ];
 
 const icons: Record<string, string> = {
   home: '<path d="M3 11.2 12 3l9 8.2"/><path d="M5.5 9.8V21h13V9.8"/>',
   activity: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
-  calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  electricity: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+  flash: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+  magicPen: '<path d="M15 4 4 15l5 5L20 9z"/><path d="m14 5 5 5"/><path d="M18 2v4M20 4h-4"/>',
+  terminal: '<path d="m4 17 6-5-6-5"/><path d="M12 19h8"/>',
+  frame: '<path d="M3 8h18M3 16h18M8 3v18M16 3v18"/>',
+  repeat: '<path d="m17 2 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>',
+  sparkle: '<path d="M12 2.5 14.4 9 21 11.5 14.4 14 12 20.5 9.6 14 3 11.5 9.6 9z"/>',
   search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
-  hash: '<path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/>',
-  agents: '<rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4m-6.5 9h.01M9 13h6"/><circle cx="12" cy="3" r="1"/>',
-  zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
-  plug: '<path d="M12 22v-4M9 8V2M15 8V2M6 8h12v4a6 6 0 0 1-12 0V8z"/>',
-  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
-  cpu: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>',
-  chevronLeft: '<path d="M15 18l-6-6 6-6"/>',
-  chevronDown: '<path d="m6 9 6 6 6-6"/>',
-  chevronUp: '<path d="m18 15-6-6-6 6"/>',
-  grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
-  folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
-  ellipsis: '<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
-  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 3.5 9A14 14 0 0 1 12 21a14 14 0 0 1-3.5-9A14 14 0 0 1 12 3z"/>',
-  refresh: '<path d="M3 12a9 9 0 0 1 15.2-6.5L21 8M21 12a9 9 0 0 1-15.2 6.5L3 16"/><path d="M21 3v5h-5M3 21v-5h5"/>',
-  stop: '<rect x="6" y="6" width="12" height="12" rx="1"/>',
+  image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 16-5-5-6 6"/>',
+  chatCircle: '<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.3-.6L3 21l1.7-5a8.4 8.4 0 0 1-.7-3.4 8.4 8.4 0 0 1 8.5-8.5 8.4 8.4 0 0 1 8.5 8.4z"/>',
+  file: '<path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/>',
+  gitBranch: '<circle cx="6" cy="5" r="2.5"/><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="9" r="2.5"/><path d="M6 7.5v9M18 11.5a5 5 0 0 1-5 5H8"/>',
+  taskSquare: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/>',
+  caretDown: '<path d="m6 9 6 6 6-6"/>',
+  chevronUp: '<path d="m18 15-6-6-6 6"/>',
   monitor: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
-  moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+  list: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
   upload: '<path d="M12 19V5M5 12l7-7 7 7"/>',
   sliders: '<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
-  list: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
   user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
-  knot: '<path d="M12 2v20M3.5 7l17 10M20.5 7l-17 10"/>',
 };
 
 const Icon = (name: string, size = 18) =>
   `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name]}</svg>`;
+
+const glyphFor = (archetype: string) =>
+  ({ session: 'chatCircle', file: 'file', terminal: 'terminal', workflow: 'gitBranch', issue: 'taskSquare' } as Record<string, string>)[archetype] ?? 'activity';
 ---
 
-<div class="desktop" data-theme="dark">
+<div class="desktop">
   <div class="window">
     <!-- Titlebar -->
     <div class="titlebar">
@@ -112,234 +128,193 @@ const Icon = (name: string, size = 18) =>
         <span class="titlebar-icon" set:html={Icon('upload', 15)} />
         <span class="titlebar-icon" set:html={Icon('sliders', 15)} />
         <span class="titlebar-icon" set:html={Icon('list', 15)} />
-        <span class="titlebar-icon" set:html={Icon('activity', 15)} />
         <span class="titlebar-icon titlebar-user" set:html={Icon('user', 15)} />
       </div>
     </div>
 
-    <div class="window-body">
-      <!-- Icon rail -->
-      <aside class="rail" aria-label="App navigation">
-        <div class="rail-group">
-          {railItems.map((item) => (
-            <div class:list={['rail-item', { active: item.active }]}>
-              <span class="rail-icon">
-                <Fragment set:html={Icon(item.icon, 19)} />
-                {item.badge && <span class="rail-badge">{item.badge}</span>}
-              </span>
-              <span class="rail-label">{item.label}</span>
-            </div>
-          ))}
-        </div>
-        <div class="rail-group">
-          {railBottom.map((item) => (
-            <div class="rail-item">
-              <span class="rail-icon"><Fragment set:html={Icon(item.icon, 19)} /></span>
-              <span class="rail-label">{item.label}</span>
-            </div>
-          ))}
-          <div class="rail-item rail-hide">
-            <span class="rail-icon"><Fragment set:html={Icon('chevronLeft', 19)} /></span>
-            <span class="rail-label">Hide</span>
-          </div>
-        </div>
-      </aside>
+    <!-- Explore's centered three-column block -->
+    <div class="explore">
+      <!-- Left nav (280) -->
+      <nav class="leftnav" aria-label="Explore navigation">
+        <div class="leftnav-scroll">
+          <div class="brandmark" set:html={Icon('sparkle', 28)} />
 
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <div class="side-start">
-          <span set:html={Icon('grid', 15)} />
-          <span>Start</span>
-        </div>
-
-        <div class="side-section">
-          <div class="side-heading">
-            <span class="side-caret" set:html={Icon('chevronDown', 12)} />
-            <span class="side-title">Channels</span>
-            <span class="side-count">3</span>
-            <span class="side-more" set:html={Icon('ellipsis', 14)} />
-          </div>
-          {channels.map((c) => (
-            <div class="side-item">
-              <span class="side-item-icon">#</span>
-              <span class="side-item-name">{c}</span>
-            </div>
+          {navPrimary.map((item) => (
+            <a href="#feed" class:list={['navrow', { selected: item.active }]}>
+              <span class="navrow-icon"><Fragment set:html={Icon(item.icon, 24)} /></span>
+              <span class="navrow-label">{item.label}</span>
+            </a>
           ))}
-        </div>
 
-        <div class="side-section">
-          <div class="side-heading">
-            <span class="side-caret" set:html={Icon('chevronDown', 12)} />
-            <span class="side-title">Projects</span>
-            <span class="side-count">9</span>
-            <span class="side-more" set:html={Icon('ellipsis', 14)} />
-          </div>
+          <a href={config.downloadUrl} data-track-download class="newsession">New session</a>
+
+          {navDestinations.map((item) => (
+            <a href="/docs/features/" class="navrow">
+              <span class="navrow-icon"><Fragment set:html={Icon(item.icon, 24)} /></span>
+              <span class="navrow-label">{item.label}</span>
+            </a>
+          ))}
+
+          <p class="nav-section">Projects</p>
           {projects.map((p) => (
-            <div class:list={['side-item', { active: p.active }]}>
-              <span class="side-item-icon" set:html={Icon('folder', 14)} />
-              <span class="side-item-name">{p.name}</span>
-              {p.badge && <span class="side-badge">{p.badge}</span>}
+            <div class="scoperow">
+              <span class="monogram">{p.name.charAt(0).toUpperCase()}</span>
+              <span class="scoperow-name">{p.name}</span>
             </div>
           ))}
-        </div>
-
-        <div class="side-section">
-          <div class="side-heading">
-            <span class="side-caret" set:html={Icon('chevronDown', 12)} />
-            <span class="side-title">Features</span>
-            <span class="side-more" set:html={Icon('ellipsis', 14)} />
-          </div>
-          <p class="side-note">Bundle changes across projects into a reviewable feature.</p>
-          <div class="side-action">
-            <span set:html={Icon('plus', 13)} />
-            <span>Create feature</span>
+          <div class="scoperow">
+            <span class="monogram monogram-plus" set:html={Icon('plus', 14)} />
+            <span class="scoperow-name">Add project</span>
           </div>
         </div>
 
-        <div class="side-section">
-          <div class="side-heading">
-            <span class="side-caret" set:html={Icon('chevronDown', 12)} />
-            <span class="side-title">Browser</span>
-            <span class="side-count">1</span>
-            <span class="side-more" set:html={Icon('ellipsis', 14)} />
-          </div>
-          <div class="side-item active">
-            <span class="side-item-icon" set:html={Icon('globe', 14)} />
-            <span class="side-item-name">Discord for AI agents</span>
-          </div>
-          <div class="side-item">
-            <span class="side-item-icon" set:html={Icon('refresh', 14)} />
-            <span class="side-item-name">Refresh tabs</span>
-          </div>
-          <div class="side-item">
-            <span class="side-item-icon" set:html={Icon('stop', 14)} />
-            <span class="side-item-name">Stop browser</span>
-          </div>
+        <div class="accountrow">
+          <span class="account-avatar">Y</span>
+          <span class="account-id">
+            <span class="account-name">you</span>
+            <span class="account-path">~/experiments/editor</span>
+          </span>
         </div>
-      </aside>
+      </nav>
 
-      <!-- Main stage -->
-      <main class="stage">
-        <div class="aurora" aria-hidden="true"></div>
+      <span class="hairline" aria-hidden="true"></span>
 
-        <div class="stage-inner">
-          <section class="stage-hero">
-            <div class="bolt-badge" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
-            <h1 class="stage-headline">
+      <!-- Feed (600) -->
+      <main class="feed" id="feed">
+        <div class="feed-tabs">
+          <div class="feed-tab active"><span>Feed</span></div>
+          <div class="feed-tab"><span>Sessions</span></div>
+        </div>
+
+        <!-- Inline composer, doubling as the page's hero + download CTA -->
+        <section class="composer">
+          <span class="composer-avatar">Y</span>
+          <div class="composer-body">
+            <h1 class="composer-headline">
               <span data-typed-headline>Leave your laptop at home</span><span class="caret"></span>
             </h1>
-            <p class="stage-sub">
-              The same dev workspace on desktop, iPad, and phone. Spec a PRD, agents resolve it — you review the diffs from anywhere.
+            <p class="composer-sub">
+              The same dev workspace on desktop, iPad, and phone. Spec a PRD, agents resolve it —
+              you review the diffs from anywhere.
             </p>
-            <div class="stage-ctas">
-              <a href={config.downloadUrl} data-track-download class="app-btn">
-                <AppleIcon size={15} />
+            <div class="composer-actions">
+              <span class="composer-tools" aria-hidden="true">
+                <span set:html={Icon('image', 18)} />
+                <span set:html={Icon('frame', 18)} />
+                <span set:html={Icon('terminal', 18)} />
+              </span>
+              <a href={config.downloadUrl} data-track-download class="post-btn">
+                <AppleIcon size={14} />
                 Download for Mac
               </a>
-              <a href={config.appStoreUrl} class="app-btn">
-                <AppleIcon size={15} />
-                Download for iOS
+              <a href={config.appStoreUrl} class="post-btn ghost">
+                <AppleIcon size={14} />
+                iOS
               </a>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section class="panel-block">
-            <div class="panel-label-row">
-              <span class="panel-label">Session activity</span>
-              <span class="panel-hint">249 in the last year</span>
-            </div>
-            <div class="heat">
-              <div class="heat-months" aria-hidden="true">
-                {months.map((m) => <span>{m}</span>)}
+        <!-- Stream -->
+        {stream.map((item) => (
+          <article class="streamcard">
+            <span class:list={['stream-avatar', { agent: item.kind === 'completed' }]}>
+              {item.kind === 'completed' ? item.author.charAt(0) : 'Y'}
+            </span>
+            <div class="stream-body">
+              <div class="stream-head">
+                <span class="stream-author">{item.author}</span>
+                <span class="scope-handle">{item.scope}</span>
+                <span class="stream-dot">·</span>
+                <span class="stream-time">{item.time}</span>
               </div>
-              <div class="heat-grid" role="img" aria-label="Session activity heatmap for the last year">
-                {heatmap.map((level) => <span class={`heat-cell l${level}`}></span>)}
-              </div>
-              <div class="heat-legend" aria-hidden="true">
-                <span>Less</span>
-                <span class="heat-cell l0"></span>
-                <span class="heat-cell l1"></span>
-                <span class="heat-cell l2"></span>
-                <span class="heat-cell l3"></span>
-                <span class="heat-cell l4"></span>
-                <span>More</span>
-              </div>
-            </div>
-          </section>
-
-          <section class="panel-block">
-            <div class="panel-label-row">
-              <span class="panel-label">Subscriptions</span>
-              <span class="panel-hint">2 active</span>
-            </div>
-
-            <div class="sub-card">
-              <div class="sub-head">
-                <span class="sub-avatar">C</span>
-                <div class="sub-id">
-                  <span class="sub-name">Claude</span>
-                  <span class="sub-tier">Max 20x</span>
+              <p class="stream-text">{item.body}</p>
+              {item.reply && (
+                <div class="reply-context">
+                  <span class="reply-label">In reply to You</span>
+                  <span class="reply-text">{item.reply}</span>
                 </div>
+              )}
+              <div class="stream-actions">
+                <span class="stream-action">
+                  <Fragment set:html={Icon('chatCircle', 16)} />
+                  <span>Open thread</span>
+                </span>
               </div>
-              <div class="sub-row">
-                <span class="sub-metric">Session</span>
-                <span class="sub-value"><strong>27%</strong> / 100%</span>
-              </div>
-              <div class="bar"><span class="bar-fill" style="width: 27%"></span></div>
-              <div class="sub-row">
-                <span class="sub-metric">Weekly</span>
-                <span class="sub-value"><strong>10%</strong> / 100%</span>
-              </div>
-              <div class="bar"><span class="bar-fill" style="width: 10%"></span></div>
-              <div class="sub-row">
-                <span class="sub-metric">Extra usage spent</span>
-                <span class="sub-value"><strong>$8.45</strong> / $21.62</span>
-              </div>
-              <div class="bar"><span class="bar-fill" style="width: 39%"></span></div>
             </div>
+          </article>
+        ))}
 
-            <div class="sub-card">
-              <div class="sub-head">
-                <span class="sub-avatar">C</span>
-                <div class="sub-id">
-                  <span class="sub-name">Codex</span>
-                  <span class="sub-tier">Pro</span>
-                </div>
-              </div>
-              <div class="sub-row">
-                <span class="sub-metric">Session</span>
-                <span class="sub-value"><strong>4%</strong> / 100%</span>
-              </div>
-              <div class="bar"><span class="bar-fill" style="width: 4%"></span></div>
-              <div class="sub-row">
-                <span class="sub-metric">Credits</span>
-                <span class="sub-value"><strong>1,000 credits</strong> / 1,000 credits</span>
-              </div>
-              <div class="bar"><span class="bar-fill" style="width: 100%"></span></div>
-            </div>
-          </section>
-
-          <section class="panel-block">
-            <div class="panel-label-row">
-              <span class="panel-label">Recent</span>
-            </div>
-            {recents.map((r) => (
-              <div class="recent-row">
-                <span class="recent-icon" set:html={Icon('knot', 16)} />
-                <span class="recent-text">{r.text}</span>
-                <span class="recent-time">{r.time}</span>
-              </div>
-            ))}
-          </section>
-        </div>
-
-        <!-- Marketing content scrolls inside the app's main pane -->
-        <div class="stage-content">
+        <!-- Marketing content continues inside the feed column -->
+        <div class="feed-content">
           <slot />
         </div>
       </main>
+
+      <span class="hairline" aria-hidden="true"></span>
+
+      <!-- Right rail (400) -->
+      <aside class="rightrail" aria-label="Activity">
+        <div class="searchbox">
+          <span class="search-icon" set:html={Icon('search', 15)} />
+          <span class="search-placeholder">Search</span>
+        </div>
+
+        <section class="railcard">
+          <div class="railcard-head">
+            <h2>Continue working</h2>
+            <span class="filter-menu">
+              <span>All</span>
+              <Fragment set:html={Icon('caretDown', 13)} />
+            </span>
+          </div>
+          <div class="railcard-body">
+            {continuity.map((row) => (
+              <div class:list={['continuity-row', `k-${row.archetype}`]}>
+                {row.archetype === 'session' ? (
+                  <span class="continuity-avatar">C</span>
+                ) : (
+                  <span class="continuity-glyph"><Fragment set:html={Icon(glyphFor(row.archetype), 18)} /></span>
+                )}
+                <div class="continuity-main">
+                  <div class="byline">
+                    <span class="byline-label">{row.label}</span>
+                    {row.live && <span class="live-dot" aria-hidden="true"></span>}
+                    <span class="byline-meta">· {row.meta}</span>
+                  </div>
+                  <p class="continuity-title">{row.title}</p>
+                  {row.sub && <p class="continuity-sub mono">{row.sub}</p>}
+                  {row.steps && (
+                    <div class="wf-progress" aria-hidden="true">
+                      <span class="wf-step on"></span><span class="wf-dash">—</span>
+                      <span class="wf-step on"></span><span class="wf-dash">—</span>
+                      <span class="wf-step on"></span>
+                      <span class="wf-label">Completed</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+            <div class="loadmore">Load more</div>
+          </div>
+        </section>
+
+        <section class="railcard">
+          <div class="railcard-head"><h2>Most active</h2></div>
+          <div class="railcard-body">
+            {mostActive.map((s) => (
+              <div class="scopecard-row">
+                <span class="monogram lg">{s.name.charAt(0).toUpperCase()}</span>
+                <div class="scopecard-main">
+                  <span class="scopecard-name">{s.name}</span>
+                  <span class="scopecard-meta">{s.label} · {s.count} sessions</span>
+                </div>
+                <span class="pill-btn">View</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </aside>
     </div>
 
     <!-- Status bar -->
@@ -405,12 +380,55 @@ const Icon = (name: string, size = 18) =>
 </script>
 
 <style>
-  /* ===== Desktop surround + window chrome ===== */
+  /* ===== Explore palette ==================================================
+     Dark goes "lights out" — pure-black canvas and tonal chips, no raised
+     surfaces. Light keeps the site's normal warm scheme, exactly as
+     ExploreContent scopes its override to `isDark`.
+     ====================================================================== */
   .desktop {
+    --ex-surface: #000000;
+    --ex-ink: #e7e9ea;
+    --ex-ink2: #b6bcc2;
+    --ex-ink3: #71767b;
+    --ex-ink4: #5b6167;
+    --ex-border: #212427;
+    --ex-chip: #16181c;
+    --ex-hover: rgba(231, 233, 234, 0.03);
+    --ex-brand: var(--color-accent);
+    --ex-inverse: var(--ex-surface);
+    --ex-agent-fill: linear-gradient(160deg, #33261a, #221a12);
+    --ex-railcard: rgba(22, 24, 28, 0.5);
+    --ex-tabs-bg: rgba(0, 0, 0, 0.72);
+    --ex-link: #60a5fa;
+    --ex-accent-file: #2dd4a7;
+    --ex-accent-terminal: #55b7f2;
+    --ex-accent-workflow: #a78bfa;
+    --ex-accent-issue: #60a5fa;
+
     height: 100dvh;
     padding: clamp(0px, 2vw, 26px);
     box-sizing: border-box;
     display: flex;
+  }
+
+  :global([data-theme='light']) .desktop {
+    --ex-surface: #fdf8f2;
+    --ex-ink: #1c1a17;
+    --ex-ink2: #4b463f;
+    --ex-ink3: #7d766c;
+    --ex-ink4: #948d82;
+    --ex-border: #e2d7c9;
+    --ex-chip: #efe6da;
+    --ex-hover: rgba(28, 26, 23, 0.04);
+    --ex-inverse: #ffffff;
+    --ex-agent-fill: linear-gradient(160deg, #f6e3d1, #efd6be);
+    --ex-railcard: rgba(239, 230, 218, 0.72);
+    --ex-tabs-bg: rgba(253, 248, 242, 0.82);
+    --ex-link: #1d6fd0;
+    --ex-accent-file: #0f9b76;
+    --ex-accent-terminal: #1f77c4;
+    --ex-accent-workflow: #7a4fd6;
+    --ex-accent-issue: #1d6fd0;
   }
 
   .window {
@@ -418,14 +436,14 @@ const Icon = (name: string, size = 18) =>
     min-width: 0;
     display: flex;
     flex-direction: column;
-    background: #141414;
-    border: 1px solid #2a2a2a;
+    background: var(--ex-surface);
+    border: 1px solid var(--ex-border);
     border-radius: clamp(0px, 1.5vw, 14px);
     overflow: hidden;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
-    color: #d6d2c9;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+    color: var(--ex-ink);
     font-family: var(--font-family-sans);
-    font-size: 13px;
+    font-size: 14px;
   }
 
   /* ===== Titlebar ===== */
@@ -435,22 +453,13 @@ const Icon = (name: string, size = 18) =>
     justify-content: space-between;
     height: 42px;
     padding: 0 14px;
-    border-bottom: 1px solid #232323;
-    background: #171717;
+    border-bottom: 1px solid var(--ex-border);
+    background: var(--ex-surface);
     flex-shrink: 0;
   }
 
-  .traffic {
-    display: flex;
-    gap: 8px;
-  }
-
-  .light {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-  }
-
+  .traffic { display: flex; gap: 8px; }
+  .light { width: 12px; height: 12px; border-radius: 50%; }
   .light.red { background: #ff5f57; }
   .light.yellow { background: #febc2e; }
   .light.green { background: #28c840; }
@@ -459,533 +468,590 @@ const Icon = (name: string, size = 18) =>
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: rgba(214, 210, 201, 0.55);
+    color: var(--ex-ink3);
   }
 
   .titlebar-link {
     font-size: 12px;
-    color: rgba(214, 210, 201, 0.65);
+    color: var(--ex-ink2);
     transition: color 120ms ease;
   }
 
-  .titlebar-link:hover {
-    color: var(--color-accent);
-  }
+  .titlebar-link:hover { color: var(--ex-brand); }
 
-  .titlebar-sep {
-    width: 1px;
-    height: 14px;
-    background: #2e2e2e;
-  }
-
-  .titlebar-icon {
-    display: inline-flex;
-    align-items: center;
-  }
+  .titlebar-sep { width: 1px; height: 14px; background: var(--ex-border); }
+  .titlebar-icon { display: inline-flex; }
 
   .titlebar-user {
     padding: 3px;
-    border: 1px solid #2e2e2e;
+    border: 1px solid var(--ex-border);
     border-radius: 6px;
   }
 
-  /* ===== Body layout ===== */
-  .window-body {
+  /* ===== Three-column block: 280 | 600 | 400, centered ===== */
+  .explore {
     flex: 1;
+    min-height: 0;
     display: flex;
+    justify-content: center;
+    background: var(--ex-surface);
+  }
+
+  .hairline {
+    width: 1px;
+    flex-shrink: 0;
+    background: var(--ex-border);
+  }
+
+  /* ===== Left nav ===== */
+  .leftnav {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
     min-height: 0;
   }
 
-  /* ===== Icon rail ===== */
-  .rail {
-    width: 66px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0 12px;
-    background: #171717;
-    border-right: 1px solid #232323;
-    overflow-y: auto;
-  }
-
-  .rail-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .rail-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    color: rgba(214, 210, 201, 0.45);
-  }
-
-  .rail-item.active {
-    color: var(--color-accent);
-  }
-
-  .rail-hide {
-    margin-top: 10px;
-  }
-
-  .rail-icon {
-    position: relative;
-    display: inline-flex;
-  }
-
-  .rail-badge {
-    position: absolute;
-    top: -6px;
-    right: -8px;
-    min-width: 15px;
-    height: 15px;
-    padding: 0 4px;
-    border-radius: 8px;
-    background: #f2eadb;
-    color: #171717;
-    font-size: 9px;
-    font-weight: 700;
-    line-height: 15px;
-    text-align: center;
-  }
-
-  .rail-label {
-    font-size: 9.5px;
-    letter-spacing: 0.01em;
-  }
-
-  /* ===== Sidebar ===== */
-  .sidebar {
-    width: 236px;
-    flex-shrink: 0;
-    overflow-y: auto;
-    padding: 10px 10px 20px;
-    background: #171717;
-    border-right: 1px solid #232323;
-  }
-
-  .side-start {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    background: rgba(217, 138, 82, 0.12);
-    border: 1px solid rgba(217, 138, 82, 0.18);
-    color: #e8e3d8;
-    font-weight: 500;
-    margin-bottom: 14px;
-  }
-
-  .side-section {
-    margin-bottom: 18px;
-  }
-
-  .side-heading {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 6px;
-    color: rgba(214, 210, 201, 0.55);
-    font-size: 12.5px;
-    font-weight: 500;
-  }
-
-  .side-caret {
-    display: inline-flex;
-    color: rgba(214, 210, 201, 0.4);
-  }
-
-  .side-title {
-    flex: 0 0 auto;
-  }
-
-  .side-count {
-    color: rgba(214, 210, 201, 0.35);
-    font-size: 11.5px;
-  }
-
-  .side-more {
-    margin-left: auto;
-    display: inline-flex;
-    color: rgba(214, 210, 201, 0.3);
-  }
-
-  .side-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 10px 5px 14px;
-    border-radius: 7px;
-    color: rgba(214, 210, 201, 0.72);
-    font-size: 12.5px;
-  }
-
-  .side-item:hover {
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .side-item.active {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid #2c2c2c;
-    color: #ece7dc;
-  }
-
-  .side-item-icon {
-    display: inline-flex;
-    color: rgba(214, 210, 201, 0.4);
-    font-size: 12px;
-    width: 14px;
-    justify-content: center;
-  }
-
-  .side-item-name {
+  .leftnav-scroll {
     flex: 1;
+    /* Without this the nav's content height wins the flex negotiation and the
+       pinned account row below is pushed over the last scope rows. */
+    min-height: 0;
+    overflow-y: auto;
+    padding: 8px 20px 8px 12px;
+  }
+
+  .brandmark {
+    display: inline-flex;
+    padding: 8px 0 8px 12px;
+    color: var(--ex-ink);
+  }
+
+  /* X nav rows: tall, full-round hover pill, bold when active */
+  .navrow {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 12px 24px 12px 12px;
+    border-radius: 999px;
+    color: var(--ex-ink);
+    transition: background 120ms ease;
+  }
+
+  .navrow:hover { background: var(--ex-hover); }
+  .navrow-icon { display: inline-flex; }
+  .navrow-label { font-size: 19px; font-weight: 400; }
+  .navrow.selected .navrow-label { font-weight: 800; }
+
+  /* Inverse monochrome pill, like X's post button */
+  .newsession {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    margin: 12px 0;
+    border-radius: 999px;
+    background: var(--ex-ink);
+    color: var(--ex-inverse);
+    font-size: 19px;
+    font-weight: 500;
+    transition: background 120ms ease;
+  }
+
+  .newsession:hover { opacity: 0.85; }
+
+  .nav-section {
+    margin: 16px 0 6px;
+    padding-left: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ex-ink4);
+  }
+
+  .scoperow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border-radius: 999px;
+    color: var(--ex-ink);
+    font-size: 15px;
+    transition: background 120ms ease;
+  }
+
+  .scoperow:hover { background: var(--ex-hover); }
+
+  .scoperow-name {
+    flex: 1;
+    min-width: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .side-badge {
-    min-width: 17px;
-    height: 17px;
-    padding: 0 5px;
-    border-radius: 9px;
-    background: #f2eadb;
-    color: #171717;
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 17px;
-    text-align: center;
+  .monogram {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--ex-chip);
+    color: var(--ex-ink2);
+    font-size: 13px;
+    font-weight: 600;
   }
 
-  .side-note {
-    padding: 2px 14px;
-    margin: 2px 0;
-    color: rgba(214, 210, 201, 0.4);
-    font-size: 11.5px;
-    line-height: 1.5;
-  }
+  .monogram.lg { width: 36px; height: 36px; font-size: 15px; }
 
-  .side-action {
+  .accountrow {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding: 5px 14px;
-    color: rgba(214, 210, 201, 0.6);
-    font-size: 12.5px;
-    cursor: default;
+    gap: 12px;
+    padding: 14px 24px;
+    /* The scope list scrolls under this pinned row; the rule keeps the two
+       readable as separate regions instead of a collision. */
+    border-top: 1px solid var(--ex-border);
+    background: var(--ex-surface);
   }
 
-  .side-action:hover {
-    color: var(--color-accent);
+  .account-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--ex-chip);
+    color: var(--ex-ink2);
+    font-size: 14px;
+    font-weight: 600;
   }
 
-  /* ===== Stage (main pane) ===== */
-  .stage {
-    flex: 1;
+  .account-id { display: flex; flex-direction: column; min-width: 0; }
+  .account-name { font-size: 15px; font-weight: 600; color: var(--ex-ink); }
+
+  .account-path {
+    font-size: 13px;
+    color: var(--ex-ink3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ===== Feed column ===== */
+  .feed {
+    width: 600px;
+    max-width: 600px;
+    flex: 1 1 600px;
     min-width: 0;
-    position: relative;
     overflow-y: auto;
-    background: #0e1014;
+    background: var(--ex-surface);
   }
 
-  .aurora {
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 1100px;
-    pointer-events: none;
-    background:
-      radial-gradient(55% 42% at 82% 6%, rgba(228, 150, 90, 0.16), transparent 65%),
-      radial-gradient(45% 36% at 8% 72%, rgba(220, 145, 95, 0.10), transparent 60%),
-      radial-gradient(70% 55% at 48% 28%, rgba(84, 122, 188, 0.16), transparent 65%),
-      radial-gradient(38% 30% at 26% 8%, rgba(96, 134, 204, 0.13), transparent 60%),
-      linear-gradient(112deg, transparent 42%, rgba(120, 156, 216, 0.07) 50%, transparent 58%),
-      linear-gradient(104deg, transparent 60%, rgba(228, 160, 104, 0.06) 68%, transparent 76%);
-    mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-  }
-
-  .stage-inner {
-    position: relative;
-    max-width: 40rem;
-    margin: 0 auto;
-    padding: 4.5rem 1.5rem 3rem;
-  }
-
-  /* ===== Hero ===== */
-  .stage-hero {
+  /* X's home tab bar: two equal halves, brand underline hugging the label */
+  .feed-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 5;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-    margin-bottom: 4rem;
+    background: var(--ex-tabs-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--ex-border);
   }
 
-  .bolt-badge {
-    width: 62px;
-    height: 62px;
-    border-radius: 16px;
+  .feed-tab {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-accent);
-    background: linear-gradient(160deg, #2b2119, #1a150f);
-    border: 1px solid rgba(217, 138, 82, 0.28);
-    box-shadow: 0 0 40px rgba(217, 138, 82, 0.18);
-    margin-bottom: 0.5rem;
+    height: 53px;
+    color: var(--ex-ink3);
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 120ms ease;
   }
 
-  .stage-headline {
-    font-size: clamp(1.75rem, 4vw, 2.375rem);
+  .feed-tab:hover { background: var(--ex-hover); }
+
+  .feed-tab.active { color: var(--ex-ink); font-weight: 700; }
+
+  .feed-tab span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .feed-tab.active span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--ex-brand);
+  }
+
+  /* ===== Inline composer (doubles as the hero) ===== */
+  .composer {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid var(--ex-border);
+  }
+
+  .composer-avatar,
+  .stream-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--ex-chip);
+    color: var(--ex-ink2);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .stream-avatar.agent {
+    background: var(--ex-agent-fill);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+    color: var(--ex-brand);
+  }
+
+  .composer-body { flex: 1; min-width: 0; }
+
+  .composer-headline {
+    margin: 0;
+    font-size: clamp(1.5rem, 3.2vw, 1.9rem);
     font-weight: 600;
     letter-spacing: -0.02em;
-    color: #f2eadb;
-    margin: 0;
+    line-height: 1.25;
     min-height: 1.25em;
-    line-height: 1.2;
+    color: var(--ex-ink);
   }
 
-  .stage-sub {
-    color: rgba(214, 210, 201, 0.5);
-    font-size: 13.5px;
-    line-height: 1.6;
-    max-width: 30rem;
-    margin: 0;
+  .composer-sub {
+    margin: 0.625rem 0 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ex-ink3);
   }
 
-  .stage-ctas {
+  .composer-actions {
     display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--ex-border);
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.625rem;
-    margin-top: 0.75rem;
   }
 
-  .app-btn {
+  .composer-tools {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-right: auto;
+    color: var(--ex-brand);
+  }
+
+  .post-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    height: 40px;
+    height: 38px;
     padding: 0 1.125rem;
-    border-radius: 9px;
-    background: #1f1f1f;
-    border: 1px solid #333333;
-    color: #ece7dc;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 120ms ease;
-  }
-
-  .app-btn:hover {
-    background: #262626;
-    border-color: var(--color-accent);
-    color: #fff;
-  }
-
-  /* ===== Panels ===== */
-  .panel-block {
-    margin-bottom: 3rem;
-  }
-
-  .panel-label-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-
-  .panel-label {
-    font-size: 11px;
+    border-radius: 999px;
+    background: var(--ex-ink);
+    color: var(--ex-inverse);
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(214, 210, 201, 0.45);
+    transition: background 120ms ease;
   }
 
-  .panel-hint {
-    font-size: 12px;
-    color: rgba(214, 210, 201, 0.4);
+  .post-btn:hover { opacity: 0.85; }
+
+  .post-btn.ghost {
+    background: transparent;
+    border: 1px solid var(--ex-border);
+    color: var(--ex-ink);
   }
 
-  /* ===== Heatmap ===== */
-  .heat-months {
+  .post-btn.ghost:hover { background: var(--ex-hover); }
+
+  /* ===== Stream cards ===== */
+  .streamcard {
     display: flex;
-    justify-content: space-between;
-    padding-right: 20%;
-    margin-bottom: 6px;
-    font-size: 10.5px;
-    color: rgba(214, 210, 201, 0.4);
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--ex-border);
+    transition: background 120ms ease;
   }
 
-  .heat-grid {
-    display: grid;
-    grid-template-rows: repeat(7, 1fr);
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    gap: 3px;
-  }
+  .streamcard:hover { background: var(--ex-hover); }
 
-  .heat-cell {
-    aspect-ratio: 1;
-    width: 100%;
-    min-width: 6px;
-    border-radius: 2.5px;
-    background: rgba(255, 255, 255, 0.055);
-  }
+  .stream-body { flex: 1; min-width: 0; }
 
-  .heat-cell.l1 { background: #4b3524; }
-  .heat-cell.l2 { background: #7a5232; }
-  .heat-cell.l3 { background: #b3763f; }
-  .heat-cell.l4 { background: #e29a5c; }
-
-  .heat-legend {
+  .stream-head {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     gap: 4px;
-    margin-top: 8px;
-    font-size: 10.5px;
-    color: rgba(214, 210, 201, 0.4);
-  }
-
-  .heat-legend .heat-cell {
-    width: 10px;
-    height: 10px;
-    min-width: 10px;
-    flex: 0 0 auto;
-  }
-
-  .heat-legend span:first-child { margin-right: 3px; }
-  .heat-legend span:last-child { margin-left: 3px; }
-
-  /* ===== Subscription cards ===== */
-  .sub-card {
-    background: #191919;
-    border: 1px solid #272727;
-    border-radius: 12px;
-    padding: 1.125rem 1.25rem;
-    margin-bottom: 0.875rem;
-  }
-
-  .sub-head {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .sub-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(160deg, #33261a, #221a12);
-    border: 1px solid rgba(217, 138, 82, 0.25);
-    color: var(--color-accent);
-    font-weight: 700;
     font-size: 15px;
   }
 
-  .sub-id {
+  .stream-author { font-weight: 600; color: var(--ex-ink); }
+
+  .scope-handle { color: var(--ex-ink3); }
+  .scope-handle:hover { text-decoration: underline; }
+
+  .stream-dot,
+  .stream-time { color: var(--ex-ink3); }
+
+  .stream-text {
+    margin: 5px 0 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--ex-ink);
+  }
+
+  .reply-context {
+    margin-top: 9px;
+    padding: 8px 12px;
+    border: 1px solid var(--ex-border);
+    border-radius: 12px;
+  }
+
+  .reply-label {
+    display: block;
+    font-size: 13px;
+    color: var(--ex-ink3);
+  }
+
+  .reply-text {
+    display: block;
+    margin-top: 2px;
+    font-size: 14px;
+    color: var(--ex-ink2);
+  }
+
+  .stream-actions { margin-top: 10px; }
+
+  .stream-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--ex-ink3);
+    transition: color 120ms ease;
+  }
+
+  .stream-action:hover { color: var(--ex-brand); }
+
+  .feed-content { border-top: 1px solid var(--ex-border); }
+
+  /* ===== Right rail ===== */
+  .rightrail {
+    width: 400px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    padding: 10px 20px;
     display: flex;
     flex-direction: column;
-    line-height: 1.3;
+    gap: 14px;
   }
 
-  .sub-name {
-    font-weight: 600;
-    color: #ece7dc;
-  }
-
-  .sub-tier {
-    font-size: 11.5px;
-    color: rgba(214, 210, 201, 0.45);
-  }
-
-  .sub-row {
+  .searchbox {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin: 0.625rem 0 0.375rem;
-    font-size: 12px;
-    color: rgba(214, 210, 201, 0.55);
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: var(--ex-chip);
+    color: var(--ex-ink3);
   }
 
-  .sub-value {
-    color: rgba(214, 210, 201, 0.45);
-  }
+  .search-icon { display: inline-flex; }
+  .search-placeholder { font-size: 14px; }
 
-  .sub-value strong {
-    color: #ece7dc;
-    font-weight: 600;
-  }
-
-  .bar {
-    height: 4px;
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.07);
+  /* Quiet tonal group — no perimeter competing with the rows inside */
+  .railcard {
+    border-radius: 16px;
+    background: var(--ex-railcard);
+    padding: 10px 0;
     overflow: hidden;
   }
 
-  .bar-fill {
-    display: block;
-    height: 100%;
-    border-radius: 2px;
-    background: linear-gradient(90deg, #c97f45, #e8a468);
-  }
-
-  /* ===== Recent ===== */
-  .recent-row {
+  .railcard-head {
     display: flex;
     align-items: center;
-    gap: 0.875rem;
-    padding: 0.75rem 0.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 12px;
+    padding: 6px 16px;
   }
 
-  .recent-icon {
-    width: 34px;
-    height: 34px;
-    flex-shrink: 0;
+  .railcard-head h2 {
+    flex: 1;
+    margin: 0;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ex-ink);
+  }
+
+  .filter-menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 8px;
     border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ex-ink2);
+  }
+
+  .filter-menu:hover { background: var(--ex-hover); }
+
+  .continuity-row {
     display: flex;
+    gap: 11px;
+    padding: 11px 16px;
+    border-bottom: 1px solid color-mix(in srgb, var(--ex-border) 62%, transparent);
+    transition: background 120ms ease;
+  }
+
+  .continuity-row:hover { background: var(--ex-hover); }
+
+  .continuity-avatar {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #1e1e1e;
-    border: 1px solid #2a2a2a;
-    color: rgba(214, 210, 201, 0.6);
+    border-radius: 50%;
+    background: var(--ex-agent-fill);
+    color: var(--ex-brand);
+    font-size: 10px;
+    font-weight: 700;
   }
 
-  .recent-text {
-    flex: 1;
-    min-width: 0;
+  .continuity-glyph {
+    flex-shrink: 0;
+    display: inline-flex;
+    padding-top: 2px;
+    color: var(--ex-ink2);
+  }
+
+  /* Per-kind accents, matching continuityAccent() */
+  .k-file .continuity-glyph { color: var(--ex-accent-file); }
+  .k-terminal .continuity-glyph { color: var(--ex-accent-terminal); }
+  .k-workflow .continuity-glyph { color: var(--ex-accent-workflow); }
+  .k-issue .continuity-glyph { color: var(--ex-accent-issue); }
+
+  .continuity-main { flex: 1; min-width: 0; }
+
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+  }
+
+  .byline-label { font-weight: 700; color: var(--ex-ink); }
+  .byline-meta { color: var(--ex-ink3); }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+  }
+
+  .continuity-title {
+    margin: 4px 0 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--ex-ink);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .k-session .continuity-title { font-size: 15px; font-weight: 600; }
+
+  .continuity-sub {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--ex-ink3);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: rgba(214, 210, 201, 0.75);
-    font-size: 12.5px;
   }
 
-  .recent-time {
-    flex-shrink: 0;
+  .mono { font-family: var(--font-family-mono, ui-monospace, monospace); }
+
+  .wf-progress {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
     font-size: 11px;
-    color: rgba(214, 210, 201, 0.35);
+    color: var(--ex-ink3);
   }
 
-  /* ===== Marketing content inside the stage ===== */
-  .stage-content {
-    position: relative;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  .wf-step {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ex-border);
   }
+
+  .wf-step.on { background: var(--ex-ink2); }
+  .wf-label { margin-left: 4px; }
+
+  .loadmore {
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ex-link);
+  }
+
+  .loadmore:hover { background: var(--ex-hover); }
+
+  .scopecard-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    transition: background 120ms ease;
+  }
+
+  .scopecard-row:hover { background: var(--ex-hover); }
+
+  .scopecard-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .scopecard-name { font-size: 15px; font-weight: 600; color: var(--ex-ink); }
+  .scopecard-meta { font-size: 13px; color: var(--ex-ink3); }
+
+  .pill-btn {
+    padding: 6px 16px;
+    border: 1px solid var(--ex-border);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-ink);
+  }
+
+  .pill-btn:hover { background: var(--ex-hover); }
 
   /* ===== Status bar ===== */
   .statusbar {
@@ -995,10 +1061,10 @@ const Icon = (name: string, size = 18) =>
     justify-content: space-between;
     height: 34px;
     padding: 0 14px;
-    border-top: 1px solid #232323;
-    background: #171717;
+    border-top: 1px solid var(--ex-border);
+    background: var(--ex-surface);
     font-size: 11.5px;
-    color: rgba(214, 210, 201, 0.5);
+    color: var(--ex-ink3);
   }
 
   .statusbar-left,
@@ -1011,37 +1077,40 @@ const Icon = (name: string, size = 18) =>
   .statusbar-right {
     padding: 3px 8px;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid #2a2a2a;
+    background: var(--ex-chip);
+    border: 1px solid var(--ex-border);
   }
 
-  /* ===== Responsive ===== */
-  @media (max-width: 980px) {
-    .sidebar {
+  /* ===== Responsive — same breakpoints as ExploreLayout ===== */
+  /* showRightRail = maxWidth >= 1280 */
+  @media (max-width: 1320px) {
+    .rightrail,
+    .explore > .hairline:last-of-type {
       display: none;
     }
   }
 
-  @media (max-width: 720px) {
-    .desktop {
-      padding: 0;
+  /* showLeftRail = maxWidth >= 950 */
+  @media (max-width: 990px) {
+    .leftnav,
+    .explore > .hairline {
+      display: none;
     }
+
+    .feed { max-width: none; }
+  }
+
+  @media (max-width: 720px) {
+    .desktop { padding: 0; }
 
     .window {
       border: none;
       border-radius: 0;
     }
 
-    .rail {
-      display: none;
-    }
+    .titlebar-icon:not(.titlebar-user) { display: none; }
 
-    .titlebar-icon:not(.titlebar-user) {
-      display: none;
-    }
-
-    .heat-cell {
-      border-radius: 1.5px;
-    }
+    .composer,
+    .streamcard { padding-left: 12px; padding-right: 12px; }
   }
 </style>

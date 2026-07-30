@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Tempo run",
+    "when": "Mon · 6:10 AM",
+    "sport": "Run",
+    "duration": "52 min",
+    "distance": "10.4 km",
+    "load": 86,
+    "status": "Completed"
+  },
+  {
+    "name": "Threshold intervals",
+    "when": "Tue · 5:45 PM",
+    "sport": "Bike",
+    "duration": "1h 15m",
+    "distance": "38.2 km",
+    "load": 112,
+    "status": "Completed"
+  },
+  {
+    "name": "Recovery swim",
+    "when": "Wed · 7:00 AM",
+    "sport": "Swim",
+    "duration": "40 min",
+    "distance": "1.8 km",
+    "load": 34,
+    "status": "Completed"
+  },
+  {
+    "name": "Long ride",
+    "when": "Sat · 8:00 AM",
+    "sport": "Bike",
+    "duration": "3h 05m",
+    "distance": "84.6 km",
+    "load": 198,
+    "status": "Planned"
+  },
+  {
+    "name": "Hill repeats",
+    "when": "Sun · 6:30 AM",
+    "sport": "Run",
+    "duration": "48 min",
+    "distance": "8.2 km",
+    "load": 95,
+    "status": "Planned"
+  },
+  {
+    "name": "Mobility + core",
+    "when": "Thu · 9:00 PM",
+    "sport": "Strength",
+    "duration": "30 min",
+    "distance": "—",
+    "load": 22,
+    "status": "Missed"
+  }
+]

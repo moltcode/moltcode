@@ -1,0 +1,48 @@
+{
+  "id": "des_a0262d8eaac7",
+  "kind": "design",
+  "model": {
+    "frames": [
+      {
+        "h": 900,
+        "id": "screen",
+        "layout": {
+          "alignment": {
+            "horizontal": "stretch",
+            "vertical": "start"
+          },
+          "children": [],
+          "gap": 16,
+          "id": "root",
+          "layout": "column",
+          "name": "Page",
+          "padding": {
+            "bottom": 24,
+            "left": 24,
+            "right": 24,
+            "top": 24
+          },
+          "sizing": {
+            "height": {
+              "mode": "fill",
+              "value": 1
+            },
+            "width": {
+              "mode": "fill",
+              "value": 1
+            }
+          },
+          "type": "container"
+        },
+        "name": "Desktop",
+        "w": 1440,
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "version": 2
+  },
+  "name": "Project Command Center",
+  "updatedAt": 1783955019423,
+  "version": 2
+}
