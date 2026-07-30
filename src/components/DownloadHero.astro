@@ -1,0 +1,94 @@
+---
+import { config } from '../config';
+import AppleIcon from './AppleIcon.astro';
+---
+
+<section class="hero">
+  <h1 class="headline">The dev workspace for shipping with agents.</h1>
+  <p class="sub">
+    Spec the work, agents resolve it, you review the diffs — on desktop, iPad, and phone.
+  </p>
+
+  <div class="actions">
+    <a href={config.downloadUrl} data-track-download class="btn primary">
+      <AppleIcon size={16} />
+      Download for Mac
+    </a>
+    <a href={config.appStoreUrl} class="btn ghost">
+      <AppleIcon size={16} />
+      iOS
+    </a>
+  </div>
+
+  <p class="meta">macOS · Apple silicon · free forever</p>
+</section>
+
+<style>
+  .hero {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: clamp(3rem, 9vw, 6rem) 1.25rem clamp(2rem, 5vw, 3rem);
+    text-align: center;
+  }
+
+  .headline {
+    margin: 0;
+    font-family: var(--font-family-sans);
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--color-primary);
+  }
+
+  .sub {
+    margin: 1.125rem auto 0;
+    max-width: 34rem;
+    font-size: clamp(0.95rem, 2vw, 1.0625rem);
+    line-height: 1.6;
+    color: var(--color-secondary);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 46px;
+    padding: 0 1.5rem;
+    border-radius: 999px;
+    font-family: var(--font-family-mono);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: opacity 120ms ease, background 120ms ease, border-color 120ms ease;
+  }
+
+  .btn.primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border: 1px solid var(--color-accent);
+  }
+
+  .btn.primary:hover { opacity: 0.88; }
+
+  .btn.ghost {
+    background: transparent;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-primary);
+  }
+
+  .btn.ghost:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+  .meta {
+    margin: 1.125rem 0 0;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+</style>

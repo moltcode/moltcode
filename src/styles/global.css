@@ -43,6 +43,15 @@
   --color-prompt: #D98A52;
 
   --color-accent-rgb: 217, 138, 82;
+
+  /* Chat-transcript tokens — mirror ChatTurnStyles' dark branch. */
+  --chat-ink: #E5E7EB;
+  --chat-muted: rgba(212, 212, 216, 0.72);
+  --chat-user-bubble: rgba(27, 27, 27, 0.78);
+  --chat-agent-fill: linear-gradient(160deg, #33261A, #221A12);
+  --chat-tool-fill: rgba(255, 255, 255, 0.05);
+  --chat-connector: rgba(255, 255, 255, 0.25);
+  --chat-dot-fill: #000000;
 }
 
 /* ===== Light (warm paper) ===== */
@@ -61,6 +70,15 @@
   --color-prompt: #B5651D;
 
   --color-accent-rgb: 181, 101, 29;
+
+  /* Chat-transcript tokens — mirror ChatTurnStyles' light branch. */
+  --chat-ink: #262626;
+  --chat-muted: rgba(107, 114, 128, 0.9);
+  --chat-user-bubble: rgba(253, 251, 247, 0.78);
+  --chat-agent-fill: linear-gradient(160deg, #F8E6D6, #F1D8C2);
+  --chat-tool-fill: rgba(42, 31, 20, 0.05);
+  --chat-connector: #A89078;
+  --chat-dot-fill: #FFFFFF;
 }
 
 html {
