@@ -6,28 +6,28 @@ const currentYear = new Date().getFullYear();
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-name"><span class="footer-prompt">$</span> moltcode --version</div>
+        <div class="footer-name"><span class="footer-mark" aria-hidden="true">M</span> moltcode</div>
         <p class="footer-desc">
           The dev workspace for shipping with agents. Same app on desktop, iPad, and phone. Free forever.
         </p>
       </div>
 
       <div class="footer-col">
-        <div class="footer-heading">// product</div>
+        <div class="footer-heading">Product</div>
         <ul class="footer-list">
-          <li><a href="/#features">features</a></li>
-          <li><a href="/#workflow">workflow</a></li>
-          <li><a href="/pricing/">pricing</a></li>
-          <li><a href="/docs/what-is-moltcode/">docs</a></li>
-          <li><a href="/docs/changelog/">changelog</a></li>
-          <li><a href="/docs/support/">support</a></li>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#workflow">Workflow</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+          <li><a href="/docs/what-is-moltcode/">Docs</a></li>
+          <li><a href="/docs/changelog/">Changelog</a></li>
+          <li><a href="/docs/support/">Support</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <div class="footer-heading">// connect</div>
+        <div class="footer-heading">Connect</div>
         <ul class="footer-list">
-          <li><a href="https://github.com/moltcode/moltcode/issues" target="_blank">github.issues</a></li>
+          <li><a href="https://github.com/moltcode/moltcode/issues" target="_blank">GitHub issues</a></li>
         </ul>
       </div>
     </div>
@@ -35,8 +35,8 @@ const currentYear = new Date().getFullYear();
     <div class="footer-bottom">
       <span class="footer-copy">© {currentYear} molt code · <a href="https://utpun.com" target="_blank">utpun tech labs</a></span>
       <div class="footer-legal">
-        <a href="/privacy/">privacy</a>
-        <a href="/terms/">terms</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@ const currentYear = new Date().getFullYear();
     border-top: 1px solid var(--color-border);
     margin-top: 4rem;
     padding: 3rem 1.25rem 2rem;
-    font-family: var(--font-family-mono);
+    font-family: var(--font-family-sans);
   }
 
   @media (min-width: 640px) {
@@ -80,28 +80,43 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-name {
-    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
     color: var(--color-primary);
     margin-bottom: 0.625rem;
   }
 
-  .footer-prompt {
-    color: var(--color-accent);
-    margin-right: 0.25rem;
+  .footer-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    background: linear-gradient(160deg, #8B7CF6, #6244D4);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
   }
 
   .footer-desc {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-secondary);
     line-height: 1.7;
     margin: 0;
+    max-width: 24rem;
   }
 
   .footer-heading {
-    font-size: 11px;
-    color: var(--color-muted);
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--color-primary);
     margin-bottom: 0.75rem;
-    letter-spacing: 0.04em;
+    letter-spacing: -0.005em;
   }
 
   .footer-list {
@@ -114,7 +129,7 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-list a {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-secondary);
     transition: color 120ms ease;
   }

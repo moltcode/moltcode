@@ -64,19 +64,20 @@ import AppleIcon from './AppleIcon.astro';
     height: 46px;
     padding: 0 1.5rem;
     border-radius: 999px;
-    font-family: var(--font-family-mono);
+    font-family: var(--font-family-sans);
     font-size: 0.9375rem;
     font-weight: 600;
+    letter-spacing: -0.01em;
     transition: opacity 120ms ease, background 120ms ease, border-color 120ms ease;
   }
 
   .btn.primary {
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: #FFFFFF;
     border: 1px solid var(--color-accent);
   }
 
-  .btn.primary:hover { opacity: 0.88; }
+  .btn.primary:hover { background: var(--color-accent-strong); border-color: var(--color-accent-strong); }
 
   .btn.ghost {
     background: transparent;

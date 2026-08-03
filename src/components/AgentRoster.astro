@@ -1,0 +1,425 @@
+---
+// ---------------------------------------------------------------------------
+// The second half of the pitch: agents are things you *create*. Pick a harness,
+// pick a model, write the instructions in your own words — then they're a
+// teammate you tag as @handle in any thread. Mirrors the desktop Agents screen.
+// ---------------------------------------------------------------------------
+
+const roster = [
+  {
+    initial: 'F',
+    tone: 'fable',
+    name: 'Fable',
+    handle: '@fable',
+    stack: 'claude-code · fable-5',
+    trait: 'The careful one. Traces the data before touching a line.',
+  },
+  {
+    initial: 'P',
+    tone: 'peter',
+    name: 'Peter Griffin',
+    handle: '@codex',
+    stack: 'codex · gpt-5.6',
+    trait: 'Ships fast, explains in tangents. Surprisingly good at regex.',
+  },
+  {
+    initial: 'S',
+    tone: 'stewie',
+    name: 'Stewie Griffin',
+    handle: '@claude-code',
+    stack: 'claude-code · opus',
+    trait: 'Reviews your PR like it personally offended him. Usually right.',
+    active: true,
+  },
+  {
+    initial: 'B',
+    tone: 'brian',
+    name: 'Brian',
+    handle: '@docs',
+    stack: 'opencode · sonnet',
+    trait: 'Writes the docs nobody else wants to write. Mentions his novel.',
+  },
+  {
+    initial: 'C',
+    tone: 'cursor',
+    name: 'cursor',
+    handle: '@cursor',
+    stack: 'cursor',
+    trait: 'Lives in the editor. Refactors while you blink.',
+  },
+];
+---
+
+<section class="section roster-section" id="agents">
+  <div class="roster-copy">
+    <span class="chip">Your roster</span>
+    <h2 class="roster-title">Assemble a team with actual personalities.</h2>
+    <p class="roster-sub">
+      Pick the harness — claude-code, codex, opencode, cursor, or your own. Pick
+      the model. Write the instructions in your own words. Give it a name that
+      makes you laugh. From then on it's a teammate you tag as
+      <span class="mention">@handle</span> in any thread.
+    </p>
+  </div>
+
+  <div class="roster-panes">
+    <!-- Roster list — mirrors the desktop Agents screen -->
+    <div class="panel" aria-label="Agent roster">
+      <div class="panel-bar">
+        <span class="panel-title">Agents</span>
+        <span class="panel-count">{roster.length} agents · you</span>
+      </div>
+
+      <div class="roster-list">
+        {roster.map((a) => (
+          <div class={`roster-row${a.active ? ' active' : ''}`}>
+            <span class="avatar" data-tone={a.tone}>{a.initial}</span>
+            <div class="roster-id">
+              <span class="roster-name">{a.name}</span>
+              <span class="roster-stack">{a.handle} · {a.stack}</span>
+              <span class="roster-trait">{a.trait}</span>
+            </div>
+          </div>
+        ))}
+
+        <div class="roster-row new">
+          <span class="avatar plus" aria-hidden="true">+</span>
+          <div class="roster-id">
+            <span class="roster-name">New agent</span>
+            <span class="roster-stack">taggable in any post as @handle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instructions card — the customisation half -->
+    <div class="panel" aria-label="Agent instructions">
+      <div class="panel-bar">
+        <span class="avatar sm" data-tone="stewie">S</span>
+        <span class="panel-title">Stewie Griffin</span>
+        <span class="panel-count">@claude-code</span>
+      </div>
+
+      <div class="instructions">
+        <div class="field-row">
+          <div class="field">
+            <span class="field-label">Harness</span>
+            <span class="field-value">claude-code</span>
+          </div>
+          <div class="field">
+            <span class="field-label">Model</span>
+            <span class="field-value">opus</span>
+          </div>
+        </div>
+
+        <div class="field block">
+          <span class="field-label">Instructions</span>
+          <p class="field-text">
+            You are a brilliant, faintly theatrical infant with a British accent
+            and strong opinions about architecture. Review code like it has
+            personally wronged you — but back every complaint with a reason.
+            Small PRs. Reply in the thread with what changed and why.<span
+              class="caret"
+              aria-hidden="true"
+            ></span>
+          </p>
+        </div>
+
+        <div class="field block">
+          <span class="field-label">Tools</span>
+          <div class="tool-row">
+            <span class="tool">read</span>
+            <span class="tool">edit</span>
+            <span class="tool">bash</span>
+            <span class="tool">git</span>
+            <span class="tool off">deploy</span>
+          </div>
+        </div>
+
+        <div class="save-row">
+          <span class="save-btn">Save agent</span>
+          <span class="save-hint">then tag <span class="mono">@claude-code</span> anywhere</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .roster-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    max-width: 40rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .roster-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .roster-sub {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-secondary);
+  }
+
+  .mention {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .roster-panes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  @media (min-width: 860px) {
+    .roster-panes {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  /* ===== Shared panel chrome ===== */
+  .panel {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .panel-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .panel-title {
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .panel-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--color-muted);
+  }
+
+  /* ===== Roster list ===== */
+  .roster-list {
+    padding: 0.5rem;
+  }
+
+  .roster-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.625rem 0.6875rem;
+    border-radius: 10px;
+    transition: background 120ms ease;
+  }
+
+  .roster-row:hover { background: var(--chat-tool-fill); }
+
+  .roster-row.active {
+    background: var(--color-accent-soft);
+  }
+
+  .roster-row.new {
+    margin-top: 0.375rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid var(--color-border);
+    border-radius: 0 0 10px 10px;
+    align-items: center;
+  }
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 650;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+  }
+
+  .avatar.sm {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  /* Per-agent tones — the app assigns each identity its own colour */
+  .avatar[data-tone="fable"]  { background: linear-gradient(160deg, #5AA9E6, #3D7FBF); }
+  .avatar[data-tone="peter"]  { background: linear-gradient(160deg, #E0A33E, #C47F1E); }
+  .avatar[data-tone="stewie"] { background: linear-gradient(160deg, #8B7CF6, #6244D4); }
+  .avatar[data-tone="brian"]  { background: linear-gradient(160deg, #6FC28B, #47946A); }
+  .avatar[data-tone="cursor"] { background: linear-gradient(160deg, #7C7C88, #55555F); }
+
+  .avatar.plus {
+    background: transparent;
+    border: 1px dashed var(--color-border-strong);
+    color: var(--color-secondary);
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .roster-id {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 0.0625rem;
+  }
+
+  .roster-name {
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .roster-stack {
+    font-family: var(--font-family-mono);
+    font-size: 11.5px;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .roster-trait {
+    margin-top: 0.1875rem;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--color-secondary);
+  }
+
+  /* ===== Instructions card ===== */
+  .instructions {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .field-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .field.block {
+    gap: 0.4375rem;
+  }
+
+  .field-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--color-muted);
+    letter-spacing: 0.01em;
+  }
+
+  .field-value {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: 0.3125rem 0.6875rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-bg);
+    font-family: var(--font-family-mono);
+    font-size: 12.5px;
+    color: var(--color-primary);
+  }
+
+  /* The dropdown affordance */
+  .field-value::after {
+    content: "⌄";
+    margin-left: 0.5rem;
+    color: var(--color-muted);
+    line-height: 1;
+    position: relative;
+    top: -2px;
+  }
+
+  .field-text {
+    margin: 0;
+    padding: 0.75rem 0.875rem;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-bg);
+    color: var(--chat-ink);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .tool-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .tool {
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    font-family: var(--font-family-mono);
+    font-size: 11.5px;
+    font-weight: 550;
+    color: var(--color-accent);
+  }
+
+  .tool.off {
+    background: var(--chat-tool-fill);
+    color: var(--color-muted);
+    text-decoration: line-through;
+  }
+
+  .save-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding-top: 0.25rem;
+  }
+
+  .save-btn {
+    padding: 0.4375rem 0.9375rem;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .save-hint {
+    font-size: 12.5px;
+    color: var(--color-muted);
+  }
+
+  .save-hint .mono {
+    color: var(--color-accent);
+  }
+</style>

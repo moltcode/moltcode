@@ -26,58 +26,73 @@
   font-display: swap;
 }
 
-/* ===== Dark (warm ink on cream-toned graphite) ===== */
+/* ===========================================================================
+   Design system — mirrors the Molt Code desktop app.
+   Cool near-black surfaces, violet accent, Inter as the primary voice.
+   Mono is reserved for what is genuinely code: handles, paths, diffs.
+   =========================================================================== */
+
+/* ===== Dark (the app's native skin) ===== */
 :root,
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --color-bg: #131313;
-  --color-surface: #1B1B1B;
-  --color-primary: #F2EADB;
-  --color-secondary: rgba(242, 234, 219, 0.55);
-  --color-muted: rgba(242, 234, 219, 0.35);
-  --color-accent: #D98A52;
-  --color-accent-strong: #EBA366;
-  --color-border: #2E2E2E;
-  --color-border-strong: #454545;
-  --color-prompt: #D98A52;
+  --color-bg: #0B0B0D;
+  --color-surface: #141417;
+  --color-surface-raised: #1B1B20;
+  --color-primary: #EDEDF0;
+  --color-secondary: rgba(237, 237, 240, 0.62);
+  --color-muted: rgba(237, 237, 240, 0.40);
+  --color-accent: #8B7CF6;
+  --color-accent-strong: #A594FF;
+  --color-border: #232329;
+  --color-border-strong: #34343C;
+  --color-prompt: #8B7CF6;
 
-  --color-accent-rgb: 217, 138, 82;
+  --color-accent-rgb: 139, 124, 246;
+  --color-accent-soft: rgba(139, 124, 246, 0.14);
 
-  /* Chat-transcript tokens — mirror ChatTurnStyles' dark branch. */
-  --chat-ink: #E5E7EB;
-  --chat-muted: rgba(212, 212, 216, 0.72);
-  --chat-user-bubble: rgba(27, 27, 27, 0.78);
-  --chat-agent-fill: linear-gradient(160deg, #33261A, #221A12);
-  --chat-tool-fill: rgba(255, 255, 255, 0.05);
-  --chat-connector: rgba(255, 255, 255, 0.25);
+  /* Presence / status */
+  --color-online: #3FB950;
+
+  /* Feed tokens — mirror the app's post rows. */
+  --chat-ink: #EDEDF0;
+  --chat-muted: rgba(237, 237, 240, 0.55);
+  --chat-user-bubble: rgba(27, 27, 32, 0.78);
+  --chat-agent-fill: linear-gradient(160deg, #221E36, #1A1729);
+  --chat-tool-fill: rgba(255, 255, 255, 0.045);
+  --chat-connector: rgba(255, 255, 255, 0.13);
   --chat-dot-fill: #000000;
 }
 
-/* ===== Light (warm paper) ===== */
+/* ===== Light (the app's light mode) ===== */
 [data-theme="light"] {
   color-scheme: light;
 
-  --color-bg: #F7EFE6;
-  --color-surface: #FDFBF7;
-  --color-primary: #2A1F14;
-  --color-secondary: rgba(42, 31, 20, 0.6);
-  --color-muted: rgba(42, 31, 20, 0.4);
-  --color-accent: #B5651D;
-  --color-accent-strong: #8C4A14;
-  --color-border: #D8D8D8;
-  --color-border-strong: #BDBDBD;
-  --color-prompt: #B5651D;
+  --color-bg: #FBFBFC;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #F4F4F6;
+  --color-primary: #16161A;
+  --color-secondary: rgba(22, 22, 26, 0.66);
+  --color-muted: rgba(22, 22, 26, 0.45);
+  --color-accent: #6244D4;
+  --color-accent-strong: #4B31B0;
+  --color-border: #E5E5EA;
+  --color-border-strong: #CFCFD6;
+  --color-prompt: #6244D4;
 
-  --color-accent-rgb: 181, 101, 29;
+  --color-accent-rgb: 98, 68, 212;
+  --color-accent-soft: rgba(98, 68, 212, 0.09);
 
-  /* Chat-transcript tokens — mirror ChatTurnStyles' light branch. */
-  --chat-ink: #262626;
-  --chat-muted: rgba(107, 114, 128, 0.9);
-  --chat-user-bubble: rgba(253, 251, 247, 0.78);
-  --chat-agent-fill: linear-gradient(160deg, #F8E6D6, #F1D8C2);
-  --chat-tool-fill: rgba(42, 31, 20, 0.05);
-  --chat-connector: #A89078;
+  --color-online: #1F9E38;
+
+  /* Feed tokens — mirror the app's post rows. */
+  --chat-ink: #16161A;
+  --chat-muted: rgba(22, 22, 26, 0.58);
+  --chat-user-bubble: rgba(255, 255, 255, 0.9);
+  --chat-agent-fill: linear-gradient(160deg, #EFECFD, #E5E0FA);
+  --chat-tool-fill: rgba(22, 22, 26, 0.04);
+  --chat-connector: #D6D6DE;
   --chat-dot-fill: #FFFFFF;
 }
 
@@ -88,28 +103,34 @@ html {
 body {
   background: var(--color-bg);
   color: var(--color-primary);
-  font-family: var(--font-family-mono);
-  font-size: 14px;
+  font-family: var(--font-family-sans);
+  font-size: 15px;
   line-height: 1.6;
   letter-spacing: -0.005em;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Headings use Inter for display, mono for body */
+/* Inter throughout — the app is a product surface, not a terminal. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-sans);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--color-primary);
 }
 
-/* ===== Terminal pane: the core repeated unit ===== */
+/* Mono is reserved for things that are literally code. */
+code, kbd, pre, samp, .mono {
+  font-family: var(--font-family-mono);
+}
+
+/* ===== Panel: the core repeated unit (an app surface, not a terminal) ===== */
 .pane {
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
-  transition: border-color 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 140ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .pane:hover {
@@ -120,15 +141,16 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  padding: 0.5rem 0.875rem;
+  padding: 0.6875rem 1rem;
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg);
-  font-family: var(--font-family-mono);
-  font-size: 11px;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 500;
   color: var(--color-muted);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 
+/* Window dots retired — the app has a title bar, not a terminal chrome. */
 .pane-dots {
   display: flex;
   gap: 0.375rem;
@@ -143,7 +165,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .pane-path {
   flex: 1;
-  text-align: center;
+  font-family: var(--font-family-mono);
+  font-size: 11.5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -194,18 +217,18 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 0.5rem;
   height: 44px;
-  padding: 0 1.125rem;
-  border-radius: 8px;
+  padding: 0 1.25rem;
+  border-radius: 999px;
   border: 1px solid var(--color-border-strong);
   background: var(--color-surface);
   color: var(--color-primary);
-  font-family: var(--font-family-mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-family: var(--font-family-sans);
+  font-size: 14px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
   text-decoration: none;
   cursor: pointer;
-  transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 140ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn:hover {
@@ -214,45 +237,37 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-  background: var(--color-primary);
-  color: var(--color-bg);
-  border-color: var(--color-primary);
+  background: var(--color-accent);
+  color: #FFFFFF;
+  border-color: var(--color-accent);
 }
 
 .btn-primary:hover {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-bg);
+  background: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+  color: #FFFFFF;
 }
 
-/* ===== Chips (monospace tags) ===== */
+/* ===== Chips (soft violet tags, as in the app) ===== */
 .chip {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  padding: 0.25rem 0.625rem;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background: var(--color-bg);
-  font-family: var(--font-family-mono);
-  font-size: 11px;
-  color: var(--color-secondary);
-  letter-spacing: 0.02em;
+  padding: 0.3125rem 0.6875rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  font-family: var(--font-family-sans);
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--color-accent);
+  letter-spacing: -0.005em;
   white-space: nowrap;
 }
 
 .chip-accent {
   color: var(--color-accent);
   border-color: rgba(var(--color-accent-rgb), 0.3);
-}
-
-.chip::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  flex-shrink: 0;
 }
 
 /* ===== Section ===== */
@@ -347,8 +362,12 @@ button:focus-visible {
 }
 
 .term-list li::before {
-  content: "›";
+  content: "";
   position: absolute;
-  left: 0;
-  color: var(--color-accent);
+  left: 2px;
+  top: 0.6em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
 }
