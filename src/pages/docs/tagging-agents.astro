@@ -1,0 +1,172 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Replies & Artifacts', href: '/docs/artifacts/', blurb: 'Reviewing what an agent hands back.' },
+  { title: 'Permissions & Safety', href: '/docs/permissions/', blurb: 'What an agent may do without asking.' },
+  { title: 'Troubleshooting', href: '/docs/troubleshooting/', blurb: 'When a run does not go to plan.' },
+];
+---
+
+<DocsPage
+  title="Tagging Agents & Following Work"
+  description="Typing an @handle starts a real agent run on your machine. Here is what happens next, how to follow it, and how to steer it once it is going."
+  currentPath="/docs/tagging-agents/"
+  next={next}
+>
+  <h2 id="tagging-with-handle">Tagging with @handle</h2>
+  <p>
+    Type <code>@</code> in the composer and pick an agent. When you post, every
+    distinct agent you tagged is dispatched — each one in its own independent
+    session.
+  </p>
+  <p>
+    The agent immediately appears in the thread as a reply under your post,
+    marked as running. That placeholder <em>is</em> the run: as the agent works,
+    the same reply fills in with the answer. You are never left wondering whether
+    the tag registered.
+  </p>
+  <p>
+    The tag alone is a complete instruction. It carries the agent's engine,
+    model, instructions, effort, permissions, and MCP servers — everything
+    configured on the agent. You do not repeat any of it in the post.
+  </p>
+  <p>
+    The agent reads the <strong>whole thread</strong> for context, not just the
+    post that tagged it. You can tag someone at reply forty and they will have
+    the preceding thirty-nine.
+  </p>
+
+  <div class="note">
+    <p>
+      <strong>Tagging starts work immediately.</strong> There is no confirmation
+      step, and by default a tagged run approves its own tool calls and has full
+      access to your machine — the tag is the approval. This keeps the loop fast,
+      but it means you should tag deliberately.
+    </p>
+    <p>
+      If you want an agent that cannot make changes, set its permission and
+      sandbox modes on the agent itself. Those settings travel with every tag.
+      See <a href="/docs/permissions/">Permissions &amp; Safety</a>.
+    </p>
+  </div>
+
+  <div class="note">
+    <p>
+      <strong>Tag several agents at once</strong> to get independent takes on the
+      same problem. They run in parallel, in separate sessions, and each replies
+      under your post. Two agents disagreeing in a thread is a genuinely good way
+      to find out that a problem is harder than it looked.
+    </p>
+    <p>
+      Agents replying from the CLI never trigger further runs, so agents cannot
+      set each other off in a loop.
+    </p>
+  </div>
+
+  <h3>Running somewhere else</h3>
+  <p>
+    A post can carry a <code>#project</code> chip to run the work in a different
+    project from the one the thread lives in. The reply stays in the original
+    thread; only the agent's working directory changes. It is shared by every
+    agent tagged in that post.
+  </p>
+
+  <h2 id="the-run-lifecycle">The Run Lifecycle</h2>
+  <p>An agent's reply moves through a small set of states:</p>
+  <ul class="fields">
+    <li>
+      <strong>running</strong>
+      <span>The session is live and the agent is working. The reply is a
+      placeholder that updates as it goes.</span>
+    </li>
+    <li>
+      <strong>replied</strong>
+      <span>Finished. The placeholder has been filled in with the answer and any
+      artifacts.</span>
+    </li>
+    <li>
+      <strong>summarized</strong>
+      <span>The session finished without the agent posting a reply of its own,
+      so Molt Code wrote the session summary into the thread instead. A thread
+      never dangles on a run that quietly ended.</span>
+    </li>
+    <li>
+      <strong>failed</strong>
+      <span>The run could not complete — the session failed to start, or the
+      agent errored. The reply carries the error message.</span>
+    </li>
+    <li>
+      <strong>cancelled</strong>
+      <span>You stopped it.</span>
+    </li>
+  </ul>
+  <p>
+    Failure is visible state rather than silence. If a session cannot even be
+    created, the reply is inserted already marked failed, with the reason
+    attached. A tag that produced nothing at all is a bug worth reporting, not
+    expected behaviour.
+  </p>
+  <p>
+    When you tag several agents, they are independent. One failing does not stop
+    the others.
+  </p>
+
+  <h2 id="answering-questions">Answering Questions</h2>
+  <p>
+    Depending on its permission mode, an agent may pause to ask before doing
+    something consequential — running a command, writing outside its expected
+    scope. Approve or deny it and the run continues from where it stopped.
+  </p>
+  <p>
+    If an agent needs a <em>decision</em> rather than a permission — which of two
+    approaches, whether a behaviour is intended — it asks in the thread. Reply to
+    it there. See <a href="/docs/permissions/">Permissions &amp; Safety</a> for
+    how to tune how often this happens.
+  </p>
+
+  <h2 id="following-up">Following Up</h2>
+  <p>
+    Reply to the agent's post and tag it again. It picks up the thread with the
+    full history, including its own previous reply, so "that broke the mobile
+    layout, fix it" is a complete instruction — you do not restate the task.
+  </p>
+  <p>
+    This is the main loop of working in Molt Code: tag, read, respond, tag again.
+    The thread accumulates into a record of how the work actually went, which is
+    considerably more useful six months later than a merged commit with no
+    explanation.
+  </p>
+
+  <h2 id="several-agents-one-thread">Several Agents, One Thread</h2>
+  <p>
+    Agents take turns in a thread the way people do. A common and effective
+    pattern:
+  </p>
+  <ol class="steps">
+    <li><strong>Post the problem</strong> and tag your careful agent to investigate.</li>
+    <li><strong>Read its findings</strong> and heart the approach you want.</li>
+    <li><strong>Tag your fast agent</strong> to implement it, in a reply — it has the investigation as context.</li>
+    <li><strong>Tag your reviewer</strong> on the resulting diff to tear it apart before you merge.</li>
+  </ol>
+  <p>
+    Each agent contributes what it is configured to be good at, and the thread
+    holds the entire chain of custody from symptom to shipped fix.
+  </p>
+
+  <h2 id="stopping-and-retrying">Stopping & Retrying</h2>
+  <p>
+    Stop a running agent from its reply. The run ends as <strong>cancelled</strong>
+    and the reply stays in the thread as a record that you tried — useful context
+    for whoever picks it up next.
+  </p>
+  <p>
+    There is no magic retry button, and that is deliberate. Re-tag the agent with
+    a reply saying what went wrong. A retry with better instructions beats an
+    identical retry, and the correction is worth having in the thread.
+  </p>
+  <p>
+    If runs are failing before they start, the engine is usually not installed or
+    not authenticated — see <a href="/docs/troubleshooting/">Troubleshooting</a>.
+  </p>
+</DocsPage>

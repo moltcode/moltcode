@@ -1,0 +1,108 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Create & Customize Agents', href: '/docs/agents/', blurb: 'Turn an installed engine into a teammate.' },
+  { title: 'Permissions & Safety', href: '/docs/permissions/', blurb: 'Decide what a run may do.' },
+  { title: 'Troubleshooting', href: '/docs/troubleshooting/', blurb: 'When an engine will not start.' },
+];
+---
+
+<DocsPage
+  title="Connect CLIs & Models"
+  description="Molt Code drives the coding CLIs installed on your machine. Install one, authenticate it, and it becomes available as an engine for your agents."
+  currentPath="/docs/connect-clis/"
+  next={next}
+>
+  <h2 id="how-harnesses-work">How Harnesses Work</h2>
+  <p>
+    Molt Code does not implement its own coding agent. It drives the CLIs you
+    already use — Claude Code, Codex, OpenCode and others — as managed
+    subprocesses, and gives them a workspace, context, and somewhere for their
+    output to land.
+  </p>
+  <p>
+    Each CLI is an <strong>engine</strong>. When you create an agent you pick one
+    engine and one model; the agent's identity and instructions sit on top. This
+    is why swapping an agent onto a newer model costs you nothing — the teammate
+    you built survives the engine change.
+  </p>
+  <p>
+    Engines currently available through the adapter registry include
+    <strong>Claude Code</strong>, <strong>Codex</strong>,
+    <strong>OpenCode</strong>, <strong>Cursor</strong>,
+    <strong>Copilot</strong>, <strong>Antigravity</strong>, and
+    <strong>Pi</strong>. The list is registry-driven rather than hardcoded, and
+    availability varies by platform, so the authoritative list is the one shown
+    in the app.
+  </p>
+
+  <h2 id="installing-a-cli">Installing a CLI</h2>
+  <p>
+    Install the CLI as you normally would, following its own documentation. Molt
+    Code detects the engines present on your machine and offers them when you
+    create or edit an agent.
+  </p>
+  <p>
+    If you already run one of these from your terminal, it is already connected.
+    There is no separate Molt Code plugin to install.
+  </p>
+  <div class="note">
+    <p>
+      Molt Code seeds a default agent for each installed engine, named after the
+      engine itself. If you open the Agents screen and find <code>@claude-code</code>
+      already there, that is why. Rename it, re-instruct it, and make it yours —
+      nothing is re-seeded once an engine has an agent.
+    </p>
+  </div>
+
+  <h2 id="authentication">Authentication</h2>
+  <p>
+    Each CLI handles its own authentication, and Molt Code uses whatever
+    credentials that CLI already has. Log in with the CLI's own command and you
+    are done.
+  </p>
+  <p>
+    Depending on the engine that means either a provider subscription login or
+    your own API key. Either way the credential belongs to the CLI on your
+    machine — Molt Code does not proxy your requests, does not broker your keys,
+    and takes no cut of your tokens.
+  </p>
+  <p>
+    For secrets that your <em>projects</em> need — a database URL, a deploy
+    token — see <a href="/docs/permissions/">Permissions &amp; Safety</a>. Those
+    are a separate mechanism from CLI authentication.
+  </p>
+
+  <h2 id="choosing-a-model">Choosing a Model</h2>
+  <p>
+    Models are offered per engine; the choices come from the engine's own
+    catalog, so a newly released model appears once the CLI supports it.
+  </p>
+  <p>
+    Practical guidance: match the model to the agent's job rather than always
+    reaching for the largest. A reviewer or an architect benefits from a strong
+    model at high effort. An agent that renames things across forty files does
+    not, and will finish considerably faster on something lighter.
+  </p>
+  <p>
+    Effort, permission mode, and sandbox mode are set per agent alongside the
+    model, and the available choices depend on the engine — they reset when you
+    change it. See <a href="/docs/agents/">Create &amp; Customize Agents</a>.
+  </p>
+
+  <h2 id="agent-unavailable">Agent Unavailable</h2>
+  <p>
+    If an agent will not run, the cause is nearly always one of three things:
+  </p>
+  <ul>
+    <li><strong>The CLI is not installed</strong> — or not on the <code>PATH</code> that Molt Code sees. Confirm by running it directly in a terminal.</li>
+    <li><strong>The CLI is not authenticated</strong> — its login expired. Re-authenticate with the CLI's own command.</li>
+    <li><strong>The model is not available to your account</strong> — pick another on the agent.</li>
+  </ul>
+  <p>
+    A run that fails for one of these reasons appears in the thread as a failed
+    reply with the error attached, rather than silently doing nothing. See
+    <a href="/docs/troubleshooting/">Troubleshooting</a> for the full list.
+  </p>
+</DocsPage>

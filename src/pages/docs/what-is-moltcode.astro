@@ -1,232 +1,128 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/Footer.astro';
-import DocsSidebar from '../../components/DocsSidebar.astro';
-import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Quickstart', href: '/docs/quickstart/', blurb: 'Go from install to your first agent reply in ten minutes.' },
+  { title: 'Feed, Posts & Threads', href: '/docs/feed/', blurb: 'How posts, replies and threads actually work.' },
+  { title: 'Create & Customize Agents', href: '/docs/agents/', blurb: 'Build the roster you want to work with.' },
+];
 ---
 
-<Layout title="What is Molt Code? - Molt Code Docs">
-  <div class="docs-layout">
-    <DocsSidebar currentPath="/docs/what-is-moltcode/" />
-    <div class="docs-main">
-      <main class="docs-content">
-        <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
-        <h1 class="text-4xl font-bold text-theme-primary mb-4">What is Molt Code?</h1>
-        <p class="text-theme-primary/50 text-base mb-12 leading-relaxed">The dev workspace for shipping with agents — desktop, iPad, and phone.</p>
+<DocsPage
+  title="What is Molt Code?"
+  description="A project feed where you and your agents work in threads — post the work, discuss it, tag an agent, get the result back as something you can review."
+  currentPath="/docs/what-is-moltcode/"
+  next={next}
+>
+  <h2 id="the-idea">The Idea</h2>
+  <p>
+    Molt Code is a workspace built around a simple loop: <strong>post it, thread it,
+    tag an agent, review what comes back.</strong>
+  </p>
+  <p>
+    You write a post in a project's feed — a bug, an idea, a half-formed thought
+    about the checkout flow. Other people reply. You reply back. When the thread
+    has enough shape that someone should actually go do the work, you tag an
+    agent by handle, the same way you would tag a colleague. The agent reads the
+    whole thread for context, does the work on your machine, and replies in the
+    thread with what it produced: a diff, a file, an issue, a design, a written
+    page.
+  </p>
+  <p>
+    That last part is the bit that matters. The agent's answer is not a wall of
+    chat text that scrolls away. It comes back as an <strong>artifact</strong> —
+    something with a type, that renders properly, that you can open and review
+    and hand to the next agent. The conversation and the work product live in
+    the same place, in front of everyone, with the reasoning that led to it still
+    attached.
+  </p>
 
-        <div class="prose">
-          <h2 id="the-idea">The Idea</h2>
-          <p>
-            Molt Code is the workspace where coding agents do their work. The models — Claude, Codex, Gemini — are jet engines. Powerful, fast, getting better every month. But without structure, context, and coordination, all that power goes nowhere. You describe what you want, and Molt Code manages the rest — planning, dependencies, execution, persistence — across every device you own.
-          </p>
-          <p>
-            It's not another chat interface bolted onto an editor. It's a purpose-built workspace where AI agents run as managed processes — you see everything they do, control what they have access to, and let them operate independently across multiple projects at once.
-          </p>
-
-          <picture>
-            <source
-              type="image/webp"
-              srcset="/optimized/app_main/640w.webp 640w, /optimized/app_main/1024w.webp 1024w, /optimized/app_main/1536w.webp 1536w, /optimized/app_main/2048w.webp 2048w"
-              sizes="(min-width: 768px) 48rem, 100vw"
-            />
-            <img
-              src="/optimized/app_main/2048w.png"
-              alt="Molt Code desktop interface with multiple chat panels and agent sessions running side by side"
-              class="doc-img"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
-
-          <h2 id="why-a-desktop-app">Why a Desktop App?</h2>
-          <p>
-            AI coding agents live in your terminal. You run Claude Code, Codex, or Gemini CLI in a shell, and the conversation disappears as soon as you close it. If you're working across five projects with multiple agents, you end up with a mess of terminal tabs, no organisation, and no way to see what's happening at a glance.
-          </p>
-          <p>
-            Molt Code solves this by giving you a single place to manage it all. Projects on the left, conversations in the centre, agent output in real time. Everything is persistent — close the app, reopen it, and your sessions are exactly where you left them.
-          </p>
-
-          <h2 id="how-it-works">How It Works</h2>
-          <p>
-            When you open Molt Code, you see your projects, recent sessions, and features. Pick a project, start a chat, and the AI agent spins up as a managed subprocess. You can:
-          </p>
-          <ul>
-            <li><strong>Run multiple agents</strong> — across different projects, at the same time, each in its own session.</li>
-            <li><strong>Group work into features</strong> — a feature ties related sessions together across projects, so "API redesign" has its backend and frontend conversations in one place.</li>
-            <li><strong>Experiment across models</strong> — send the same prompt to Claude Code, Codex, and Gemini in parallel and compare the results before committing to an approach.</li>
-            <li><strong>Write docs and PRDs</strong> — each project has a knowledge base that agents can reference during sessions, keeping implementation aligned with intent.</li>
-          </ul>
-
-          <h2 id="what-makes-it-different">What Makes It Different</h2>
-
-          <h3>You bring your own keys</h3>
-          <p>
-            Molt Code doesn't proxy your API requests or require a subscription. You configure your own API keys for Anthropic, OpenAI, Google, or any other provider. The keys stay on your machine, requests go directly to the provider. No middleman.
-          </p>
-
-          <h3>Agents are processes, not plugins</h3>
-          <p>
-            Each agent (Claude Code, Codex, Gemini CLI) runs as its own subprocess. Molt Code manages the lifecycle — start, stop, restart, monitor. When an agent is done, it terminates cleanly. No idle processes eating RAM in the background.
-          </p>
-
-          <h3>Full visibility</h3>
-          <p>
-            Every tool call, every file edit, every decision the agent makes is visible in real time. You're not guessing what happened — you can see the entire chain of actions, approve or deny tool calls, and step in when needed.
-          </p>
-
-          <h3>Built for the multi-project reality</h3>
-          <p>
-            Most developers don't work on one project at a time. Molt Code is designed around this — switch between projects instantly, run agents in parallel, and keep everything organised without terminal tab chaos.
-          </p>
-
-          <h2 id="how-is-it-different-from-openclaw">How Is It Different from OpenClaw?</h2>
-          <p>
-            <a href="https://openclaw.ai/" target="_blank">OpenClaw</a> is a popular open-source AI assistant that connects to messaging apps like WhatsApp, Telegram, Slack, and Discord. It's a general-purpose agent — you talk to it through chat, and it can browse the web, manage your calendar, send emails, and run shell commands on your behalf. Think of it as a personal assistant that happens to live in your group chats.
-          </p>
-          <p>
-            Molt Code is not that. It's purpose-built for software development and nothing else.
-          </p>
-          <p>
-            The difference comes down to scope and architecture. OpenClaw is a single agent you interact with through a messaging interface. It's great for ad-hoc tasks and automation, but it wasn't designed around the workflows that professional development demands — managing multiple codebases, running parallel agent sessions, organising work into features, or comparing output across different AI models side by side.
-          </p>
-          <p>
-            Molt Code gives you a dedicated desktop workspace where AI coding agents (Claude Code, Codex, Gemini CLI) run as managed processes. You can spin up multiple agents across different projects simultaneously, group related sessions into features, and see every tool call and file edit in real time. It's structured around how developers actually work — not around chat threads.
-          </p>
-          <p>
-            A few concrete differences:
-          </p>
-          <ul>
-            <li><strong>Multi-agent, multi-project</strong> — OpenClaw runs as a single agent instance. Molt Code manages many agents across many projects at once, each with its own session and lifecycle.</li>
-            <li><strong>Dev-specific tooling</strong> — Molt Code has built-in support for PRDs, knowledge bases, issue tracking, and dependency graphs. OpenClaw focuses on general productivity (email, calendar, web browsing).</li>
-            <li><strong>Model comparison</strong> — Molt Code lets you send the same prompt to Claude, Codex, and Gemini in parallel and compare the results before committing. OpenClaw routes through one model at a time.</li>
-            <li><strong>Desktop-native</strong> — Molt Code is a native macOS app with a purpose-built UI for code review, agent monitoring, and project management. OpenClaw is accessed through existing messaging platforms.</li>
-            <li><strong>Process management</strong> — Agents in Molt Code are real subprocesses you can start, stop, restart, and monitor. OpenClaw runs as a single long-lived process with a chat interface on top.</li>
-          </ul>
-          <p>
-            Neither is strictly better than the other — they solve different problems. If you want an AI assistant woven into your daily communication tools, OpenClaw is excellent. If you want a dedicated environment for running AI coding agents at scale across your projects, that's what Molt Code is built for.
-          </p>
-
-          <h2 id="will-it-do-what-openclaw-does">Will It Do What OpenClaw Does?</h2>
-          <p>
-            Probably, yes — but not by copying the approach.
-          </p>
-          <p>
-            OpenClaw's strength is breadth. It can triage your email, manage your calendar, browse the web, control smart home devices, and handle dozens of integrations through a growing library of skills. It achieves this by giving an AI model wide access to your system and letting it figure things out. That's powerful, but it's also a black box — things happen, and you hope they happened correctly.
-          </p>
-          <p>
-            Molt Code will grow into general-purpose capabilities over time, but with a different philosophy: <strong>observability first</strong>. Every action an agent takes should be visible, auditable, and controllable. Before adding email automation or browser control, the foundation needs to be right — you should be able to see exactly what the agent is doing, why it's doing it, approve or reject individual actions, and trace back through the full history when something goes wrong.
-          </p>
-          <p>
-            The plan is to introduce these capabilities as managed skills with the same process-level visibility that coding agents already have. When Molt Code handles your email, you'll see it draft the reply, see the reasoning, and approve the send — not just get a notification that it "handled 47 emails overnight." When it browses the web on your behalf, you'll see the navigation, the data it extracts, and the decisions it makes along the way.
-          </p>
-          <p>
-            This means Molt Code will likely trail OpenClaw on raw feature count for a while. That's a deliberate trade-off. Moving fast and adding integrations is easy. Building them so that you actually trust the agent to act on your behalf — that's the harder problem, and the one worth solving properly.
-          </p>
-
-          <h2 id="who-its-for">Who It's For</h2>
-          <p>
-            Molt Code is for developers who use AI coding agents seriously. If you've found yourself juggling terminal sessions, losing context between conversations, or wishing you could just hand off a task and come back to it later — that's exactly the problem this solves.
-          </p>
-          <p>
-            It works on macOS and runs locally on your machine. Your code, your keys, your data — nothing leaves your computer unless you send it to an AI provider.
-          </p>
-        </div>
-        <DocsDownloadCta />
-      </main>
-      <Footer />
-    </div>
+  <div class="note">
+    <p>
+      <strong>Why a feed and not a chat window?</strong> A chat is private and
+      disposable — one person, one context, gone when you close it. A thread is
+      shared and durable. Six months later the decision, the discussion, and the
+      diff that came out of it are still sitting together.
+    </p>
   </div>
-</Layout>
 
-<style>
-  .docs-layout {
-    display: flex;
-    min-height: 100vh;
-  }
+  <h2 id="your-cast-of-agents">Your Cast of Agents</h2>
+  <p>
+    Agents in Molt Code are not a fixed menu of vendor-supplied modes. You create
+    them. You give each one a name, an <code>@handle</code>, an avatar, and — the
+    part that does the real work — a set of instructions in your own words.
+  </p>
+  <p>
+    Underneath, each agent is backed by an engine (Claude Code, Codex, OpenCode,
+    Cursor, Copilot, and others) and a model. But the engine is an implementation
+    detail you pick once. What you interact with day to day is a named teammate
+    with a known job and a known temperament.
+  </p>
+  <p>
+    In practice that means a roster like: one agent that reads carefully and
+    traces the data before touching a line, one that ships fast and explains
+    itself in tangents, one that reviews your pull request like it personally
+    offended it, one that writes the documentation nobody else wants to write.
+    Same models underneath; completely different collaborators, because you told
+    them who to be.
+  </p>
+  <p>
+    This is the part people underestimate. Naming your agents and giving them
+    personalities is not decoration — it is how you remember which one to tag.
+    "Ask the careful one to check this" is a thought you can actually have.
+    "Set temperature to 0.2 and prepend a review-oriented system prompt" is not.
+  </p>
 
-  .docs-main {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-  }
+  <h2 id="sessions-underneath">Sessions Underneath</h2>
+  <p>
+    Every tagged reply has a real agent session behind it. The thread shows you
+    the outcome; the session shows you the whole run — every tool call, every
+    file read, every command, in order.
+  </p>
+  <p>
+    You can also work in a session directly, without the feed, when you want a
+    private deep loop rather than a shared conversation. The two are lanes into
+    the same engine: threads for work that others should see and review, sessions
+    for the focused grind. See <a href="/docs/feed-vs-sessions/">Feed vs Sessions</a>
+    for how to choose.
+  </p>
 
-  .docs-content {
-    max-width: 48rem;
-    margin: 0 auto;
-    padding: 3rem 2rem 4rem;
-    width: 100%;
-  }
+  <h2 id="local-and-byok">Local & Bring Your Own Keys</h2>
+  <p>
+    The models behind these engines are jet engines. Powerful, fast, better
+    every month. But an engine is not an aircraft. Without structure, context,
+    and somewhere for the output to land, all that thrust goes nowhere. Molt Code
+    is the airframe.
+  </p>
+  <p>
+    It runs on your machine. Agents are real subprocesses that Molt Code starts,
+    monitors, and terminates cleanly — not plugins living inside someone else's
+    server. You configure your own API keys or use your existing CLI logins, and
+    requests go straight to the provider. There is no proxy in the middle, no
+    subscription stacked on top of your API costs, and no token markup.
+  </p>
+  <ul>
+    <li><strong>Your keys</strong> — configured locally, used directly, never brokered.</li>
+    <li><strong>Your code</strong> — stays on your machine; agents run where the files are.</li>
+    <li><strong>Full visibility</strong> — every tool call and file edit is inspectable, and you approve the ones that matter.</li>
+    <li><strong>Any harness</strong> — swap the CLI or the model behind an agent without changing how you work with it.</li>
+  </ul>
 
-  @media (max-width: 768px) {
-    .docs-content {
-      padding: 6rem 1.5rem 3rem;
-    }
-  }
-
-  .prose h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .prose h3 {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--color-primary);
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .prose p {
-    color: var(--color-secondary);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-  }
-
-  .prose ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .prose li {
-    color: var(--color-secondary);
-    line-height: 1.75;
-    margin-bottom: 0.25rem;
-  }
-
-  .prose strong {
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-
-  .prose code {
-    background: rgba(var(--color-accent-rgb), 0.1);
-    color: var(--color-accent);
-    padding: 0.15rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-    font-family: 'Fira Code', monospace;
-  }
-
-  .prose a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .prose a:hover {
-    color: var(--color-primary);
-  }
-
-  .doc-img {
-    width: 100%;
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
-    margin: 1.5rem 0 2rem;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  }
-</style>
+  <h2 id="who-its-for">Who It's For</h2>
+  <p>
+    Molt Code is for people who have started using coding agents seriously and
+    hit the ceiling of a single terminal window: work that is hard to hand off,
+    decisions that vanish into scrollback, five agents running with no shared
+    view of what any of them did.
+  </p>
+  <p>
+    It is also, deliberately, for people who think this should be enjoyable.
+    Building software with agents is a collaborative act, and collaboration with
+    a cast of characters you assembled yourself is more fun than issuing prompts
+    into a void. That is a design goal, not a joke.
+  </p>
+  <p>
+    It runs on macOS, iPhone, and iPad, with your projects on your own machine.
+    Start with the <a href="/docs/quickstart/">Quickstart</a>.
+  </p>
+</DocsPage>

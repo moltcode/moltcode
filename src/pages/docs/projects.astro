@@ -1,0 +1,117 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Issues, Sub-Issues & Epics', href: '/docs/resolving-issues/', blurb: 'Tracked work and how agents pick it up.' },
+  { title: 'Docs, Context & PRDs', href: '/docs/prds/', blurb: 'Durable project memory agents can read.' },
+  { title: 'Terminals & Processes', href: '/docs/processes/', blurb: 'Long-lived work and dev servers.' },
+];
+---
+
+<DocsPage
+  title="Projects & the Project Toolbox"
+  description="A project is a directory on your machine plus everything Molt Code wraps around it: a feed, issues, docs, designs, and a toolbox for the work itself."
+  currentPath="/docs/projects/"
+  next={next}
+>
+  <h2 id="what-a-project-is">What a Project Is</h2>
+  <p>
+    A project points at a directory on your machine. Everything else — the feed,
+    the issue tracker, the knowledge base, running processes — hangs off that
+    one anchor.
+  </p>
+  <p>
+    Projects are the unit of scope. Every thread belongs to a project, every
+    issue belongs to a project, and when you tag an agent it runs in that
+    project's directory. That is why you rarely have to tell an agent where it
+    is: the thread already knows.
+  </p>
+
+  <h2 id="adding-a-project">Adding a Project</h2>
+  <p>
+    Register any directory as a project. A Git repository is the usual case and
+    unlocks the Git tooling, but it is not required.
+  </p>
+  <p>
+    You can have as many projects as you like and work across them
+    simultaneously — agents in different projects run independently, each in its
+    own directory.
+  </p>
+  <div class="note">
+    <p>
+      A post can carry a <code>#project</code> chip to run a tagged agent
+      somewhere other than the thread's own project — useful when a discussion in
+      your backend repo needs a change in the frontend one. The reply stays in
+      the original thread; only the working directory moves.
+    </p>
+  </div>
+
+  <h2 id="the-toolbox">The Toolbox</h2>
+  <p>
+    Each project carries a set of tools. You use them directly; agents use the
+    same underlying surfaces, which is why an agent's work shows up where you
+    would expect it.
+  </p>
+  <ul class="fields">
+    <li>
+      <strong>Files</strong>
+      <span>Browse and edit the project tree. Where you land when you open a file
+      artifact from a thread.</span>
+    </li>
+    <li>
+      <strong>Search</strong>
+      <span>Search across the project. Often the fastest way to check a claim an
+      agent made.</span>
+    </li>
+    <li>
+      <strong>Git</strong>
+      <span>Review changes, stage, and commit. The natural place to inspect a
+      diff an agent produced before you keep it.</span>
+    </li>
+    <li>
+      <strong>Issues</strong>
+      <span>The tracker — issues, sub-issues, dependencies, and epics. See
+      <a href="/docs/resolving-issues/">Issues, Sub-Issues &amp; Epics</a>.</span>
+    </li>
+    <li>
+      <strong>Docs</strong>
+      <span>The knowledge base of durable pages and PRDs. See
+      <a href="/docs/prds/">Docs, Context &amp; PRDs</a>.</span>
+    </li>
+    <li>
+      <strong>Designs</strong>
+      <span>UI designs agents can author and render. See
+      <a href="/docs/designs/">Designs</a>.</span>
+    </li>
+    <li>
+      <strong>Terminals</strong>
+      <span>Interactive shells that persist across agent turns.</span>
+    </li>
+    <li>
+      <strong>Processes &amp; Scripts</strong>
+      <span>Dev servers, watchers, and named tasks. See
+      <a href="/docs/processes/">Terminals &amp; Processes</a>.</span>
+    </li>
+    <li>
+      <strong>Workflows</strong>
+      <span>Saved multi-step execution chains. See
+      <a href="/docs/conductor/">Conductor &amp; Workflows</a>.</span>
+    </li>
+  </ul>
+
+  <h2 id="project-context">Project Context</h2>
+  <p>
+    Beyond the tools, a project accumulates <strong>context</strong> — the
+    written material that makes an agent's work good rather than merely plausible.
+  </p>
+  <p>
+    That includes the knowledge base, the issue tracker, and any conventions
+    files your repository already carries. An agent tagged in a project thread
+    can reach all of it, which is why the second month of using a project goes
+    noticeably better than the first: there is more written down.
+  </p>
+  <p>
+    The single highest-leverage habit is writing down decisions as knowledge
+    pages when you make them. Every agent you tag afterwards inherits them.
+  </p>
+</DocsPage>

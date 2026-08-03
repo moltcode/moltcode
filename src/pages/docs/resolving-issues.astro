@@ -1,186 +1,132 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/Footer.astro';
-import DocsSidebar from '../../components/DocsSidebar.astro';
-import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Conductor & Workflows', href: '/docs/conductor/', blurb: 'Orchestrating many issues at once.' },
+  { title: 'Docs, Context & PRDs', href: '/docs/prds/', blurb: 'Give issues the written context they need.' },
+  { title: 'Replies & Artifacts', href: '/docs/artifacts/', blurb: 'How issues travel through a thread.' },
+];
 ---
 
-<Layout title="Resolving Issues with Agents - Molt Code Docs">
-  <div class="docs-layout">
-    <DocsSidebar currentPath="/docs/resolving-issues/" />
-    <div class="docs-main">
-      <main class="docs-content">
-        <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
-        <h1 class="text-4xl font-bold text-theme-primary mb-4">Resolving Issues with Agents</h1>
-        <p class="text-theme-primary/50 text-base mb-12 leading-relaxed">Drag an issue into chat, let the agent do the work.</p>
+<DocsPage
+  title="Issues, Sub-Issues & Epics"
+  description="The tracker holds the work; the feed is where it gets done. Create an issue, post about it, tag an agent, review what comes back."
+  currentPath="/docs/resolving-issues/"
+  next={next}
+>
+  <h2 id="the-workflow">The Workflow</h2>
+  <p>
+    Every project has a built-in issue tracker. Issues can stand alone, nest into
+    sub-issues, and declare dependencies on each other.
+  </p>
+  <p>The loop looks like this:</p>
+  <ol class="steps">
+    <li><strong>Create or reference an issue</strong> — what needs to happen, with enough detail that it means something in a week.</li>
+    <li><strong>Post about it in the feed</strong>, attaching the issue to your post.</li>
+    <li><strong>Tag an agent</strong>. It reads the thread and the issue together.</li>
+    <li><strong>Follow the run</strong> as the reply fills in. The agent leaves progress comments on the issue and updates its status as it goes.</li>
+    <li><strong>Review the artifacts</strong> it attached, and reply in the thread if it needs another pass.</li>
+    <li><strong>Close the issue</strong> once you are satisfied.</li>
+  </ol>
+  <p>
+    The thread is the part people underestimate. When you reopen this issue in
+    three months, the discussion that shaped it is attached to it — not lost in
+    somebody's terminal history.
+  </p>
 
-        <div class="prose">
-          <h2 id="the-workflow">The Workflow</h2>
-          <p>
-            Molt Code has a built-in issue tracker in the sidebar. Issues can be top-level tasks or broken down into sub-issues with dependencies. The key workflow is simple: drag an issue (or sub-issue) from the sidebar into the chat, and the agent picks it up and starts working on it.
-          </p>
-          <p>
-            The agent reads the issue title, description, priority, and any linked PRD or context — then executes against it. You don't need to retype requirements or explain what needs to happen. The issue <em>is</em> the prompt.
-          </p>
+  <h2 id="creating-an-issue">Creating an Issue</h2>
+  <p>
+    Create issues from the project's toolbox, or let an agent file them for you —
+    an agent that investigated a bug can file what it found, and attach the issue
+    back to the thread as an artifact.
+  </p>
+  <p>Issues carry a title, description, status, and priority.</p>
+  <ul>
+    <li><strong>Statuses</strong> — open, in progress, review, done, blocked, cancelled.</li>
+    <li><strong>Priorities</strong> — critical, high, medium, low.</li>
+  </ul>
+  <p>
+    From the CLI, which is how agents do it:
+  </p>
+  <ul>
+    <li><code>moltcode issues list</code> — top-level issues.</li>
+    <li><code>moltcode issues get &lt;id&gt;</code> — full detail with dependencies.</li>
+    <li><code>moltcode issues create --title "..." --description "..." --priority high</code></li>
+    <li><code>moltcode issues update &lt;id&gt; --status in_progress</code></li>
+    <li><code>moltcode issues comment &lt;id&gt; "..."</code> — a progress note.</li>
+  </ul>
+  <p>
+    Write the description for the agent that will pick it up. "Fix the checkout
+    bug" is not an issue; it is a reminder. What is broken, how you reproduce it,
+    what you already ruled out — that is an issue, and it is the difference
+    between a good first attempt and three rounds of clarification.
+  </p>
 
-          <img src="/docs/features/resolve_issue_prd.png" alt="Chat session with an issue card pinned at the bottom, ready for an agent to resolve" class="doc-img" />
-
-          <h2 id="dragging-issues-into-chat">Dragging Issues into Chat</h2>
-          <p>
-            Open the issues panel from the sidebar. You'll see your issues listed with their status and priority. To assign one to an agent:
-          </p>
-          <ul>
-            <li><strong>Drag the issue</strong> from the sidebar into the chat area. The issue appears as a card pinned to the chat, showing the title, status, and priority.</li>
-            <li><strong>Choose your agent</strong> — pick Claude Code, Codex, OpenCode, Gemini, or whichever CLI you have configured.</li>
-            <li><strong>Send</strong> — the agent receives the issue as context and begins working. You can add extra instructions in the message if needed, or just send it as-is.</li>
-          </ul>
-          <p>
-            The agent sees everything attached to the issue: the description, any linked PRDs from the knowledge base, and the issue hierarchy (parent issues, sub-issues, blockers). This gives it full context without you having to copy-paste anything.
-          </p>
-
-          <h2 id="sub-issues-and-dependencies">Sub-Issues and Dependencies</h2>
-          <p>
-            Complex work is rarely a single task. Molt Code lets you break issues into sub-issues with dependency relationships — issue B is blocked by issue A, issue C depends on both.
-          </p>
-          <p>
-            When you drag a sub-issue into chat, the agent understands where it sits in the hierarchy. It knows what's already been done (parent and sibling issues) and what it's responsible for (just this sub-issue). This prevents agents from going out of scope or re-doing work that's already complete.
-          </p>
-
-          <h2 id="issue-to-prd-pipeline">The Issue-to-PRD Pipeline</h2>
-          <p>
-            The most effective workflow combines issues with PRDs:
-          </p>
-          <ul>
-            <li><strong>Create an issue</strong> describing what needs to happen at a high level.</li>
-            <li><strong>Draft a PRD</strong> using the Planner agent — give it the issue and ask it to explore the codebase and produce a structured plan with problem statement, scope, constraints, and acceptance criteria.</li>
-            <li><strong>Link the PRD</strong> to the issue so any agent that picks it up has the full requirements.</li>
-            <li><strong>Drag the issue into chat</strong> with the default coding agent. It reads the PRD, understands the scope, and implements.</li>
-          </ul>
-          <p>
-            This separation between planning and execution keeps things clean. The Planner researches and defines. The coding agent builds.
-          </p>
-
-          <h2 id="choosing-the-right-agent">Choosing the Right Agent</h2>
-          <p>
-            Different issues call for different agents. The chat input lets you pick from your configured CLIs and agent modes:
-          </p>
-          <ul>
-            <li><strong>Claude Code, Codex, OpenCode, Gemini</strong> — different AI providers, each with their own strengths. Pick based on the task or use Experiment mode to compare.</li>
-            <li><strong>Default mode</strong> — full coding agent with read, write, and execute access. Use for implementation tasks.</li>
-            <li><strong>Planner mode</strong> — read-only exploration. Use for investigation, architecture review, or drafting PRDs before handing off to a coding agent.</li>
-            <li><strong>Issue Resolver mode</strong> — designed to work through a queue of related issues in topological order, respecting dependencies.</li>
-          </ul>
-
-          <h2 id="tips">Tips</h2>
-          <ul>
-            <li><strong>Write good issue descriptions</strong> — the agent reads them literally. A vague issue gets a vague implementation. Be specific about what needs to change and why.</li>
-            <li><strong>Break it down</strong> — smaller sub-issues get better results than one giant task. The agent can focus on a well-scoped piece of work rather than trying to boil the ocean.</li>
-            <li><strong>Link PRDs for complex work</strong> — for anything non-trivial, write a PRD first. The agent's output quality scales directly with the quality of its input context.</li>
-            <li><strong>Use Issue Resolver for batch work</strong> — if you have a set of related sub-issues with dependencies, the Issue Resolver mode processes them in the right order automatically.</li>
-            <li><strong>Add instructions when dragging</strong> — you can type additional context in the message alongside the dragged issue. Use this for one-off guidance like "use the existing auth middleware" or "don't touch the database schema".</li>
-          </ul>
-        </div>
-        <DocsDownloadCta />
-      </main>
-      <Footer />
-    </div>
+  <h2 id="handing-it-to-an-agent">Handing It to an Agent</h2>
+  <p>
+    Attach the issue to a post and tag an agent. The issue arrives as a typed
+    artifact, so the agent resolves the real thing — title, description, status,
+    priority, and its place in the hierarchy — rather than a pasted summary.
+  </p>
+  <p>
+    Because the agent also has the whole thread, you can add nuance the issue
+    does not carry: "start with the mobile bundle, we think it's the cart total".
+    The issue is the specification; the thread is the conversation about it.
+  </p>
+  <div class="note">
+    <p>
+      An issue can only be attached to a thread in <strong>its own project</strong>.
+      Agents cannot pull another project's issues into your feed — that boundary
+      is enforced, not merely discouraged.
+    </p>
   </div>
-</Layout>
 
-<style>
-  .docs-layout {
-    display: flex;
-    min-height: 100vh;
-  }
+  <h2 id="sub-issues-and-dependencies">Sub-Issues & Dependencies</h2>
+  <p>
+    Real work is rarely one task. Break an issue into sub-issues and declare
+    dependencies between them — B is blocked by A, C depends on both.
+  </p>
+  <ul>
+    <li><code>moltcode issues list --parent &lt;id&gt;</code> — the children of an issue.</li>
+    <li><code>moltcode issues get &lt;id&gt;</code> — shows dependencies.</li>
+  </ul>
+  <p>
+    An agent handed a sub-issue understands where it sits: what the parent is
+    for, what siblings already covered, and what it is specifically responsible
+    for. This is the main defence against agents going out of scope or redoing
+    work that is already done.
+  </p>
 
-  .docs-main {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-  }
+  <h2 id="epics-and-execution-chains">Epics & Execution Chains</h2>
+  <p>
+    When a body of work has genuine ordering constraints, bundle sub-issues into
+    an <strong>epic</strong> with an execution chain — a list of levels that run
+    in sequence, where the issues within each level run in parallel.
+  </p>
+  <p>
+    Create the sub-issues first, then bundle them:
+  </p>
+  <ul>
+    <li><code>moltcode epic create --title "..." --chain '[["iss_1"],["iss_2","iss_3"]]'</code></li>
+    <li><code>moltcode epic update &lt;epic-id&gt; --chain '[["iss_1"],["iss_2","iss_3"],["iss_4"]]'</code></li>
+  </ul>
+  <p>
+    That chain says: do <code>iss_1</code> first; when it finishes, do
+    <code>iss_2</code> and <code>iss_3</code> together. Issues in a chain
+    automatically become children of the epic.
+  </p>
+  <p>
+    Hand the epic to a supervisor agent and it executes the chain. See
+    <a href="/docs/conductor/">Conductor &amp; Workflows</a> for the full
+    orchestration story.
+  </p>
 
-  .docs-content {
-    max-width: 48rem;
-    margin: 0 auto;
-    padding: 3rem 2rem 4rem;
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    .docs-content {
-      padding: 6rem 1.5rem 3rem;
-    }
-  }
-
-  .prose h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .prose h3 {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--color-primary);
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .prose p {
-    color: var(--color-secondary);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-  }
-
-  .prose ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .prose li {
-    color: var(--color-secondary);
-    line-height: 1.75;
-    margin-bottom: 0.25rem;
-  }
-
-  .prose strong {
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-
-  .prose em {
-    color: var(--color-secondary);
-    font-style: italic;
-  }
-
-  .prose code {
-    background: rgba(var(--color-accent-rgb), 0.1);
-    color: var(--color-accent);
-    padding: 0.15rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-    font-family: 'Fira Code', monospace;
-  }
-
-  .prose a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .prose a:hover {
-    color: var(--color-primary);
-  }
-
-  .doc-img {
-    width: 100%;
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
-    margin: 1.5rem 0 2rem;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  }
-</style>
+  <h2 id="tips">Tips</h2>
+  <ul>
+    <li><strong>Let agents file issues.</strong> An investigation that ends in a filed issue is worth more than one that ends in a paragraph.</li>
+    <li><strong>Link the context.</strong> Attach the relevant knowledge page to the post alongside the issue; agents read both.</li>
+    <li><strong>Keep sub-issues genuinely independent.</strong> If two must be done together, they are one issue.</li>
+    <li><strong>Use the thread for nuance.</strong> Do not rewrite the issue every time you learn something — reply in the thread. The next agent reads it.</li>
+    <li><strong>Reach for epics only when ordering matters.</strong> A flat list of issues you tag individually is simpler and easier to steer.</li>
+  </ul>
+</DocsPage>

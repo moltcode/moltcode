@@ -1,189 +1,113 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/Footer.astro';
-import DocsSidebar from '../../components/DocsSidebar.astro';
-import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Issues, Sub-Issues & Epics', href: '/docs/resolving-issues/', blurb: 'Turn a plan into tracked work.' },
+  { title: 'Replies & Artifacts', href: '/docs/artifacts/', blurb: 'How pages travel through threads.' },
+  { title: 'Skills', href: '/docs/skills/', blurb: 'Procedures agents load when relevant.' },
+];
 ---
 
-<Layout title="Drafting PRDs with Agents - Molt Code Docs">
-  <div class="docs-layout">
-    <DocsSidebar currentPath="/docs/prds/" />
-    <div class="docs-main">
-      <main class="docs-content">
-        <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
-        <h1 class="text-4xl font-bold text-theme-primary mb-4">Drafting PRDs with Agents</h1>
-        <p class="text-theme-primary/50 text-base mb-12 leading-relaxed">Use the built-in knowledge base and the Planner agent to go from idea to structured requirements without writing them yourself.</p>
+<DocsPage
+  title="Docs, Context & PRDs"
+  description="The knowledge base is your project's durable memory — the decisions, specifications, and conventions that every agent you tag inherits."
+  currentPath="/docs/prds/"
+  next={next}
+>
+  <h2 id="the-knowledge-base">The Knowledge Base</h2>
+  <p>
+    Every project has a knowledge base of written pages: architecture notes,
+    runbooks, onboarding docs, product requirements, and the record of decisions
+    that would otherwise live only in someone's head.
+  </p>
+  <p>
+    These pages are not documentation in the write-once-and-rot sense. They are
+    working context. An agent tagged in a thread can read them, and an agent that
+    produces something durable can write one back as an artifact.
+  </p>
 
-        <div class="prose">
-          <h2 id="the-knowledge-base">The Knowledge Base</h2>
-          <p>
-            Every project in Molt Code has a built-in knowledge base accessible from the sidebar. Click the book icon to open the knowledge panel. Inside you'll find three tabs:
-          </p>
-          <ul>
-            <li><strong>Docs</strong> — Free-form documentation pages for your project. Write architecture notes, API specs, or anything the agent should know. Reference them in chat using <code>@context_name</code> syntax.</li>
-            <li><strong>PRDs</strong> — Structured Product Requirements Documents with dedicated fields for problem statement, desired behaviour, scope, constraints, and acceptance criteria.</li>
-            <li><strong>Archived</strong> — Pages you've archived to keep things tidy without losing them.</li>
-          </ul>
-          <p>
-            Use the <strong>+</strong> button to create new pages. Each project has its own set of knowledge pages, so agents always have the right context for the codebase they're working in.
-          </p>
-
-          <img src="/docs/features/docs_and_prds.png" alt="Knowledge base panel showing Docs, PRDs, and Archived tabs with a list of pages" class="doc-img" />
-
-          <h2 id="why-prds-matter">Why PRDs Matter for AI Agents</h2>
-          <p>
-            AI agents are good at executing, but they need direction. A vague prompt like "add authentication" can go in a dozen different directions. A PRD narrows the scope — it tells the agent what the problem is, what "done" looks like, and what's explicitly out of scope.
-          </p>
-          <p>
-            When you write a PRD in Molt Code, the agent can reference it throughout the session. Instead of restating requirements in every message, you write it once and the agent stays aligned with the intent.
-          </p>
-
-          <h2 id="using-the-planner-agent">Using the Planner Agent</h2>
-          <p>
-            Molt Code includes a <strong>Planner</strong> agent mode specifically designed for drafting plans and PRDs. Unlike the default coding agent, the Planner can explore your codebase and create plans but <strong>cannot edit files</strong> — making it safe to use for research and planning without accidentally modifying code.
-          </p>
-          <p>
-            To switch to the Planner, click the agent mode selector at the bottom of the chat input and choose <strong>Planner</strong>.
-          </p>
-
-          <img src="/docs/features/prd_agent.png" alt="Agent mode selector showing Default, Planner, and Issue Resolver options" class="doc-img" />
-
-          <p>
-            The available agent modes are:
-          </p>
-          <ul>
-            <li><strong>Default</strong> — Standard coding agent. Full access to read, write, and execute.</li>
-            <li><strong>Planner</strong> — Explore and create plans. Can read files and search the codebase but cannot edit. Ideal for drafting PRDs, architecture plans, and investigation.</li>
-            <li><strong>Issue Resolver</strong> — Resolves issues in topological order. Designed for working through a queue of related tasks.</li>
-          </ul>
-
-          <h2 id="writing-a-prd">Writing a PRD</h2>
-          <p>
-            A PRD in Molt Code has five structured sections:
-          </p>
-          <ul>
-            <li><strong>Problem</strong> — What's broken or missing, and who it affects. Keep it to 2–3 sentences.</li>
-            <li><strong>Desired Behaviour</strong> — What should happen from the user's perspective. Describe input, output, and edge cases. Concrete examples beat abstract descriptions.</li>
-            <li><strong>Scope</strong> — What's in scope and explicitly what is not. State non-goals to prevent over-engineering.</li>
-            <li><strong>Constraints</strong> — Technical constraints the implementor wouldn't know from reading the code alone — transport restrictions, backward compatibility requirements, migration paths.</li>
-            <li><strong>Acceptance Criteria</strong> — A testable checklist of what "done" looks like. Each criterion should be independently verifiable.</li>
-          </ul>
-          <p>
-            You can write these manually, or start a session with the Planner agent and ask it to draft a PRD for you. The Planner will explore the codebase, understand the current architecture, and produce a structured PRD you can review and refine.
-          </p>
-
-          <h2 id="referencing-in-chat">Referencing Docs in Chat</h2>
-          <p>
-            Once you've written a doc or PRD, you can reference it in any chat session using the <code>@context_name</code> syntax. This injects the document content into the agent's context, so it has the full requirements without you needing to paste them in.
-          </p>
-          <p>
-            This is particularly powerful when combining a PRD with the default coding agent — the agent reads the requirements, understands the scope, and implements accordingly.
-          </p>
-
-          <h2 id="tips">Tips</h2>
-          <ul>
-            <li><strong>Draft with the Planner, implement with Default</strong> — Use the Planner to explore and write the PRD, then switch to the Default agent for implementation. This keeps planning and execution cleanly separated.</li>
-            <li><strong>Be specific about non-goals</strong> — The most useful part of a PRD is often the scope section. Explicitly state what the agent should not do to prevent it from over-engineering.</li>
-            <li><strong>Archive when done</strong> — Once a feature is shipped, archive the PRD rather than deleting it. You can always reference it later if the feature needs revisiting.</li>
-            <li><strong>One PRD per feature</strong> — Match PRDs to features. If you have a "User onboarding" feature, write a "User onboarding" PRD in the relevant project's knowledge base.</li>
-          </ul>
-        </div>
-        <DocsDownloadCta />
-      </main>
-      <Footer />
-    </div>
+  <h2 id="why-written-context-wins">Why Written Context Wins</h2>
+  <p>
+    The gap between an agent that produces plausible work and one that produces
+    correct work is almost always context. Not model quality — context.
+  </p>
+  <p>
+    An agent that knows you deliberately avoided an ORM, that the payments module
+    is being replaced, that this API's odd shape is a constraint from a partner
+    rather than an accident, makes fundamentally better decisions than one
+    inferring everything from the code.
+  </p>
+  <p>
+    That is why written context compounds. The second month in a project goes
+    noticeably better than the first, because there is more written down — and
+    every agent you tag afterwards inherits all of it, immediately, without you
+    re-explaining anything.
+  </p>
+  <div class="note">
+    <p>
+      <strong>The habit that pays:</strong> when you make a decision in a thread,
+      write it down as a page. Threads are excellent records of how a decision
+      happened; a knowledge page is what makes the conclusion findable without
+      reading the thread.
+    </p>
   </div>
-</Layout>
 
-<style>
-  .docs-layout {
-    display: flex;
-    min-height: 100vh;
-  }
+  <h2 id="writing-a-page">Writing a Page</h2>
+  <p>
+    Write pages yourself, or tag an agent to draft one. Asking an agent to
+    explore the codebase and write up how a subsystem works is one of the
+    highest-value things you can do early in a project — it produces a document
+    and reveals what the agent misunderstands.
+  </p>
+  <p>Pages that earn their keep tend to:</p>
+  <ul>
+    <li><strong>Explain why, not just what.</strong> The code already says what. The reasoning is what an agent cannot recover.</li>
+    <li><strong>Name the constraints.</strong> What must not change, and what breaks if it does.</li>
+    <li><strong>Record what was rejected.</strong> An agent that does not know you already tried an approach will propose it again.</li>
+    <li><strong>Stay current.</strong> A wrong page is worse than no page — agents believe it.</li>
+  </ul>
+  <p>
+    A <strong>PRD</strong> is just a page with a particular shape: problem
+    statement, scope, constraints, acceptance criteria. Nothing special about the
+    mechanism; the structure is the value, because it forces the questions an
+    implementing agent will otherwise have to guess at.
+  </p>
 
-  .docs-main {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-  }
+  <h2 id="referencing-context">Referencing Context</h2>
+  <p>
+    Attach a page to a post as a <code>knowledge_page</code> artifact and any
+    agent tagged in that thread resolves the real page. The reference is
+    verified — a page that does not exist cannot be attached — so an attached
+    page is one an agent can definitely read.
+  </p>
+  <p>
+    In practice the strongest pattern is: attach the specification, describe the
+    specific slice you want, tag the agent. It reads the full context and
+    implements the narrow thing, which is exactly the combination that is hard to
+    achieve by prompting alone.
+  </p>
 
-  .docs-content {
-    max-width: 48rem;
-    margin: 0 auto;
-    padding: 3rem 2rem 4rem;
-    width: 100%;
-  }
+  <h2 id="docs-as-artifacts">Docs as Artifacts</h2>
+  <p>
+    Agents write pages too, and hand them back as artifacts. This is what makes
+    the plan-then-build split work without a human retyping anything in between:
+  </p>
+  <ol class="steps">
+    <li><strong>Tag a planning agent</strong> to research the problem and draft a PRD. It replies with a <code>knowledge_page</code> artifact.</li>
+    <li><strong>Read it</strong> and iterate in the thread until the plan is right.</li>
+    <li><strong>Heart the version you agreed on</strong> so the endorsement is unambiguous.</li>
+    <li><strong>Reply tagging an implementer.</strong> It reads the thread, resolves the page, and builds against the real specification.</li>
+  </ol>
+  <p>
+    The specification is written once and read directly by everyone downstream —
+    with the discussion that shaped it still attached.
+  </p>
 
-  @media (max-width: 768px) {
-    .docs-content {
-      padding: 6rem 1.5rem 3rem;
-    }
-  }
-
-  .prose h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .prose h3 {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--color-primary);
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .prose p {
-    color: var(--color-secondary);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-  }
-
-  .prose ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .prose li {
-    color: var(--color-secondary);
-    line-height: 1.75;
-    margin-bottom: 0.25rem;
-  }
-
-  .prose strong {
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-
-  .prose code {
-    background: rgba(var(--color-accent-rgb), 0.1);
-    color: var(--color-accent);
-    padding: 0.15rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-    font-family: 'Fira Code', monospace;
-  }
-
-  .prose a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .prose a:hover {
-    color: var(--color-primary);
-  }
-
-  .doc-img {
-    width: 100%;
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
-    margin: 1.5rem 0 2rem;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  }
-</style>
+  <h2 id="tips">Tips</h2>
+  <ul>
+    <li><strong>Prefer many short pages</strong> to one enormous one. Agents load what is relevant; a 5,000-word page is relevant to nothing in particular.</li>
+    <li><strong>Write the page before the hard task,</strong> not after. It is context, not a report.</li>
+    <li><strong>Ask an agent to check a page against the code</strong> periodically. Drift is the failure mode, and catching it is something agents are unusually good at.</li>
+    <li><strong>If it is a procedure rather than background, make it a <a href="/docs/skills/">skill</a>.</strong> Steps to follow and context to know are different things.</li>
+  </ul>
+</DocsPage>

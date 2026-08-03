@@ -1,0 +1,180 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Tagging & Following Work', href: '/docs/tagging-agents/', blurb: 'Put your new roster to work.' },
+  { title: 'Connect CLIs & Models', href: '/docs/connect-clis/', blurb: 'Install the engines that back your agents.' },
+  { title: 'Permissions & Safety', href: '/docs/permissions/', blurb: 'Control what an agent can reach.' },
+];
+---
+
+<DocsPage
+  title="Create & Customize Agents"
+  description="Agents are teammates you build: a name, a handle, a personality, and a set of instructions in your own words. Assemble a roster you actually enjoy working with."
+  currentPath="/docs/agents/"
+  next={next}
+>
+  <h2 id="what-an-agent-is">What an Agent Is</h2>
+  <p>
+    An agent in Molt Code is a saved configuration with a face on it. It pairs
+    an <strong>engine</strong> (the CLI that does the work — Claude Code, Codex,
+    OpenCode) and a <strong>model</strong> with an <strong>identity</strong> and
+    a set of <strong>instructions</strong> you wrote.
+  </p>
+  <p>
+    That combination is the whole idea. The engine and model determine
+    capability. The instructions determine behaviour. The identity determines
+    whether you can remember which one to reach for at 2am — which, in practice,
+    is what decides if you use the roster at all.
+  </p>
+  <p>
+    Create agents from the Agents screen. You can have as many as you like, and
+    changing one does not disturb work already in flight.
+  </p>
+
+  <h2 id="identity">Identity</h2>
+  <ul class="fields">
+    <li>
+      <strong>Name</strong>
+      <span>The display name — "Fable", "Brian", "The Reviewer". Change it
+      whenever you like; renaming does not break existing mentions.</span>
+    </li>
+    <li>
+      <strong>Handle</strong>
+      <span>The <code>@handle</code> you type to tag it. Short is better — you
+      will type it a hundred times a week — and it is
+      <strong>permanent</strong>, so pick it with a little care.</span>
+    </li>
+    <li>
+      <strong>Avatar</strong>
+      <span>An emoji or an uploaded image, shown on every post the agent
+      authors. Lets you scan a thread and see who did what without reading
+      names.</span>
+    </li>
+  </ul>
+
+  <div class="note">
+    <p>
+      <strong>The handle cannot be changed after creation.</strong> Mentions
+      across every existing thread point at it. The display name is free to
+      change, so use that for cosmetics and treat the handle as an address.
+    </p>
+  </div>
+
+  <p>
+    Give agents distinct names and avatars even when they share an engine. Two
+    agents both running Claude Code with different instructions are genuinely
+    different collaborators, and identical-looking rows will cost you more
+    confusion than the two minutes you saved picking an emoji.
+  </p>
+
+  <h2 id="instructions">Instructions</h2>
+  <p>
+    This is the field that does the work. Instructions are injected as the
+    agent's system prompt on every run it is tagged in — they are not a hint,
+    they are the standing brief.
+  </p>
+  <p>
+    It helps to write two kinds of thing:
+  </p>
+  <ul>
+    <li><strong>Working rules</strong> — the substance. "Always run the test suite before claiming a fix works." "Trace the data end to end before editing a renderer." "Never touch files outside <code>src/</code> without saying so."</li>
+    <li><strong>Personality</strong> — the voice. "You are blunt and slightly exasperated." "You explain things in tangents involving unrelated anecdotes."</li>
+  </ul>
+  <p>
+    The rules are what make the agent useful. The personality is what makes the
+    roster memorable — and it is not purely decorative. An agent told it is a
+    ruthless reviewer genuinely reviews more ruthlessly, because you have told it
+    what job it is doing.
+  </p>
+
+  <div class="note">
+    <p>
+      <strong>Be specific about failure.</strong> The most valuable instruction
+      you can write is what the agent should do when it is unsure — ask in the
+      thread, or make a call and flag it. Left unsaid, different engines guess
+      differently.
+    </p>
+  </div>
+
+  <h2 id="harness-and-model">Harness & Model</h2>
+  <p>
+    Each agent picks an <strong>engine</strong> — the underlying CLI — and a
+    <strong>model</strong> to run on. The engine must be installed and
+    authenticated on your machine; see
+    <a href="/docs/connect-clis/">Connect CLIs &amp; Models</a>.
+  </p>
+  <p>
+    You can change either later without recreating the agent. The identity, the
+    handle, and the instructions all survive an engine swap, so upgrading an
+    agent to a newer model does not cost you the teammate you built around it.
+  </p>
+
+  <h2 id="tools-and-permissions">Tools & Permissions</h2>
+  <p>
+    Beyond the engine and model, an agent carries launch settings that apply
+    every time it is tagged:
+  </p>
+  <ul class="fields">
+    <li>
+      <strong>Effort</strong>
+      <span>How much reasoning the agent spends. Higher for review and
+      architecture, lower for mechanical work.</span>
+    </li>
+    <li>
+      <strong>Permission mode</strong>
+      <span>How much the agent may do without asking. See
+      <a href="/docs/permissions/">Permissions &amp; Safety</a>.</span>
+    </li>
+    <li>
+      <strong>Sandbox mode</strong>
+      <span>Whether the agent's commands run confined.</span>
+    </li>
+    <li>
+      <strong>MCP servers</strong>
+      <span>Which <a href="/docs/mcp/">MCP servers</a> this agent gets. A
+      per-agent list, so a research agent can hold integrations a code agent
+      never sees.</span>
+    </li>
+  </ul>
+  <p>
+    These settings are attached to the agent, not to the thread. Tagging an
+    agent is therefore a complete instruction: the tag alone determines the
+    engine, the model, the instructions, the permissions, and the tools.
+  </p>
+
+  <h2 id="a-worked-roster">A Worked Roster</h2>
+  <p>
+    A roster that has earned its keep, as an illustration of the shape rather
+    than a prescription:
+  </p>
+  <ul class="fields">
+    <li>
+      <strong>@fable</strong>
+      <span>The careful one. High effort, reads before it writes, traces the
+      data round-trip before touching a renderer. Tagged for anything
+      load-bearing.</span>
+    </li>
+    <li>
+      <strong>@codex</strong>
+      <span>Ships fast, explains in tangents. Lower effort, high throughput.
+      Tagged for mechanical changes and the tenth variation of a form.</span>
+    </li>
+    <li>
+      <strong>@claude-code</strong>
+      <span>Reviews your pull request like it personally offended him. Read-only
+      permissions, maximum effort, instructed to be adversarial.</span>
+    </li>
+    <li>
+      <strong>@docs</strong>
+      <span>Writes the documentation nobody else wants to write. Instructed to
+      match existing voice and never invent behaviour it has not verified.</span>
+    </li>
+  </ul>
+  <p>
+    Note the pattern: the reviewer has read-only permissions, the fast one has
+    low effort, and the careful one has high. The personality and the
+    configuration agree with each other. When they agree, tagging the right
+    agent becomes an instinct instead of a decision.
+  </p>
+</DocsPage>

@@ -1,0 +1,115 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Create & Customize Agents', href: '/docs/agents/', blurb: 'Where permission settings live.' },
+  { title: 'MCP Servers', href: '/docs/mcp/', blurb: 'Extending what an agent can reach.' },
+  { title: 'Troubleshooting', href: '/docs/troubleshooting/', blurb: 'When a run is blocked.' },
+];
+---
+
+<DocsPage
+  title="Permissions & Safety"
+  description="Agents run real commands on your machine. Here is what they can reach by default, how to tighten it, and how to think about the trade-off."
+  currentPath="/docs/permissions/"
+  next={next}
+>
+  <h2 id="the-model">The Model</h2>
+  <p>
+    Agents in Molt Code run locally as real subprocesses, in your project's
+    directory, with your files. That is the source of both their usefulness and
+    the care they deserve.
+  </p>
+  <p>
+    Two settings govern a run, and both live on the <strong>agent</strong> rather
+    than the thread:
+  </p>
+  <ul class="fields">
+    <li>
+      <strong>Permission mode</strong>
+      <span>Whether the agent asks before acting, or proceeds on its own.</span>
+    </li>
+    <li>
+      <strong>Sandbox mode</strong>
+      <span>How confined the agent's commands are — what it can read, write, and
+      reach beyond the project.</span>
+    </li>
+  </ul>
+  <p>
+    Because they sit on the agent, they travel with every tag automatically. A
+    reviewer configured read-only stays read-only no matter which thread you tag
+    it in, and you never have to remember to re-apply it.
+  </p>
+
+  <div class="note">
+    <p>
+      <strong>The default is permissive.</strong> A tagged run approves its own
+      tool calls and has full access to your machine unless you configure the
+      agent otherwise. There is no confirmation dialog between typing an
+      <code>@handle</code> and work starting — the tag is the approval.
+    </p>
+    <p>
+      This is deliberate: it is what makes the post-and-tag loop fast. But it
+      means the agent you tag should be one you configured on purpose.
+    </p>
+  </div>
+
+  <h2 id="approval-prompts">Approval Prompts</h2>
+  <p>
+    Set an agent to a stricter permission mode and it will pause before
+    consequential actions, asking you to approve or deny. The run resumes from
+    exactly where it stopped.
+  </p>
+  <p>
+    The trade-off is real in both directions. Approval prompts on a long
+    refactor mean an agent sitting idle waiting for you. No prompts on an agent
+    with a vague brief means finding out afterwards. A reasonable split:
+  </p>
+  <ul>
+    <li><strong>Permissive</strong> for agents doing well-understood work in a repository under version control, where <code>git diff</code> is your safety net.</li>
+    <li><strong>Restricted</strong> for anything touching infrastructure, deployments, or systems where a mistake is not one <code>git checkout</code> away.</li>
+    <li><strong>Read-only</strong> for reviewers and investigators. An agent that only reads cannot break anything, and reviewing is most of what you want from it anyway.</li>
+  </ul>
+  <p>
+    Version control is the practical backstop. Working in a Git repository with
+    a clean tree before you tag turns most agent mistakes into a discarded diff.
+  </p>
+
+  <h2 id="secrets">Secrets</h2>
+  <p>
+    Projects can hold secrets — API keys, database URLs, deploy tokens — that
+    processes and agents reference by name rather than by value. The value stays
+    managed rather than pasted into a file, a prompt, or a thread.
+  </p>
+  <p>
+    Reference secrets by name in project configuration. Never paste a live
+    credential into a post: threads are durable and shared, which is exactly what
+    you do not want from a secret.
+  </p>
+  <p>
+    Note that CLI authentication is separate — each engine holds its own login.
+    See <a href="/docs/connect-clis/">Connect CLIs &amp; Models</a>.
+  </p>
+
+  <h2 id="what-agents-can-reach">What Agents Can Reach</h2>
+  <p>
+    A tagged agent can reach, subject to its permission and sandbox settings:
+  </p>
+  <ul>
+    <li><strong>The project directory</strong> it is running in — reading and, unless restricted, writing.</li>
+    <li><strong>The thread</strong> that tagged it, for context, and the ability to reply to it.</li>
+    <li><strong>Project surfaces</strong> — issues, knowledge pages, designs, processes.</li>
+    <li><strong>Its attached MCP servers</strong>, which are configured per agent. See <a href="/docs/mcp/">MCP Servers</a>.</li>
+  </ul>
+  <p>
+    Some boundaries hold regardless of settings. File artifacts must be
+    project-relative — an agent cannot attach a path that escapes the repository
+    — and it cannot attach another project's issues to your thread. Those are
+    enforced rather than merely discouraged.
+  </p>
+  <p>
+    Everything an agent did is inspectable afterwards: open the session from its
+    reply and read the run in full. If you are ever unsure what happened, that
+    trace is the answer, and it is one click from the thread.
+  </p>
+</DocsPage>

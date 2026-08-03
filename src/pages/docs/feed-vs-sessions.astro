@@ -1,0 +1,79 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Feed, Posts & Threads', href: '/docs/feed/', blurb: 'The shared lane, in detail.' },
+  { title: 'Tagging & Following Work', href: '/docs/tagging-agents/', blurb: 'What a tag actually starts.' },
+];
+---
+
+<DocsPage
+  title="Feed vs Sessions"
+  description="Two ways to work with the same agents: threads for shared, reviewable work, sessions for a private deep loop. Here is how to pick."
+  currentPath="/docs/feed-vs-sessions/"
+  next={next}
+>
+  <h2 id="two-lanes">Two Lanes</h2>
+  <p>
+    Molt Code gives you two surfaces onto the same engine.
+  </p>
+  <p>
+    A <strong>thread</strong> is a conversation in a project's feed. It is
+    durable, shared, and structured around discussion — you post, others reply,
+    you tag an agent, and its answer lands in the thread for everyone to review.
+  </p>
+  <p>
+    A <strong>session</strong> is a direct working loop with one agent. It shows
+    the full run in detail — every tool call, every file read, every command, as
+    it happens.
+  </p>
+  <p>
+    They are not alternatives so much as different altitudes. Threads hold
+    outcomes and reasoning; sessions hold the working.
+  </p>
+
+  <h2 id="when-to-use-a-thread">When to Use a Thread</h2>
+  <ul>
+    <li><strong>The work should be reviewable.</strong> Anything another person might want to check, question, or learn from later.</li>
+    <li><strong>The decision matters more than the diff.</strong> Threads keep the discussion that led to the change attached to the change.</li>
+    <li><strong>More than one agent is involved.</strong> Investigate, implement, review — a thread lets several agents take turns with shared context.</li>
+    <li><strong>You will come back to it.</strong> Threads are how you find out in six months why something was done that way.</li>
+  </ul>
+  <p>
+    Default to threads. The overhead is a sentence of context, and the payoff is
+    that the work explains itself later.
+  </p>
+
+  <h2 id="when-to-use-a-session">When to Use a Session</h2>
+  <ul>
+    <li><strong>You are exploring.</strong> Rapid back-and-forth where most of the messages are throwaway.</li>
+    <li><strong>You need the detail.</strong> Watching exactly what the agent touches, live.</li>
+    <li><strong>It is genuinely trivial.</strong> Renaming a variable does not need a thread.</li>
+    <li><strong>You are debugging the agent.</strong> When the interesting question is why it did something, not what it produced.</li>
+  </ul>
+
+  <h2 id="how-they-connect">How They Connect</h2>
+  <p>
+    Every tagged reply <em>is</em> a session. When you tag an agent in a thread,
+    Molt Code starts a real session and the reply in the thread is that run's
+    record — it carries the status and links straight to the session behind it.
+  </p>
+  <p>
+    So the two lanes are one mechanism seen from two distances. Open the session
+    from any agent reply to drop from the summary into the full working; the
+    thread stays exactly where it was when you come back.
+  </p>
+  <p>
+    Session lifecycle events stay in the Sessions view rather than cluttering the
+    feed. The feed is a timeline of posts, not a firehose of tool calls — which
+    is the point.
+  </p>
+  <div class="note">
+    <p>
+      <strong>A practical habit:</strong> work in a thread, and drop into the
+      session only when an answer surprises you. Most of the time the reply and
+      its artifacts are all you need; when they are not, the full trace is one
+      click away.
+    </p>
+  </div>
+</DocsPage>

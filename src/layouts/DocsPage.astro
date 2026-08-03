@@ -1,0 +1,353 @@
+---
+// ---------------------------------------------------------------------------
+// Shared shell for every /docs/* page.
+//
+// Before this existed each docs page repeated the same ~90 lines of .prose CSS
+// and the same sidebar/footer/CTA scaffolding. A page now supplies only its
+// frontmatter and its prose; everything structural lives here.
+// ---------------------------------------------------------------------------
+import Layout from './Layout.astro';
+import Footer from '../components/Footer.astro';
+import DocsSidebar from '../components/DocsSidebar.astro';
+import DocsDownloadCta from '../components/DocsDownloadCta.astro';
+
+interface NextLink {
+  title: string;
+  href: string;
+  blurb?: string;
+}
+
+interface Props {
+  /** Page <title>; " - Molt Code Docs" is appended automatically. */
+  title: string;
+  /** H1 shown at the top of the page. Defaults to `title`. */
+  heading?: string;
+  /** Deck paragraph under the H1. */
+  description: string;
+  /** Trailing-slash path, used to mark the sidebar entry active and pick the TOC. */
+  currentPath: string;
+  /** Eyebrow above the H1. */
+  eyebrow?: string;
+  /** "Where next" cards rendered above the download CTA. */
+  next?: NextLink[];
+}
+
+const {
+  title,
+  heading,
+  description,
+  currentPath,
+  eyebrow = 'Documentation',
+  next = [],
+} = Astro.props;
+---
+
+<Layout title={`${title} - Molt Code Docs`} description={description}>
+  <div class="docs-layout">
+    <DocsSidebar currentPath={currentPath} />
+    <div class="docs-main">
+      <main class="docs-content">
+        <p class="docs-eyebrow">{eyebrow}</p>
+        <h1 class="docs-h1">{heading ?? title}</h1>
+        <p class="docs-deck">{description}</p>
+
+        <div class="prose">
+          <slot />
+        </div>
+
+        {next.length > 0 && (
+          <nav class="docs-next" aria-label="Where to go next">
+            <p class="docs-next-title">Where next</p>
+            <div class="docs-next-grid">
+              {next.map((item) => (
+                <a href={item.href} class="docs-next-card">
+                  <span class="docs-next-name">{item.title}</span>
+                  {item.blurb && <span class="docs-next-blurb">{item.blurb}</span>}
+                </a>
+              ))}
+            </div>
+          </nav>
+        )}
+
+        <DocsDownloadCta />
+      </main>
+      <Footer />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .docs-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .docs-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .docs-content {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .docs-content {
+      padding: 6rem 1.5rem 3rem;
+    }
+  }
+
+  .docs-eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.875rem;
+  }
+
+  .docs-h1 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--color-primary);
+    margin-bottom: 0.875rem;
+  }
+
+  .docs-deck {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--color-secondary);
+    margin-bottom: 3rem;
+    max-width: 42rem;
+  }
+
+  /* --- Prose -------------------------------------------------------------- */
+
+  .prose :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: -0.015em;
+    margin-top: 3rem;
+    margin-bottom: 0.75rem;
+    scroll-margin-top: 1.5rem;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    scroll-margin-top: 1.5rem;
+  }
+
+  .prose :global(p) {
+    color: var(--color-secondary);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose :global(ul) {
+    list-style: disc;
+  }
+
+  .prose :global(ol) {
+    list-style: decimal;
+  }
+
+  .prose :global(li) {
+    color: var(--color-secondary);
+    line-height: 1.75;
+    margin-bottom: 0.375rem;
+  }
+
+  .prose :global(strong) {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .prose :global(code) {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: var(--font-family-mono);
+  }
+
+  .prose :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--color-primary);
+  }
+
+  .prose :global(.doc-img) {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    margin: 1.5rem 0 2rem;
+  }
+
+  /* Callout ---------------------------------------------------------------- */
+
+  .prose :global(.note) {
+    border: 1px solid var(--color-border);
+    border-left: 2px solid var(--color-accent);
+    background: var(--color-surface);
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding: 0.875rem 1.125rem;
+    margin: 1.5rem 0;
+  }
+
+  .prose :global(.note p) {
+    margin-bottom: 0;
+    font-size: 0.9375rem;
+  }
+
+  .prose :global(.note p + p) {
+    margin-top: 0.5rem;
+  }
+
+  /* Step list -------------------------------------------------------------- */
+
+  .prose :global(.steps) {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: step;
+    margin: 1.5rem 0;
+  }
+
+  .prose :global(.steps > li) {
+    counter-increment: step;
+    position: relative;
+    padding-left: 2.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(.steps > li::before) {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.0625rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-family-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .prose :global(.steps > li > strong) {
+    display: block;
+    margin-bottom: 0.125rem;
+  }
+
+  /* Definition-style key/value rows ---------------------------------------- */
+
+  .prose :global(.fields) {
+    list-style: none;
+    padding-left: 0;
+    margin: 1.25rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .prose :global(.fields > li) {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 0;
+    align-items: baseline;
+  }
+
+  @media (max-width: 640px) {
+    .prose :global(.fields > li) {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+
+  .prose :global(.fields dt),
+  .prose :global(.fields > li > strong:first-child) {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  /* Where next ------------------------------------------------------------- */
+
+  .docs-next {
+    margin-top: 3.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .docs-next-title {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin-bottom: 0.875rem;
+  }
+
+  .docs-next-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 0.75rem;
+  }
+
+  .docs-next-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.625rem;
+    background: var(--color-surface);
+    text-decoration: none;
+    transition: border-color 140ms ease, background 140ms ease;
+  }
+
+  .docs-next-card:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+
+  .docs-next-name {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  .docs-next-blurb {
+    color: var(--color-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+</style>

@@ -5,41 +5,33 @@ import AppleIcon from './AppleIcon.astro';
 
 <section class="docs-cta-section">
   <div class="pane">
-    <div class="pane-header">
-      <div class="pane-dots">
-        <span class="pane-dot"></span>
-        <span class="pane-dot"></span>
-        <span class="pane-dot"></span>
-      </div>
-      <span class="pane-path">~/ready</span>
-    </div>
     <div class="cta-body">
-      <div class="cta-prompt"><span class="cta-p">$</span> molt --ready<span class="caret"></span></div>
+      <span class="chip">Get started</span>
       <h2 class="cta-title">Ready to try it yourself?</h2>
       <p class="cta-sub">Free forever. Uses your existing API keys. Runs locally on your machine.</p>
 
       <div class="cta-actions" data-download-cta>
         <a href={config.downloadUrl} data-track-download data-dl="mac-arm" class="btn btn-primary">
           <AppleIcon size={16} />
-          download.mac
+          Download for Mac
         </a>
         <a href={config.appStoreUrl} data-dl="ios" class="btn btn-primary">
           <AppleIcon size={16} />
-          download.ios
+          Download for iOS
         </a>
         <div class="cta-more">
           <button type="button" class="btn" data-dl-toggle>
-            all.platforms
+            All platforms
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="cta-dropdown" data-dl-dropdown>
             <a href={config.downloadUrl} data-track-download class="cta-dl-item">
               <AppleIcon size={14} />
-              macos.apple-silicon
+              macOS (Apple Silicon)
             </a>
             <a href={config.appStoreUrl} class="cta-dl-item">
               <AppleIcon size={14} />
-              ios.app-store
+              iOS — App Store
             </a>
           </div>
         </div>
@@ -74,17 +66,6 @@ import AppleIcon from './AppleIcon.astro';
     }
   }
 
-  .cta-prompt {
-    font-family: var(--font-family-mono);
-    font-size: 12px;
-    color: var(--color-secondary);
-  }
-
-  .cta-p {
-    color: var(--color-accent);
-    margin-right: 0.25rem;
-  }
-
   .cta-title {
     font-family: var(--font-family-sans);
     font-size: clamp(1.5rem, 4vw, 2.25rem);
@@ -97,8 +78,8 @@ import AppleIcon from './AppleIcon.astro';
   }
 
   .cta-sub {
-    font-family: var(--font-family-mono);
-    font-size: 13px;
+    font-family: var(--font-family-sans);
+    font-size: 0.9375rem;
     color: var(--color-secondary);
     line-height: 1.7;
     margin: 0;
@@ -150,8 +131,8 @@ import AppleIcon from './AppleIcon.astro';
     gap: 0.5rem;
     padding: 0.5rem 0.625rem;
     border-radius: 6px;
-    font-family: var(--font-family-mono);
-    font-size: 12px;
+    font-family: var(--font-family-sans);
+    font-size: 0.875rem;
     color: var(--color-primary);
     transition: background 120ms ease, color 120ms ease;
   }
@@ -170,8 +151,8 @@ import AppleIcon from './AppleIcon.astro';
     display: flex;
     flex-wrap: wrap;
     gap: 1.25rem;
-    font-family: var(--font-family-mono);
-    font-size: 11px;
+    font-family: var(--font-family-sans);
+    font-size: 0.8125rem;
     color: var(--color-muted);
   }
 

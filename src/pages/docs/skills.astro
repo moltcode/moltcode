@@ -1,0 +1,92 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Docs, Context & PRDs', href: '/docs/prds/', blurb: 'The other half of durable project memory.' },
+  { title: 'Create & Customize Agents', href: '/docs/agents/', blurb: 'Instructions versus skills.' },
+  { title: 'MCP Servers', href: '/docs/mcp/', blurb: 'Extending what agents can reach.' },
+];
+---
+
+<DocsPage
+  title="Skills"
+  description="A skill is a packaged procedure an agent loads when it is relevant — your deploy steps, your review checklist, your repo's particular way of doing things."
+  currentPath="/docs/skills/"
+  next={next}
+>
+  <h2 id="what-a-skill-is">What a Skill Is</h2>
+  <p>
+    A skill is a set of instructions for a specific kind of task, written down
+    once and loaded by an agent when that task comes up. "How we cut a release."
+    "What to check before approving a schema migration." "The five things that
+    are always wrong with a new endpoint here."
+  </p>
+  <p>
+    The distinction from an agent's instructions is scope. <strong>Instructions
+    are who the agent is</strong> — always loaded, always in effect.
+    <strong>A skill is what to do in a particular situation</strong> — loaded
+    only when relevant. Putting your entire deploy runbook into an agent's
+    instructions means carrying it on every unrelated run; as a skill, it appears
+    exactly when it is needed.
+  </p>
+
+  <h2 id="where-skills-live">Where Skills Live</h2>
+  <p>
+    Skills come from two places:
+  </p>
+  <ul class="fields">
+    <li>
+      <strong>Project skills</strong>
+      <span>Live in the repository, versioned alongside the code they describe.
+      Available to any agent working in that project — and, being in Git, they
+      arrive with the repo for everyone else too.</span>
+    </li>
+    <li>
+      <strong>Managed skills</strong>
+      <span>Provided by Molt Code or shared across projects, for procedures that
+      are not repository-specific.</span>
+    </li>
+  </ul>
+  <p>
+    Project skills are the ones worth investing in. A procedure that lives next
+    to the code stays honest, because it gets updated in the same pull request
+    that changes the thing it describes.
+  </p>
+
+  <h2 id="writing-one">Writing One</h2>
+  <p>
+    A skill is a description of when it applies plus the procedure itself. The
+    description matters more than people expect — it is what an agent uses to
+    decide whether to load the skill at all. "Use when deploying to production or
+    rolling back a release" beats "deployment stuff".
+  </p>
+  <p>
+    Good skills are specific and verifiable:
+  </p>
+  <ul>
+    <li><strong>Name the real commands and paths.</strong> An agent cannot infer that your integration tests need a seeded database.</li>
+    <li><strong>Include the checks, not just the steps.</strong> How does the agent know it worked?</li>
+    <li><strong>Say what to do when it fails.</strong> The failure branch is where a written procedure earns its keep.</li>
+    <li><strong>Keep them narrow.</strong> One procedure per skill; a skill that covers four topics gets loaded for the wrong reason.</li>
+  </ul>
+
+  <h2 id="when-skills-fire">When Skills Fire</h2>
+  <p>
+    An agent sees the available skills and their descriptions, and loads one when
+    the task at hand matches. You do not have to invoke skills manually, though
+    you can always tell an agent to use one by name in a post.
+  </p>
+  <p>
+    If a skill is not firing when it should, the description is almost always the
+    problem rather than the content. Rewrite it to name the concrete triggers —
+    the commands, the file types, the words someone would actually use when
+    asking for this task.
+  </p>
+  <div class="note">
+    <p>
+      <strong>A good habit:</strong> when you find yourself correcting the same
+      agent mistake for the third time, that is a skill. The correction you keep
+      typing into threads is the procedure you should have written down.
+    </p>
+  </div>
+</DocsPage>

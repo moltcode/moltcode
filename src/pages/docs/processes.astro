@@ -1,0 +1,85 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Projects & Toolbox', href: '/docs/projects/', blurb: 'The rest of the project surface.' },
+  { title: 'Troubleshooting', href: '/docs/troubleshooting/', blurb: 'When something will not stop.' },
+];
+---
+
+<DocsPage
+  title="Terminals, Processes & Scripts"
+  description="Dev servers, watchers, named tasks, and interactive shells — long-lived work that outlives a single agent turn, managed in one place."
+  currentPath="/docs/processes/"
+  next={next}
+>
+  <h2 id="processes">Processes</h2>
+  <p>
+    A process is a long-running service belonging to a project: a dev server, a
+    database, a file watcher, a queue worker. Molt Code starts, stops, and
+    monitors them, and keeps their logs where both you and your agents can read
+    them.
+  </p>
+  <p>
+    Manage them from the project toolbox, or from the CLI:
+  </p>
+  <ul>
+    <li><code>moltcode processes list</code> — what exists and what is running.</li>
+    <li><code>moltcode processes start|stop|restart &lt;id&gt;</code></li>
+    <li><code>moltcode processes logs &lt;id&gt;</code> — recent output.</li>
+    <li><code>moltcode processes grep &lt;id&gt; "pattern"</code> — search the logs.</li>
+  </ul>
+  <p>
+    That last one is the one agents actually lean on. An agent debugging a
+    failing request can grep the server log for the error rather than asking you
+    to paste it — which is the difference between a useful investigation and a
+    conversation.
+  </p>
+
+  <h2 id="terminals">Terminals</h2>
+  <p>
+    Terminals are persistent interactive shells scoped to a project. Unlike a
+    command run inside an agent turn, a terminal outlives the turn — so it suits
+    REPLs, TUIs, watchers, and anything that should keep running while other work
+    happens.
+  </p>
+  <p>
+    Use a terminal when the thing you are starting should still be alive
+    afterwards. Use a plain command inside an agent run when it should finish and
+    report. Starting a dev server as a blocking command is the classic mistake:
+    the turn never ends.
+  </p>
+
+  <h2 id="scripts">Scripts</h2>
+  <p>
+    Scripts are named project tasks — build, lint, test, codegen, seed, deploy.
+    Configure them once and run them by name:
+  </p>
+  <ul>
+    <li><code>moltcode scripts list</code></li>
+    <li><code>moltcode scripts run &lt;id&gt;</code> / <code>stop &lt;id&gt;</code></li>
+    <li><code>moltcode scripts status &lt;id&gt;</code></li>
+    <li><code>moltcode scripts logs &lt;id&gt;</code> / <code>grep &lt;id&gt; "pattern"</code></li>
+  </ul>
+  <p>
+    Defining your test and lint commands as scripts is worth the five minutes.
+    It gives agents an unambiguous way to verify their own work, and "run the
+    test script before claiming it works" becomes an instruction that means
+    something concrete.
+  </p>
+
+  <h2 id="watching-output">Watching Output</h2>
+  <p>
+    Processes and scripts both stream output that persists, so you can start
+    something, walk away, and read what happened. Agents use the same logs — an
+    agent that just changed a component can watch the dev server's rebuild and
+    catch a compile error without you noticing there was one.
+  </p>
+  <div class="note">
+    <p>
+      <strong>Prefer grep to reading logs whole.</strong> A verbose dev server
+      produces enormous output; searching for the error is faster for you and
+      considerably cheaper for an agent than reading the entire tail.
+    </p>
+  </div>
+</DocsPage>

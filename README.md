@@ -1,6 +1,6 @@
 # Molt Code — Website
 
-The marketing website and documentation for [Molt Code](https://moltcode.com), a free desktop application for macOS that orchestrates AI coding agents across multiple projects.
+The marketing website and documentation for [Molt Code](https://moltcode.com), a free desktop app for macOS, iPhone, and iPad built around a project feed where you and your agents work in threads — post the work, tag an agent by `@handle`, and review what it hands back.
 
 Built with [Astro](https://astro.build), [Tailwind CSS v4](https://tailwindcss.com), and deployed to [Cloudflare Pages](https://pages.cloudflare.com) via Wrangler.
 
@@ -42,16 +42,51 @@ All commands are run from the root of the project:
 
 ## 📄 Pages
 
-- **`/`** — Landing page with hero, features, how-it-works, agents, philosophy, and CTA sections
-- **`/docs/what-is-moltcode`** — What is Molt Code?
-- **`/docs/features`** — Features & chat organisation
-- **`/docs/building-from-scratch`** — Building a product from scratch
-- **`/docs/resolving-issues`** — Resolving issues with agents
-- **`/docs/prds`** — Drafting PRDs with agents
-- **`/docs/changelog`** — Changelog
-- **`/docs/support`** — Support & contact
+- **`/`** — Landing page: download hero, thread flow, agent roster, chat sample
+- **`/pricing`** — Pricing
 - **`/privacy`** — Privacy policy
 - **`/terms`** — Terms of service
+
+### Docs
+
+Docs pages use the shared `src/layouts/DocsPage.astro` layout, which owns the
+sidebar, prose styles, "where next" cards, and download CTA. A page supplies
+only its frontmatter and its prose. Sidebar sections and per-page tables of
+contents live in `src/components/DocsSidebar.astro`.
+
+**Start Here**
+- **`/docs/what-is-moltcode`** — What is Molt Code?
+- **`/docs/quickstart`** — Your first ten minutes
+- **`/docs/connect-clis`** — Connect CLIs & models
+
+**Collaborate**
+- **`/docs/feed`** — Feed, posts & threads
+- **`/docs/agents`** — Create & customize agents
+- **`/docs/tagging-agents`** — Tagging agents & following work
+- **`/docs/artifacts`** — Agent replies & artifacts
+- **`/docs/feed-vs-sessions`** — Feed vs sessions
+
+**Build**
+- **`/docs/projects`** — Projects & the project toolbox
+- **`/docs/resolving-issues`** — Issues, sub-issues & epics
+- **`/docs/prds`** — Docs, context & PRDs
+- **`/docs/building-from-scratch`** — Building a product from scratch
+- **`/docs/conductor`** — Conductor & workflows
+
+**Extend**
+- **`/docs/skills`** — Skills
+- **`/docs/mcp`** — MCP servers
+- **`/docs/designs`** — Designs
+- **`/docs/permissions`** — Permissions & safety
+
+**Reference**
+- **`/docs/processes`** — Terminals, processes & scripts
+- **`/docs/troubleshooting`** — Troubleshooting
+- **`/docs/changelog`** — Changelog
+- **`/docs/support`** — Support & contact
+
+**Redirects**
+- **`/docs/features`** → `/docs/feed` (301; the Features model was replaced by the feed)
 
 ## ⚙️ Configuration
 

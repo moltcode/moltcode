@@ -26,11 +26,11 @@ import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
                 <h2 id="whats-next">On the Horizon</h2>
 
                 <div class="next-item">
-                  <h3>Hardened Channels Experience</h3>
-                  <p>Making channels the primary interface for non-critical work. The thread agent is more capable of prompting Codex and Claude than doing it manually — leaning into that.</p>
+                  <h3>Deeper Feed Collaboration</h3>
+                  <p>The Feed shipped and became the primary surface. Next is making threads richer to work in — better cross-thread search, sharper agent handoffs, and more of the review loop happening in the thread itself.</p>
                   <div class="reasoning">
                     <span class="reasoning-label">Thinking</span>
-                    <p>Channels should be the default place I go for things that don't need my full attention. The thread agent already knows how to prompt the right CLI better than I do most of the time. Time to trust it and build around that.</p>
+                    <p>Tagging an agent in a thread turned out to be the right primitive — it beat dragging things into a chat window by a mile. Now the interesting problems are the ones after the reply lands: finding the thread where something was decided, and handing work between agents without re-explaining it.</p>
                   </div>
                 </div>
 
@@ -52,6 +52,33 @@ import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
                   </div>
                 </div>
 
+              </div>
+            </div>
+
+            <!-- Phase 11 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">July – August 2026</p>
+                <h2 id="feed-agents-and-rebrand">Feed, Agents & the Violet Rebrand</h2>
+                <p>
+                  The biggest shift in how Molt Code works. Channels became the <strong>Feed</strong> — project-scoped threads where you post work, discuss it, and tag an agent by <code>@handle</code> to go do it. The agent's reply row <em>is</em> the run record, so a thread carries the discussion and the result in one place.
+                </p>
+                <p>
+                  Agent modes are gone. Instead you <strong>create your own agents</strong>: a name, a permanent handle, an avatar, an engine, a model, and instructions in your own words. Tag one and that configuration alone determines the entire run — including its permissions and its MCP servers.
+                </p>
+                <ul>
+                  <li>Project feed with posts, arbitrary-depth reply trees, and heart reactions</li>
+                  <li>Tag <code>@handle</code> to dispatch a real agent run; several agents run independently in one thread</li>
+                  <li>Typed artifacts on replies — knowledge pages, issues, designs, and files, validated at the boundary</li>
+                  <li>Custom agent roster replacing fixed Planner / Issue Resolver modes</li>
+                  <li>Per-agent launch config: effort, permission mode, sandbox mode, and MCP attachments</li>
+                  <li><code>#project</code> chips to run a tagged agent outside the thread's own project</li>
+                  <li>Soft-deleted posts kept as tombstones so reply trees survive</li>
+                  <li>Streams for optional cross-project thread classification</li>
+                  <li>New design system — cool near-black surfaces, violet accent, Inter as the primary voice</li>
+                  <li>Terminal metaphors retired across the app and the website</li>
+                </ul>
               </div>
             </div>
 

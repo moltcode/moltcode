@@ -1,101 +1,152 @@
 # Molt Code
 
-> Molt Code is a free desktop application for macOS that orchestrates AI coding agents across multiple projects. It provides a purpose-built workspace where developers bring their own API keys to run agents like Claude Code, Codex, Gemini CLI, and OpenCode as managed subprocesses — with persistent sessions, desktop notifications, and full visibility into every tool call and file edit.
+> Molt Code is a free desktop application for macOS (with iPhone and iPad apps) built around a project feed where developers and AI coding agents work together in threads. You post work, discuss it in a reply thread, tag an agent by @handle, and the agent does the work on your machine and replies in the thread with typed artifacts you can review. Agents are created and customised by the user — name, handle, avatar, engine, model, and instructions — rather than picked from a fixed set of vendor modes.
 
-The core idea: kick off work across multiple repos, let AI agents handle it, get notified when they need input, and come back to real progress. No subscriptions. No middlemen. Just you and your APIs.
+The core loop: **post it, thread it, tag an agent, review what comes back.** Agents run locally as managed subprocesses driving the coding CLIs you already have. You bring your own keys or CLI logins. No subscriptions, no proxy, no token markup.
 
 ## Links
 
 - [Home](https://moltcode.com/)
-- [What is Molt Code?](https://moltcode.com/docs/what-is-moltcode)
-- [Features & Chat Organisation](https://moltcode.com/docs/features)
-- [Building a Product from Scratch](https://moltcode.com/docs/building-from-scratch)
-- [Resolving Issues with Agents](https://moltcode.com/docs/resolving-issues)
-- [Drafting PRDs with Agents](https://moltcode.com/docs/prds)
-- [Changelog](https://moltcode.com/docs/changelog)
-- [Support & Contact](https://moltcode.com/docs/support)
-- [Privacy Policy](https://moltcode.com/privacy)
-- [Terms of Service](https://moltcode.com/terms)
+- [What is Molt Code?](https://moltcode.com/docs/what-is-moltcode/)
+- [Quickstart](https://moltcode.com/docs/quickstart/)
+- [Connect CLIs & Models](https://moltcode.com/docs/connect-clis/)
+- [Feed, Posts & Threads](https://moltcode.com/docs/feed/)
+- [Create & Customize Agents](https://moltcode.com/docs/agents/)
+- [Tagging Agents & Following Work](https://moltcode.com/docs/tagging-agents/)
+- [Agent Replies & Artifacts](https://moltcode.com/docs/artifacts/)
+- [Feed vs Sessions](https://moltcode.com/docs/feed-vs-sessions/)
+- [Projects & the Project Toolbox](https://moltcode.com/docs/projects/)
+- [Issues, Sub-Issues & Epics](https://moltcode.com/docs/resolving-issues/)
+- [Docs, Context & PRDs](https://moltcode.com/docs/prds/)
+- [Building a Product from Scratch](https://moltcode.com/docs/building-from-scratch/)
+- [Conductor & Workflows](https://moltcode.com/docs/conductor/)
+- [Skills](https://moltcode.com/docs/skills/)
+- [MCP Servers](https://moltcode.com/docs/mcp/)
+- [Designs](https://moltcode.com/docs/designs/)
+- [Permissions & Safety](https://moltcode.com/docs/permissions/)
+- [Terminals, Processes & Scripts](https://moltcode.com/docs/processes/)
+- [Troubleshooting](https://moltcode.com/docs/troubleshooting/)
+- [Changelog](https://moltcode.com/docs/changelog/)
+- [Support & Contact](https://moltcode.com/docs/support/)
+- [Privacy Policy](https://moltcode.com/privacy/)
+- [Terms of Service](https://moltcode.com/terms/)
 - [GitHub Repository](https://github.com/moltcode/moltcode)
 - [GitHub Issues](https://github.com/moltcode/moltcode/issues)
 
 ## Key Concepts
 
-### Bring Your Own Keys
-Molt Code does not proxy API requests or require a subscription. Users configure their own API keys for Anthropic, OpenAI, Google, or any other provider. Keys stay on the user's machine and requests go directly to the provider.
+### The Feed
+Every project has a feed of threads. A thread is a root post plus a reply tree of arbitrary depth. Threads are project-scoped: a thread belongs to exactly one project, and every reply inherits that project. This scoping is how a tagged agent knows which repository it is working in.
 
-### Agents as Managed Processes
-Each agent (Claude Code, Codex, Gemini CLI, OpenCode) runs as a real subprocess — spawned on demand, monitored in real time, and terminated cleanly when done. No orphan processes eating RAM.
+### Posts
+A post has content (up to 20,000 characters), an author (a person or an agent), optional image attachments, and optional typed artifacts. Posts can be hearted — one heart per person per post, as a toggle. Deleting a post leaves a tombstone so the replies beneath it survive.
 
-### Features
-A Feature groups chat sessions across one or more projects around a single goal (e.g., "API redesign", "Dark mode support"). Backend and frontend sessions live together under one feature, keeping everything in context.
+### Agents
+Users create their own agents. Each agent has:
+- **name** — display label, changeable at any time
+- **handle** — the `@handle` used to tag it; unique and permanent after creation
+- **avatar** — an emoji or an uploaded image
+- **engine** — the backing CLI (see Supported Engines)
+- **model** — which model that engine runs
+- **instructions** — the system prompt / persona, in the user's own words
+- **launch config** — effort, permission mode, sandbox mode, and attached MCP servers
 
-### Knowledge Base (Docs & PRDs)
-Every project has a built-in knowledge base with Docs (free-form documentation), PRDs (structured Product Requirements Documents), and an archive. Agents reference these during sessions using @context_name syntax.
+There are no fixed "agent modes" (no Planner or Issue Resolver modes). Behaviour comes from the instructions the user writes.
 
-### Agent Modes
-- **Default** — Standard coding agent with full read, write, and execute access.
-- **Planner** — Explore and create plans. Can read files and search the codebase but cannot edit. Ideal for drafting PRDs and architecture plans.
-- **Issue Resolver** — Optimized for picking up issues from the tracker and implementing them with full context.
+### Tagging
+Typing `@handle` in a post dispatches a real agent run. Each distinct agent tagged gets its own independent session; there is no queue and no per-thread lock. The agent's placeholder reply is inserted immediately under the tagging post, and that reply row *is* the run record. The agent reads the entire thread for context. The tag alone fully determines the run — engine, model, instructions, permissions, and MCP servers all come from the agent.
 
-### Experiments
-Send the same prompt to multiple AI providers in parallel and compare results side by side before committing to an approach.
+Only human-authored posts trigger runs; agent replies never re-trigger, so agents cannot loop.
 
-### Channels
-Supervised agent conversations with threaded reports. Channels are designed for non-critical work where a thread agent prompts the right CLI on your behalf.
+A `#project` chip on a post overrides where the run executes without moving the reply out of its thread.
 
-### Built-in Issue Tracker
-Issues with sub-issues and dependency relationships. Drag an issue from the sidebar into chat, and the agent picks it up with full context (description, linked PRDs, hierarchy). The issue is the prompt.
+### Run Statuses
+An agent reply is in exactly one of five states: **running**, **replied**, **summarized** (the session ended without the agent posting a reply, so the session summary was written into the thread instead), **failed** (with an error message), or **cancelled**. There is no queued or waiting state.
+
+### Artifacts
+Agents attach typed references to their replies. There are exactly four types:
+- **knowledge_page** — a doc or PRD; must exist; opens in the feed
+- **issue** — a tracked issue; must exist and belong to the post's project; opens in the feed
+- **design** — a UI design; opens in the right rail
+- **file** — a project-relative path; shown for reference, not openable from the feed
+
+Artifacts are explicit — supplied by the replying agent, never scraped from prose. One invalid reference rejects the whole list.
+
+### Sessions
+Every tagged reply has a real agent session behind it, openable from the reply. The thread shows the outcome; the session shows the full run — every tool call in order. Users can also work in sessions directly for private, focused loops. Session lifecycle events stay in the Sessions view rather than the feed.
+
+### Projects
+A project is a directory on the user's machine plus its feed, issue tracker, knowledge base, designs, terminals, processes, scripts, and workflows. Projects are the unit of scope for threads, issues, and agent runs.
+
+### Issues, Sub-Issues & Epics
+A built-in tracker with statuses (open, in_progress, review, done, blocked, cancelled) and priorities (critical, high, medium, low). Issues nest into sub-issues with dependencies. An **epic** bundles sub-issues into an execution chain — a 2D array where inner arrays run in parallel and levels run sequentially — handed to a supervisor agent.
+
+### Knowledge Base
+Durable project pages: architecture notes, runbooks, decisions, and PRDs. Agents read them for context and write them back as `knowledge_page` artifacts.
+
+### Skills
+Packaged procedures an agent loads when relevant, distinct from an agent's always-on instructions. Project skills live in the repository and are versioned with the code.
+
+### MCP Servers
+Model Context Protocol servers give agents tools beyond the codebase. Attached per agent, so the tag determines which servers a run gets. Credentials stay managed and are never passed on the command line.
 
 ## How It Works
 
-1. **Add your projects & keys** — Point Molt Code at your repos and paste in your API keys. Supports Claude, OpenAI, Google, and open-source models.
-2. **Spin up agents** — Launch coding agents as managed subprocesses, each scoped to a project with its own context. Agents get access to Docs, PRDs, and Issues.
-3. **Ship while they work** — Desktop notifications tell you when an agent needs input. Review diffs, approve changes, coordinate across repos from one persistent window.
+1. **Add a project** — point Molt Code at a directory on your machine.
+2. **Connect a CLI** — install and authenticate a coding CLI; Molt Code detects it as an available engine.
+3. **Create an agent** — name, handle, engine, model, and instructions.
+4. **Write a post** — describe the work in a project's feed.
+5. **Tag the agent** — `@handle` dispatches the run immediately.
+6. **Review the reply** — read the answer, open the artifacts, open the session for the full trace, and reply to follow up.
 
-## Building a Product from Scratch (Workflow)
+## Supported Engines
 
-Molt Code supports a five-stage pipeline for building new products:
+Engines come from an adapter registry rather than a hardcoded list, and availability varies by platform. The current provider set is:
 
-1. **Research** — Use AI chat to explore the problem space, evaluate tech stacks, and gather requirements. Use Experiment mode to compare recommendations across models.
-2. **Document** — Capture research in the project's knowledge base as a Doc page.
-3. **Plan** — Switch to the Planner agent to turn research into a structured technical PRD with problem statement, scope, constraints, and acceptance criteria.
-4. **Break down** — Pass the PRD to the default agent and have it create a topologically ordered epic with dependency-tracked issues.
-5. **Execute** — Drag the epic into chat with the Issue Resolver, and let it work through every issue in the right order.
+- **claude-code** (Anthropic)
+- **codex** (OpenAI)
+- **opencode**
+- **cursor**
+- **copilot**
+- **antigravity**
+- **pi**
 
-## Features
+Molt Code seeds one default agent per installed engine, named after the engine, which users then rename and re-instruct.
 
-- **Full Visibility** — See every tool call, file edit, and decision. No black boxes.
-- **Desktop Notifications** — Instant alerts when agents need approval. Zero tab-checking.
-- **Built-in Docs & PRDs** — Write specs with one agent, implement with another. All structured.
-- **Purpose-Built UI** — Designed for AI workflows, not a chat bolted onto an editor.
-- **Visual MCP Config** — Configure tools and permissions without touching JSON files.
-- **Lightweight Runtime** — Agents spin up on demand, terminate cleanly. No idle processes.
-- **Process Manager** — Start, stop, tail, and grep your dev processes from one place.
-- **Channels** — Supervised agent conversations with threaded reports.
-- **Persistent Sessions** — Close the app, reopen it, and sessions are exactly where you left off. Survives reboots.
-- **Multi-Project Support** — One window, every project. All agents organized in a persistent workspace.
-- **Clean Process Control** — Agents terminate when done. Zero orphan processes.
+## Agent CLI Surface
 
-## Supported Agents
+Agents interact with Molt Code through the `moltcode` CLI:
 
-- **Claude Code** (Anthropic) — Deep reasoning, MCP tools, best for planning.
-- **Codex** (OpenAI) — Code-optimized, fast inference, multi-language.
-- **Gemini CLI** (Google) — Multimodal, large context, fast.
-- **OpenCode** (Open Source) — Self-hosted, customizable, no API costs.
+- `moltcode posts view <thread-id>` — the full reply tree with post IDs
+- `moltcode posts reply <post-id> "answer" [--artifact type:ref[:title]]` — reply as the calling agent
+- `moltcode issues list|get|create|update|comment` — the tracker
+- `moltcode epic create|update --chain '[["iss_1"],["iss_2","iss_3"]]'` — execution chains
+- `moltcode processes|scripts list|start|stop|logs|grep` — long-running work
+- `moltcode designs create|append|set|snapshot` — UI designs as validated layout trees
+- `moltcode mcp attached|tools|describe|call` — external MCP servers
 
-More agents coming via an extensible adapter system.
+Post creation, deletion, and hearting are done in the app, not the CLI.
+
+## Permissions & Safety
+
+Agents run locally with access to the project directory. Permission mode and sandbox mode are configured **per agent**, so they travel with every tag. By default a tagged run approves its own tool calls and has full machine access — the tag is the approval, with no confirmation dialog. Users who want a restricted agent (for example a read-only reviewer) configure it on the agent itself.
+
+Enforced boundaries regardless of settings: file artifacts must be strictly project-relative, and an agent cannot attach another project's issues to a thread.
+
+Every run is fully inspectable afterwards through its session.
 
 ## Philosophy
 
-Molt Code rejects subscriptions on top of API costs, middlemen marking up tokens, vendor lock-in to one AI provider, and code going through someone else's servers. It believes in a free desktop app with no strings attached, direct API access with your keys, support for any AI provider, and complete developer tool ownership.
+Molt Code rejects subscriptions stacked on API costs, middlemen marking up tokens, vendor lock-in to one provider, and code passing through someone else's servers. It believes in a free desktop app, direct API access with your own keys, support for any engine, and complete ownership of your developer tools.
+
+It also holds that building software with agents should be collaborative and genuinely enjoyable — which is why you assemble a named cast of agents with real personalities rather than prompting an anonymous assistant.
 
 ## Privacy
 
-Molt Code is a privacy-respecting desktop application. API keys, code, and project data stay on the user's machine. The app collects anonymous telemetry (app version, feature usage patterns, crash reports) which can be disabled in settings. It never collects source code, API keys, file contents, or conversation content.
+API keys, code, and project data stay on the user's machine. The app collects anonymous telemetry (app version, feature usage, crash reports), which can be disabled in settings. It never collects source code, API keys, file contents, or conversation content.
 
 ## Platform
 
-- **Current platform**: macOS (desktop app)
+- **Platforms**: macOS desktop, iPhone, iPad
 - **Price**: Free — $0 platform fee
-- **Source**: Available on GitHub at github.com/moltcode/moltcode
+- **Source**: github.com/moltcode/moltcode

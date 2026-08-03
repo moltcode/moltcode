@@ -1,136 +1,88 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/Footer.astro';
-import DocsSidebar from '../../components/DocsSidebar.astro';
-import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Troubleshooting', href: '/docs/troubleshooting/', blurb: 'Common problems and what they mean.' },
+  { title: 'Changelog', href: '/docs/changelog/', blurb: 'What shipped recently.' },
+];
 ---
 
-<Layout title="Support & Contact - Molt Code Docs">
-  <div class="docs-layout">
-    <DocsSidebar currentPath="/docs/support/" />
-    <div class="docs-main">
-      <main class="docs-content">
-        <p class="text-theme-accent text-sm font-medium mb-4 tracking-wide uppercase">Documentation</p>
-        <h1 class="text-4xl font-bold text-theme-primary mb-4">Support & Contact</h1>
-        <p class="text-theme-primary/50 text-base mb-12 leading-relaxed">How to get help, report bugs, and request features.</p>
+<DocsPage
+  title="Support & Contact"
+  eyebrow="Help"
+  description="How to get help, report bugs, and request features."
+  currentPath="/docs/support/"
+  next={next}
+>
+  <h2 id="github-issues">GitHub Issues</h2>
+  <p>
+    The best way to reach us is through
+    <a href="https://github.com/moltcode/moltcode/issues" target="_blank">GitHub Issues</a>.
+    Bug, feature request, or question — open an issue and we will get back to you.
+  </p>
+  <p>
+    We use GitHub Issues as the primary channel because it keeps everything
+    public, searchable, and trackable. Your issue might help someone who hits the
+    same problem, and you can follow along as it gets resolved.
+  </p>
+  <p>
+    Before opening a new one, it is worth checking
+    <a href="/docs/troubleshooting/">Troubleshooting</a> — most reports turn out
+    to be an engine that is not installed or not authenticated.
+  </p>
 
-        <div class="prose">
-          <h2 id="github-issues">GitHub Issues</h2>
-          <p>
-            The best way to reach us is through <a href="https://github.com/moltcode/moltcode/issues" target="_blank">GitHub Issues</a>. Whether you've found a bug, have a feature request, or just have a question — open an issue and we'll get back to you.
-          </p>
-          <p>
-            We use GitHub Issues as our primary channel because it keeps everything public, searchable, and trackable. Your issue might help someone else who runs into the same problem, and you can follow along as it gets resolved.
-          </p>
+  <h2 id="reporting-bugs">Reporting Bugs</h2>
+  <p>When reporting a bug, include as much context as you can:</p>
+  <ul>
+    <li><strong>What happened</strong> — describe what you saw.</li>
+    <li><strong>What you expected</strong> — what should have happened instead.</li>
+    <li><strong>Steps to reproduce</strong> — how can we trigger the same bug?</li>
+    <li><strong>App version</strong> — from Settings or the about screen.</li>
+    <li><strong>OS version</strong> — which macOS version you are running.</li>
+    <li><strong>Screenshots or logs</strong> — attach them to the issue.</li>
+  </ul>
+  <p>
+    Good bug reports get fixed faster. A clear reproduction case is the single
+    most useful thing you can provide.
+  </p>
 
-          <h2 id="reporting-bugs">Reporting Bugs</h2>
-          <p>
-            When reporting a bug, include as much context as you can:
-          </p>
-          <ul>
-            <li><strong>What happened</strong> — describe what you saw.</li>
-            <li><strong>What you expected</strong> — describe what should have happened instead.</li>
-            <li><strong>Steps to reproduce</strong> — how can we trigger the same bug?</li>
-            <li><strong>App version</strong> — check the version in Settings or the about screen.</li>
-            <li><strong>OS version</strong> — which macOS version you're running.</li>
-            <li><strong>Screenshots or logs</strong> — if applicable, attach them to the issue.</li>
-          </ul>
-          <p>
-            Good bug reports get fixed faster. A clear reproduction case is the single most useful thing you can provide.
-          </p>
-
-          <h2 id="feature-requests">Feature Requests</h2>
-          <p>
-            Have an idea for something Molt Code should do? Open a GitHub issue with the <strong>"feature request"</strong> label. Describe the problem you're trying to solve — not just the solution you have in mind. Understanding the underlying need helps us design the right feature.
-          </p>
-          <p>
-            We read every feature request. The ones that come up repeatedly or align with the product direction tend to get prioritised first.
-          </p>
-
-          <h2 id="questions">Questions</h2>
-          <p>
-            If you're not sure how something works or need help with a workflow, GitHub Issues works for that too. Tag your issue as a <strong>"question"</strong> and we'll point you in the right direction.
-          </p>
-          <p>
-            Before opening a new issue, it's worth searching the existing issues — someone may have already asked the same question.
-          </p>
-
-          <h2 id="links">Links</h2>
-          <ul>
-            <li><a href="https://github.com/moltcode/moltcode/issues" target="_blank">GitHub Issues</a> — bugs, features, questions</li>
-          </ul>
-        </div>
-        <DocsDownloadCta />
-      </main>
-      <Footer />
-    </div>
+  <div class="note">
+    <p>
+      <strong>If an agent run misbehaved</strong>, the most valuable evidence is
+      the session behind its reply — open it from the agent's post in the thread.
+      It holds the entire run: every tool call, in order, with the failure. Also
+      include the agent's engine and model, and the verbatim error from a failed
+      reply.
+    </p>
   </div>
-</Layout>
 
-<style>
-  .docs-layout {
-    display: flex;
-    min-height: 100vh;
-  }
+  <h2 id="feature-requests">Feature Requests</h2>
+  <p>
+    Have an idea for something Molt Code should do? Open a GitHub issue with the
+    <strong>"feature request"</strong> label. Describe the problem you are trying
+    to solve — not just the solution you have in mind. Understanding the
+    underlying need helps us design the right feature.
+  </p>
+  <p>
+    We read every feature request. The ones that come up repeatedly or align with
+    the product direction tend to get prioritised first.
+  </p>
 
-  .docs-main {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-  }
+  <h2 id="questions">Questions</h2>
+  <p>
+    If you are not sure how something works or need help with a workflow, GitHub
+    Issues works for that too. Tag your issue as a <strong>"question"</strong> and
+    we will point you in the right direction.
+  </p>
+  <p>
+    Searching existing issues first is worth the minute — someone may have
+    already asked.
+  </p>
 
-  .docs-content {
-    max-width: 48rem;
-    margin: 0 auto;
-    padding: 3rem 2rem 4rem;
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    .docs-content {
-      padding: 6rem 1.5rem 3rem;
-    }
-  }
-
-  .prose h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .prose p {
-    color: var(--color-secondary);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-  }
-
-  .prose ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .prose li {
-    color: var(--color-secondary);
-    line-height: 1.75;
-    margin-bottom: 0.25rem;
-  }
-
-  .prose strong {
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-
-  .prose a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .prose a:hover {
-    color: var(--color-primary);
-  }
-</style>
+  <h2 id="links">Links</h2>
+  <ul>
+    <li><a href="https://github.com/moltcode/moltcode/issues" target="_blank">GitHub Issues</a> — bugs, features, questions</li>
+    <li><a href="/docs/troubleshooting/">Troubleshooting</a> — common problems and fixes</li>
+    <li><a href="/docs/quickstart/">Quickstart</a> — the ten-minute path from install to first agent reply</li>
+  </ul>
+</DocsPage>

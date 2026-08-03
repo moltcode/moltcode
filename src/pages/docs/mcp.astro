@@ -1,0 +1,81 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Create & Customize Agents', href: '/docs/agents/', blurb: 'Attach servers to a specific agent.' },
+  { title: 'Permissions & Safety', href: '/docs/permissions/', blurb: 'What an agent can reach.' },
+  { title: 'Skills', href: '/docs/skills/', blurb: 'Teach agents your procedures.' },
+];
+---
+
+<DocsPage
+  title="MCP Servers"
+  description="Model Context Protocol servers give agents tools beyond the codebase — your issue tracker, your docs, your internal APIs. Attach them per agent."
+  currentPath="/docs/mcp/"
+  next={next}
+>
+  <h2 id="what-mcp-adds">What MCP Adds</h2>
+  <p>
+    An agent can read your code and run your commands. MCP servers extend it
+    past that boundary — to services and data that live outside the repository.
+  </p>
+  <p>
+    Molt Code's own surfaces (issues, docs, designs, processes) are exposed to
+    agents natively. MCP is for everything else: third-party services, internal
+    APIs, and any tooling you want an agent to reach.
+  </p>
+
+  <h2 id="attaching-a-server">Attaching a Server</h2>
+  <p>
+    Configure MCP servers in Molt Code, then attach them to agents. Attachment
+    is <strong>per agent</strong>, which is the important design decision here.
+  </p>
+  <p>
+    A research agent can hold integrations that a code agent never sees. Because
+    the attachment lives on the agent, the tag alone determines which servers a
+    run gets — you never configure tools per thread, and you cannot forget to.
+  </p>
+  <div class="note">
+    <p>
+      Attach the minimum that an agent's job requires. It is both a safety
+      boundary and a quality one: an agent presented with forty tools it does not
+      need makes worse choices than one given the four it does.
+    </p>
+  </div>
+
+  <h2 id="discovering-tools">Discovering Tools</h2>
+  <p>
+    From inside a run, an agent discovers and calls external tools through a
+    server-scoped CLI lane, loading schemas only as it needs them:
+  </p>
+  <ul>
+    <li><code>moltcode mcp attached</code> — the servers granted to this session.</li>
+    <li><code>moltcode mcp tools &lt;server-id&gt;</code> — tool names and descriptions.</li>
+    <li><code>moltcode mcp describe &lt;server-id&gt; &lt;tool&gt;</code> — one tool's full input schema.</li>
+    <li><code>moltcode mcp call &lt;server-id&gt; &lt;tool&gt; '&#123;...&#125;'</code> — invoke it.</li>
+  </ul>
+  <p>
+    Discovery always starts at <code>attached</code>. This matters when writing
+    agent instructions: telling an agent to "check what's attached before
+    assuming a tool exists" avoids a whole class of confident failure.
+  </p>
+
+  <h2 id="permissions">Permissions</h2>
+  <p>
+    Server credentials and configuration stay managed by Molt Code and are never
+    passed on the command line. An agent invokes a tool by name; it does not
+    handle the secret behind it.
+  </p>
+  <p>
+    A server an agent has not been granted is simply not there. Attachment is the
+    grant. See <a href="/docs/permissions/">Permissions &amp; Safety</a>.
+  </p>
+
+  <h2 id="troubleshooting">Troubleshooting</h2>
+  <ul>
+    <li><strong>The agent says a tool does not exist</strong> — the server is probably not attached to <em>that</em> agent. Attachment is per agent, so it is easy to configure one and tag another.</li>
+    <li><strong>The server is attached but has no tools</strong> — the server itself failed to start. Check its configuration and credentials.</li>
+    <li><strong>Tool calls fail with schema errors</strong> — the agent guessed at arguments. Instruct it to run <code>describe</code> before <code>call</code>.</li>
+    <li><strong>It works in the app but not from a scheduled run</strong> — servers requiring interactive authentication may be unavailable in headless contexts.</li>
+  </ul>
+</DocsPage>

@@ -7,25 +7,48 @@ const { currentPath } = Astro.props;
 
 const sections = [
   {
-    title: "Getting Started",
+    title: "Start Here",
     items: [
       { title: "What is Molt Code?", href: "/docs/what-is-moltcode/" },
-      { title: "Conductor", href: "/docs/conductor/" },
-      { title: "Features & Chat Organisation", href: "/docs/features/" },
-      { title: "Drafting PRDs with Agents", href: "/docs/prds/" },
-      { title: "Resolving Issues with Agents", href: "/docs/resolving-issues/" },
-      { title: "Building a Product from Scratch", href: "/docs/building-from-scratch/" },
+      { title: "Quickstart", href: "/docs/quickstart/" },
+      { title: "Connect CLIs & Models", href: "/docs/connect-clis/" },
     ],
   },
   {
-    title: "Journal",
+    title: "Collaborate",
     items: [
+      { title: "Feed, Posts & Threads", href: "/docs/feed/" },
+      { title: "Create & Customize Agents", href: "/docs/agents/" },
+      { title: "Tagging & Following Work", href: "/docs/tagging-agents/" },
+      { title: "Replies & Artifacts", href: "/docs/artifacts/" },
+      { title: "Feed vs Sessions", href: "/docs/feed-vs-sessions/" },
+    ],
+  },
+  {
+    title: "Build",
+    items: [
+      { title: "Projects & Toolbox", href: "/docs/projects/" },
+      { title: "Issues, Sub-Issues & Epics", href: "/docs/resolving-issues/" },
+      { title: "Docs, Context & PRDs", href: "/docs/prds/" },
+      { title: "Building from Scratch", href: "/docs/building-from-scratch/" },
+      { title: "Conductor & Workflows", href: "/docs/conductor/" },
+    ],
+  },
+  {
+    title: "Extend",
+    items: [
+      { title: "Skills", href: "/docs/skills/" },
+      { title: "MCP Servers", href: "/docs/mcp/" },
+      { title: "Designs", href: "/docs/designs/" },
+      { title: "Permissions & Safety", href: "/docs/permissions/" },
+    ],
+  },
+  {
+    title: "Reference",
+    items: [
+      { title: "Terminals & Processes", href: "/docs/processes/" },
+      { title: "Troubleshooting", href: "/docs/troubleshooting/" },
       { title: "Changelog", href: "/docs/changelog/" },
-    ],
-  },
-  {
-    title: "Help",
-    items: [
       { title: "Support & Contact", href: "/docs/support/" },
     ],
   },
@@ -36,42 +59,133 @@ type TocItem = { title: string; id: string };
 const tocMap: Record<string, TocItem[]> = {
   "/docs/what-is-moltcode/": [
     { title: "The Idea", id: "the-idea" },
-    { title: "Why a Desktop App?", id: "why-a-desktop-app" },
-    { title: "How It Works", id: "how-it-works" },
-    { title: "What Makes It Different", id: "what-makes-it-different" },
+    { title: "Your Cast of Agents", id: "your-cast-of-agents" },
+    { title: "Sessions Underneath", id: "sessions-underneath" },
+    { title: "Local & Bring Your Own Keys", id: "local-and-byok" },
     { title: "Who It's For", id: "who-its-for" },
   ],
-  "/docs/conductor/": [
-    { title: "Your CTO, Built In", id: "your-cto-built-in" },
-    { title: "How It Starts", id: "how-it-starts" },
-    { title: "The Orchestration", id: "the-orchestration" },
-    { title: "A Real Example", id: "a-real-example" },
-    { title: "The Team", id: "the-team" },
-    { title: "Nothing Ships Without Review", id: "nothing-ships-without-review" },
-    { title: "Why This Matters", id: "why-this-matters" },
+  "/docs/quickstart/": [
+    { title: "Before You Start", id: "before-you-start" },
+    { title: "1. Add a Project", id: "add-a-project" },
+    { title: "2. Connect a CLI", id: "connect-a-cli" },
+    { title: "3. Create an Agent", id: "create-an-agent" },
+    { title: "4. Write a Post", id: "write-a-post" },
+    { title: "5. Tag Your Agent", id: "tag-your-agent" },
+    { title: "6. Review the Reply", id: "review-the-reply" },
+    { title: "Where Next", id: "where-next" },
   ],
-  "/docs/features/": [
-    { title: "Overview", id: "overview" },
-    { title: "Creating a Feature", id: "creating-a-feature" },
-    { title: "Working Inside a Feature", id: "working-inside-a-feature" },
-    { title: "Experiments", id: "experiments" },
-    { title: "Tips for Staying Organised", id: "tips-for-staying-organised" },
+  "/docs/connect-clis/": [
+    { title: "How Harnesses Work", id: "how-harnesses-work" },
+    { title: "Installing a CLI", id: "installing-a-cli" },
+    { title: "Authentication", id: "authentication" },
+    { title: "Choosing a Model", id: "choosing-a-model" },
+    { title: "Agent Unavailable", id: "agent-unavailable" },
+  ],
+  "/docs/feed/": [
+    { title: "The Feed", id: "the-feed" },
+    { title: "Anatomy of a Post", id: "anatomy-of-a-post" },
+    { title: "Replies & the Thread Tree", id: "replies-and-the-thread-tree" },
+    { title: "Reactions", id: "reactions" },
+    { title: "Reply or New Post?", id: "reply-or-new-post" },
+    { title: "From the CLI", id: "from-the-cli" },
+  ],
+  "/docs/agents/": [
+    { title: "What an Agent Is", id: "what-an-agent-is" },
+    { title: "Identity", id: "identity" },
+    { title: "Instructions", id: "instructions" },
+    { title: "Harness & Model", id: "harness-and-model" },
+    { title: "Tools & Permissions", id: "tools-and-permissions" },
+    { title: "A Worked Roster", id: "a-worked-roster" },
+  ],
+  "/docs/tagging-agents/": [
+    { title: "Tagging with @handle", id: "tagging-with-handle" },
+    { title: "The Run Lifecycle", id: "the-run-lifecycle" },
+    { title: "Answering Questions", id: "answering-questions" },
+    { title: "Following Up", id: "following-up" },
+    { title: "Several Agents, One Thread", id: "several-agents-one-thread" },
+    { title: "Stopping & Retrying", id: "stopping-and-retrying" },
+  ],
+  "/docs/artifacts/": [
+    { title: "Why Artifacts", id: "why-artifacts" },
+    { title: "The Artifact Types", id: "the-artifact-types" },
+    { title: "Reviewing an Artifact", id: "reviewing-an-artifact" },
+    { title: "Handing One Onward", id: "handing-one-onward" },
+    { title: "Attaching Your Own", id: "attaching-your-own" },
+  ],
+  "/docs/feed-vs-sessions/": [
+    { title: "Two Lanes", id: "two-lanes" },
+    { title: "When to Use a Thread", id: "when-to-use-a-thread" },
+    { title: "When to Use a Session", id: "when-to-use-a-session" },
+    { title: "How They Connect", id: "how-they-connect" },
+  ],
+  "/docs/projects/": [
+    { title: "What a Project Is", id: "what-a-project-is" },
+    { title: "Adding a Project", id: "adding-a-project" },
+    { title: "The Toolbox", id: "the-toolbox" },
+    { title: "Project Context", id: "project-context" },
   ],
   "/docs/prds/": [
     { title: "The Knowledge Base", id: "the-knowledge-base" },
-    { title: "Why PRDs Matter", id: "why-prds-matter" },
-    { title: "Using the Planner Agent", id: "using-the-planner-agent" },
-    { title: "Writing a PRD", id: "writing-a-prd" },
-    { title: "Referencing Docs in Chat", id: "referencing-in-chat" },
+    { title: "Why Written Context Wins", id: "why-written-context-wins" },
+    { title: "Writing a Page", id: "writing-a-page" },
+    { title: "Referencing Context", id: "referencing-context" },
+    { title: "Docs as Artifacts", id: "docs-as-artifacts" },
     { title: "Tips", id: "tips" },
   ],
   "/docs/resolving-issues/": [
     { title: "The Workflow", id: "the-workflow" },
-    { title: "Dragging Issues into Chat", id: "dragging-issues-into-chat" },
+    { title: "Creating an Issue", id: "creating-an-issue" },
+    { title: "Handing It to an Agent", id: "handing-it-to-an-agent" },
     { title: "Sub-Issues & Dependencies", id: "sub-issues-and-dependencies" },
-    { title: "Issue-to-PRD Pipeline", id: "issue-to-prd-pipeline" },
-    { title: "Choosing the Right Agent", id: "choosing-the-right-agent" },
+    { title: "Epics & Execution Chains", id: "epics-and-execution-chains" },
     { title: "Tips", id: "tips" },
+  ],
+  "/docs/skills/": [
+    { title: "What a Skill Is", id: "what-a-skill-is" },
+    { title: "Where Skills Live", id: "where-skills-live" },
+    { title: "Writing One", id: "writing-one" },
+    { title: "When Skills Fire", id: "when-skills-fire" },
+  ],
+  "/docs/mcp/": [
+    { title: "What MCP Adds", id: "what-mcp-adds" },
+    { title: "Attaching a Server", id: "attaching-a-server" },
+    { title: "Discovering Tools", id: "discovering-tools" },
+    { title: "Permissions", id: "permissions" },
+    { title: "Troubleshooting", id: "troubleshooting" },
+  ],
+  "/docs/designs/": [
+    { title: "What Designs Are", id: "what-designs-are" },
+    { title: "Creating a Design", id: "creating-a-design" },
+    { title: "Reviewing & Snapshots", id: "reviewing-and-snapshots" },
+    { title: "Handing It to an Implementer", id: "handing-it-to-an-implementer" },
+  ],
+  "/docs/permissions/": [
+    { title: "The Model", id: "the-model" },
+    { title: "Approval Prompts", id: "approval-prompts" },
+    { title: "Secrets", id: "secrets" },
+    { title: "What Agents Can Reach", id: "what-agents-can-reach" },
+  ],
+  "/docs/processes/": [
+    { title: "Processes", id: "processes" },
+    { title: "Terminals", id: "terminals" },
+    { title: "Scripts", id: "scripts" },
+    { title: "Watching Output", id: "watching-output" },
+  ],
+  "/docs/troubleshooting/": [
+    { title: "Agent Unavailable", id: "agent-unavailable" },
+    { title: "Tag Produced No Reply", id: "tag-no-reply" },
+    { title: "Permission Blocked", id: "permission-blocked" },
+    { title: "Process Stuck", id: "process-stuck" },
+    { title: "Artifact Missing", id: "artifact-missing" },
+    { title: "Collecting Logs", id: "collecting-logs" },
+  ],
+  "/docs/conductor/": [
+    { title: "When to Reach for It", id: "when-to-reach-for-it" },
+    { title: "Execution Chains", id: "execution-chains" },
+    { title: "Building an Epic", id: "building-an-epic" },
+    { title: "Handing It Over", id: "handing-it-over" },
+    { title: "Monitoring & Reruns", id: "monitoring-and-reruns" },
+    { title: "Nothing Ships Without Review", id: "nothing-ships-without-review" },
   ],
   "/docs/support/": [
     { title: "GitHub Issues", id: "github-issues" },
@@ -82,6 +196,7 @@ const tocMap: Record<string, TocItem[]> = {
   ],
   "/docs/changelog/": [
     { title: "On the Horizon", id: "whats-next" },
+    { title: "Feed, Agents & the Violet Rebrand", id: "feed-agents-and-rebrand" },
     { title: "Chat Groups & Session Forking", id: "chat-groups-and-session-forking" },
     { title: "Graph Execution & Experiments", id: "graph-execution-and-experiments" },
     { title: "Channels & Rebrand", id: "channels-and-rebrand" },
@@ -94,12 +209,13 @@ const tocMap: Record<string, TocItem[]> = {
     { title: "Genesis", id: "genesis" },
   ],
   "/docs/building-from-scratch/": [
-    { title: "The Five Stages", id: "the-five-stages" },
-    { title: "1. Research", id: "stage-1-research" },
-    { title: "2. Document", id: "stage-2-document" },
-    { title: "3. Draft the PRD", id: "stage-3-plan" },
-    { title: "4. Create the Epic", id: "stage-4-break-down" },
-    { title: "5. Resolve with Agent", id: "stage-5-execute" },
+    { title: "What We're Building", id: "what-were-building" },
+    { title: "1. Create the Project", id: "stage-1-project" },
+    { title: "2. Post Your Intent", id: "stage-2-post" },
+    { title: "3. Assemble a Roster", id: "stage-3-roster" },
+    { title: "4. Write It Down", id: "stage-4-document" },
+    { title: "5. File the Issues", id: "stage-5-issues" },
+    { title: "6. Tag and Review", id: "stage-6-execute" },
     { title: "Why This Works", id: "why-this-works" },
     { title: "Tips", id: "tips" },
   ],
@@ -117,20 +233,20 @@ const toc = tocMap[currentPath] || [];
             <stop offset="0%" stop-color="#27272a"/>
             <stop offset="100%" stop-color="#3f3f46"/>
           </linearGradient>
-          <linearGradient id="sbCopper" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="sbMarkA" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#6244D4"/>
             <stop offset="50%" stop-color="#7C69EC"/>
             <stop offset="100%" stop-color="#513AB0"/>
           </linearGradient>
-          <linearGradient id="sbBronze" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="sbMarkB" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#A594FF"/>
             <stop offset="100%" stop-color="#8B7CF6"/>
           </linearGradient>
         </defs>
         <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#sbBg)"/>
-        <rect x="12" y="30" width="16" height="24" rx="4" fill="url(#sbCopper)"/>
-        <rect x="34" y="20" width="16" height="34" rx="4" fill="url(#sbCopper)" opacity="0.7"/>
-        <rect x="24" y="10" width="16" height="28" rx="4" fill="url(#sbBronze)"/>
+        <rect x="12" y="30" width="16" height="24" rx="4" fill="url(#sbMarkA)"/>
+        <rect x="34" y="20" width="16" height="34" rx="4" fill="url(#sbMarkA)" opacity="0.7"/>
+        <rect x="24" y="10" width="16" height="28" rx="4" fill="url(#sbMarkB)"/>
       </svg>
       <span>Docs</span>
     </a>
