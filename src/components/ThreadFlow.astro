@@ -9,18 +9,18 @@
 const steps = [
   {
     n: '01',
-    title: 'Post it',
-    desc: 'A bug, an idea, a half-formed thought at midnight. Every project has a feed.',
+    title: 'The input',
+    desc: 'A bug, an idea, a half-formed thought at midnight. The thread is the complete, append-only context.',
   },
   {
     n: '02',
-    title: 'Thread it',
-    desc: 'Replies keep the context in one place. No tickets, no ceremony, no standup.',
+    title: 'No hidden state',
+    desc: 'Replies extend the input. Nothing lives in a session you can lose — no tickets, no ceremony, no standup.',
   },
   {
     n: '03',
-    title: 'Tag an agent',
-    desc: 'Mention @handle. It reads the whole thread, does the work, and replies with the diff.',
+    title: 'Apply the function',
+    desc: 'Mention @handle. It reads the whole thread and returns the work: the diff, ready for your review.',
   },
 ];
 ---
@@ -28,11 +28,12 @@ const steps = [
 <section class="section flow-section" id="flow">
   <div class="flow-grid">
     <div class="flow-copy">
-      <span class="chip">The flow</span>
+      <span class="chip">The call</span>
       <h2 class="flow-title">Post. Thread. Tag an agent.</h2>
       <p class="flow-sub">
-        That's the whole workflow. Your project is a feed — and agents are just
-        teammates you can <span class="mention">@mention</span> in it.
+        That's the whole call. The thread is the input, the agent is the
+        function you apply with an <span class="mention">@mention</span>, and
+        the reply is the return value.
       </p>
 
       <ol class="flow-steps">

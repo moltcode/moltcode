@@ -4,15 +4,17 @@ import AppleIcon from './AppleIcon.astro';
 ---
 
 <section class="hero">
-  <h1 class="headline">The dev workspace for shipping with agents.</h1>
-  <p class="sub">
-    Spec the work, agents resolve it, you review the diffs — on desktop, iPad, and phone.
-  </p>
+  <h1 class="headline">
+    A simple, scalable UI for <strong>humans</strong> to invoke agents
+  </h1>
 
   <div class="actions">
     <a href={config.downloadUrl} data-track-download class="btn primary">
       <AppleIcon size={16} />
       Download for Mac
+    </a>
+    <a href={config.linuxDownloadUrl} data-track-download class="btn ghost">
+      Linux
     </a>
     <a href={config.appStoreUrl} class="btn ghost">
       <AppleIcon size={16} />
@@ -20,7 +22,7 @@ import AppleIcon from './AppleIcon.astro';
     </a>
   </div>
 
-  <p class="meta">macOS · Apple silicon · free forever</p>
+  <p class="meta">macOS · Linux · iOS · free forever</p>
 </section>
 
 <style>
@@ -41,12 +43,8 @@ import AppleIcon from './AppleIcon.astro';
     color: var(--color-primary);
   }
 
-  .sub {
-    margin: 1.125rem auto 0;
-    max-width: 34rem;
-    font-size: clamp(0.95rem, 2vw, 1.0625rem);
-    line-height: 1.6;
-    color: var(--color-secondary);
+  .headline strong {
+    font-weight: 700;
   }
 
   .actions {

@@ -1,122 +1,187 @@
 ---
 // ---------------------------------------------------------------------------
-// A static replica of a real chat session turn, mirroring the desktop app
-// (compose_desktop chat_ui/views/chat_session):
-//   - user turn  = right-aligned rounded bubble (_UserBubble)
-//   - agent turn = flush-left, no container, 585px prose (_AssistantBubble)
-//   - tool steps = 12px ringed dot in an 18px gutter with 1.5px connectors
-//                  (StepperItem), grouped tool cards at 12px radius
-// Geometry constants are lifted from ChatTurnStyles / StepperItem so the page
-// and the app read as the same surface.
+// A static replica of a real discussion thread, mirroring the app's Post view:
+// a human posts a problem and @mentions an agent, and the agent replies as a
+// threaded post — name + @handle, "done" status chip, prose, a Links list,
+// a FIXED row, and the Reply / Session action row. This is the product's own
+// surface, not a chat-app bubble layout.
 // ---------------------------------------------------------------------------
-
-const steps = [
-  { label: 'Read', params: 'PodScheduler.kt', done: true },
-  { label: 'Grep', params: '"warmPool" · 14 matches', done: true },
-  { label: 'Edit', params: 'PodScheduler.kt +38 −11', done: true },
-  { label: 'Bash', params: './gradlew :cloud:test', done: true },
-];
 ---
 
-<section class="chat" aria-label="Example agent session">
-  <!-- User turn -->
-  <div class="turn user">
-    <div class="bubble">can you make cloud pods spin up faster, the cold start is brutal</div>
-  </div>
-
-  <!-- Agent turn -->
-  <div class="turn agent">
-    <div class="prose">
-      <div class="byline">
-        <span class="avatar">C</span>
-        <span class="who">Claude Opus</span>
-        <span class="meta">· m/cloud</span>
-      </div>
-
-      <p class="text">
-        Cold starts were serialising on image pull. I moved the pull ahead of the
-        scheduling decision and kept a warm pool of three pods per region.
-      </p>
-
-      <div class="toolcard">
-        {steps.map((step, i) => (
-          <div class:list={['step', { first: i === 0, last: i === steps.length - 1 }]}>
-            <span class="gutter" aria-hidden="true"><span class="dot"></span></span>
-            <span class="steptext">
-              <span class="steplabel">{step.label}</span>
-              <span class="stepparams">{step.params}</span>
-            </span>
-          </div>
-        ))}
-        <div class="toolfoot">4 steps · 38s</div>
-      </div>
-
-      <p class="text">
-        p95 cold start is down from 8.4s to <strong>1.9s</strong>, and the warm pool
-        holds through a rolling deploy. Tests pass.
-      </p>
+<section class="chat" aria-label="Example agent thread">
+  <!-- Human post -->
+  <article class="post">
+    <div class="rail">
+      <span class="avatar" data-tone="maya">M</span>
+      <span class="rail-line" aria-hidden="true"></span>
     </div>
-  </div>
+    <div class="post-main">
+      <header class="post-head">
+        <span class="who">Maya Chen</span>
+        <span class="when">2m</span>
+        <span class="more" aria-hidden="true">···</span>
+      </header>
+      <p class="text">
+        can you make cloud pods spin up faster? the cold start is brutal
+        <span class="mention">@fable</span>
+      </p>
+      <div class="post-actions">
+        <span class="act reply">Reply</span>
+        <span class="act heart" aria-label="Like"></span>
+      </div>
+    </div>
+  </article>
+
+  <!-- Agent reply -->
+  <article class="post">
+    <span class="avatar" data-tone="fable">F</span>
+    <div class="post-main">
+      <header class="post-head">
+        <span class="who">Fable</span>
+        <span class="handle">@fable</span>
+        <span class="status"><span class="dot" aria-hidden="true"></span>done</span>
+        <span class="when">1m</span>
+        <span class="more" aria-hidden="true">···</span>
+      </header>
+
+      <p class="text">
+        Cold starts were serialising on image pull. I moved the pull ahead of
+        the scheduling decision and kept a warm pool of three pods per region.
+      </p>
+
+      <p class="text">
+        p95 cold start is down from 8.4s to <strong>1.9s</strong>, and the warm
+        pool holds through a rolling deploy. Tests pass.
+      </p>
+
+      <div class="links">
+        <span class="links-label">Links:</span>
+        <ul>
+          <li><span class="link">pods/scheduler.go (pull before scheduling)</span></li>
+          <li><span class="link">Warm pool config</span></li>
+        </ul>
+      </div>
+
+      <div class="fix">
+        <span class="fix-label">Fixed</span>
+        <p class="fix-text">
+          Pulled images ahead of scheduling and added a three-pod warm pool per region
+        </p>
+      </div>
+
+      <div class="post-actions">
+        <span class="act reply">Reply</span>
+        <span class="act heart" aria-label="Like"></span>
+        <span class="act session">Session</span>
+      </div>
+    </div>
+  </article>
 </section>
 
 <style>
   .chat {
     width: 100%;
-    max-width: 780px; /* ChatTurnStyles.columnMaxWidth */
+    max-width: 680px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    padding: 0 24px; /* rowHorizontalPadding */
+    padding: 0 24px;
     box-sizing: border-box;
     text-align: left;
-  }
-
-  .turn { display: flex; }
-  .turn.user { justify-content: flex-end; }
-  .turn.agent { justify-content: flex-start; }
-
-  /* _UserBubble — right-aligned, tertiary-medium fill at 200/255 alpha */
-  .bubble {
-    max-width: 520px;
-    padding: 0.75rem 1rem;
-    border-radius: 16px;
-    background: var(--chat-user-bubble);
-    color: var(--chat-ink);
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  /* _AssistantBubble — flush left, no container, 585px prose width */
-  .prose {
-    max-width: 585px; /* ChatTurnStyles.assistantMaxWidth */
-    min-width: 0;
-  }
-
-  .byline {
     display: flex;
+    flex-direction: column;
+  }
+
+  .post {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .post + .post { margin-top: 0.375rem; }
+
+  /* Avatar column with the thread spine running down to the reply */
+  .rail {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.625rem;
+    gap: 0.375rem;
+    flex-shrink: 0;
+  }
+
+  .rail-line {
+    flex: 1;
+    width: 1.5px;
+    background: var(--chat-connector);
+    border-radius: 1px;
   }
 
   .avatar {
-    width: 24px;
-    height: 24px;
+    width: 34px;
+    height: 34px;
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: var(--chat-agent-fill);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.3);
-    color: var(--color-accent);
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 650;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
   }
 
-  .who { font-size: 14px; font-weight: 600; color: var(--chat-ink); }
-  .meta { font-size: 13px; color: var(--chat-muted); }
+  .avatar[data-tone="maya"]  { background: linear-gradient(160deg, #E0724F, #C9552F); }
+  .avatar[data-tone="fable"] { background: linear-gradient(160deg, #5AA9E6, #3D7FBF); }
+
+  .post-main {
+    min-width: 0;
+    flex: 1;
+    padding-bottom: 1rem;
+  }
+
+  .post-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .who {
+    font-size: 14.5px;
+    font-weight: 650;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .handle {
+    font-size: 13px;
+    color: var(--color-muted);
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3125rem;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--color-secondary);
+  }
+
+  .status .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-online);
+  }
+
+  .when {
+    font-size: 12px;
+    color: var(--color-muted);
+  }
+
+  .more {
+    margin-left: auto;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+  }
 
   .text {
     margin: 0;
@@ -125,93 +190,107 @@ const steps = [
     color: var(--chat-ink);
   }
 
+  .text + .text { margin-top: 0.875rem; }
   .text strong { font-weight: 650; }
-  .text + .toolcard { margin-top: 0.875rem; }
-  .toolcard + .text { margin-top: 0.875rem; }
 
-  /* Grouped tool surface — ParentToolSegment: 12dp radius, ink3 @ 5% */
-  .toolcard {
-    border-radius: 12px;
-    background: var(--chat-tool-fill);
-    padding: 12px;
+  .mention {
+    color: var(--color-accent);
+    font-weight: 600;
   }
 
-  /* StepperItem: 18px gutter, 8px gap, 12px dot, 1.5px connector */
-  .step {
+  /* ===== Links list — openable references under the prose ===== */
+  .links {
+    margin-top: 0.875rem;
+  }
+
+  .links-label {
+    font-size: 15px;
+    color: var(--chat-ink);
+  }
+
+  .links ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.375rem;
     display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    padding: 4px 0;
+    flex-direction: column;
+    gap: 0.375rem;
   }
 
-  .gutter {
-    position: relative;
-    width: 18px;
-    flex-shrink: 0;
-    align-self: stretch;
+  .links li::marker {
+    color: var(--color-muted);
+  }
+
+  .link {
+    font-size: 14.5px;
+    color: var(--chat-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border-strong);
+    text-underline-offset: 3px;
+  }
+
+  /* ===== FIXED row — the labelled outcome chip ===== */
+  .fix {
+    margin-top: 0.875rem;
+  }
+
+  .fix-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-online);
+  }
+
+  .fix-text {
+    margin: 0.25rem 0 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--chat-ink);
+  }
+
+  /* ===== Action row ===== */
+  .post-actions {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 1.125rem;
+    margin-top: 0.875rem;
   }
 
-  /* Connector spans the full row so consecutive rows form one unbroken spine;
-     the dot sits on top of it. The first/last rows stop at their own dot. */
-  .gutter::before {
-    content: '';
-    position: absolute;
-    top: -4px;
-    bottom: -4px;
-    left: 50%;
-    width: 1.5px;
-    transform: translateX(-50%);
-    background: var(--chat-connector);
-  }
-
-  .step.first .gutter::before { top: 14px; }
-  .step.last .gutter::before { bottom: calc(100% - 14px); }
-
-  .dot {
-    position: relative;
-    z-index: 1; /* sits over the connector, mirroring the painter's draw order */
-    margin-top: 4px; /* dotTopOffset */
-    width: 12px;
-    height: 12px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--chat-dot-fill);
-    border: 1.5px solid var(--chat-connector);
-    box-sizing: border-box;
-  }
-
-  .steptext {
-    min-width: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.5rem;
-    font-family: var(--font-family-mono, ui-monospace, monospace);
+  .act {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
     font-size: 13px;
-    line-height: 20px;
+    color: var(--color-muted);
   }
 
-  .steplabel { color: var(--chat-ink); font-weight: 600; }
-
-  .stepparams {
-    color: var(--chat-muted);
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .act::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background: currentColor;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
   }
 
-  .toolfoot {
-    margin-top: 6px;
-    padding-left: 26px; /* gutter + gap */
-    font-size: 12px;
-    color: var(--chat-muted);
+  .act.reply::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z'/%3E%3C/svg%3E");
+  }
+
+  .act.heart::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z'/%3E%3C/svg%3E");
+  }
+
+  .act.session::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7'/%3E%3Cpath d='M9 7h8v8'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7'/%3E%3Cpath d='M9 7h8v8'/%3E%3C/svg%3E");
   }
 
   @media (max-width: 720px) {
-    .chat { padding: 0 16px; gap: 1rem; }
-    .bubble { max-width: 100%; }
+    .chat { padding: 0 16px; }
   }
 </style>
