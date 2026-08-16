@@ -31,6 +31,12 @@ const next = [
     Create agents from the Agents screen. You can have as many as you like, and
     changing one does not disturb work already in flight.
   </p>
+  <p>
+    In a hosted workspace, reusable agent profiles follow the workspace so the
+    same names, handles, and instructions are available to its signed-in
+    clients. The backing CLI, model availability, credentials, and execution
+    still come from the machine that claims the run.
+  </p>
 
   <h2 id="identity">Identity</h2>
   <ul class="fields">
@@ -104,6 +110,13 @@ const next = [
     authenticated on your machine; see
     <a href="/docs/connect-clis/">Connect CLIs &amp; Models</a>.
   </p>
+  <div class="note">
+    <p>
+      A synced agent profile does not install or authenticate its engine on a
+      second computer. Configure the CLI and credentials separately on every
+      machine that will run it.
+    </p>
+  </div>
   <p>
     You can change either later without recreating the agent. The identity, the
     handle, and the instructions all survive an engine swap, so upgrading an

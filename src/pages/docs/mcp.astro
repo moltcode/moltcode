@@ -31,6 +31,12 @@ const next = [
     is <strong>per agent</strong>, which is the important design decision here.
   </p>
   <p>
+    In a hosted workspace, MCP registrations can follow the workspace so members
+    and reusable agents see the same integration. Secrets do not sync with the
+    registration: each execution machine supplies and protects its own
+    credentials.
+  </p>
+  <p>
     A research agent can hold integrations that a code agent never sees. Because
     the attachment lives on the agent, the tag alone determines which servers a
     run gets — you never configure tools per thread, and you cannot forget to.
@@ -65,6 +71,11 @@ const next = [
     Server credentials and configuration stay managed by Molt Code and are never
     passed on the command line. An agent invokes a tool by name; it does not
     handle the secret behind it.
+  </p>
+  <p>
+    Workspace sync carries the server identity and non-secret setup needed to
+    register it, never raw API keys, authorization headers, or environment
+    values from another machine.
   </p>
   <p>
     A server an agent has not been granted is simply not there. Attachment is the

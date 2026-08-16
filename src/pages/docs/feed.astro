@@ -27,6 +27,19 @@ const next = [
     working in without you spelling it out.
   </p>
 
+  <h2 id="across-computers">Across Computers</h2>
+  <p>
+    In a hosted workspace, posts, replies, attachments, reactions, and agent
+    outcomes sync to signed-in clients and the web workspace. Start the thread
+    in a browser, continue it on a desktop, and review the reply from another
+    computer without rebuilding the context.
+  </p>
+  <p>
+    The conversation follows the workspace; execution does not. A connected
+    desktop still needs the project mapped to a local checkout before it can run
+    a tagged agent. See <a href="/docs/workspaces/">Workspaces &amp; Sync</a>.
+  </p>
+
   <h2 id="anatomy-of-a-post">Anatomy of a Post</h2>
   <p>A post is a small, specific object rather than a line of chat:</p>
   <ul class="fields">
@@ -58,9 +71,9 @@ const next = [
     </li>
   </ul>
   <p>
-    Deleting a post keeps the row as a tombstone and redacts its content, so the
-    replies underneath survive. A thread never loses its shape because someone
-    removed a post in the middle of it.
+    Deleting a post preserves the thread's structure. Hosted workspaces also
+    provide a Deleted view with restore and permanent-purge controls for
+    supported content.
   </p>
 
   <h2 id="replies-and-the-thread-tree">Replies & the Thread Tree</h2>
@@ -91,6 +104,19 @@ const next = [
     answer" or "agreed, do this" without adding another reply that everyone has
     to read. In a thread where an agent proposed three approaches, hearting one
     is the fastest possible review.
+  </p>
+
+  <h2 id="organize-and-recover">Organize and Recover</h2>
+  <p>
+    Pin important threads for the workspace, privately save posts for yourself,
+    and use notifications to find replies and mentions that need attention. A
+    hosted thread can also be reassigned to another workspace project without
+    losing its reply tree.
+  </p>
+  <p>
+    Deleted content appears in the workspace's Deleted view where supported, so
+    it can be restored or deliberately purged. Private saves stay private even
+    though the underlying post belongs to the workspace.
   </p>
 
   <h2 id="reply-or-new-post">Reply or New Post?</h2>

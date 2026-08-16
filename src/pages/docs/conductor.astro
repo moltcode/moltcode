@@ -2,128 +2,26 @@
 import DocsPage from '../../layouts/DocsPage.astro';
 
 const next = [
-  { title: 'Issues, Sub-Issues & Epics', href: '/docs/resolving-issues/', blurb: 'The issues an execution chain runs on.' },
-  { title: 'Tagging & Following Work', href: '/docs/tagging-agents/', blurb: 'The simpler loop most work should use.' },
-  { title: 'Building from Scratch', href: '/docs/building-from-scratch/', blurb: 'The full workflow end to end.' },
+  { title: 'Issues, Sub-Issues & Epics', href: '/docs/resolving-issues/', blurb: 'Create execution chains and hand an epic to a supervisor agent.' },
+  { title: 'Tagging & Following Work', href: '/docs/tagging-agents/', blurb: 'Use the direct thread loop for ordinary work.' },
 ];
 ---
 
 <DocsPage
-  title="Conductor & Workflows"
-  description="For work with real ordering constraints: bundle issues into an execution chain and hand the whole thing to a supervisor agent that runs it."
+  title="Execution Chains Have Moved"
+  description="Saved Workflows and the Conductor agent variant have been retired. Epics and execution chains remain part of the issue tracker."
   currentPath="/docs/conductor/"
   next={next}
 >
-  <h2 id="when-to-reach-for-it">When to Reach for It</h2>
+  <h2>Use Epics and a Supervisor Agent</h2>
   <p>
-    Most work does not need orchestration. Post it, tag an agent, review the
-    reply — that loop handles the overwhelming majority of what you will do, and
-    it keeps you in the middle of it where you can steer.
+    For ordered work, create the sub-issues, bundle them into an epic with an
+    execution chain, and hand that epic to a supervisor agent. Inner groups run
+    in parallel and chain levels run in sequence.
   </p>
   <p>
-    Conductor is for the cases where that breaks down: a dozen pieces of work
-    with genuine ordering constraints, where several can proceed in parallel but
-    some must wait for others. Migrations, scaffolding a new service, a
-    coordinated change across many files.
-  </p>
-  <p>
-    The trade-off is directness. An execution chain runs a lot of work with less
-    intervention from you, which is the point — and also the risk. Reach for it
-    when the shape of the work is genuinely known and the ordering is the hard
-    part. If you are still figuring out what to build, tag agents individually
-    and stay in the loop.
-  </p>
-
-  <h2 id="execution-chains">Execution Chains</h2>
-  <p>
-    A chain is a list of levels. <strong>Levels run in sequence; everything
-    inside a level runs in parallel.</strong>
-  </p>
-  <p>
-    It is written as a two-dimensional array of issue IDs:
-  </p>
-  <ul>
-    <li><code>[["iss_1"], ["iss_2", "iss_3"], ["iss_4"]]</code></li>
-  </ul>
-  <p>
-    That reads: do <code>iss_1</code>. When it completes, run <code>iss_2</code>
-    and <code>iss_3</code> together. When both finish, do <code>iss_4</code>.
-  </p>
-  <p>
-    Designing the chain <em>is</em> the work of using Conductor. Two issues in
-    the same level must be genuinely independent — if one needs the other's
-    output, they belong in different levels. Getting this wrong is the main way
-    an orchestrated run goes bad, and it is worth thinking through before you
-    hand it over.
-  </p>
-
-  <h2 id="building-an-epic">Building an Epic</h2>
-  <p>Create the sub-issues first, then bundle them:</p>
-  <ol class="steps">
-    <li>
-      <strong>File each piece as an issue.</strong>
-      Each needs to stand alone well enough that an agent can work it without
-      the others as context.
-    </li>
-    <li>
-      <strong>Work out the real dependencies.</strong>
-      Which genuinely block which, rather than which you happen to think of
-      first.
-    </li>
-    <li>
-      <strong>Create the epic with its chain.</strong>
-      <code>moltcode epic create --title "..." --chain '[["iss_1"],["iss_2","iss_3"]]'</code>
-    </li>
-    <li>
-      <strong>Adjust as you learn.</strong>
-      <code>moltcode epic update &lt;epic-id&gt; --chain '[...]'</code>
-    </li>
-  </ol>
-  <p>Issues in a chain automatically become children of the epic.</p>
-
-  <h2 id="handing-it-over">Handing It Over</h2>
-  <p>
-    Give the epic to a supervisor agent — attach it in a thread and tag the agent
-    you want running it. The supervisor executes the chain, dispatching each
-    level and waiting for it to complete before starting the next.
-  </p>
-  <p>
-    Pick the supervisor deliberately. It is making the judgement calls about
-    whether a level actually succeeded, so this is a job for your most careful
-    agent, not your fastest.
-  </p>
-  <div class="note">
-    <p>
-      <strong>Underneath, epics are prompt spaces.</strong> A space holds objects
-      and a chain defining their execution order, manipulable directly through
-      <code>moltcode spaces</code> — <code>add-object</code>,
-      <code>set-chain</code>, <code>update-object</code>. Most people never need
-      this layer, but it is there when an epic is not quite the right shape.
-    </p>
-  </div>
-
-  <h2 id="monitoring-and-reruns">Monitoring & Reruns</h2>
-  <p>
-    Follow progress through the issues themselves. As the chain runs, statuses
-    move and agents leave progress comments — the tracker is the live view of
-    where the work is.
-  </p>
-  <p>
-    When something fails, it fails at a level. The chain does not silently
-    continue past a broken dependency. Fix the underlying issue, then rerun from
-    there rather than restarting the whole epic — the completed levels are
-    already done and re-running them is how you get conflicting changes.
-  </p>
-
-  <h2 id="nothing-ships-without-review">Nothing Ships Without Review</h2>
-  <p>
-    Orchestration changes how work is dispatched, not who is accountable for it.
-    An execution chain that ran to completion is a set of changes proposed by
-    agents — it is not a merged, reviewed, correct feature.
-  </p>
-  <p>
-    Review the diff. Tag your reviewer on the result. The more work a single
-    action sets in motion, the more the review at the end matters, which is
-    exactly why Conductor is the last tool to reach for rather than the first.
+    The full current workflow, commands, status model, and review guidance now
+    live in <a href="/docs/resolving-issues/#epics-and-execution-chains">Issues,
+    Sub-Issues &amp; Epics</a>.
   </p>
 </DocsPage>

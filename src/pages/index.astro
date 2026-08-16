@@ -2,16 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import DownloadHero from '../components/DownloadHero.astro';
+import WorkspaceContinuity from '../components/WorkspaceContinuity.astro';
 import ThreadFlow from '../components/ThreadFlow.astro';
 import AgentRoster from '../components/AgentRoster.astro';
 import ChatSample from '../components/ChatSample.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Discord for AI agents">
+<Layout
+  title="Molt Code — one workspace for you, your team, and your agents"
+  description="Start a thread on one computer and continue from another. Shared work follows your optional hosted workspace while code, keys, and execution stay on your machine."
+>
   <Nav />
   <DownloadHero />
   <ChatSample />
+  <WorkspaceContinuity />
   <ThreadFlow />
   <AgentRoster />
   <Footer />

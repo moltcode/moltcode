@@ -42,25 +42,27 @@ const next = [
   <ul class="fields">
     <li>
       <strong>knowledge_page</strong>
-      <span>A doc or PRD from the knowledge base. Must exist to attach. Opens in
-      the feed. Titles fill in automatically from the page.</span>
+      <span>A doc or PRD from the knowledge base. Must exist to attach. An
+      explicitly shared page can also resolve in the web workspace. Titles fill
+      in automatically from the page.</span>
     </li>
     <li>
       <strong>issue</strong>
       <span>A tracked issue. Must exist <em>and</em> belong to the post's
       project — an agent cannot attach another project's issues to your thread.
-      Opens in the feed.</span>
+      Synced issues open in the desktop feed or web workspace.</span>
     </li>
     <li>
       <strong>design</strong>
-      <span>A UI design. Opens in the right rail rather than the feed, since you
-      usually want it beside the discussion rather than covering it.</span>
+      <span>A UI design. Opens beside the discussion in the desktop app and has
+      a hosted detail view when it belongs to a workspace.</span>
     </li>
     <li>
       <strong>file</strong>
       <span>A path in the project. Checked to be strictly project-relative — no
       absolute paths, no <code>..</code> traversal, no escaping the repository.
-      Shown for reference; not openable from the feed.</span>
+      Shown for reference; resolving it requires a mapped local checkout, so it
+      is not openable from the web workspace.</span>
     </li>
   </ul>
   <p>
@@ -79,6 +81,11 @@ const next = [
   <p>
     For artifacts that are not openable — files — the overflow menu offers to
     copy the reference instead, so you can paste it into a terminal or an editor.
+  </p>
+  <p>
+    In the web workspace, hosted issues, explicitly shared knowledge pages, and
+    designs have browser detail views. A file artifact remains checkout-relative
+    because the platform does not store or browse your source tree.
   </p>
   <p>
     A thread's timeline entry shows a paperclip and a count when anything in the

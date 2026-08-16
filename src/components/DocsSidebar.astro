@@ -11,6 +11,7 @@ const sections = [
     items: [
       { title: "What is Molt Code?", href: "/docs/what-is-moltcode/" },
       { title: "Quickstart", href: "/docs/quickstart/" },
+      { title: "Workspaces & Sync", href: "/docs/workspaces/" },
       { title: "Connect CLIs & Models", href: "/docs/connect-clis/" },
     ],
   },
@@ -31,7 +32,6 @@ const sections = [
       { title: "Issues, Sub-Issues & Epics", href: "/docs/resolving-issues/" },
       { title: "Docs, Context & PRDs", href: "/docs/prds/" },
       { title: "Building from Scratch", href: "/docs/building-from-scratch/" },
-      { title: "Conductor & Workflows", href: "/docs/conductor/" },
     ],
   },
   {
@@ -61,6 +61,7 @@ const tocMap: Record<string, TocItem[]> = {
     { title: "The Idea", id: "the-idea" },
     { title: "Your Cast of Agents", id: "your-cast-of-agents" },
     { title: "Sessions Underneath", id: "sessions-underneath" },
+    { title: "Optional Hosted Workspaces", id: "hosted-workspaces" },
     { title: "Local & Bring Your Own Keys", id: "local-and-byok" },
     { title: "Who It's For", id: "who-its-for" },
   ],
@@ -74,6 +75,16 @@ const tocMap: Record<string, TocItem[]> = {
     { title: "6. Review the Reply", id: "review-the-reply" },
     { title: "Where Next", id: "where-next" },
   ],
+  "/docs/workspaces/": [
+    { title: "Optional by Design", id: "optional-by-design" },
+    { title: "The Four Layers", id: "the-four-layers" },
+    { title: "Create or Join", id: "create-or-join" },
+    { title: "Projects on Each Computer", id: "projects-on-each-computer" },
+    { title: "What Syncs", id: "what-syncs" },
+    { title: "What Stays Local", id: "what-stays-local" },
+    { title: "How a Hosted Tag Runs", id: "how-a-hosted-tag-runs" },
+    { title: "Reconnects and Recovery", id: "reconnects-and-recovery" },
+  ],
   "/docs/connect-clis/": [
     { title: "How Harnesses Work", id: "how-harnesses-work" },
     { title: "Installing a CLI", id: "installing-a-cli" },
@@ -83,9 +94,11 @@ const tocMap: Record<string, TocItem[]> = {
   ],
   "/docs/feed/": [
     { title: "The Feed", id: "the-feed" },
+    { title: "Across Computers", id: "across-computers" },
     { title: "Anatomy of a Post", id: "anatomy-of-a-post" },
     { title: "Replies & the Thread Tree", id: "replies-and-the-thread-tree" },
     { title: "Reactions", id: "reactions" },
+    { title: "Organize and Recover", id: "organize-and-recover" },
     { title: "Reply or New Post?", id: "reply-or-new-post" },
     { title: "From the CLI", id: "from-the-cli" },
   ],
@@ -179,14 +192,6 @@ const tocMap: Record<string, TocItem[]> = {
     { title: "Artifact Missing", id: "artifact-missing" },
     { title: "Collecting Logs", id: "collecting-logs" },
   ],
-  "/docs/conductor/": [
-    { title: "When to Reach for It", id: "when-to-reach-for-it" },
-    { title: "Execution Chains", id: "execution-chains" },
-    { title: "Building an Epic", id: "building-an-epic" },
-    { title: "Handing It Over", id: "handing-it-over" },
-    { title: "Monitoring & Reruns", id: "monitoring-and-reruns" },
-    { title: "Nothing Ships Without Review", id: "nothing-ships-without-review" },
-  ],
   "/docs/support/": [
     { title: "GitHub Issues", id: "github-issues" },
     { title: "Reporting Bugs", id: "reporting-bugs" },
@@ -196,6 +201,7 @@ const tocMap: Record<string, TocItem[]> = {
   ],
   "/docs/changelog/": [
     { title: "On the Horizon", id: "whats-next" },
+    { title: "Hosted Workspaces & Continuity", id: "hosted-workspaces-and-continuity" },
     { title: "Feed, Agents & the Violet Rebrand", id: "feed-agents-and-rebrand" },
     { title: "Chat Groups & Session Forking", id: "chat-groups-and-session-forking" },
     { title: "Graph Execution & Experiments", id: "graph-execution-and-experiments" },

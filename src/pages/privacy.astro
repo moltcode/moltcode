@@ -8,19 +8,19 @@ import Footer from '../components/Footer.astro';
   <Nav />
   <main class="max-w-3xl mx-auto px-6 py-32">
     <h1 class="text-4xl font-bold text-theme-primary mb-2">Privacy Policy</h1>
-    <p class="text-theme-primary/40 text-sm mb-12">Last updated: February 2026</p>
+    <p class="text-theme-primary/40 text-sm mb-12">Last updated: August 16, 2026</p>
 
     <div class="prose">
       <h2>Overview</h2>
       <p>
-        Molt Code is a desktop application that respects your privacy. Your API keys, code, and project data stay on your machine. We do not have access to your code, your API keys, or the content of your conversations with AI agents.
+        Molt Code combines a local desktop application with optional hosted workspaces. Source code, project checkouts, API keys, credentials, CLI installations, private sessions, terminals, and processes stay on your machine. If you use a hosted workspace, the platform stores the workspace content you create or share so it is available to its members and your signed-in devices.
       </p>
 
       <h2>What We Collect</h2>
 
       <h3>Website (moltcode.com)</h3>
       <p>
-        We use Cloudflare Web Analytics to collect anonymous, aggregated website traffic data. This includes page views, referrers, browser type, and country. Cloudflare Web Analytics does not use cookies, does not track individual users, and does not collect personal information.
+        We use Google Analytics to understand website traffic. It may collect page views, referrers, browser and device information, approximate location, and identifiers stored in cookies or similar browser storage. Google processes this data under its own privacy terms.
       </p>
 
       <h3>Desktop Application</h3>
@@ -37,13 +37,23 @@ import Footer from '../components/Footer.astro';
         Telemetry never includes your source code, API keys, file contents, or conversation content. You can disable telemetry in the app settings.
       </p>
 
+      <h3>Account and Hosted Workspaces</h3>
+      <p>
+        When you sign in or use a hosted workspace, we process account details such as your name and email address, workspace and project membership, invitations and roles, and service metadata needed to authenticate devices and keep content in sync.
+      </p>
+      <p>
+        Hosted workspace content can include posts, replies, attachments, agent outcomes, reactions, pins, private saves, notifications, project records, reusable agent profiles, skills, MCP registrations, issues, explicitly shared knowledge pages, designs, and deletion or recovery state. This content is stored by Molt Code and its infrastructure providers so authorized workspace members and signed-in clients can use it.
+      </p>
+
       <h2>What We Do Not Collect</h2>
       <ul>
-        <li>Your source code or project files</li>
-        <li>Your API keys or credentials</li>
-        <li>The content of your AI agent conversations</li>
-        <li>Personal information (name, email) unless you voluntarily provide it</li>
+        <li>Your source code or project checkout merely because you register or map a project</li>
+        <li>Your raw API keys, credentials, environment values, or authorization headers</li>
+        <li>Your machine-local CLI installations, private sessions, terminals, or running processes</li>
       </ul>
+      <p>
+        Files or code you intentionally attach to a hosted post are treated as hosted workspace content. Likewise, text you post from an agent session is stored as part of that workspace thread.
+      </p>
 
       <h2>API Keys &amp; Third-Party Services</h2>
       <p>
@@ -55,12 +65,15 @@ import Footer from '../components/Footer.astro';
 
       <h2>Data Storage</h2>
       <p>
-        All your data — projects, settings, API keys, and conversation history — is stored locally on your machine. We do not operate servers that store your data.
+        Local project files, credentials, and execution state remain on your machine. Hosted workspace content and account data are stored on servers operated by Molt Code and its service providers. The project registry may store a repository URL or other project identity, but each member clones or maps their own checkout.
+      </p>
+      <p>
+        Workspace content remains available while the workspace or account is active, subject to product deletion and recovery controls and any retention needed for security, legal, or backup purposes. Workspace members can delete supported content, restore items from the Deleted view where available, or contact us about account and data requests.
       </p>
 
       <h2>Cookies</h2>
       <p>
-        The Molt Code website does not use cookies.
+        The website may use cookies or similar browser storage for analytics, authentication, security, and preferences such as theme. You can limit cookies through your browser settings, though signed-in features may require them.
       </p>
 
       <h2>Changes to This Policy</h2>

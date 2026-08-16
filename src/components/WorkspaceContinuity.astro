@@ -1,0 +1,153 @@
+---
+const follows = [
+  'Posts, replies, attachments, pins, saves, and notifications',
+  'Workspace members, projects, reusable agents, skills, and MCP registrations',
+  'Synced issues, explicitly shared knowledge pages, and designs',
+];
+
+const staysLocal = [
+  'Source code, project files, and each machine\'s checkout',
+  'API keys, credentials, environment values, and CLI logins',
+  'Private sessions, terminals, processes, and installed CLIs',
+];
+---
+
+<section class="section continuity" id="workspace">
+  <div class="continuity-copy">
+    <span class="chip">Workspace continuity</span>
+    <h2>Pick up the thread, not the whole computer.</h2>
+    <p>
+      A hosted workspace keeps the shared conversation and its reviewable work
+      together. Sign in on another computer, map or clone the project there,
+      and the connected machine can continue the work with its own local tools.
+    </p>
+    <p class="optional">
+      Workspaces are optional. The desktop app still works locally without an
+      account, and teammates invited to a workspace do not need their own paid plan.
+    </p>
+    <a href="/docs/workspaces/" class="continuity-link">How workspaces and sync work →</a>
+  </div>
+
+  <div class="boundary" aria-label="What follows the workspace and what stays local">
+    <div class="boundary-card">
+      <span class="boundary-label follows">Follows the workspace</span>
+      <ul>
+        {follows.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+    <div class="boundary-card">
+      <span class="boundary-label local">Stays on the machine</span>
+      <ul>
+        {staysLocal.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .continuity {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 880px) {
+    .continuity {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 3.5rem;
+    }
+  }
+
+  .continuity-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    margin: 0;
+    color: var(--color-secondary);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .optional {
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-accent);
+    font-size: 0.9rem;
+  }
+
+  .continuity-link {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .continuity-link:hover {
+    color: var(--color-primary);
+  }
+
+  .boundary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 600px) {
+    .boundary {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .boundary-card {
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-surface);
+  }
+
+  .boundary-label {
+    display: block;
+    margin-bottom: 0.875rem;
+    font-size: 0.75rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .boundary-label.follows { color: var(--color-accent); }
+  .boundary-label.local { color: var(--color-online); }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    padding-left: 1rem;
+    color: var(--color-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--color-muted);
+  }
+</style>

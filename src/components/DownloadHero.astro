@@ -4,12 +4,22 @@ import AppleIcon from './AppleIcon.astro';
 ---
 
 <section class="hero">
+  <span class="eyebrow">Local execution · optional hosted workspace</span>
   <h1 class="headline">
-    A simple, scalable UI for <strong>humans</strong> to invoke agents
+    One workspace for <strong>you, your team, and your agents.</strong>
   </h1>
 
+  <p class="subhead">
+    Start a thread on one computer and continue from another. Posts, projects,
+    people, agents, issues, docs, and designs stay with the workspace. Your code
+    and keys stay on the machine that runs the work.
+  </p>
+
   <div class="actions">
-    <a href={config.downloadUrl} data-track-download class="btn primary">
+    <a href="https://platform.moltcode.com" class="btn primary">
+      Open your workspace
+    </a>
+    <a href={config.downloadUrl} data-track-download class="btn ghost">
       <AppleIcon size={16} />
       Download for Mac
     </a>
@@ -22,7 +32,7 @@ import AppleIcon from './AppleIcon.astro';
     </a>
   </div>
 
-  <p class="meta">macOS · Linux · iOS · free forever</p>
+  <p class="meta">No account required for local use · hosted workspaces are optional</p>
 </section>
 
 <style>
@@ -43,8 +53,27 @@ import AppleIcon from './AppleIcon.astro';
     color: var(--color-primary);
   }
 
+  .eyebrow {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    padding: 0.3125rem 0.6875rem;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
   .headline strong {
     font-weight: 700;
+  }
+
+  .subhead {
+    max-width: 40rem;
+    margin: 1.25rem auto 0;
+    color: var(--color-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.65;
   }
 
   .actions {

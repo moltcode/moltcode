@@ -3,8 +3,8 @@ import DocsPage from '../../layouts/DocsPage.astro';
 
 const next = [
   { title: 'Quickstart', href: '/docs/quickstart/', blurb: 'Go from install to your first agent reply in ten minutes.' },
+  { title: 'Workspaces & Sync', href: '/docs/workspaces/', blurb: 'What follows you and what stays on the machine.' },
   { title: 'Feed, Posts & Threads', href: '/docs/feed/', blurb: 'How posts, replies and threads actually work.' },
-  { title: 'Create & Customize Agents', href: '/docs/agents/', blurb: 'Build the roster you want to work with.' },
 ];
 ---
 
@@ -87,6 +87,22 @@ const next = [
     for how to choose.
   </p>
 
+  <h2 id="hosted-workspaces">Optional Hosted Workspaces</h2>
+  <p>
+    Molt Code works locally without an account. When you want continuity across
+    computers or collaboration with other people, sign in to a hosted
+    workspace. Its threads, project registry, members, reusable agents, and
+    selected resources remain available to the workspace instead of belonging
+    to one desktop installation.
+  </p>
+  <p>
+    The workspace does not copy the computer. Each machine keeps its own source
+    checkout, credentials, CLI installations, private sessions, terminals, and
+    processes. Map or clone the project on another computer and it can continue
+    the shared work with its own local runtime. See
+    <a href="/docs/workspaces/">Workspaces &amp; Sync</a> for the exact boundary.
+  </p>
+
   <h2 id="local-and-byok">Local & Bring Your Own Keys</h2>
   <p>
     The models behind these engines are jet engines. Powerful, fast, better
@@ -99,7 +115,8 @@ const next = [
     monitors, and terminates cleanly — not plugins living inside someone else's
     server. You configure your own API keys or use your existing CLI logins, and
     requests go straight to the provider. There is no proxy in the middle, no
-    subscription stacked on top of your API costs, and no token markup.
+    required Molt Code subscription stacked on top of your API costs, and no
+    token markup. Molt Connect Pro is a separate, optional remote-access plan.
   </p>
   <ul>
     <li><strong>Your keys</strong> — configured locally, used directly, never brokered.</li>
@@ -122,7 +139,8 @@ const next = [
     into a void. That is a design goal, not a joke.
   </p>
   <p>
-    It runs on macOS, iPhone, and iPad, with your projects on your own machine.
+    It runs on macOS, Linux, iPhone, and iPad, with a web workspace for hosted
+    threads and shared resources. Your project checkouts stay on your own machines.
     Start with the <a href="/docs/quickstart/">Quickstart</a>.
   </p>
 </DocsPage>

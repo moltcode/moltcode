@@ -7,6 +7,8 @@ import Footer from '../components/Footer.astro';
 
 const free = [
   "Unlimited agent sessions",
+  "Optional hosted workspaces",
+  "Invite teammates without requiring their own paid plan",
   "All runtimes (Claude, Codex, Gemini, OpenCode)",
   "Code review & inline diffs",
   "Built-in terminals",
@@ -18,10 +20,10 @@ const free = [
   "File search & tagging",
 ];
 
-const mesh = [
-  "Everything in Free, plus:",
-  "Multi-device mesh connectivity",
-  "Desktop + iPad + iPhone in one mesh",
+const connect = [
+  "Everything in Molt Code, plus:",
+  "Connected-device remote access",
+  "Desktop + iPad + iPhone connectivity",
   "Steer agents from your phone",
   "Review & approve from anywhere",
   "Remote machine access",
@@ -30,7 +32,7 @@ const mesh = [
 ];
 ---
 
-<Layout title="Pricing — Molt Code" description="Molt Code is free forever. The Mesh subscription connects all your devices into one workspace.">
+<Layout title="Pricing — Molt Code" description="Molt Code and hosted workspaces are free. Molt Connect Pro is an optional $4.99/month upgrade for connected-device remote access.">
   <Nav />
   <main>
     <section class="pricing-section">
@@ -40,9 +42,9 @@ const mesh = [
             <span class="pricing-badge-dot"></span>
             Pricing
           </div>
-          <h1 class="pricing-title">Free forever.<br /><span class="gradient-text">Pay only for the mesh.</span></h1>
+          <h1 class="pricing-title">Free to build.<br /><span class="gradient-text">Pay only for remote access.</span></h1>
           <p class="pricing-subtitle">
-            The desktop app is completely free. Use your own API keys with any provider. The Mesh subscription connects your devices into one workspace.
+            The desktop app and hosted workspaces do not require a subscription. Molt Connect Pro is an optional upgrade for connecting to and steering your machines remotely.
           </p>
         </div>
 
@@ -55,7 +57,7 @@ const mesh = [
                 <span class="pricing-amount">$0</span>
                 <span class="pricing-period">forever</span>
               </div>
-              <p class="pricing-plan-desc">Everything you need to work with AI coding agents on a single machine.</p>
+              <p class="pricing-plan-desc">Local agent execution plus optional hosted workspaces for shared threads, people, and artifacts.</p>
             </div>
             <div class="pricing-card-body">
               <ul class="pricing-features">
@@ -79,20 +81,20 @@ const mesh = [
             </div>
           </div>
 
-          <!-- Mesh tier -->
+          <!-- Optional connected-device tier -->
           <div class="pricing-card pricing-card-featured">
             <div class="pricing-card-badge">Most popular</div>
             <div class="pricing-card-header">
-              <h2 class="pricing-plan-name">The Mesh</h2>
+              <h2 class="pricing-plan-name">Molt Connect Pro</h2>
               <div class="pricing-price">
-                <span class="pricing-amount">$9.99</span>
+                <span class="pricing-amount">$4.99</span>
                 <span class="pricing-period">/month</span>
               </div>
-              <p class="pricing-plan-desc">Connect all your devices into a single workspace. Steer agents from anywhere.</p>
+              <p class="pricing-plan-desc">Connect to your machines and steer local agents when you are away from the desk.</p>
             </div>
             <div class="pricing-card-body">
               <ul class="pricing-features">
-                {mesh.map((feature, i) => (
+                {connect.map((feature, i) => (
                   <li class={`pricing-feature ${i === 0 ? 'pricing-feature-highlight' : ''}`}>
                     <svg class="pricing-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     {feature}
@@ -102,7 +104,7 @@ const mesh = [
               <div class="pricing-cta">
                 <a href="https://platform.moltcode.com" class="pricing-button pricing-button-primary">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-                  <span>Sign in to Hub</span>
+                  <span>Get Molt Connect Pro</span>
                 </a>
               </div>
             </div>
@@ -118,8 +120,12 @@ const mesh = [
               <p class="pricing-faq-a">No. Download the app and start using it immediately. No sign-up required. Bring your own API keys from Anthropic, OpenAI, Google, or any OpenAI-compatible provider.</p>
             </div>
             <div class="pricing-faq-item">
-              <h3 class="pricing-faq-q">What exactly does The Mesh do?</h3>
-              <p class="pricing-faq-a">The Mesh connects your desktop, iPad, and iPhone into a single workspace over an encrypted tunnel. Your desktop runs the agents while you review, approve, and steer from any device.</p>
+              <h3 class="pricing-faq-q">Do workspaces require Molt Connect Pro?</h3>
+              <p class="pricing-faq-a">No. Hosted workspaces are optional and do not require the paid plan. Invited members can read and post without buying their own subscription. Molt Connect Pro adds connected-device and remote-machine features.</p>
+            </div>
+            <div class="pricing-faq-item">
+              <h3 class="pricing-faq-q">What does Molt Connect Pro do?</h3>
+              <p class="pricing-faq-a">It connects your desktop, iPad, and iPhone to your machines over an encrypted tunnel. Your connected machine runs the agents while you review, approve, and steer remotely.</p>
             </div>
             <div class="pricing-faq-item">
               <h3 class="pricing-faq-q">Can I use multiple AI providers at once?</h3>
@@ -127,7 +133,7 @@ const mesh = [
             </div>
             <div class="pricing-faq-item">
               <h3 class="pricing-faq-q">Is my code sent to Molt Code servers?</h3>
-              <p class="pricing-faq-a">No. Agents run locally on your machine. Your code goes directly to the AI provider you choose via your own API keys. The Mesh only handles device-to-device connectivity.</p>
+              <p class="pricing-faq-a">Registering a project never uploads its checkout. Agents run on your connected machine, and your code goes directly to the AI provider you choose. Hosted workspaces do store the posts and shared resources you put in them; source code, credentials, and local execution stay machine-owned.</p>
             </div>
           </div>
         </div>

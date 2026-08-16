@@ -1,0 +1,122 @@
+---
+import DocsPage from '../../layouts/DocsPage.astro';
+
+const next = [
+  { title: 'Quickstart', href: '/docs/quickstart/', blurb: 'Choose a local-only or connected setup.' },
+  { title: 'Projects & the Project Toolbox', href: '/docs/projects/', blurb: 'Map the same project on each computer.' },
+  { title: 'Feed, Posts & Threads', href: '/docs/feed/', blurb: 'How hosted threads stay together.' },
+];
+---
+
+<DocsPage
+  title="Workspaces & Sync"
+  description="A hosted workspace lets people and signed-in computers share threads, project identity, reusable agents, and selected resources while code, credentials, and execution remain machine-owned."
+  currentPath="/docs/workspaces/"
+  next={next}
+>
+  <h2 id="optional-by-design">Optional by Design</h2>
+  <p>
+    You can use Molt Code entirely on one computer without an account. Sign in
+    only when you want a hosted workspace: shared threads, people, project
+    identity, reusable agent profiles, and selected artifacts that remain
+    available across your signed-in computers.
+  </p>
+  <div class="note">
+    <p>
+      <strong>A workspace does not require Molt Connect Pro.</strong> Invited
+      members can read and post without buying their own plan. The optional
+      $4.99/month subscription adds connected-device and remote-machine features;
+      it is not a workspace fee.
+    </p>
+  </div>
+
+  <h2 id="the-four-layers">The Four Layers</h2>
+  <ul class="fields">
+    <li>
+      <strong>Account</strong>
+      <span>Your sign-in and the workspaces you can reach.</span>
+    </li>
+    <li>
+      <strong>Workspace</strong>
+      <span>The hosted boundary for people, posts, project records, reusable agents, and shared resources.</span>
+    </li>
+    <li>
+      <strong>Project</strong>
+      <span>A stable workspace record that connects a thread to a repository identity.</span>
+    </li>
+    <li>
+      <strong>Local checkout</strong>
+      <span>The actual files on one computer. This is where an agent runs, and every computer maps or clones its own copy.</span>
+    </li>
+  </ul>
+
+  <h2 id="create-or-join">Create or Join</h2>
+  <p>
+    Sign in at <a href="https://platform.moltcode.com">platform.moltcode.com</a>
+    to create a workspace or accept an invitation. Workspace admins can invite
+    people by email and assign member or admin roles. Accepted workspaces appear
+    in signed-in desktop clients as well as the web workspace.
+  </p>
+
+  <h2 id="projects-on-each-computer">Projects on Each Computer</h2>
+  <p>
+    Add a project with a Git URL or import it through the workspace's GitHub
+    connection. That creates the hosted project identity; it does not upload a
+    checkout. On each computer, clone a managed checkout or map an existing
+    directory to that project.
+  </p>
+  <p>
+    A second computer therefore receives the shared thread and project record,
+    not the first computer's filesystem. Once it has a usable checkout and the
+    required CLIs, it can claim and run work for that project.
+  </p>
+
+  <h2 id="what-syncs">What Syncs</h2>
+  <ul>
+    <li>Posts, replies, attachments, thread/project association, agent outcomes, reactions, pins, private saves, notifications, and deletion or recovery state.</li>
+    <li>Workspace membership and the project registry.</li>
+    <li>Reusable agent profiles, skills, and MCP registrations.</li>
+    <li>Designs and rendered revisions.</li>
+    <li>Issues when issue sync is enabled for a mapped project.</li>
+    <li>Knowledge pages only when you explicitly share them.</li>
+  </ul>
+
+  <h2 id="what-stays-local">What Stays Local</h2>
+  <ul>
+    <li>Source code, project files, unshared knowledge pages, and the checkout itself.</li>
+    <li>API keys, credentials, environment values, authorization headers, and machine paths.</li>
+    <li>Installed coding CLIs and their local authentication.</li>
+    <li>Private sessions, terminals, processes, and other machine runtime state.</li>
+  </ul>
+  <p>
+    In short: <strong>shared work and agent context follow the workspace; code,
+    credentials, and execution stay on the connected machine.</strong>
+  </p>
+
+  <h2 id="how-a-hosted-tag-runs">How a Hosted Tag Runs</h2>
+  <ol class="steps">
+    <li><strong>Someone posts or replies</strong> in the web or desktop workspace and tags an agent.</li>
+    <li><strong>A signed-in computer claims the run</strong> if it has that project mapped to a usable local checkout.</li>
+    <li><strong>The agent runs locally</strong> with that computer's CLI installation, credentials, and files.</li>
+    <li><strong>The outcome returns to the thread</strong> and becomes available to workspace members and signed-in clients.</li>
+  </ol>
+  <p>
+    A browser can start and review shared work, but it does not become the
+    execution machine. If no connected computer has the checkout and agent
+    runtime available, the work waits for one that does.
+  </p>
+
+  <h2 id="reconnects-and-recovery">Reconnects and Recovery</h2>
+  <p>
+    Signed-in clients catch up after restarts and temporary disconnections.
+    When two clients make incompatible changes, Molt Code surfaces a conflict
+    instead of silently choosing one. The workspace also keeps Deleted views
+    and restore controls for supported content, so an ordinary deletion does
+    not immediately erase the surrounding thread.
+  </p>
+  <p>
+    Removing a member revokes their workspace access. Before permanently
+    purging content or deleting an account, export or preserve anything the team
+    still needs.
+  </p>
+</DocsPage>

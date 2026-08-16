@@ -2,7 +2,7 @@
 import DocsPage from '../../layouts/DocsPage.astro';
 
 const next = [
-  { title: 'Conductor & Workflows', href: '/docs/conductor/', blurb: 'Orchestrating many issues at once.' },
+  { title: 'Create & Customize Agents', href: '/docs/agents/', blurb: 'Build the supervisor you want to run an epic.' },
   { title: 'Docs, Context & PRDs', href: '/docs/prds/', blurb: 'Give issues the written context they need.' },
   { title: 'Replies & Artifacts', href: '/docs/artifacts/', blurb: 'How issues travel through a thread.' },
 ];
@@ -116,9 +116,9 @@ const next = [
     automatically become children of the epic.
   </p>
   <p>
-    Hand the epic to a supervisor agent and it executes the chain. See
-    <a href="/docs/conductor/">Conductor &amp; Workflows</a> for the full
-    orchestration story.
+    Hand the epic to a supervisor agent and it executes the chain, waiting for
+    each level to finish before starting the next. Follow progress through issue
+    statuses and comments, then review the combined diff before closing the epic.
   </p>
 
   <h2 id="tips">Tips</h2>

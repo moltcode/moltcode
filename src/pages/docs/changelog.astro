@@ -18,6 +18,27 @@ import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
 
           <div class="timeline">
 
+            <!-- Phase 12 -->
+            <div class="timeline-entry">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <p class="timeline-date">August 2026</p>
+                <h2 id="hosted-workspaces-and-continuity">Hosted Workspaces &amp; Continuity</h2>
+                <p>
+                  Molt Code expanded beyond a single desktop without moving agent execution into the cloud. Hosted workspaces keep shared threads, project identity, people, reusable agents, and selected resources available across signed-in clients while every computer keeps its own checkout, credentials, CLIs, sessions, terminals, and processes.
+                </p>
+                <ul>
+                  <li>Create or join workspaces with member and admin roles</li>
+                  <li>Continue hosted threads from the web or another signed-in computer</li>
+                  <li>Add projects by Git URL or GitHub import, then clone or map a checkout per computer</li>
+                  <li>Sync reusable agents, skills, MCP registrations, designs, and enabled issue resources</li>
+                  <li>Share knowledge pages explicitly instead of uploading the local knowledge base</li>
+                  <li>Pin and privately save posts, receive notifications, and restore supported deleted content</li>
+                  <li>Claim hosted agent runs atomically on a connected computer with a usable checkout</li>
+                </ul>
+              </div>
+            </div>
+
             <!-- What's Next -->
             <div class="timeline-entry next-up">
               <div class="timeline-marker upcoming"></div>
@@ -40,15 +61,6 @@ import DocsDownloadCta from '../../components/DocsDownloadCta.astro';
                   <div class="reasoning">
                     <span class="reasoning-label">Thinking</span>
                     <p>I need one agent that just knows everything about the workspace — issues, sessions, files, history. Instead of searching manually, I should be able to ask and get an answer immediately. This becomes the starting point for any task.</p>
-                  </div>
-                </div>
-
-                <div class="next-item">
-                  <h3>Workflow Orchestration</h3>
-                  <p>Higher-level primitives where Claude reasons about what needs to happen, creates a workflow, spins up an agent to execute it, and that agent picks the right CLI for each step — then reports back.</p>
-                  <div class="reasoning">
-                    <span class="reasoning-label">Thinking</span>
-                    <p>Claude should solve the high-level problem and Codex should write the code. The UX for this isn't obvious yet — at the end of the day, Claude creates the workflow, creates an agent, hands the workflow off, and the agent manages finishing everything up before reporting back. That agent might use different CLIs for different purposes. Still figuring out the best architecture for this. It hasn't fully fermented yet.</p>
                   </div>
                 </div>
 

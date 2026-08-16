@@ -25,6 +25,12 @@ const next = [
     working context. An agent tagged in a thread can read them, and an agent that
     produces something durable can write one back as an artifact.
   </p>
+  <p>
+    Knowledge pages are local by default. In a hosted workspace, explicitly
+    share the pages that teammates and other signed-in computers should receive.
+    Sharing is deliberate; Molt Code does not upload the rest of the project's
+    knowledge base just because the project is mapped.
+  </p>
 
   <h2 id="why-written-context-wins">Why Written Context Wins</h2>
   <p>
@@ -79,6 +85,11 @@ const next = [
     agent tagged in that thread resolves the real page. The reference is
     verified — a page that does not exist cannot be attached — so an attached
     page is one an agent can definitely read.
+  </p>
+  <p>
+    If the thread is hosted and the page needs to open in the web workspace or
+    on another computer, share the page with the workspace before attaching it.
+    An unshared page remains machine-owned.
   </p>
   <p>
     In practice the strongest pattern is: attach the specification, describe the

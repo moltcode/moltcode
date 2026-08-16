@@ -10,15 +10,16 @@ const next = [
 
 <DocsPage
   title="Projects & the Project Toolbox"
-  description="A project is a directory on your machine plus everything Molt Code wraps around it: a feed, issues, docs, designs, and a toolbox for the work itself."
+  description="A project connects a stable workspace identity to a checkout on each machine, plus the feed, issues, docs, designs, and local toolbox around the work."
   currentPath="/docs/projects/"
   next={next}
 >
   <h2 id="what-a-project-is">What a Project Is</h2>
   <p>
-    A project points at a directory on your machine. Everything else — the feed,
-    the issue tracker, the knowledge base, running processes — hangs off that
-    one anchor.
+    In local-only use, a project points directly at a directory on your machine.
+    In a hosted workspace, the project also has a stable workspace record that
+    holds its repository identity and shared feed. Each computer maps or clones
+    its own checkout to that record.
   </p>
   <p>
     Projects are the unit of scope. Every thread belongs to a project, every
@@ -29,14 +30,23 @@ const next = [
 
   <h2 id="adding-a-project">Adding a Project</h2>
   <p>
-    Register any directory as a project. A Git repository is the usual case and
-    unlocks the Git tooling, but it is not required.
+    Register any directory as a local project. For a hosted project, add a Git
+    URL or import a repository through the workspace's GitHub connection, then
+    clone a managed checkout or map an existing directory on each computer.
   </p>
   <p>
     You can have as many projects as you like and work across them
     simultaneously — agents in different projects run independently, each in its
     own directory.
   </p>
+  <div class="note">
+    <p>
+      The hosted project record is not a copy of the repository. Molt Code keeps
+      the repository location and project identity; source files remain in each
+      member's checkout. A computer needs that checkout, the required CLI, and
+      its own credentials before it can run a hosted tag.
+    </p>
+  </div>
   <div class="note">
     <p>
       A post can carry a <code>#project</code> chip to run a tagged agent
@@ -91,11 +101,6 @@ const next = [
       <strong>Processes &amp; Scripts</strong>
       <span>Dev servers, watchers, and named tasks. See
       <a href="/docs/processes/">Terminals &amp; Processes</a>.</span>
-    </li>
-    <li>
-      <strong>Workflows</strong>
-      <span>Saved multi-step execution chains. See
-      <a href="/docs/conductor/">Conductor &amp; Workflows</a>.</span>
     </li>
   </ul>
 
