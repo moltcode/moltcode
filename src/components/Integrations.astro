@@ -1,0 +1,357 @@
+---
+// ---------------------------------------------------------------------------
+// "Your tools, connected" — the integrations strip that makes the
+// collaborative-workspace pitch visual. Shows where bugs and issues already
+// live (Linear, Sentry, Jira, GitHub, GitLab) plus the team's usual home
+// (Slack, Discord, Notion, Figma, Vercel), with a sync flow mock beneath.
+// Logos are monochrome brand marks re-tinted with currentColor so they sit
+// quietly in both themes, exactly like the rest of the design system.
+// ---------------------------------------------------------------------------
+
+const rowOne = [
+  { name: 'Linear', file: '/integrations/linear.svg', note: 'issues' },
+  { name: 'Sentry', file: '/integrations/sentry.svg', note: 'errors' },
+  { name: 'Jira', file: '/integrations/jira.svg', note: 'tickets' },
+  { name: 'GitHub', file: '/integrations/github.svg', note: 'PRs' },
+  { name: 'GitLab', file: '/integrations/gitlab.svg', note: 'MRs' },
+];
+
+const rowTwo = [
+  { name: 'Slack', file: '/integrations/slack.svg', note: 'chat' },
+  { name: 'Discord', file: '/integrations/discord.svg', note: 'chat' },
+  { name: 'Notion', file: '/integrations/notion.svg', note: 'docs' },
+  { name: 'Figma', file: '/integrations/figma.svg', note: 'design' },
+  { name: 'Vercel', file: '/integrations/vercel.svg', note: 'deploys' },
+];
+
+const rowThree = [
+  { name: 'Anthropic', file: '/integrations/claude.svg', note: 'models' },
+  { name: 'Google', file: '/integrations/google.svg', note: 'models' },
+  { name: 'Stripe', file: '/integrations/stripe.svg', note: 'billing' },
+  { name: 'Zoom', file: '/integrations/zoom.svg', note: 'meetings' },
+  { name: 'Dropbox', file: '/integrations/dropbox.svg', note: 'files' },
+];
+
+const syncSteps = [
+  { icon: 'bug', label: 'Sentry alert or bug filed in Linear' },
+  { icon: 'thread', label: 'Shows up as a post — thread it, no ticket ceremony' },
+  { icon: 'agent', label: 'Tag an agent; the reply lands back as the fix' },
+];
+---
+
+<section class="section tools-section" id="integrations">
+  <div class="tools-copy">
+    <span class="chip">Your tools, connected</span>
+    <h2 class="tools-title">Runs alongside Linear, Sentry, and the stack you already use.</h2>
+    <p class="tools-sub">
+      Molt Code doesn't replace your issue tracker or your chat — it drops a
+      thread onto them. Bugs from Sentry, issues from Linear and Jira, PRs from
+      GitHub and GitLab, docs from Notion, designs from Figma, deploys from
+      Vercel. Same team, same conversations, one place to work.
+    </p>
+  </div>
+
+  <div class="logo-wall" role="list" aria-label="Tools that integrate with Molt Code">
+    <div class="logo-row">
+      {rowOne.map((t) => (
+        <div class="logo-cell" role="listitem">
+          <span class="logo-badge">
+            <img class="logo" src={t.file} alt="" width="20" height="20" loading="lazy" />
+          </span>
+          <span class="logo-name">{t.name}</span>
+          <span class="logo-note">{t.note}</span>
+        </div>
+      ))}
+    </div>
+    <div class="logo-row">
+      {rowTwo.map((t) => (
+        <div class="logo-cell" role="listitem">
+          <span class="logo-badge">
+            <img class="logo" src={t.file} alt="" width="20" height="20" loading="lazy" />
+          </span>
+          <span class="logo-name">{t.name}</span>
+          <span class="logo-note">{t.note}</span>
+        </div>
+      ))}
+    </div>
+    <div class="logo-row">
+      {rowThree.map((t) => (
+        <div class="logo-cell" role="listitem">
+          <span class="logo-badge">
+            <img class="logo" src={t.file} alt="" width="20" height="20" loading="lazy" />
+          </span>
+          <span class="logo-name">{t.name}</span>
+          <span class="logo-note">{t.note}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Sync flow mock — a Sentry alert turning into a threaded fix -->
+  <div class="sync" aria-label="How an integration flows into a thread">
+    <div class="sync-source">
+      <span class="sync-badge">
+        <img class="logo" src="/integrations/sentry.svg" alt="" width="18" height="18" loading="lazy" />
+      </span>
+      <div>
+        <div class="sync-title">New error · checkout p95 regression</div>
+        <div class="sync-meta">sentry · prod · seen 214 times</div>
+      </div>
+      <span class="sync-pill">Synced</span>
+    </div>
+
+    <div class="sync-steps">
+      {syncSteps.map((s) => (
+        <div class="sync-step">
+          <span class={`sync-ico ${s.icon}`} aria-hidden="true"></span>
+          <span class="sync-step-label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="sync-fix">
+      <span class="sync-fix-label">Fixed</span>
+      <span class="sync-fix-text">p95 back to 210ms — agent reply attached to the original Sentry alert</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tools-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    max-width: 42rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .tools-title {
+    margin: 0;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .tools-sub {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-secondary);
+  }
+
+  /* ===== Logo wall ===== */
+  .logo-wall {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .logo-row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .logo-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .logo-row:last-child .logo-cell:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .logo-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.5625rem;
+    padding: 0.625rem 0.9375rem;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    min-width: 0;
+  }
+
+  /* Dark tile behind every mark so near-black brand logos
+     (GitHub, Notion, Vercel, Dropbox) stay visible in both themes. */
+  .logo-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--chat-dot-fill);
+    border: 1px solid var(--color-border);
+  }
+
+  .logo {
+    flex-shrink: 0;
+    filter: grayscale(1) contrast(1.1);
+    opacity: 0.88;
+    transition: filter 140ms ease, opacity 140ms ease;
+  }
+
+  .logo-cell:hover .logo {
+    filter: grayscale(0) contrast(1.05);
+    opacity: 1;
+  }
+
+  .logo-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+
+  .logo-note {
+    margin-left: auto;
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    .logo-note { display: none; }
+  }
+
+  /* ===== Sync flow mock ===== */
+  .sync {
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-surface);
+    overflow: hidden;
+  }
+
+  .sync-source {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sync-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: var(--chat-tool-fill);
+  }
+
+  .sync-title {
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sync-meta {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-muted);
+    margin-top: 0.0625rem;
+  }
+
+  .sync-pill {
+    margin-left: auto;
+    flex-shrink: 0;
+    padding: 0.1875rem 0.5625rem;
+    border-radius: 999px;
+    background: var(--color-accent-soft);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .sync-steps {
+    display: flex;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  @media (max-width: 760px) {
+    .sync-steps {
+      flex-direction: column;
+    }
+  }
+
+  .sync-step {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5625rem;
+    min-width: 0;
+  }
+
+  .sync-ico {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 0.125rem;
+    background: var(--color-accent);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+
+  .sync-ico.bug {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2l4 4 4-4'/%3E%3Cpath d='M12 6v8'/%3E%3Cpath d='M8 10H4a4 4 0 0 0 4 4'/%3E%3Cpath d='M16 10h4a4 4 0 0 1-4 4'/%3E%3Cpath d='M8 18H4a4 4 0 0 0 4 4h.01'/%3E%3Cpath d='M16 18h4a4 4 0 0 1-4 4h-.01'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 2l4 4 4-4'/%3E%3Cpath d='M12 6v8'/%3E%3Cpath d='M8 10H4a4 4 0 0 0 4 4'/%3E%3Cpath d='M16 10h4a4 4 0 0 1-4 4'/%3E%3Cpath d='M8 18H4a4 4 0 0 0 4 4h.01'/%3E%3Cpath d='M16 18h4a4 4 0 0 1-4 4h-.01'/%3E%3C/svg%3E");
+  }
+
+  .sync-ico.thread {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z'/%3E%3C/svg%3E");
+  }
+
+  .sync-ico.agent {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2a3 3 0 0 1 3 3v1h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2V8'/%3E%3Cpath d='M9 2a3 3 0 0 0-3 3v1H5a2 2 0 0 0-2 2v3'/%3E%3Cpath d='M3 11h4'/%3E%3Cpath d='M4 7h5'/%3E%3Cpath d='M13 7h4'/%3E%3Ccircle cx='16' cy='15' r='3'/%3E%3Cpath d='M13.5 20h5a2 2 0 0 1 2 2v1'/%3E%3Cpath d='M11.5 20h-5a2 2 0 0 0-2 2v1'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2a3 3 0 0 1 3 3v1h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2V8'/%3E%3Cpath d='M9 2a3 3 0 0 0-3 3v1H5a2 2 0 0 0-2 2v3'/%3E%3Cpath d='M3 11h4'/%3E%3Cpath d='M4 7h5'/%3E%3Cpath d='M13 7h4'/%3E%3Ccircle cx='16' cy='15' r='3'/%3E%3Cpath d='M13.5 20h5a2 2 0 0 1 2 2v1'/%3E%3Cpath d='M11.5 20h-5a2 2 0 0 0-2 2v1'/%3E%3C/svg%3E");
+  }
+
+  .sync-step-label {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-secondary);
+  }
+
+  .sync-fix {
+    display: flex;
+    align-items: center;
+    gap: 0.5625rem;
+    padding: 0.875rem 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .sync-fix-label {
+    flex-shrink: 0;
+    padding: 0.1875rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(63, 185, 80, 0.14);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-online);
+  }
+
+  .sync-fix-text {
+    min-width: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-secondary);
+  }
+</style>
