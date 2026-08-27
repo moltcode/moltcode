@@ -14,6 +14,7 @@ Built with [Astro](https://astro.build), [Tailwind CSS v4](https://tailwindcss.c
 │   ├── robots.txt           # Search engine directives
 │   └── og-image.png         # Open Graph image
 ├── src/
+│   ├── analytics/           # Browser-only PostHog download tracking
 │   ├── components/          # Astro components (Hero, Features, Nav, etc.)
 │   ├── config.ts            # App version & download URL
 │   ├── layouts/             # Page layouts
@@ -90,7 +91,7 @@ contents live in `src/components/DocsSidebar.astro`.
 
 ## ⚙️ Configuration
 
-App-level settings (current version, download URL, GitHub link) are managed in `src/config.ts`. Update this file when releasing a new version of Molt Code.
+App-level settings (current version, download URL, GitHub link) are managed in `src/config.ts`. Update this file when releasing a new version of Molt Code. Browser download analytics and the shared Compose PostHog project settings live in `src/analytics/browser.ts`.
 
 ## 🚢 Deployment
 

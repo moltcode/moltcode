@@ -146,7 +146,7 @@ const glyphFor = (archetype: string) =>
             </a>
           ))}
 
-          <a href={config.downloadUrl} data-track-download class="newsession">New session</a>
+          <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="homepage_app_shell_new_session" class="newsession">New session</a>
 
           {navDestinations.map((item) => (
             <a href="/docs/features/" class="navrow">
@@ -203,11 +203,11 @@ const glyphFor = (archetype: string) =>
                 <span set:html={Icon('frame', 18)} />
                 <span set:html={Icon('terminal', 18)} />
               </span>
-              <a href={config.downloadUrl} data-track-download class="post-btn">
+              <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="homepage_app_shell_composer" class="post-btn">
                 <AppleIcon size={14} />
                 Download for Mac
               </a>
-              <a href={config.appStoreUrl} class="post-btn ghost">
+              <a href={config.appStoreUrl} data-track-download data-download-platform="ios" data-download-architecture="universal" data-cta-placement="homepage_app_shell_composer" class="post-btn ghost">
                 <AppleIcon size={14} />
                 iOS
               </a>

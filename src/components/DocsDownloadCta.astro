@@ -11,11 +11,11 @@ import AppleIcon from './AppleIcon.astro';
       <p class="cta-sub">Free forever. Uses your existing API keys. Runs locally on your machine.</p>
 
       <div class="cta-actions" data-download-cta>
-        <a href={config.downloadUrl} data-track-download data-dl="mac-arm" class="btn btn-primary">
+        <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="docs_footer_primary" data-dl="mac-arm" class="btn btn-primary">
           <AppleIcon size={16} />
           Download for Mac
         </a>
-        <a href={config.appStoreUrl} data-dl="ios" class="btn btn-primary">
+        <a href={config.appStoreUrl} data-track-download data-download-platform="ios" data-download-architecture="universal" data-cta-placement="docs_footer_primary" data-dl="ios" class="btn btn-primary">
           <AppleIcon size={16} />
           Download for iOS
         </a>
@@ -25,14 +25,14 @@ import AppleIcon from './AppleIcon.astro';
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="cta-dropdown" data-dl-dropdown>
-            <a href={config.downloadUrl} data-track-download class="cta-dl-item">
+            <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="docs_footer_platform_menu" class="cta-dl-item">
               <AppleIcon size={14} />
               macOS (Apple Silicon)
             </a>
-            <a href={config.linuxDownloadUrl} data-track-download class="cta-dl-item">
+            <a href={config.linuxDownloadUrl} data-track-download data-download-platform="linux" data-download-architecture="x86_64" data-cta-placement="docs_footer_platform_menu" class="cta-dl-item">
               Linux (x86_64 AppImage)
             </a>
-            <a href={config.appStoreUrl} class="cta-dl-item">
+            <a href={config.appStoreUrl} data-track-download data-download-platform="ios" data-download-architecture="universal" data-cta-placement="docs_footer_platform_menu" class="cta-dl-item">
               <AppleIcon size={14} />
               iOS — App Store
             </a>

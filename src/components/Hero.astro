@@ -24,11 +24,11 @@ import AppleIcon from './AppleIcon.astro';
 
     <!-- CTAs -->
     <div class="hero-ctas" data-download-cta>
-      <a href={config.downloadUrl} data-track-download data-dl="mac-arm" class="btn btn-primary">
+      <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="homepage_hero_primary" data-dl="mac-arm" class="btn btn-primary">
         <AppleIcon size={16} />
         download.mac
       </a>
-      <a href={config.appStoreUrl} data-dl="ios" class="btn btn-primary">
+      <a href={config.appStoreUrl} data-track-download data-download-platform="ios" data-download-architecture="universal" data-cta-placement="homepage_hero_primary" data-dl="ios" class="btn btn-primary">
         <AppleIcon size={16} />
         download.ios
       </a>
@@ -38,11 +38,11 @@ import AppleIcon from './AppleIcon.astro';
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </button>
         <div class="hero-dl-dropdown" data-dl-dropdown>
-          <a href={config.downloadUrl} data-track-download class="hero-dl-item">
+          <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="homepage_hero_platform_menu" class="hero-dl-item">
             <AppleIcon size={14} />
             macos.apple-silicon
           </a>
-          <a href={config.appStoreUrl} class="hero-dl-item">
+          <a href={config.appStoreUrl} data-track-download data-download-platform="ios" data-download-architecture="universal" data-cta-placement="homepage_hero_platform_menu" class="hero-dl-item">
             <AppleIcon size={14} />
             ios.app-store
           </a>

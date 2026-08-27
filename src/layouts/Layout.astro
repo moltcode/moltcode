@@ -127,13 +127,9 @@ const { title, description = "A collaborative workspace for your team to work, r
     </script>
 
     <script>
-      document.querySelectorAll('[data-track-download]').forEach((el) => {
-        el.addEventListener('click', () => {
-          if ((window as any).__cfBeacon && (window as any).__cfBeacon.load) {
-            (window as any).__cfBeacon.load({ path: '/virtual/download-click' });
-          }
-        });
-      });
+      import { initWebsiteAnalytics } from '../analytics/browser';
+
+      initWebsiteAnalytics();
     </script>
   </body>
 </html>

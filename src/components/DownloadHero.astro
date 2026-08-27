@@ -21,14 +21,35 @@ import AppleIcon from './AppleIcon.astro';
     <a href="https://platform.moltcode.com" class="btn primary">
       Open your workspace
     </a>
-    <a href={config.downloadUrl} data-track-download class="btn ghost">
+    <a
+      href={config.downloadUrl}
+      data-track-download
+      data-download-platform="macos"
+      data-download-architecture="arm64"
+      data-cta-placement="homepage_hero"
+      class="btn ghost"
+    >
       <AppleIcon size={16} />
       Download for Mac
     </a>
-    <a href={config.linuxDownloadUrl} data-track-download class="btn ghost">
+    <a
+      href={config.linuxDownloadUrl}
+      data-track-download
+      data-download-platform="linux"
+      data-download-architecture="x86_64"
+      data-cta-placement="homepage_hero"
+      class="btn ghost"
+    >
       Linux
     </a>
-    <a href={config.appStoreUrl} class="btn ghost">
+    <a
+      href={config.appStoreUrl}
+      data-track-download
+      data-download-platform="ios"
+      data-download-architecture="universal"
+      data-cta-placement="homepage_hero"
+      class="btn ghost"
+    >
       <AppleIcon size={16} />
       iOS
     </a>

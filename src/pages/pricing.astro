@@ -69,11 +69,11 @@ const connect = [
                 ))}
               </ul>
               <div class="pricing-cta" data-download-cta>
-                <a href={config.downloadUrl} data-track-download data-dl="mac-arm" class="pricing-button pricing-button-secondary">
+                <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="pricing_free_plan" data-dl="mac-arm" class="pricing-button pricing-button-secondary">
                   <AppleIcon size={18} />
                   <span>Download for Mac</span>
                 </a>
-                <a href={config.appStoreUrl} data-dl="ios" class="pricing-button pricing-button-secondary">
+                <a href={config.appStoreUrl} data-track-download data-download-platform="ios" data-download-architecture="universal" data-cta-placement="pricing_free_plan" data-dl="ios" class="pricing-button pricing-button-secondary">
                   <AppleIcon size={18} />
                   <span>Get on App Store</span>
                 </a>

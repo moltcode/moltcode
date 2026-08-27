@@ -149,7 +149,7 @@ It also holds that building software with agents should be collaborative and gen
 
 ## Privacy
 
-API keys, source checkouts, machine paths, CLI installations, and local runtime state stay on the user's machine. Hosted workspaces store account information and workspace content such as posts, replies, attachments, project records, reusable resources, and explicitly shared artifacts. Intentionally uploaded files are treated as hosted workspace content. The app collects anonymous telemetry that can be disabled in settings, and the website uses Google Analytics.
+API keys, source checkouts, machine paths, CLI installations, and local runtime state stay on the user's machine. Hosted workspaces store account information and workspace content such as posts, replies, attachments, project records, reusable resources, and explicitly shared artifacts. Intentionally uploaded files are treated as hosted workspace content. The app collects anonymous telemetry that can be disabled in settings, and the website uses Google Analytics and PostHog for traffic and download-click analytics.
 
 ## Platform
 
