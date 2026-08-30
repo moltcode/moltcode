@@ -5,7 +5,7 @@ import ThemeToggle from './ThemeToggle.astro';
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-brand">
-      <span class="nav-mark" aria-hidden="true">M</span>
+      <img class="nav-mark" src="/brand-icon-64.png" alt="" width="24" height="24" />
       <span class="nav-name">moltcode</span>
     </a>
 
@@ -53,19 +53,10 @@ import ThemeToggle from './ThemeToggle.astro';
     color: var(--color-primary);
   }
 
-  /* Squircle mark, matching the app's project avatars */
   .nav-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border-radius: 7px;
-    background: linear-gradient(160deg, #8B7CF6, #6244D4);
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    width: 24px;
+    height: 24px;
+    display: block;
   }
 
   .nav-name {

@@ -6,7 +6,10 @@ const currentYear = new Date().getFullYear();
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-name"><span class="footer-mark" aria-hidden="true">M</span> moltcode</div>
+        <div class="footer-name">
+          <img class="footer-mark" src="/brand-icon-64.png" alt="" width="24" height="24" />
+          <span>moltcode</span>
+        </div>
         <p class="footer-desc">
           Shared threads and agent context across computers. Code, credentials,
           and execution stay on the machine doing the work.
@@ -93,16 +96,9 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border-radius: 7px;
-    background: linear-gradient(160deg, #8B7CF6, #6244D4);
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    display: block;
   }
 
   .footer-desc {
