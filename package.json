@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "node scripts/optimize-images.mjs && astro build",
+    "test": "node --test tests/*.test.mjs",
     "optimize-images": "node scripts/optimize-images.mjs",
     "preview": "astro preview",
     "astro": "astro"

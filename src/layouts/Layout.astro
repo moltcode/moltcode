@@ -130,7 +130,9 @@ const { title, description = "A collaborative workspace for your team to work, r
 
     <script>
       import { initWebsiteAnalytics } from '../analytics/browser';
+      import { initDownloadResolver } from '../downloads/browser';
 
+      initDownloadResolver();
       initWebsiteAnalytics();
     </script>
   </body>
