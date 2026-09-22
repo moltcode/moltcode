@@ -11,9 +11,8 @@ const DOWNLOADS = {
 
 const VERSION_PATTERN = /^\d+\.\d+\.\d+$/;
 
-export function validatedDownloadUrl(manifest, platform) {
-  const download = DOWNLOADS[platform];
-  if (!download || !manifest || !Array.isArray(manifest.items) || manifest.items.length !== 1) {
+function manifestItemFor(manifest, platform) {
+  if (!manifest || !Array.isArray(manifest.items) || manifest.items.length !== 1) {
     return null;
   }
 
@@ -28,6 +27,10 @@ export function validatedDownloadUrl(manifest, platform) {
     return null;
   }
 
+  return item;
+}
+
+function validatedAssetUrl(item, download) {
   let url;
   try {
     url = new URL(item.url);
@@ -35,20 +38,21 @@ export function validatedDownloadUrl(manifest, platform) {
     return null;
   }
 
-  const expectedPath =
-    `/moltcode/moltcode/releases/download/v${item.version}/` + download.assetName;
-
-  if (
-    url.protocol !== 'https:'
-    || url.hostname !== 'github.com'
-    || url.pathname !== expectedPath
-    || url.search
-    || url.hash
-  ) {
+  if (url.protocol !== 'https:' || url.hostname !== 'github.com' || url.search || url.hash) {
     return null;
   }
 
-  return url.toString();
+  const expectedPath =
+    `/moltcode/moltcode/releases/download/v${item.version}/` + download.assetName;
+  return url.pathname === expectedPath ? url.toString() : null;
+}
+
+export function validatedDownloadUrl(manifest, platform) {
+  const download = DOWNLOADS[platform];
+  if (!download) return null;
+
+  const item = manifestItemFor(manifest, platform);
+  return item ? validatedAssetUrl(item, download) : null;
 }
 
 export async function resolveDownloadUrl(platform, fallbackUrl, fetchManifest = fetch) {
