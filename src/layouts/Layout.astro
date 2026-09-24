@@ -43,13 +43,7 @@ const { title, description = "A collaborative workspace for your team to work, r
 
     <script is:inline>
       (function() {
-        var ua = navigator.userAgent;
-        var p = 'mac-arm';
-        if (/iPhone|iPod/.test(ua) || /iPad/.test(ua) ||
-            (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) {
-          p = 'ios';
-        }
-        document.documentElement.setAttribute('data-platform', p);
+        document.documentElement.setAttribute('data-platform', 'mac-arm');
       })();
     </script>
 

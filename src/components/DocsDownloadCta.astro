@@ -15,10 +15,6 @@ import AppleIcon from './AppleIcon.astro';
           <AppleIcon size={16} />
           Download for Mac
         </a>
-        <a href={config.appStoreUrl} data-track-download data-download-platform="ios" data-download-architecture="universal" data-cta-placement="docs_footer_primary" data-dl="ios" class="btn btn-primary">
-          <AppleIcon size={16} />
-          Download for iOS
-        </a>
         <div class="cta-more">
           <button type="button" class="btn" data-dl-toggle>
             All platforms
@@ -31,10 +27,6 @@ import AppleIcon from './AppleIcon.astro';
             </a>
             <a href={config.linuxDownloadUrl} data-track-download data-download-platform="linux" data-download-architecture="x86_64" data-cta-placement="docs_footer_platform_menu" class="cta-dl-item">
               Linux (x86_64 AppImage)
-            </a>
-            <a href={config.appStoreUrl} data-track-download data-download-platform="ios" data-download-architecture="universal" data-cta-placement="docs_footer_platform_menu" class="cta-dl-item">
-              <AppleIcon size={14} />
-              iOS — App Store
             </a>
           </div>
         </div>
@@ -101,8 +93,7 @@ import AppleIcon from './AppleIcon.astro';
     display: none;
   }
 
-  :global([data-platform="mac-arm"]) [data-dl="mac-arm"],
-  :global([data-platform="ios"]) [data-dl="ios"] {
+  :global([data-platform="mac-arm"]) [data-dl="mac-arm"] {
     display: inline-flex;
   }
 
