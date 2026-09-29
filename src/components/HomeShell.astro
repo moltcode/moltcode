@@ -1,6 +1,6 @@
 ---
 // A mock of the Molt Code desktop app window, drawn to match the real app:
-// traffic-light title bar, the ⌘1–⌘8 workspace rail, the app sidebar (Feed,
+// traffic-light title bar, the workspace avatar rail, the app sidebar (Feed,
 // streams, archetypes, projects), the Post pane holding the page content as a
 // thread, and the "In this thread" rail. The chrome is decorative; only the
 // timeline links and the theme toggle do anything.
@@ -74,9 +74,19 @@ const timeline = [
   { n: '06', id: 'agents', name: 'Molt Code', chip: 'Needs review', when: '27m', text: 'Pick the harness, pick the model, write the instructions. Call it by @handle.', files: ['Agents'] },
 ];
 
+const workspaces = [
+  { name: 'Molt', logo: '/brand-icon-64.png', active: true },
+  { name: 'Acme', initial: 'A', tone: 'orange', unread: true },
+  { name: 'Payments', initial: 'P', tone: 'green' },
+  { name: 'Design', initial: 'D', tone: 'violet' },
+  { name: 'Open source', initial: 'O', tone: 'blue', unread: true },
+  { name: 'Personal', initial: 'J', tone: 'rose' },
+];
+
 const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
 ---
 
+<div class="shell-track">
 <div class="shell">
   <!-- ===== Title bar ===== -->
   <header class="titlebar">
@@ -99,10 +109,15 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
     </div>
   </header>
 
-  <!-- ===== ⌘ workspace rail ===== -->
+  <!-- ===== Workspace rail ===== -->
   <nav class="cmd" aria-hidden="true">
-    {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-      <span class:list={['cmd-key', { active: n === 7 }]}>⌘{n}</span>
+    {workspaces.map((w) => (
+      <span class:list={['ws', { active: w.active }]} title={w.name}>
+        {w.logo
+          ? <img src={w.logo} alt="" width="30" height="30" />
+          : <span class="ws-initial" data-tone={w.tone}>{w.initial}</span>}
+        {w.unread && <span class="ws-dot"></span>}
+      </span>
     ))}
     <span class="cmd-sep"></span>
     <span class="cmd-key plus"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d={icons.plus} /></svg></span>
@@ -288,6 +303,7 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
     </div>
   </aside>
 </div>
+</div>
 
 <script>
   // The window frames in as the intro scrolls away, its chrome staggers in,
@@ -320,7 +336,42 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
   };
 
   const shell = document.querySelector<HTMLElement>('.shell')!;
+  const track = document.querySelector<HTMLElement>('.shell-track')!;
+  const feed = document.querySelector<HTMLElement>('.center-feed')!;
   const posts = Array.from(document.querySelectorAll('.center-feed > .fpost, .center-feed > .feed-block'));
+
+  // The window is pinned 20px inside the viewport and the thread inside it
+  // scrolls with the page: the track is as tall as the feed's overflow, and
+  // page scroll within that range is handed to the feed.
+  let trackTop = 0;
+  let feedMax = 0;
+  const measure = () => {
+    feedMax = Math.max(0, feed.scrollHeight - feed.clientHeight);
+    track.style.height = `${innerHeight + feedMax}px`;
+    trackTop = track.getBoundingClientRect().top + scrollY;
+    syncFeed();
+  };
+  const syncFeed = () => {
+    feed.scrollTop = Math.min(feedMax, Math.max(0, scrollY - trackTop));
+  };
+  addEventListener('scroll', syncFeed, { passive: true });
+  addEventListener('resize', measure);
+  new ResizeObserver(measure).observe(feed.firstElementChild ?? feed);
+  posts.forEach((p) => new ResizeObserver(measure).observe(p));
+  measure();
+
+  // In-page links to posts inside the window scroll the page to the point
+  // where the feed shows that post.
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
+    const target = a && document.getElementById(a.hash.slice(1));
+    if (!target || !feed.contains(target)) return;
+    e.preventDefault();
+    // Layout offsets, not client rects: the window may still be scaled mid-entrance.
+    let offset = 0;
+    for (let el: HTMLElement | null = target; el && el !== feed; el = el.offsetParent as HTMLElement | null) offset += el.offsetTop;
+    scrollTo({ top: trackTop + Math.min(feedMax, Math.max(0, offset - 12)), behavior: 'smooth' });
+  });
 
   if (root.classList.contains('reveal-on')) {
     stagger(Array.from(document.querySelectorAll('.titlebar > *')));
@@ -337,8 +388,8 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
     // rises into view.
     shell.classList.add('framed');
     let chromeIn = false;
-    const track = () => {
-      const top = shell.getBoundingClientRect().top;
+    const frame = () => {
+      const top = track.getBoundingClientRect().top;
       const p = Math.min(1, Math.max(0, 1 - top / innerHeight));
       shell.style.setProperty('--p', p.toFixed(3));
       shell.classList.toggle('settled', p >= 1);
@@ -347,9 +398,9 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
         chrome.forEach((el) => el.classList.add('in'));
       }
     };
-    addEventListener('scroll', () => requestAnimationFrame(track), { passive: true });
-    addEventListener('resize', track);
-    track();
+    addEventListener('scroll', () => requestAnimationFrame(frame), { passive: true });
+    addEventListener('resize', frame);
+    frame();
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -382,6 +433,8 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
       const line = innerHeight * 0.35;
       let current = targets[0]?.id;
       for (const t of targets) if (t.getBoundingClientRect().top - line <= 0) current = t.id;
+      // The last post can't scroll up to the line; count the feed's end as it.
+      if (feedMax > 0 && feed.scrollTop >= feedMax - 1) current = targets[targets.length - 1]?.id;
       if (current) setActive(current);
     });
   };
@@ -421,7 +474,7 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
 
   /* ===== Window ===== */
   .shell {
-    --cmd-w: 46px;
+    --cmd-w: 52px;
     --side-w: 252px;
     --rail-w: 360px;
     --bar-h: 38px;
@@ -430,14 +483,22 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
     font-size: 13px;
     display: grid;
     grid-template-columns: var(--cmd-w) var(--side-w) minmax(0, 1fr) var(--rail-w);
-    grid-template-rows: var(--bar-h) auto;
-    min-height: 100vh;
-    margin: 0 1.25rem;
+    grid-template-rows: var(--bar-h) minmax(0, 1fr);
+    position: sticky;
+    top: var(--gap);
+    height: calc(100vh - 2 * var(--gap));
+    margin: var(--gap);
     border: 1px solid var(--shell-line);
-    border-radius: 12px;
+    border-radius: 14px;
     background: var(--color-bg);
     box-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(0, 0, 0, 0.2);
-    overflow-x: clip;
+    overflow: hidden;
+  }
+
+  .shell-track {
+    --gap: 20px;
+    height: 100vh;
+    margin-top: 1.5rem;
   }
 
   .tb-spacer { flex: 1; }
@@ -445,9 +506,6 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
   /* ===== Title bar ===== */
   .titlebar {
     grid-column: 1 / -1;
-    position: sticky;
-    top: 0;
-    z-index: 40;
     display: flex;
     align-items: center;
     gap: 0.625rem;
@@ -455,7 +513,6 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
     height: var(--bar-h);
     background: var(--color-bg);
     border-bottom: 1px solid var(--shell-line);
-    border-radius: 12px 12px 0 0;
   }
 
   .lights {
@@ -538,37 +595,79 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
   .cmd,
   .side,
   .rail {
-    position: sticky;
-    top: var(--bar-h);
-    height: calc(100vh - var(--bar-h));
+    min-height: 0;
     display: flex;
     flex-direction: column;
   }
 
   .cmd {
     align-items: center;
-    gap: 0.625rem;
-    padding: 0.75rem 0 0.75rem;
+    gap: 0.75rem;
+    padding: 0.875rem 0 0.75rem;
     border-right: 1px solid var(--shell-line);
   }
 
-  .cmd-key {
-    width: 28px;
-    height: 28px;
+  .ws {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    flex-shrink: 0;
+  }
+
+  .ws img,
+  .ws-initial {
+    width: 100%;
+    height: 100%;
+    border-radius: 9px;
+    display: block;
+  }
+
+  .ws-initial {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 7px;
-    font-size: 10.5px;
-    font-weight: 600;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 650;
+  }
+
+  .ws-initial[data-tone="orange"] { background: linear-gradient(160deg, #E0724F, #C9552F); }
+  .ws-initial[data-tone="green"] { background: linear-gradient(160deg, #5FA86B, #357A42); }
+  .ws-initial[data-tone="violet"] { background: linear-gradient(160deg, #8B7BE0, #6353BF); }
+  .ws-initial[data-tone="blue"] { background: linear-gradient(160deg, #5AA9E6, #3D7FBF); }
+  .ws-initial[data-tone="rose"] { background: linear-gradient(160deg, #E27A9E, #B8507A); }
+
+  .ws.active::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 12px;
+    box-shadow: 0 0 0 1.5px var(--color-primary);
+  }
+
+  .ws-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #3B82F6;
+    box-shadow: 0 0 0 2px var(--color-bg);
+  }
+
+  .cmd-key {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
     color: var(--color-secondary);
   }
 
-  .cmd-key.active {
-    background: var(--shell-selected);
-    box-shadow: inset 0 0 0 1.5px var(--color-primary);
-    color: var(--color-primary);
-  }
+  .cmd-key.plus { border: 1px dashed var(--shell-line); }
 
   .cmd-sep {
     width: 20px;
@@ -769,14 +868,12 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
   /* ===== Center pane ===== */
   .center {
     min-width: 0;
+    min-height: 0;
     display: flex;
     flex-direction: column;
   }
 
   .center-head {
-    position: sticky;
-    top: var(--bar-h);
-    z-index: 30;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -807,7 +904,13 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
     color: var(--color-primary);
   }
 
-  .center-feed { flex: 1; }
+  /* Scrolled by the page (see script), never by the wheel directly. */
+  .center-feed {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
 
   /* Posts inside the window use the app's denser type. */
   .center-feed :global(.fpost) {
@@ -836,7 +939,9 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
 
   .center-feed :global(.fpost-body h2) { font-size: 16px !important; }
 
-  .center-feed :global(.fpost-body [class$="-copy"] p) {
+  .center-feed :global(.fpost-body [class$="-copy"] p),
+  .center-feed :global(.fpost-body li),
+  .center-feed :global(.fpost-body .step p) {
     font-size: 13.5px !important;
     line-height: 1.55 !important;
   }
@@ -862,9 +967,6 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
   .center-feed :global(.feed-block.selected) { background: var(--shell-selected); }
 
   .composer {
-    position: sticky;
-    bottom: 0;
-    z-index: 30;
     padding: 0.625rem 1rem;
     background: var(--color-bg);
     border-top: 1px solid var(--shell-line);
@@ -1126,10 +1228,7 @@ const fileCount = timeline.reduce((n, t) => n + (t.files?.length ?? 0), 0);
   }
 
   @media (max-width: 820px) {
-    .shell {
-      grid-template-columns: minmax(0, 1fr);
-      margin: 0 0.5rem;
-    }
+    .shell { grid-template-columns: minmax(0, 1fr); }
     .cmd, .side { display: none; }
     .tb-plus, .tb-icon { display: none; }
   }
