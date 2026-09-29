@@ -1,25 +1,168 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import DownloadHero from '../components/DownloadHero.astro';
+import HomeShell from '../components/HomeShell.astro';
+import IntroStage from '../components/IntroStage.astro';
+import FeedPost from '../components/FeedPost.astro';
+import AppleIcon from '../components/AppleIcon.astro';
 import WorkspaceContinuity from '../components/WorkspaceContinuity.astro';
 import ThreadFlow from '../components/ThreadFlow.astro';
 import AgentRoster from '../components/AgentRoster.astro';
 import ChatSample from '../components/ChatSample.astro';
 import Integrations from '../components/Integrations.astro';
 import Footer from '../components/Footer.astro';
+import { config } from '../config';
 ---
 
 <Layout
   title="Your browser is your agents' IDE."
   description="Where your team works, reports bugs, and ships fixes — all in one place."
 >
-  <Nav />
-  <DownloadHero />
-  <ChatSample />
-  <Integrations />
-  <WorkspaceContinuity />
-  <ThreadFlow />
-  <AgentRoster />
+  <IntroStage>
+    <FeedPost name="Molt Code" handle="@molt" avatar="/brand-icon-64.png" chip="Start here" note="Pinned" ordinal="01">
+      <h1 class="hero-title">Your browser is your agents' IDE.</h1>
+      <p class="hero-text">
+        Where your team works, reports bugs, and ships fixes, all in one place.
+        Post a problem, tag an <span class="mention">@agent</span>, and the fix comes back as a reply in the thread.
+      </p>
+      <div class="hero-actions">
+        <a
+          href={config.downloadUrl}
+          data-track-download
+          data-download-platform="macos"
+          data-download-architecture="arm64"
+          data-cta-placement="homepage_hero"
+          class="hbtn primary"
+        >
+          <AppleIcon size={15} />
+          Download for Mac
+        </a>
+        <a
+          href={config.linuxDownloadUrl}
+          data-track-download
+          data-download-platform="linux"
+          data-download-architecture="x86_64"
+          data-cta-placement="homepage_hero"
+          class="hbtn"
+        >
+          Linux
+        </a>
+        <a href="https://platform.moltcode.com" class="hbtn">Open your workspace</a>
+      </div>
+      <div class="hero-fix">
+        <span class="hero-fix-label">Free</span>
+        <p>No account required for local use. Hosted workspaces are optional.</p>
+      </div>
+    </FeedPost>
+  </IntroStage>
+
+  <HomeShell>
+    <div class="feed-block" id="example">
+      <ChatSample />
+    </div>
+
+    <FeedPost name="Molt Code" handle="@molt" avatar="/brand-icon-64.png" chip="Integrations" ordinal="03">
+      <Integrations />
+    </FeedPost>
+
+    <FeedPost name="Molt Code" handle="@molt" avatar="/brand-icon-64.png" chip="Workspaces" ordinal="04">
+      <WorkspaceContinuity />
+    </FeedPost>
+
+    <FeedPost name="Molt Code" handle="@molt" avatar="/brand-icon-64.png" chip="How it works" ordinal="05">
+      <ThreadFlow />
+    </FeedPost>
+
+    <FeedPost name="Molt Code" handle="@molt" avatar="/brand-icon-64.png" chip="Agents" ordinal="06" session>
+      <AgentRoster />
+    </FeedPost>
+  </HomeShell>
+
   <Footer />
 </Layout>
+
+<style>
+  .hero-title {
+    font-family: inherit;
+    text-wrap: balance;
+    margin: 1rem 0 0;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.08;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    color: var(--color-primary);
+  }
+
+  .hero-text {
+    margin: 0.75rem 0 0;
+    max-width: 40rem;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-primary);
+  }
+
+  .mention {
+    color: var(--shell-chip-blue);
+    font-weight: 500;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+  }
+
+  .hbtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 38px;
+    padding: 0 1.125rem;
+    border-radius: 999px;
+    border: 1px solid var(--shell-line);
+    background: var(--shell-hover);
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: background 120ms ease, opacity 120ms ease;
+  }
+
+  .hbtn:hover { background: var(--shell-selected); }
+
+  .hbtn.primary {
+    background: var(--shell-ink);
+    border-color: var(--shell-ink);
+    color: var(--shell-ink-text);
+  }
+
+  .hbtn.primary:hover { opacity: 0.9; }
+
+  .hero-fix {
+    margin-top: 1.75rem;
+  }
+
+  .hero-fix-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-online);
+  }
+
+  .hero-fix p {
+    margin: 0.125rem 0 0;
+    font-size: 15px;
+    color: var(--color-primary);
+  }
+
+  .feed-block {
+    padding: 2.5rem 2.5rem 1rem;
+    border-bottom: 1px solid var(--shell-line);
+    scroll-margin-top: 96px;
+  }
+
+  .feed-block :global(.chat) {
+    max-width: 49.5rem;
+    padding: 0;
+  }
+</style>

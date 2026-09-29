@@ -1,0 +1,224 @@
+---
+// One row of the homepage thread, drawn like a post in the app's Post view:
+// avatar, name + @handle, optional status chip, #ordinal, the body, and the
+// Save / heart / Reply action row. `selected` gives it the app's highlighted
+// (open) post fill.
+interface Props {
+  id?: string;
+  name: string;
+  handle?: string;
+  avatar?: string;
+  initial?: string;
+  tone?: string;
+  chip?: string;
+  note?: string;
+  ordinal?: string;
+  selected?: boolean;
+  session?: boolean;
+}
+
+const { id, name, handle, avatar, initial, tone = 'molt', chip, note, ordinal, selected = false, session = false } = Astro.props;
+---
+
+<article class:list={['fpost', { selected }]} id={id}>
+  <div class="fpost-avatar">
+    {avatar
+      ? <img src={avatar} alt="" width="34" height="34" />
+      : <span class="fpost-initial" data-tone={tone}>{initial}</span>}
+  </div>
+  <div class="fpost-main">
+    <header class="fpost-head">
+      <span class="fpost-name">{name}</span>
+      {handle && <span class="fpost-handle">{handle}</span>}
+      {chip && <span class="fpost-chip">{chip}</span>}
+      <span class="fpost-spacer"></span>
+      {note && <span class="fpost-note">{note}</span>}
+      {ordinal && <span class="fpost-ord">#{ordinal}</span>}
+      <span class="fpost-more" aria-hidden="true">···</span>
+    </header>
+    <div class="fpost-body">
+      <slot />
+    </div>
+    <footer class="fpost-actions" aria-hidden="true">
+      <span class="fact save">Save</span>
+      <span class="fact heart"></span>
+      <span class="fact reply">Reply</span>
+      {session && <span class="fact session">Session</span>}
+    </footer>
+  </div>
+</article>
+
+<style>
+  .fpost {
+    display: flex;
+    gap: 1rem;
+    padding: 2.5rem 2.5rem 1.75rem;
+    border-bottom: 1px solid var(--shell-line);
+    scroll-margin-top: 96px;
+  }
+
+  .fpost.selected {
+    background: var(--shell-selected);
+  }
+
+  .fpost-avatar img,
+  .fpost-initial {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .fpost-avatar img {
+    background: var(--color-surface-raised);
+  }
+
+  .fpost-initial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 650;
+  }
+
+  .fpost-initial[data-tone="molt"] { background: linear-gradient(160deg, #3F3A33, #1F1C18); }
+  .fpost-initial[data-tone="green"] { background: linear-gradient(160deg, #5FA86B, #357A42); }
+  .fpost-initial[data-tone="blue"] { background: linear-gradient(160deg, #5AA9E6, #3D7FBF); }
+  .fpost-initial[data-tone="orange"] { background: linear-gradient(160deg, #E0724F, #C9552F); }
+  .fpost-initial[data-tone="violet"] { background: linear-gradient(160deg, #8B7BE0, #6353BF); }
+
+  .fpost-main {
+    flex: 1;
+    min-width: 0;
+    max-width: 46rem;
+  }
+
+  .fpost-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    min-height: 22px;
+  }
+
+  .fpost-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .fpost-handle,
+  .fpost-note,
+  .fpost-ord {
+    font-size: 13.5px;
+    color: var(--color-muted);
+  }
+
+  .fpost-note {
+    color: var(--color-secondary);
+  }
+
+  .fpost-chip {
+    align-self: center;
+    padding: 1px 7px;
+    border-radius: 4px;
+    background: var(--shell-chip-blue-bg);
+    color: var(--shell-chip-blue);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .fpost-spacer { flex: 1; }
+
+  .fpost-more {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+  }
+
+  .fpost-body {
+    margin-top: 0.5rem;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-primary);
+  }
+
+  /* ===== Existing marketing sections, re-seated as post bodies ===== */
+  .fpost-body :global(.section) {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    scroll-margin-top: 150px;
+  }
+
+  /* The post chip already names the section; drop the section's own eyebrow. */
+  .fpost-body :global(.section > div > .chip:first-child),
+  .fpost-body :global(.flow-copy > .chip:first-child) {
+    display: none;
+  }
+
+  .fpost-body :global(h2) {
+    margin: 0;
+    font-size: 19px !important;
+    line-height: 1.35 !important;
+    font-weight: 650 !important;
+    letter-spacing: -0.015em !important;
+  }
+
+  .fpost-body :global(.how) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .fpost-body :global(.logo-note) {
+    display: none;
+  }
+
+  .fpost-body :global(.continuity),
+  .fpost-body :global(.flow-grid),
+  .fpost-body :global(.roster-panes) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.5rem !important;
+  }
+
+  .fpost-body :global(.chat) {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* ===== Action row ===== */
+  .fpost-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .fact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4375rem;
+    font-size: 14px;
+    color: var(--color-muted);
+  }
+
+  .fact::before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    background: currentColor;
+    -webkit-mask: var(--icon) no-repeat center / contain;
+    mask: var(--icon) no-repeat center / contain;
+  }
+
+  .fact.save { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M6 3h12v18l-6-4-6 4z'/%3E%3C/svg%3E"); }
+  .fact.heart { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8z'/%3E%3C/svg%3E"); }
+  .fact.reply { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z'/%3E%3C/svg%3E"); }
+  .fact.session { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M7 17L17 7M9 7h8v8'/%3E%3C/svg%3E"); }
+
+  @media (max-width: 640px) {
+    .fpost { padding: 1rem 1rem 0.75rem; gap: 0.75rem; }
+    .fpost-avatar img, .fpost-initial { width: 30px; height: 30px; }
+  }
+</style>

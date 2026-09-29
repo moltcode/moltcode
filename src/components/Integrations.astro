@@ -32,6 +32,15 @@ const rowThree = [
   { name: 'Dropbox', file: '/integrations/dropbox.svg', note: 'files' },
 ];
 
+// How agents reach a tool — no per-vendor connector, just the surfaces a
+// person already uses.
+const channels = [
+  { tag: '$ cli', title: 'Any CLI', body: 'gh, linear, sentry-cli, vercel, psql — whatever is on your machine, with your auth.' },
+  { tag: 'chrome', title: 'Your browser', body: 'Drives your real Chrome, already signed in. Anything with a web page works.' },
+  { tag: 'desktop', title: 'Any app UI', body: 'Reads and clicks native apps through the accessibility tree, on macOS, Windows, and Linux.' },
+  { tag: 'mcp', title: 'MCP servers', body: 'Add a server once and every agent in the project can call its tools.' },
+];
+
 const syncSteps = [
   { icon: 'bug', label: 'Sentry alert or bug filed in Linear' },
   { icon: 'thread', label: 'Shows up as a post — thread it, no ticket ceremony' },
@@ -44,11 +53,20 @@ const syncSteps = [
     <span class="chip">Your tools, connected</span>
     <h2 class="tools-title">Runs alongside Linear, Sentry, and the stack you already use.</h2>
     <p class="tools-sub">
-      Molt Code doesn't replace your issue tracker or your chat — it drops a
-      thread onto them. Bugs from Sentry, issues from Linear and Jira, PRs from
-      GitHub and GitLab, docs from Notion, designs from Figma, deploys from
-      Vercel. Same team, same conversations, one place to work.
+      There's no integration to install. Agents in Molt Code use your tools
+      the same way you do — from the terminal, in your browser, in the app
+      itself, or over MCP. If you can reach it, so can they.
     </p>
+  </div>
+
+  <div class="how" role="list" aria-label="How Molt Code reaches your tools">
+    {channels.map((c) => (
+      <div class="how-cell" role="listitem">
+        <span class="how-tag">{c.tag}</span>
+        <span class="how-title">{c.title}</span>
+        <span class="how-body">{c.body}</span>
+      </div>
+    ))}
   </div>
 
   <div class="logo-wall" role="list" aria-label="Tools that integrate with Molt Code">
@@ -138,6 +156,52 @@ const syncSteps = [
     margin: 0;
     font-size: 1rem;
     line-height: 1.65;
+    color: var(--color-secondary);
+  }
+
+  /* ===== How it connects ===== */
+  .how {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 860px) {
+    .how { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 480px) {
+    .how { grid-template-columns: 1fr; }
+  }
+
+  .how-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    min-width: 0;
+  }
+
+  .how-tag {
+    font-family: var(--font-family-mono);
+    font-size: 10.5px;
+    color: var(--color-muted);
+  }
+
+  .how-title {
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--color-primary);
+  }
+
+  .how-body {
+    font-size: 13px;
+    line-height: 1.5;
     color: var(--color-secondary);
   }
 
@@ -235,6 +299,8 @@ const syncSteps = [
     padding: 0.875rem 1rem;
     border-bottom: 1px solid var(--color-border);
   }
+
+  .sync-source > div { min-width: 0; }
 
   .sync-badge {
     display: inline-flex;

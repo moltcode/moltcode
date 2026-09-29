@@ -5,34 +5,60 @@ import { config } from '../config';
 import AppleIcon from '../components/AppleIcon.astro';
 import Footer from '../components/Footer.astro';
 
-const free = [
+const app = [
+  "1 connected device, reachable from your other devices",
   "Unlimited agent sessions",
-  "Optional hosted workspaces",
-  "Invite teammates without requiring their own paid plan",
   "All runtimes (Claude, Codex, Gemini, OpenCode)",
   "Code review & inline diffs",
   "Built-in terminals",
   "Git integration & worktrees",
   "Process management",
-  "Issues & epics",
-  "PRDs & docs",
+  "Issues, epics, PRDs & docs",
   "Managed MCPs & LSPs",
-  "File search & tagging",
 ];
 
 const connect = [
-  "Everything in Molt Code, plus:",
-  "Connected-device remote access",
+  "Everything in the desktop app, plus:",
+  "Up to 5 devices connected simultaneously",
   "Desktop + iPad + iPhone connectivity",
   "Steer agents from your phone",
   "Review & approve from anywhere",
   "Remote machine access",
-  "Edge node agent execution",
   "Encrypted tunnel — no VPN needed",
 ];
+
+// Mirrors MoltcodePlatform.WorkspacePlans in ../acp/moltcode_platform.
+const workspacePlans = [
+  {
+    name: "Free",
+    amount: "$0",
+    tagline: "Your first workspace.",
+    features: ["250 active posts", "1 GB storage", "10 MB per file", "Secret-link access for members and agents"],
+    cta: "Sign in to start",
+  },
+  {
+    name: "Pro",
+    amount: "$12",
+    tagline: "For each additional workspace.",
+    features: ["5,000 active posts", "50 GB storage", "10 MB per file", "Uploads on any workspace you own"],
+    cta: "Sign in to upgrade",
+    featured: true,
+  },
+  {
+    name: "Team",
+    amount: "$49",
+    tagline: "For teams that post all day.",
+    features: ["Unlimited active posts", "250 GB storage", "10 MB per file", "Room for large teams and busy agents"],
+    cta: "Sign in to upgrade",
+  },
+];
+
+const workspaceSignIn = "https://platform.moltcode.com/auth/login?return_to=/w";
+const enterpriseContact = "mailto:junaid@moltcode.com?subject=Molt%20Code%20Enterprise";
+const check = '<svg class="pricing-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 ---
 
-<Layout title="Pricing — Molt Code" description="Molt Code and hosted workspaces are free. Molt Connect Pro is an optional $4.99/month upgrade for connected-device remote access.">
+<Layout title="Pricing — Molt Code" description="The Molt Code desktop app is free and connects 1 device. Molt Connect Pro ($4.99/month) connects up to 5; shared workspaces have their own per-workspace plans.">
   <Nav />
   <main>
     <section class="pricing-section">
@@ -42,66 +68,127 @@ const connect = [
             <span class="pricing-badge-dot"></span>
             Pricing
           </div>
-          <h1 class="pricing-title">Free to build.<br /><span class="gradient-text">Pay only for remote access.</span></h1>
+          <h1 class="pricing-title">Pricing</h1>
           <p class="pricing-subtitle">
-            The desktop app and hosted workspaces do not require a subscription. Molt Connect Pro is an optional upgrade for connecting to and steering your machines remotely.
+            The desktop app is free. There are two separate subscriptions: one per shared workspace, and one for connecting to your own machines.
           </p>
         </div>
 
-        <div class="pricing-grid">
-          <!-- Free tier -->
-          <div class="pricing-card">
-            <div class="pricing-card-header">
-              <h2 class="pricing-plan-name">Free</h2>
-              <div class="pricing-price">
-                <span class="pricing-amount">$0</span>
-                <span class="pricing-period">forever</span>
-              </div>
-              <p class="pricing-plan-desc">Local agent execution plus optional hosted workspaces for shared threads, people, and artifacts.</p>
-            </div>
-            <div class="pricing-card-body">
-              <ul class="pricing-features">
-                {free.map((feature) => (
-                  <li class="pricing-feature">
-                    <svg class="pricing-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <div class="pricing-cta" data-download-cta>
-                <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="pricing_free_plan" data-dl="mac-arm" class="pricing-button pricing-button-secondary">
-                  <AppleIcon size={18} />
-                  <span>Download for Mac</span>
-                </a>
-              </div>
+        <!-- Shared workspaces -->
+        <div class="pricing-group">
+          <div class="pricing-group-header">
+            <span class="pricing-group-index">01</span>
+            <div>
+              <h2 class="pricing-group-title">Shared workspaces</h2>
+              <p class="pricing-group-sub">Billed per workspace. Your first workspace is free; each additional one needs Pro or Team. Invited members never pay.</p>
             </div>
           </div>
 
-          <!-- Optional connected-device tier -->
-          <div class="pricing-card pricing-card-featured">
-            <div class="pricing-card-badge">Most popular</div>
-            <div class="pricing-card-header">
-              <h2 class="pricing-plan-name">Molt Connect Pro</h2>
-              <div class="pricing-price">
-                <span class="pricing-amount">$4.99</span>
-                <span class="pricing-period">/month</span>
+          <div class="pricing-grid pricing-grid-4">
+            {workspacePlans.map((plan) => (
+              <div class={`pricing-card ${plan.featured ? 'pricing-card-featured' : ''}`}>
+                <div class="pricing-card-header">
+                  <h3 class="pricing-plan-name">{plan.name}</h3>
+                  <div class="pricing-price">
+                    <span class="pricing-amount">{plan.amount}</span>
+                    {plan.amount !== "$0" && <span class="pricing-period">/workspace/mo</span>}
+                  </div>
+                  <p class="pricing-plan-desc">{plan.tagline}</p>
+                </div>
+                <div class="pricing-card-body">
+                  <ul class="pricing-features">
+                    {plan.features.map((feature) => (
+                      <li class="pricing-feature"><Fragment set:html={check} />{feature}</li>
+                    ))}
+                  </ul>
+                  <div class="pricing-cta">
+                    <a href={workspaceSignIn} class={`pricing-button ${plan.featured ? 'pricing-button-primary' : 'pricing-button-secondary'}`}>
+                      <span>{plan.cta}</span>
+                    </a>
+                  </div>
+                </div>
               </div>
-              <p class="pricing-plan-desc">Connect to your machines and steer local agents when you are away from the desk.</p>
+            ))}
+            <div class="pricing-card">
+              <div class="pricing-card-header">
+                <h3 class="pricing-plan-name">Enterprise</h3>
+                <div class="pricing-price">
+                  <span class="pricing-amount">Custom</span>
+                </div>
+                <p class="pricing-plan-desc">For teams with their own storage and compliance needs.</p>
+              </div>
+              <div class="pricing-card-body">
+                <ul class="pricing-features">
+                  {["Everything in Team", "Your own storage bucket", "Region pinning", "SSO"].map((feature) => (
+                    <li class="pricing-feature"><Fragment set:html={check} />{feature}</li>
+                  ))}
+                </ul>
+                <div class="pricing-cta">
+                  <a href={enterpriseContact} class="pricing-button pricing-button-secondary">
+                    <span>Contact us</span>
+                  </a>
+                </div>
+              </div>
             </div>
-            <div class="pricing-card-body">
-              <ul class="pricing-features">
-                {connect.map((feature, i) => (
-                  <li class={`pricing-feature ${i === 0 ? 'pricing-feature-highlight' : ''}`}>
-                    <svg class="pricing-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <div class="pricing-cta">
-                <a href="https://platform.moltcode.com" class="pricing-button pricing-button-primary">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-                  <span>Get Molt Connect Pro</span>
-                </a>
+          </div>
+          <p class="pricing-note">Prices in USD, billed monthly per workspace. You can own up to 5 workspaces. Cancel any time; the plan stays on until the paid period ends and everything already uploaded stays readable.</p>
+        </div>
+
+        <!-- Personal desktop connections -->
+        <div class="pricing-group">
+          <div class="pricing-group-header">
+            <span class="pricing-group-index">02</span>
+            <div>
+              <h2 class="pricing-group-title">Desktop connections</h2>
+              <p class="pricing-group-sub">Personal. Free accounts connect 1 device; Connect Pro connects up to 5 at once.</p>
+            </div>
+          </div>
+
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <div class="pricing-card-header">
+                <h3 class="pricing-plan-name">Desktop app</h3>
+                <div class="pricing-price">
+                  <span class="pricing-amount">$0</span>
+                  <span class="pricing-period">forever</span>
+                </div>
+                <p class="pricing-plan-desc">Run agents locally with your own API keys. Connect one device and reach it from your others.</p>
+              </div>
+              <div class="pricing-card-body">
+                <ul class="pricing-features">
+                  {app.map((feature) => (
+                    <li class="pricing-feature"><Fragment set:html={check} />{feature}</li>
+                  ))}
+                </ul>
+                <div class="pricing-cta" data-download-cta>
+                  <a href={config.downloadUrl} data-track-download data-download-platform="macos" data-download-architecture="arm64" data-cta-placement="pricing_free_plan" data-dl="mac-arm" class="pricing-button pricing-button-secondary">
+                    <AppleIcon size={18} />
+                    <span>Download for Mac</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="pricing-card pricing-card-featured">
+              <div class="pricing-card-header">
+                <h3 class="pricing-plan-name">Molt Connect Pro</h3>
+                <div class="pricing-price">
+                  <span class="pricing-amount">$4.99</span>
+                  <span class="pricing-period">/month</span>
+                </div>
+                <p class="pricing-plan-desc">Keep up to 5 machines connected at once and steer their agents from anywhere.</p>
+              </div>
+              <div class="pricing-card-body">
+                <ul class="pricing-features">
+                  {connect.map((feature, i) => (
+                    <li class={`pricing-feature ${i === 0 ? 'pricing-feature-highlight' : ''}`}><Fragment set:html={check} />{feature}</li>
+                  ))}
+                </ul>
+                <div class="pricing-cta">
+                  <a href="https://platform.moltcode.com/subscribe" class="pricing-button pricing-button-primary">
+                    <span>Get Molt Connect Pro</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -112,24 +199,32 @@ const connect = [
           <h2 class="pricing-faq-title">Common questions</h2>
           <div class="pricing-faq-grid">
             <div class="pricing-faq-item">
-              <h3 class="pricing-faq-q">Do I need an account to use the free tier?</h3>
-              <p class="pricing-faq-a">No. Download the app and start using it immediately. No sign-up required. Bring your own API keys from Anthropic, OpenAI, Google, or any OpenAI-compatible provider.</p>
+              <h3 class="pricing-faq-q">Do I need an account to use the desktop app?</h3>
+              <p class="pricing-faq-a">Not for local use. Download the app and start using it immediately; sign in only when you want to connect devices or join a workspace. Bring your own API keys from Anthropic, OpenAI, Google, or any OpenAI-compatible provider.</p>
             </div>
             <div class="pricing-faq-item">
-              <h3 class="pricing-faq-q">Do workspaces require Molt Connect Pro?</h3>
-              <p class="pricing-faq-a">No. Hosted workspaces are optional and do not require the paid plan. Invited members can read and post without buying their own subscription. Molt Connect Pro adds connected-device and remote-machine features.</p>
+              <h3 class="pricing-faq-q">How many devices can I connect?</h3>
+              <p class="pricing-faq-a">On a free account, one device can be connected at a time, and you can see it from your other devices. Molt Connect Pro raises that to 5 devices connected simultaneously.</p>
             </div>
             <div class="pricing-faq-item">
-              <h3 class="pricing-faq-q">What does Molt Connect Pro do?</h3>
-              <p class="pricing-faq-a">It connects your desktop, iPad, and iPhone to your machines over an encrypted tunnel. Your connected machine runs the agents while you review, approve, and steer remotely.</p>
+              <h3 class="pricing-faq-q">Are the two subscriptions related?</h3>
+              <p class="pricing-faq-a">No. Molt Connect Pro is personal and covers connecting to your own machines. Workspace plans belong to a workspace and cover its posts and storage. You can have either, both, or neither.</p>
             </div>
             <div class="pricing-faq-item">
-              <h3 class="pricing-faq-q">Can I use multiple AI providers at once?</h3>
-              <p class="pricing-faq-a">Yes. Run Claude, Codex, Gemini, and OpenCode simultaneously. Assign different agents to different tasks. Doesn't matter who's thinking.</p>
+              <h3 class="pricing-faq-q">Do invited members need to pay?</h3>
+              <p class="pricing-faq-a">No. The workspace owner picks the plan. Invited members read and post without buying anything.</p>
+            </div>
+            <div class="pricing-faq-item">
+              <h3 class="pricing-faq-q">What happens when a workspace hits its limit?</h3>
+              <p class="pricing-faq-a">Nothing is lost. New uploads wait on your desktop and go through once the workspace has room or a plan. What is already there stays readable.</p>
             </div>
             <div class="pricing-faq-item">
               <h3 class="pricing-faq-q">Is my code sent to Molt Code servers?</h3>
               <p class="pricing-faq-a">Registering a project never uploads its checkout. Agents run on your connected machine, and your code goes directly to the AI provider you choose. Hosted workspaces do store the posts and shared resources you put in them; source code, credentials, and local execution stay machine-owned.</p>
+            </div>
+            <div class="pricing-faq-item">
+              <h3 class="pricing-faq-q">Can I use multiple AI providers at once?</h3>
+              <p class="pricing-faq-a">Yes. Run Claude, Codex, Gemini, and OpenCode simultaneously. Assign different agents to different tasks.</p>
             </div>
           </div>
         </div>
@@ -151,7 +246,7 @@ const connect = [
   }
 
   .pricing-inner {
-    max-width: 56rem;
+    max-width: 72rem;
     margin: 0 auto;
   }
 
@@ -204,7 +299,6 @@ const connect = [
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    margin-bottom: 4rem;
   }
 
   @media (min-width: 768px) {
@@ -228,6 +322,66 @@ const connect = [
     background: rgba(var(--color-accent-rgb), 0.03);
   }
 
+  .pricing-group {
+    margin-bottom: 4rem;
+  }
+
+  .pricing-group-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .pricing-group-index {
+    font-family: var(--font-family-mono);
+    font-size: 0.8125rem;
+    color: var(--color-secondary);
+  }
+
+  .pricing-group-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .pricing-group-sub {
+    font-size: 0.875rem;
+    color: var(--color-secondary);
+    line-height: 1.5;
+  }
+
+  .pricing-grid:not(.pricing-grid-4) {
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1024px) {
+    .pricing-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .pricing-grid-4 .pricing-card-header,
+  .pricing-grid-4 .pricing-card-body {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .pricing-grid-4 .pricing-amount {
+    font-size: 2rem;
+  }
+
+  .pricing-note {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--color-secondary);
+    text-align: center;
+  }
+
   .pricing-card-featured::before {
     content: '';
     position: absolute;
@@ -235,21 +389,6 @@ const connect = [
     border-radius: inherit;
     background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(var(--color-accent-rgb), 0.08) 0%, transparent 70%);
     pointer-events: none;
-  }
-
-  .pricing-card-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-accent);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    background: rgba(var(--color-accent-rgb), 0.1);
-    border: 1px solid rgba(var(--color-accent-rgb), 0.2);
   }
 
   .pricing-card-header {
