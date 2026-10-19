@@ -1,11 +1,11 @@
 const DOWNLOADS = {
   macos: {
     manifestUrl: 'https://assets.moltcode.com/release/mac-app-archive.json',
-    assetName: 'MoltCode-compose-darwin-arm.dmg',
+    assetNames: ['MoltCode-compose-darwin-arm.dmg'],
   },
   linux: {
     manifestUrl: 'https://assets.moltcode.com/release/app-archive-linux.json',
-    assetName: 'MoltCode-compose-linux-x86_64.AppImage',
+    assetNames: ['Molt-linux-x86_64.AppImage', 'MoltCode-compose-linux-x86_64.AppImage'],
   },
 };
 
@@ -42,9 +42,9 @@ function validatedAssetUrl(item, download) {
     return null;
   }
 
-  const expectedPath =
-    `/moltcode/moltcode/releases/download/v${item.version}/` + download.assetName;
-  return url.pathname === expectedPath ? url.toString() : null;
+  const releasePath = `/moltcode/moltcode/releases/download/v${item.version}/`;
+  const matches = download.assetNames.some((name) => url.pathname === releasePath + name);
+  return matches ? url.toString() : null;
 }
 
 export function validatedDownloadUrl(manifest, platform) {

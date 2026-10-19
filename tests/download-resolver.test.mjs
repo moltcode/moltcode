@@ -34,6 +34,14 @@ test('resolves Linux independently from its updater manifest', async () => {
   assert.equal(result, linuxUrl);
 });
 
+test('accepts the renamed Linux AppImage asset', () => {
+  const url =
+    'https://github.com/moltcode/moltcode/releases/download/v1.0.409/Molt-linux-x86_64.AppImage';
+  assert.equal(validatedDownloadUrl({
+    items: [{ version: '1.0.409', platform: 'linux', url }],
+  }, 'linux'), url);
+});
+
 test('uses the pinned fallback when the manifest request fails', async () => {
   const fallback = 'https://github.com/example/fallback.dmg';
   const result = await resolveDownloadUrl('macos', fallback, async () =>
