@@ -1,6 +1,7 @@
 ---
 // Full-screen opening for the homepage: a burst of TV static that settles
-// into the canvas grain, then the pinned post fades in on its own. The app
+// into the canvas grain while the app icon's voice line speaks across the
+// middle, then the pinned post fades in on its own. The app
 // shell only appears once you scroll past this.
 ---
 
@@ -14,6 +15,7 @@
 
 <section class="intro" id="top">
   <canvas class="static" aria-hidden="true"></canvas>
+  <canvas class="voice" aria-hidden="true"></canvas>
   <div class="intro-inner">
     <slot />
   </div>
@@ -27,7 +29,9 @@
   const root = document.documentElement;
   const intro = document.querySelector<HTMLElement>('.intro')!;
   const canvas = intro.querySelector<HTMLCanvasElement>('.static')!;
+  const voice = intro.querySelector<HTMLCanvasElement>('.voice')!;
   const STATIC_MS = 900;
+  const VOICE_MS = 1100;
 
   const pieces = [
     ...intro.querySelectorAll('.fpost-avatar, .fpost-head, .fpost-body > *, .fpost-actions'),
@@ -40,8 +44,53 @@
 
   const reveal = () => pieces.forEach((el) => el.classList.add('in'));
 
+  // The app icon's trace at u (-1..1 across the screen), t seconds in:
+  // quiet at the edges, loud in the middle. Same curve as the desktop boot.
+  const voiceY = (u: number, t: number) => {
+    const x = 512 + u * 452, k = x * 0.02, s = t * 5;
+    const wob = 0.5 + 0.22 * Math.sin(k * 2.1 + s) + 0.16 * Math.sin(k * 5.3 - s * 1.7) + 0.12 * Math.sin(k * 11.7 + s * 2.3);
+    return Math.exp(-u * u * 3.2) * (wob - 0.5) * 2 * Math.sin(x * 0.045 + t * 6);
+  };
+
+  const speak = () => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const W = innerWidth, H = innerHeight;
+    voice.width = Math.ceil(W * dpr);
+    voice.height = Math.ceil(H * dpr);
+    const g = voice.getContext('2d')!;
+    g.scale(dpr, dpr);
+    const t0 = performance.now();
+    const amp = Math.min(H * 0.16, W * 0.18);
+    const draw = (now: number) => {
+      const v = Math.min((now - t0) / VOICE_MS, 1);
+      g.clearRect(0, 0, W, H);
+      const a = amp * Math.pow(Math.max(Math.sin(Math.PI * v), 0), 0.7);
+      g.beginPath();
+      for (let i = 0; i <= 240; i++) {
+        const u = (i / 240) * 2 - 1;
+        const y = H / 2 + a * voiceY(u, (now - t0) / 1000);
+        i ? g.lineTo(W / 2 + u * W * 0.48, y) : g.moveTo(W / 2 + u * W * 0.48, y);
+      }
+      g.lineJoin = g.lineCap = 'round';
+      g.globalAlpha = 1 - v * v;
+      g.shadowColor = '#ff6a13';
+      g.shadowBlur = 18;
+      g.strokeStyle = '#ff6a13';
+      g.lineWidth = 4;
+      g.stroke();
+      g.shadowBlur = 0;
+      g.strokeStyle = '#ffe2c2';
+      g.lineWidth = 1.4;
+      g.stroke();
+      if (v < 1) requestAnimationFrame(draw);
+      else voice.remove();
+    };
+    requestAnimationFrame(draw);
+  };
+
   if (!root.classList.contains('reveal-on')) {
     canvas.remove();
+    voice.remove();
   } else {
     // Low-res noise, scaled up with pixelated rendering so it reads as static.
     const ctx = canvas.getContext('2d')!;
@@ -64,8 +113,9 @@
 
     setTimeout(() => {
       canvas.classList.add('off');
-      reveal();
+      speak();
     }, STATIC_MS);
+    setTimeout(reveal, STATIC_MS + VOICE_MS * 0.6);
   }
 </script>
 
@@ -101,6 +151,15 @@
     image-rendering: pixelated;
     opacity: 0.55;
     transition: opacity 700ms ease, filter 700ms ease;
+    pointer-events: none;
+  }
+
+  .voice {
+    position: absolute;
+    inset: 0;
+    z-index: 7;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
   }
 
