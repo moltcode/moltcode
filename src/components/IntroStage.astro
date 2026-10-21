@@ -1,7 +1,7 @@
 ---
-// Full-screen opening for the homepage: a burst of TV static that settles
-// into the canvas grain while the app icon's voice line speaks across the
-// middle, then the pinned post fades in on its own. The app
+// Full-screen opening for the homepage: a burst of TV static with the app
+// icon's voice line speaking across the middle, settling into the canvas
+// grain as the line falls quiet; then the pinned post fades in on its own. The app
 // shell only appears once you scroll past this.
 ---
 
@@ -31,7 +31,7 @@
   const canvas = intro.querySelector<HTMLCanvasElement>('.static')!;
   const voice = intro.querySelector<HTMLCanvasElement>('.voice')!;
   const STATIC_MS = 900;
-  const VOICE_MS = 1100;
+  const VOICE_MS = STATIC_MS + 700;
 
   const pieces = [
     ...intro.querySelectorAll('.fpost-avatar, .fpost-head, .fpost-body > *, .fpost-actions'),
@@ -64,7 +64,8 @@
     const draw = (now: number) => {
       const v = Math.min((now - t0) / VOICE_MS, 1);
       g.clearRect(0, 0, W, H);
-      const a = amp * Math.pow(Math.max(Math.sin(Math.PI * v), 0), 0.7);
+      // Loud from the first beat, quiet as the static settles.
+      const a = amp * Math.min((now - t0) / 150, 1) * (1 - v * v);
       g.beginPath();
       for (let i = 0; i <= 240; i++) {
         const u = (i / 240) * 2 - 1;
@@ -72,7 +73,7 @@
         i ? g.lineTo(W / 2 + u * W * 0.48, y) : g.moveTo(W / 2 + u * W * 0.48, y);
       }
       g.lineJoin = g.lineCap = 'round';
-      g.globalAlpha = 1 - v * v;
+      g.globalAlpha = Math.min((now - t0) / 120, 1) * (1 - v * v);
       g.shadowColor = '#ff6a13';
       g.shadowBlur = 18;
       g.strokeStyle = '#ff6a13';
@@ -111,11 +112,11 @@
     };
     requestAnimationFrame(frame);
 
+    speak();
     setTimeout(() => {
       canvas.classList.add('off');
-      speak();
+      reveal();
     }, STATIC_MS);
-    setTimeout(reveal, STATIC_MS + VOICE_MS * 0.6);
   }
 </script>
 
