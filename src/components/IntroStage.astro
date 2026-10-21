@@ -61,19 +61,21 @@
     const g = voice.getContext('2d')!;
     g.scale(dpr, dpr);
     const t0 = performance.now();
-    const amp = Math.min(H * 0.16, W * 0.18);
+    // A compact trace in the middle, not a screen-wide one.
+    const half = Math.min(W * 0.22, 280);
+    const amp = Math.min(H * 0.08, half * 0.3);
     const draw = (now: number) => {
       const v = Math.min((now - t0) / VOICE_MS, 1);
       g.clearRect(0, 0, W, H);
       const up = Math.max(0, 1 - (now - t0) / STATIC_MS);
       // The orange spilling off the line, the vignette and the glare.
       g.globalAlpha = 1;
-      const wash = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.42);
+      const wash = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, half * 1.25);
       wash.addColorStop(0, `rgba(255,106,19,${0.24 * up})`);
       wash.addColorStop(1, 'rgba(255,106,19,0)');
       g.save();
       g.translate(W / 2, H / 2);
-      g.scale(1, (H * 0.3) / (W * 0.42));
+      g.scale(1, Math.min(H * 0.14, half * 0.5) / (half * 1.25));
       g.translate(-W / 2, -H / 2);
       g.fillStyle = wash;
       g.fillRect(0, -H * 4, W, H * 9);
@@ -95,7 +97,7 @@
       for (let i = 0; i <= 113; i++) {
         const u = (i / 113) * 2 - 1;
         const y = H / 2 + a * voiceY(u, (now - t0) / 1000);
-        i ? g.lineTo(W / 2 + u * W * 0.48, y) : g.moveTo(W / 2 + u * W * 0.48, y);
+        i ? g.lineTo(W / 2 + u * half, y) : g.moveTo(W / 2 + u * half, y);
       }
       g.lineJoin = g.lineCap = 'round';
       g.globalAlpha = Math.min((now - t0) / 120, 1) * (1 - v * v);
@@ -118,12 +120,12 @@
     canvas.remove();
     voice.remove();
   } else {
-    // The icon's coarse grain: one value per 12 px cell, each cell two
+    // The icon's coarse grain: one value per 8 px cell, each cell two
     // rows with the lower one dimmer, screened at 30 % over the warm tube.
     // Scaled up with pixelated rendering so it reads as static.
     const ctx = canvas.getContext('2d')!;
-    const w = (canvas.width = Math.ceil(innerWidth / 12));
-    const h = (canvas.height = Math.ceil(innerHeight / 6));
+    const w = (canvas.width = Math.ceil(innerWidth / 8));
+    const h = (canvas.height = Math.ceil(innerHeight / 4));
     const img = ctx.createImageData(w, h);
     const px = new Uint32Array(img.data.buffer);
     const start = performance.now();
