@@ -1,10 +1,7 @@
 ---
-// Full-screen opening for the homepage: an old CRT warming up, the
-// switch-off played forwards. A pinprick in the dark, a white-hot line that
-// cools to orange and starts talking, the raster opening out of the line
-// onto warm static, and a degauss wobble that settles the picture before the
-// tube fades and the pinned post comes in. Same warm-up as the desktop and
-// iPad apps. The app shell only appears once you scroll past this.
+// Full-screen opening for the homepage: a burst of TV static that settles
+// into the canvas grain, then the pinned post fades in on its own. The app
+// shell only appears once you scroll past this.
 ---
 
 <script is:inline>
@@ -30,9 +27,7 @@
   const root = document.documentElement;
   const intro = document.querySelector<HTMLElement>('.intro')!;
   const canvas = intro.querySelector<HTMLCanvasElement>('.static')!;
-  // The tube fades off from here, and the post comes in under it.
-  const LAND_MS = 2900;
-  const FADE_MS = 700;
+  const STATIC_MS = 900;
 
   const pieces = [
     ...intro.querySelectorAll('.fpost-avatar, .fpost-head, .fpost-body > *, .fpost-actions'),
@@ -45,205 +40,32 @@
 
   const reveal = () => pieces.forEach((el) => el.classList.add('in'));
 
-  const TAU = Math.PI * 2;
-  const clamp = (x: number, a = 0, b = 1) => Math.max(a, Math.min(b, x));
-  const lerp = (a: number, b: number, u: number) => a + (b - a) * u;
-  const ss = (a: number, b: number, x: number) => {
-    const u = clamp((x - a) / (b - a));
-    return u * u * (3 - 2 * u);
-  };
-  const eo = (u: number) => 1 - Math.pow(1 - clamp(u), 3);
-  // A stable 0..1 per (a, b); the apps use the same one.
-  const hash = (a: number, b = 0) => {
-    let h = (Math.imul(a | 0, 374761393) + Math.imul(b | 0, 668265263)) | 0;
-    h = Math.imul(h ^ (h >>> 13), 1274126177);
-    return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
-  };
-
-  // The voice: n + 1 heights, each drifting to a new random height ten
-  // times a second, loud in the middle and quiet at the ends.
-  const voice = (t: number, speak: number, n = 48) => {
-    const k = Math.floor(t * 10), f = ss(0, 1, t * 10 - k), out: number[] = [];
-    for (let i = 0; i <= n; i++) {
-      const env = Math.exp(-Math.pow((i / n - 0.5) / 0.21, 2)) * 0.94 + 0.06;
-      let a = lerp(hash(i, k), hash(i, k + 1), f) * 2 - 1;
-      a = Math.sign(a) * Math.pow(Math.abs(a), 1.5);
-      out.push(a * env * speak);
-    }
-    return out;
-  };
-
-  const mk = () => document.createElement('canvas');
-  const GR = mk(), SCR = mk();
-  const fit = (cv: HTMLCanvasElement, w: number, h: number) => {
-    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
-    return cv.getContext('2d')!;
-  };
-
-  // The tube: warm black, coarse grain, an orange wash, scanlines, the
-  // vignette and a diagonal glare.
-  const tube = (c: CanvasRenderingContext2D, w: number, h: number, t: number) => {
-    c.fillStyle = '#0a0706';
-    c.fillRect(0, 0, w, h);
-    const cell = Math.max(2, Math.round(h * 0.011)), cw = Math.round(cell * 1.7);
-    const gw = Math.ceil(w / cw) + 1, gh = Math.ceil(h / cell) + 1, g = fit(GR, gw, gh);
-    const id = g.createImageData(gw, gh), d = id.data;
-    let seed = Math.floor(t * 24) * 7919;
-    const rnd = () => {
-      seed = (seed + 0x6d2b79f5) | 0;
-      let r = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-      r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
-      return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
-    };
-    for (let i = 0; i < gw * gh; i++) {
-      let v = rnd();
-      v = v * v * 255 * 0.42;
-      d[i * 4] = v * 1.08 + 5;
-      d[i * 4 + 1] = v * 0.94 + 2;
-      d[i * 4 + 2] = v * 0.8;
-      d[i * 4 + 3] = 255;
-    }
-    g.putImageData(id, 0, 0);
-    c.save();
-    c.imageSmoothingEnabled = false;
-    c.drawImage(GR, 0, 0, gw * cw, gh * cell);
-    c.restore();
-    const wash = c.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w * 0.42);
-    wash.addColorStop(0, 'rgba(255,106,31,0.12)');
-    wash.addColorStop(1, 'rgba(255,106,31,0)');
-    c.fillStyle = wash;
-    c.fillRect(0, 0, w, h);
-    const p = Math.max(1, Math.round(h / 260));
-    c.fillStyle = 'rgba(0,0,0,0.28)';
-    for (let y = 0; y < h; y += p * 2) c.fillRect(0, y, w, p);
-    const vig = c.createRadialGradient(w / 2, h / 2, Math.min(w, h) * 0.22, w / 2, h / 2, Math.hypot(w, h) * 0.58);
-    vig.addColorStop(0, 'rgba(0,0,0,0)');
-    vig.addColorStop(1, 'rgba(0,0,0,0.8)');
-    c.fillStyle = vig;
-    c.fillRect(0, 0, w, h);
-    const glare = c.createLinearGradient(0, 0, w, h);
-    glare.addColorStop(0.18, 'rgba(255,255,255,0)');
-    glare.addColorStop(0.3, 'rgba(255,245,235,0.06)');
-    glare.addColorStop(0.42, 'rgba(255,255,255,0)');
-    c.fillStyle = glare;
-    c.fillRect(0, 0, w, h);
-  };
-
-  // The line with its bloom: a wide orange glow, the orange, then the core.
-  const glow = (c: CanvasRenderingContext2D, pts: [number, number][], lw: number, core: string) => {
-    c.save();
-    c.beginPath();
-    pts.forEach(([x, y], i) => (i ? c.lineTo(x, y) : c.moveTo(x, y)));
-    c.lineJoin = c.lineCap = 'round';
-    c.globalCompositeOperation = 'lighter';
-    c.shadowColor = '#ff6a1f';
-    c.shadowBlur = lw * 9;
-    c.strokeStyle = 'rgba(255,106,31,0.32)';
-    c.lineWidth = lw * 4;
-    c.stroke();
-    c.shadowBlur = lw * 3;
-    c.strokeStyle = '#ff6a1f';
-    c.lineWidth = lw * 1.5;
-    c.stroke();
-    c.shadowBlur = 0;
-    c.strokeStyle = core;
-    c.lineWidth = lw * 0.6;
-    c.stroke();
-    c.restore();
-  };
-
-  const dot = (c: CanvasRenderingContext2D, x: number, y: number, r: number, a: number) => {
-    c.save();
-    c.globalCompositeOperation = 'lighter';
-    c.globalAlpha = a;
-    const g = c.createRadialGradient(x, y, 0, x, y, r * 5);
-    g.addColorStop(0, 'rgba(255,250,240,1)');
-    g.addColorStop(0.15, 'rgba(255,190,120,0.9)');
-    g.addColorStop(0.4, 'rgba(255,106,31,0.35)');
-    g.addColorStop(1, 'rgba(255,106,31,0)');
-    c.fillStyle = g;
-    c.beginPath();
-    c.arc(x, y, r * 5, 0, TAU);
-    c.fill();
-    c.restore();
-  };
-
-  // One frame, t seconds in.
-  const draw = (c: CanvasRenderingContext2D, w: number, h: number, t: number) => {
-    const cx = w / 2, cy = h / 2;
-    // A compact trace in the middle, not a screen-wide one.
-    const half = Math.min(w * 0.22, 280 * (w / innerWidth));
-    const amp = Math.min(h * 0.1, half * 0.35), lw = clamp(h * 0.0042, 2.5 * (w / innerWidth), 4.5 * (w / innerWidth));
-    c.fillStyle = '#000';
-    c.fillRect(0, 0, w, h);
-    const open = eo(ss(1.55, 2.1, t));
-    if (open > 0) {
-      const bh = Math.max(2, h * open);
-      c.save();
-      c.beginPath();
-      c.rect(0, cy - bh / 2, w, bh);
-      c.clip();
-      tube(c, w, h, t);
-      c.restore();
-      if (open < 1) {
-        c.fillStyle = `rgba(255,225,200,${0.7 * (1 - open)})`;
-        c.fillRect(0, cy - bh / 2 - 1, w, 2);
-        c.fillRect(0, cy + bh / 2 - 1, w, 2);
-      }
-    }
-    if (t < 0.45) dot(c, cx, cy, h * (0.004 + 0.012 * ss(0, 0.45, t)), ss(0, 0.2, t));
-    else {
-      const st = ss(0.45, 0.9, t), len = half * 2 * eo(st), v = voice(t, ss(0.9, 1.5, t));
-      const pts = v.map((y, i) => [cx - len / 2 + (len * i) / 48, cy - y * amp] as [number, number]);
-      glow(c, pts, lw * (1.6 - 0.6 * st), st < 1 ? '#ffffff' : '#fff1e2');
-    }
-    // The degauss: each strip of the picture shoved sideways, then colour
-    // blotches drifting over it.
-    const dg = ss(2.02, 2.15, t) * (1 - ss(2.2, 2.9, t));
-    if (dg > 0) {
-      const s = fit(SCR, w, h);
-      s.clearRect(0, 0, w, h);
-      s.drawImage(c.canvas, 0, 0);
-      const step = Math.max(2, Math.round(h / 180));
-      c.fillStyle = '#000';
-      c.fillRect(0, 0, w, h);
-      for (let y = 0; y < h; y += step) {
-        const dx = dg * w * 0.03 * Math.sin((y / h) * TAU * 2.3 + t * 26) * Math.sin(t * 11);
-        c.drawImage(SCR, 0, y, w, step, dx, y, w, step);
-      }
-      c.save();
-      c.globalCompositeOperation = 'screen';
-      [[300, 0.2, 0.3], [150, 0.75, 0.6], [200, 0.45, 0.8], [40, 0.6, 0.2]].forEach(([hue, x, y], i) => {
-        const X = w * (x + 0.08 * Math.sin(t * 3 + i)), Y = h * (y + 0.08 * Math.cos(t * 2.6 + i)), R = h * 0.5;
-        const g = c.createRadialGradient(X, Y, 0, X, Y, R);
-        g.addColorStop(0, `hsla(${hue},90%,55%,${0.45 * dg})`);
-        g.addColorStop(1, `hsla(${hue},90%,55%,0)`);
-        c.fillStyle = g;
-        c.fillRect(0, 0, w, h);
-      });
-      c.restore();
-    }
-  };
-
   if (!root.classList.contains('reveal-on')) {
     canvas.remove();
   } else {
-    const dpr = Math.min(devicePixelRatio || 1, 1.5);
-    const w = (canvas.width = Math.ceil(innerWidth * dpr));
-    const h = (canvas.height = Math.ceil(innerHeight * dpr));
+    // Low-res noise, scaled up with pixelated rendering so it reads as static.
     const ctx = canvas.getContext('2d')!;
+    const w = (canvas.width = Math.ceil(innerWidth / 3));
+    const h = (canvas.height = Math.ceil(innerHeight / 3));
+    const img = ctx.createImageData(w, h);
+    const px = new Uint32Array(img.data.buffer);
     const start = performance.now();
+
     const frame = (now: number) => {
-      const ms = now - start;
-      draw(ctx, w, h, ms / 1000);
-      if (ms < LAND_MS + FADE_MS) requestAnimationFrame(frame);
+      for (let i = 0; i < px.length; i++) {
+        const v = (Math.random() * 255) | 0;
+        px[i] = 0xff000000 | (v << 16) | (v << 8) | v;
+      }
+      ctx.putImageData(img, 0, 0);
+      if (now - start < STATIC_MS + 700) requestAnimationFrame(frame);
       else canvas.remove();
     };
     requestAnimationFrame(frame);
+
     setTimeout(() => {
       canvas.classList.add('off');
       reveal();
-    }, LAND_MS);
+    }, STATIC_MS);
   }
 </script>
 
@@ -277,12 +99,28 @@
     width: 100%;
     height: 100%;
     image-rendering: pixelated;
-    transition: opacity 700ms ease;
+    opacity: 0.55;
+    transition: opacity 700ms ease, filter 700ms ease;
     pointer-events: none;
   }
 
+  /* Scanlines over the noise. */
+  .intro::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px);
+    opacity: 0;
+    transition: opacity 700ms ease;
+  }
+
+  :global(.reveal-on) .intro:has(.static:not(.off))::after { opacity: 1; }
+
   .static.off {
     opacity: 0;
+    filter: blur(6px);
   }
 
   .intro-cue {
