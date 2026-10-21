@@ -1,7 +1,8 @@
 ---
-// Full-screen opening for the homepage: a burst of TV static with the app
-// icon's voice line speaking across the middle, settling into the canvas
-// grain as the line falls quiet; then the pinned post fades in on its own. The app
+// Full-screen opening for the homepage: the app icon's tube at window size
+// (warm black, coarse dim grain, an orange wash, scanlines, vignette and
+// glare) with its voice line speaking across the middle. It fades as the
+// line falls quiet, then the pinned post fades in on its own. The app
 // shell only appears once you scroll past this.
 ---
 
@@ -64,11 +65,35 @@
     const draw = (now: number) => {
       const v = Math.min((now - t0) / VOICE_MS, 1);
       g.clearRect(0, 0, W, H);
+      const up = Math.max(0, 1 - (now - t0) / STATIC_MS);
+      // The orange spilling off the line, the vignette and the glare.
+      g.globalAlpha = 1;
+      const wash = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.42);
+      wash.addColorStop(0, `rgba(255,106,19,${0.24 * up})`);
+      wash.addColorStop(1, 'rgba(255,106,19,0)');
+      g.save();
+      g.translate(W / 2, H / 2);
+      g.scale(1, (H * 0.3) / (W * 0.42));
+      g.translate(-W / 2, -H / 2);
+      g.fillStyle = wash;
+      g.fillRect(0, -H * 4, W, H * 9);
+      g.restore();
+      const vig = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.hypot(W, H) / 2);
+      vig.addColorStop(0.5, 'rgba(0,0,0,0)');
+      vig.addColorStop(1, `rgba(0,0,0,${0.75 * up})`);
+      g.fillStyle = vig;
+      g.fillRect(0, 0, W, H);
+      const glare = g.createLinearGradient(0, 0, W, H);
+      glare.addColorStop(0, `rgba(255,255,255,${0.1 * up})`);
+      glare.addColorStop(0.42, 'rgba(255,255,255,0)');
+      g.fillStyle = glare;
+      g.fillRect(0, 0, W, H);
       // Loud from the first beat, quiet as the static settles.
       const a = amp * Math.min((now - t0) / 150, 1) * (1 - v * v);
       g.beginPath();
-      for (let i = 0; i <= 240; i++) {
-        const u = (i / 240) * 2 - 1;
+      // The icon's sampling, so the trace keeps its spikes.
+      for (let i = 0; i <= 113; i++) {
+        const u = (i / 113) * 2 - 1;
         const y = H / 2 + a * voiceY(u, (now - t0) / 1000);
         i ? g.lineTo(W / 2 + u * W * 0.48, y) : g.moveTo(W / 2 + u * W * 0.48, y);
       }
@@ -93,20 +118,34 @@
     canvas.remove();
     voice.remove();
   } else {
-    // Low-res noise, scaled up with pixelated rendering so it reads as static.
+    // The icon's coarse grain: one value per 12 px cell, each cell two
+    // rows with the lower one dimmer, screened at 30 % over the warm tube.
+    // Scaled up with pixelated rendering so it reads as static.
     const ctx = canvas.getContext('2d')!;
-    const w = (canvas.width = Math.ceil(innerWidth / 3));
-    const h = (canvas.height = Math.ceil(innerHeight / 3));
+    const w = (canvas.width = Math.ceil(innerWidth / 12));
+    const h = (canvas.height = Math.ceil(innerHeight / 6));
     const img = ctx.createImageData(w, h);
     const px = new Uint32Array(img.data.buffer);
     const start = performance.now();
+    const TUBE = [26, 13, 6];
+    let last = -1;
 
     const frame = (now: number) => {
-      for (let i = 0; i < px.length; i++) {
-        const v = (Math.random() * 255) | 0;
-        px[i] = 0xff000000 | (v << 16) | (v << 8) | v;
+      const tick = Math.floor((now - start) / 40);
+      if (tick !== last) {
+        last = tick;
+        for (let y = 0; y < h; y += 2) {
+          for (let x = 0; x < w; x++) {
+            const v = Math.pow(Math.random(), 1.35) * 185 + 70;
+            for (let r = 0; r < 2 && y + r < h; r++) {
+              const a = (v / 255) * 0.3 * (r ? 0.55 : 1);
+              const [cr, cg, cb] = TUBE.map((c) => Math.round(c + (255 - c) * a));
+              px[(y + r) * w + x] = 0xff000000 | (cb << 16) | (cg << 8) | cr;
+            }
+          }
+        }
+        ctx.putImageData(img, 0, 0);
       }
-      ctx.putImageData(img, 0, 0);
       if (now - start < STATIC_MS + 700) requestAnimationFrame(frame);
       else canvas.remove();
     };
@@ -150,7 +189,6 @@
     width: 100%;
     height: 100%;
     image-rendering: pixelated;
-    opacity: 0.55;
     transition: opacity 700ms ease, filter 700ms ease;
     pointer-events: none;
   }
@@ -171,7 +209,7 @@
     inset: 0;
     z-index: 6;
     pointer-events: none;
-    background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px);
+    background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0 1px, transparent 1px 3px);
     opacity: 0;
     transition: opacity 700ms ease;
   }
